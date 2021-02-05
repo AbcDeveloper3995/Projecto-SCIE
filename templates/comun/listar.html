@@ -1,0 +1,43 @@
+{% extends 'comun/home.html' %}
+{% load static %}
+
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'plugins/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="card card-default">
+        <div class="card-header bg-gradient-navy">
+            <h3 class="card-title">
+                <i class="fas fa-table"></i>
+                {% block titulo %}{% endblock %}
+            </h3>
+        </div>
+        <div class="card-body" style="overflow-x: scroll">
+            <table class="table display" {% block idTable %}id="dataTable" {% endblock %}>
+                <thead>
+                {% block columns %}
+
+                {% endblock %}
+                </thead>
+                <tbody>
+                {% block rows %}
+
+                {% endblock %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+                 {% block button %}
+
+                {% endblock %}
+        </div>
+    </div>
+
+    {% block content_extra %}
+{% endblock %}
+
+{% endblock %}
+

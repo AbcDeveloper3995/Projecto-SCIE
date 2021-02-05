@@ -1,0 +1,93 @@
+{% extends 'comun/listar.html' %}
+{% load static %}
+
+{% block titulo %}
+     {{ titulo }}
+ {% endblock %}
+
+{% block columns %}
+    <tr>
+        <th scope="col">Seccion</th>
+        <th scope="col">Columna</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Asociado a la columna</th>
+        <th scope="col">es Activo</th>
+        <th scope="col">Acciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+    {% for col in columnas %}
+        <tr>
+            {% if col.seccion_id %}
+            <td><span class="badge bg-gradient-navy">{{ col.seccion_id.nombre }} de la guia {{col.seccion_id.guia_id.nombre }}</span></td>
+            {% else %}
+            <td><span class="badge bg-gradient-danger">Esta columna no esta vincuada a ninguna seccon</span></td>
+           {% endif %}
+            <td>{{ col.columna }}</td>
+            <td>{{ col.descripcion }}</td>
+            {% if col.codigo_id.all %}
+            <td>
+                {% for col in col.codigo_id.all %}
+                    <button
+                            title="{{ col.codigo }}" data-placement="top"
+                            class="btn btn-default tooltips btn-sm miTippy ">
+                        <i class="fa fa-key font-blue"></i>
+                    </button>
+                {% endfor %} </td>
+                {% else %}
+                <td><a href="#" type="button" title="Sin vinculo"><i class="fa fa-times-circle" style="color: red"></i></a></td>
+            {% endif %}
+            {% if  col.activo == True %}
+            <td><a href="#"  type="button" ><i class="fa fa-check-circle" style="color: #01ff70"></i></a></td>
+                {% else %}
+             <td><a href="#" type="button" ><i class="fa fa-times-circle" style="color: red"></i></a></td>
+            {% endif %}
+            <td>
+                   <a class="miTippy" href="{% url 'seccion:updateColumna' col.pk %}" type="button" title="Modificar"><i class="fa fa-edit"></i></a>
+                <a class="miTippy" href="#id{{ col.id }}" data-toggle="modal" type="button"  title="Eliminar"><i
+                        class="fa fa-trash"></i></a>
+
+                {#Modal#}
+                <div id="id{{ col.id }}" class="modal fade" data-model-name="modal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel2"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">
+                                    <i class="fa fa-trash"></i>
+                                    Eliminar Columna
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Está seguro que desea eliminar la columna {{ col.columna }} ?
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-default btn-sm"
+                                   data-dismiss="modal">Cancelar</a>
+                                <a class="btn btn-primary btn-sm"
+                                   href="{% url 'seccion:eliminarColumna' col.id %}">
+                                    Si, eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block button %}
+     <div class="row">
+    <div class="col-sm-2">
+         <a href="{% url 'seccion:crearColumna' %}" type="button" class="btn btn-block bg-gradient-primary">
+        <i class="fa fa-plus-circle"></i> Nueva columna</a>
+    </div>
+    </div>
+{% endblock %}

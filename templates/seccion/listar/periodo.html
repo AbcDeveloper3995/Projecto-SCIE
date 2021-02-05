@@ -1,0 +1,82 @@
+{% extends 'comun/listar.html' %}
+{% load static %}
+
+{% block titulo %}
+     {{ titulo }}
+ {% endblock %}
+
+{% block columns %}
+    <tr>
+        <th scope="col">Tipo</th>
+        <th scope="col">Mes No.1</th>
+        <th scope="col">Mes No.2</th>
+        <th scope="col">Mes No.3</th>
+        <th scope="col">Año</th>
+        <th scope="col">Acciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+    {% for periodo in periodos %}
+        <tr role="row">
+            <td>{{ periodo.tipo }}</td>
+            <td>{{ periodo.mes_1 }}</td>
+            {% if periodo.tipo == "Anual" %}
+            <td><a href="#"  type="button" ><i class="fa fa-times-circle" style="color: red"></i></a></td>
+                {% else %}
+            <td>{{ periodo.mes_2 }}</td>
+            {% endif %}
+            {% if periodo.tipo == "Anual" %}
+            <td><a href="#"  type="button" ><i class="fa fa-times-circle" style="color: red"></i></a></td>
+                {% else %}
+            <td>{{ periodo.mes_3 }}</td>
+            {% endif %}
+            <td>{{ periodo.ano_1 }}</td>
+            <td>
+                  <a class="miTippy" href={% url 'seccion:updatePeriodo' periodo.pk %} type="button" title="Modificar"><i class="fa fa-edit"></i></a>
+                 <a class="miTippy" href="#id{{ periodo.id }}" data-toggle="modal" type="button"  title="Eliminar"><i
+                        class="fa fa-trash"></i></a>
+
+                {#Modal#}
+                <div id="id{{ periodo.id }}" class="modal fade" data-model-name="modal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel2"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">
+                                    <i class="fa fa-trash"></i>
+                                    Eliminar Periodo
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Está seguro que desea eliminar este periodo ?
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-default btn-sm"
+                                   data-dismiss="modal">Cancelar</a>
+                                <a class="btn btn-primary btn-sm"
+                                   href="{% url 'seccion:eliminarPeriodo' periodo.id %}">
+                                    Si, eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block button %}
+    <div class="row">
+    <div class="col-sm-2">
+         <a href="{% url 'seccion:crearPeriodo' %}" type="button" class="btn btn-block bg-gradient-primary">
+        <i class="fa fa-plus-circle"></i> Nuevo periodo</a>
+    </div>
+    </div>
+{% endblock %}

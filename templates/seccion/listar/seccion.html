@@ -1,0 +1,91 @@
+{% extends 'comun/listar.html' %}
+{% load static %}
+
+{% block titulo %}
+     {{ titulo }}
+ {% endblock %}
+
+{% block columns %}
+    <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Guia</th>
+        <th scope="col">No. Formulario</th>
+        <th scope="col">Sub_No. Formulario</th>
+        <th scope="col">Tipo de periodo</th>
+        <th scope="col">Acciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+    {% for seccion in secciones %}
+        <tr>
+            <td>{{ seccion.nombre }}</td>
+            {% if seccion.guia_id == None %}
+                <td><span class="badge bg-gradient-danger">Seccion no vinculada a ninguna guia</span></td>
+                {% else %}
+            <td><span class="badge bg-gradient-navy">{{ seccion.guia_id }}</span></td>
+            {% endif %}
+            {% if seccion.nombre == "Identificacion" or seccion.nombre == "Sobre_Entidad" %}
+            <td><a href="#"  type="button" ><i class="fa fa-times-circle" style="color: red"></i></a></td>
+                {% else %}
+            <td>{{ seccion.numero }}</td>
+            {% endif %}
+            {% if seccion.nombre == "Identificacion" or seccion.nombre == "Sobre_Entidad" %}
+            <td><a href="#"  type="button" ><i class="fa fa-times-circle" style="color: red"></i></a></td>
+                {% else %}
+
+            <td>{{ seccion.subNumero }}</td>
+            {% endif %}
+             {% if seccion.nombre == "Identificacion" or seccion.nombre == "Sobre_Entidad" %}
+            <td><a href="#"  type="button" ><i class="fa fa-times-circle" style="color: red"></i></a></td>
+                {% else %}
+            <td><span class="badge bg-gradient-navy">{{ seccion.periodo_id }}</span></td>
+            {% endif %}
+            <td>
+                   <a class="miTippy" href="{% url 'seccion:updateSeccion' seccion.pk %}" type="button" title="Modificar"><i class="fa fa-edit"></i></a>
+                 <a class="miTippy" href="#id{{ seccion.id }}" data-toggle="modal" type="button"  title="Eliminar"><i
+                        class="fa fa-trash"></i></a>
+
+                {#Modal#}
+                <div id="id{{ seccion.id }}" class="modal fade" data-model-name="modal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel2"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">
+                                    <i class="fa fa-trash"></i>
+                                    Eliminar Seccion
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Está seguro que desea eliminar la seccion {{ seccion.nombre }} de la guia {{ seccion.guia_id.nombre }} ?
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-default btn-sm"
+                                   data-dismiss="modal">Cancelar</a>
+                                <a class="btn btn-primary btn-sm"
+                                   href="{% url 'seccion:eliminarSeccion' seccion.id %}">
+                                    Si, eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block button %}
+     <div class="row">
+    <div class="col-sm-2">
+         <a href="{% url 'seccion:crearSeccion' %}" type="button" class="btn btn-block bg-gradient-primary">
+        <i class="fa fa-plus-circle"></i> Nueva seccion</a>
+    </div>
+    </div>
+{% endblock %}

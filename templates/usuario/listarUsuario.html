@@ -1,0 +1,97 @@
+{% extends 'comun/listar.html' %}
+{% load static %}
+
+
+{% block titulo %}
+     {{ titulo }}
+ {% endblock %}
+
+{% block columns %}
+    <tr>
+        <th scope="col">Imagen</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Fecha de registro</th>
+        <th scope="col">Roles</th>
+        <th scope="col">Es_activo</th>
+        <th scope="col">Acciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+    {% for user in usuarios %}
+        <tr>
+            <td>
+                <img src="{{ user.get_img }}" class="img-fluid d-block mx-auto" style="width: 50px; height: 50px">
+            </td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td><span class="badge bg-gradient-navy">{{ user.username }}</span> </td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.fecha_creado }}</td>
+            {% if user.groups.all %}
+                <td>
+                    {% for grupo in user.groups.all %}
+                        <span class="badge bg-gradient-danger" style="margin-bottom: 2px">{{ grupo }}</span>
+                    {% endfor %}
+                </td>
+            {% else %}
+                <td>
+                    <span class="badge bg-gradient-danger">Este usuario no posee roles</span>
+                </td>
+            {% endif %}
+            {% if user.is_active == True %}
+            <td><a href="#"  type="button" ><i class="fa fa-check-circle" style="color: #01ff70"></i></a></td>
+                {% else %}
+             <td><a href="#" type="button"><i class="fa fa-times-circle" style="color: red"></i></a></td>
+            {% endif %}
+            <td>
+                <a class="miTippy" href="{% url 'usuario:modificarUsuario'  user.pk %}" type="button" title="Modificar"><i class="fa fa-edit"></i></a>
+                 <a class="miTippy" href="#id{{ user.id }}" data-toggle="modal" type="button"  title="Eliminar"><i
+                        class="fa fa-trash"></i></a>
+
+                {#Modal#}
+                <div id="id{{ user.id }}" class="modal fade" data-model-name="modal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel2"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">
+                                    <i class="fa fa-trash"></i>
+                                    Eliminar Usuario
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Está seguro que desea eliminar a {{ user.first_name }} del sistema ?
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-default btn-sm"
+                                   data-dismiss="modal">Cancelar</a>
+                                <a class="btn btn-primary btn-sm"
+                                   href="{% url 'usuario:eliminarUsuario' user.id %}">
+                                    Si, eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block button %}
+    <div class="row">
+    <div class="col-sm-2">
+         <a href="{% url 'usuario:crearUsuario' %}" type="button" class="btn btn-block bg-gradient-primary">
+        <i class="fa fa-plus-circle"></i> Nuevo usuario</a>
+    </div>
+    </div>
+{% endblock %}

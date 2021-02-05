@@ -1,0 +1,5 @@
+apps/entidad/migrations
+apps/guiaEstadistica/migrations
+apps/indicadores/migrations
+apps/seccion/migrations
+apps/usuario/migrations

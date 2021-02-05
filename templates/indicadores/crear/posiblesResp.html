@@ -1,0 +1,35 @@
+{% extends 'comun/crear.html' %}
+{% load static %}
+
+{% block title %}
+    {{ titulo }}
+{% endblock %}
+
+{% block id %} id=respuestasForm{% endblock %}
+
+{% block formulario %}
+<div class="form-group ">
+        <label>{{ form.nombre.label }}</label>
+        {{ form.nombre }}
+    </div>
+    <div class="form-group">
+         <label>{{ form.tipo_dato.label }}</label>
+        {{ form.tipo_dato }}
+    </div>
+    <div class="form-group">
+        <div class="custom-control custom-checkbox">
+            {{ form.activo }}
+            <label for="prActiva" class="custom-control-label">{{ form.activo.label }}</label>
+        </div>
+    </div>
+{% endblock %}
+
+{% block form_buttons %}
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i> Salvar
+    </button>
+
+    <a type="button" href="{% url 'indicador:listarRespuesta' %}" class="btn btn-danger">
+        <i class="fas fa-arrow-circle-left"></i> Cancelar
+    </a>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ title }}</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'plugins/adminLTE/css/adminlte.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <img src="{% static 'propios/img/avatar (2).jpg' %}"
+             alt="AdminLTE Logo"
+             class="brand-image  elevation-3"
+             style="opacity: .8;width: 125px; border-radius: 10px">
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <h5 class="login-box-msg text-uppercase text-bold">Inicio de Sesion...</h5>
+
+      <form  method="post">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ next }}">
+        <div class="input-group mb-3">
+          {{ form.username|add_class:'form-control'|attr:'placeholder:Ingrese su usuario' }}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          {{ form.password|add_class:'form-control'|attr:'placeholder:Ingrese su contraseña'}}
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- /.col -->
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in-alt"></i> Aceptar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'plugins/adminLTE/js/adminlte.min.js' %}"></script>
+ <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+
+ <script type="text/javascript">
+        {% if form.errors %}
+                {% for error in form.non_field_errors %}
+                    toastr.error('{{ error }}', 'Error', {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "timeOut": "3000",
+                    });
+            {% endfor %}
+        {% endif %}
+    </script>
+<script type="text/javascript">
+        $(document).ready(function () {
+    $.ajax({
+        url: '/asistente/',
+    }).done(function (data) {
+        console(data);
+        window.location.reload()
+    }).fail(function (jqXHR, textStatus,errorThrown) {
+        console.log(textStatus+' : '+errorThrown)
+    })
+});
+
+    </script>
+</body>

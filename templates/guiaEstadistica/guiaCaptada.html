@@ -1,0 +1,131 @@
+{% extends 'comun/listar.html' %}
+{% load static %}
+{% block titulo %}
+     {{ titulo }}
+ {% endblock %}
+
+{% block columns %}
+     <tr>
+         <th scope="col">Guia</th>
+         <th scope="col">Centro Informante</th>
+        <th scope="col">Acciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+     {% for cuestionario in cuestionarios %}
+        <tr>
+            <td>{{ cuestionario.guia.nombre }}</td>
+            <td>{{ cuestionario.entidad_codigo }}</td>
+            <td>
+                <a href="#" class="miTippy" type="button" name="detalles" data-id="{{ cuestionario.id }}" title="Ver informacion captada"><i class="fa fa-info-circle"></i></a>
+                {% if cuestionario.guia.activo == True %}
+                <a href="#" class="miTippy" type="button"  name="modificarPreguntas" data-id="{{ cuestionario.id }}" title="Modificar preguntas"><i class="fa fa-edit"></i></a>
+                <a href="#" class="miTippy" type="button"  name="modificarInstancias" data-id="{{ cuestionario.id }}" title="Modificar secciones"><i class="fa fa-pencil-ruler"></i></a>
+                 <a class="miTippy" href="#id{{ cuestionario.id }}" data-toggle="modal" type="button"  title="Eliminar"><i
+                        class="fa fa-trash"></i></a>
+                {% endif %}
+
+                {#Modal#}
+                <div id="id{{ cuestionario.id }}" class="modal fade" data-model-name="modal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel2"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">
+                                    <i class="fa fa-trash"></i>
+                                    Eliminar Cuestionario
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Está seguro que desea eliminar el cuestionario captado a {{ cuestionario.entidad_codigo.nombre_CI }} ?
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-default btn-sm"
+                                   data-dismiss="modal">Cancelar</a>
+                                <a class="btn btn-primary btn-sm"
+                                   href="{% url 'guia:eliminarGuiasCaptada' cuestionario.id %}">
+                                    Si, eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block button %}
+
+{% endblock %}
+
+{% block content_extra %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" id="detalles_preguntasEvaluadas">
+                <div class="card-header bg-gradient-navy">
+                    <h3 class="card-title text-uppercase">{{ titulo2 }}</h3>
+                    <button type="button"  class="close ocultar" aria-label="Close">
+                        <span aria-hidden="true" style="color: white">×</span>
+                    </button>
+                </div>
+
+                <!-- /.card-header -->
+                <div class="card-body" id="contenido">
+
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" id="modificacionPreguntas">
+                <div class="card-header bg-gradient-navy">
+                    <h3 class="card-title text-uppercase">{{ titulo3 }}</h3>
+                    <button type="button"  class="close ocultar" aria-label="Close">
+                        <span aria-hidden="true" style="color: white">×</span>
+                    </button>
+                </div>
+
+                <!-- /.card-header -->
+                <div class="card-body" >
+                    <form method="post" class="form-horizontal" name="contenidoEdicionPreguntas" id="contenidoEdicionPreguntas">
+
+
+                    </form>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card" id="modificarInstancias">
+                <div class="card-header bg-gradient-navy">
+                    <h3 class="card-title text-uppercase">{{ titulo4 }}</h3>
+                    <button type="button"  class="close ocultar" aria-label="Close">
+                        <span aria-hidden="true" style="color: white">×</span>
+                    </button>
+                </div>
+
+                <!-- /.card-header -->
+                <div class="card-body" >
+                    <form method="post" class="form-horizontal" name="contenidoEdicionInstancias" id="contenidoEdicionInstancias">
+                        <div class="form-group row"><label for="inputEmail3" class="col-sm-2 col-form-label">Email</label><div class="col-sm-10"><input type="email" class="form-control" id="inputEmail3" placeholder="Email"></div></div>
+
+                    </form>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+{% endblock %}

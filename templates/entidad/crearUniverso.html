@@ -1,0 +1,28 @@
+{% extends 'comun/crear.html' %}
+{% load static %}
+
+{% block title %}
+    {{ titulo }}
+{% endblock %}
+
+{% block formulario %}
+    <div class="form-group ">
+        <label>{{ form.guia.label }}</label>
+        {{ form.guia }}
+    </div>
+    <div class="form-group ">
+        <label>{{ form.entidad_codigo.label }}</label>
+        {{ form.entidad_codigo }}
+    </div>
+{% endblock %}
+
+
+{% block form_buttons %}
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i> Salvar
+    </button>
+
+    <a type="button" href="{% url 'guia:listarUniverso' %}" class="btn btn-danger">
+        <i class="fas fa-arrow-circle-left"></i> Cancelar
+    </a>
+{% endblock %}

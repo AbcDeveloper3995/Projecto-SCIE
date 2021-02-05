@@ -1,0 +1,259 @@
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    {% block extra_css %}
+        <title>{{ title }}</title>
+        <!-- Font Awesome Icons -->
+        <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{% static 'plugins/bootstrapValidator/bootstrapValidator.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/adminLTE/css/adminlte.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/tippy/dist/tippy.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/animated/animate.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/select2-4.0.13/css/select2.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/select2-4.0.13/css/select2-bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'plugins/datatables-1.10.20/css/jquery.dataTables.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-1.10.20/plugins/FixedHeader-3.1.7/css/fixedHeader.dataTables.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-1.10.20/plugins/FixedHeader-3.1.7/css/fixedHeader.bootstrap4.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-1.10.20/plugins/Select-1.3.1/css/select.dataTables.min.css' %}">
+        <link rel="stylesheet" href="{% static 'plugins/datatables-1.10.20/plugins/buttons-1.6.1/css/buttons.dataTables.min.css' %}">
+        <link rel="stylesheet" href="{% static 'propios/css/styles.css' %}">
+    {% endblock %}
+</head>
+
+
+{% block body %}
+    <body class="hold-transition sidebar-mini layout-fixed ">
+    <div class="wrapper">
+        <!-- Header -->
+        {% include 'comun/header.html' %}
+        <!-- Sidebar -->
+        {% include 'comun/menu.html' %}
+        <!-- Content -->
+        <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <br>
+{#                            <ol class="breadcrumb float-sm-right">#}
+{#                                <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> </a></li>#}
+{#                                <li class="breadcrumb-item"><a href="#">Modelo</a></li>#}
+{#                            </ol>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container-fluid">
+                    {% block content %}
+                        <h2 class="text-bold text-center text-uppercase bg-gradient-navy wow zoomIn">Sistema de control integral estatal</h2>
+                        <hr>
+                        <div class="col-12">
+                            <!-- Custom Tabs -->
+                            <div class="card">
+                                <div class="card-header d-flex p-0">
+                                    <h3 class="card-title p-3 text-uppercase bg-gradient-navy wow fadeInLeft">Instrucciones</h3>
+                                    <ul class="nav nav-pills ml-auto p-2">
+                                        <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Tab
+                                            1</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Tab
+                                            2</a></li>
+                                    </ul>
+                                </div><!-- /.card-header -->
+                                <div class="card-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab_1">
+                                            <h5 class="text-justify">Las comprobaciones de los aspectos incluidos en la guia deben ser verificados or los registros y documentos
+                                                que tengan establecidos en la entidad, pero conrespecto a la seccion 1-Sobre la entidad, el fncionario de la ONEI
+                                                que aplica el recontrol debe preparar previamente un trabajo de gabineteque le permita comprobar la informacion que
+                                                le suministrara la entidad contra los controles que estan establecidos para el aspecto a comprobar el cual debera llevar
+                                                personalmente a la actividad.</h5>
+                                        </div>
+                                        <!-- /.tab-pane -->
+                                        <div class="tab-pane" id="tab_2">
+                                         <h5 class="text-justify"> Las entidades con UEB o establecimientos subordinados deben ser evaluados por muestras, para tener criterio valorativo sobre
+                                             los registros primarios que sustentan la informacion emitidad por las entidades informantes.</h5>
+                                        </div>
+                                        <!-- /.tab-pane -->
+                                    </div>
+                                    <!-- /.tab-content -->
+                                </div><!-- /.card-body -->
+                            </div>
+                            <!-- ./card -->
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-3 col-6">
+                                <!-- small card -->
+                                <div class="small-box bg-gradient-navy delay-1s wow flipInX">
+                                    <div class="inner">
+                                        <h3>{{ guias }}</h3>
+
+                                        <p>Guias diseñadas</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-archive"></i>
+                                    </div>
+                                    <a href="{% url 'guia:listarGuias' %}" class="small-box-footer">
+                                        Detalles <i class="fas fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-6">
+                                <!-- small card -->
+                                <div class="small-box bg-gradient-primary delay-2s wow flipInY">
+                                    <div class="inner">
+                                        <h3>{{ entidades }}</h3>
+
+                                        <p>Entidades</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-building"></i>
+                                    </div>
+                                    <a href="{% url 'entidad:listarEntidad' %}" class="small-box-footer">
+                                        Detalles <i class="fas fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-6">
+                                <!-- small card -->
+                                <div class="small-box bg-gradient-navy delay-1s wow flipInX">
+                                    <div class="inner">
+                                        <h3>{{ usuarios }}</h3>
+
+                                        <p>Usuarios registrados</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">
+                                        Detalles <i class="fas fa-arrow-circle-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                            <div class="col-lg-3 col-6">
+                                <!-- small card -->
+                                <div class="small-box bg-gradient-primary delay-2s wow flipInY">
+                                    <div class="inner">
+                                        <h3>4</h3>
+
+                                        <p>Objetivos</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <a type="button" class="small-box-footer" data-toggle="modal" href="#modal-default" >
+                                        Detalles <i class="fas fa-arrow-circle-right"></i>
+                                    </a>
+
+                                </div>
+                            </div>
+                            <!-- ./col -->
+                        </div>
+
+                         <!-- MODAL  -->
+                        <div class="modal fade " id="modal-default" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel2"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title text-uppercase text-bold">Objetivos</h4>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="callout callout-danger">
+                                            <h5>Comprobar la situacion de la entidad en Registro
+                                            Estatal de emresa  Unidades Presupuestadas <span class="text-bold">(REEUP)</span>.</h5>
+                                        </div>
+                                        <div class="callout callout-danger">
+                                            <h5>Comprobar la situacion ue confronta la entidad respecto a aspectos organizativos
+                                            vinculados con el funcionamiento del Area Estadistica.</h5>
+                                        </div>
+                                        <div class="callout callout-danger">
+                                            <h5>Valorar el Control Interno asociado a la elaboracion de la Informacion Estadistica Oficial.</h5>
+                                        </div>
+                                        <div class="callout callout-danger">
+                                            <h5>Verificar la existencia  calidad de la informacion de los registros primarios para los
+                                            formularios seleccionados del SIEN.</h5>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        {% include 'comun/footer.html' %}
+    </div>
+    <!-- Block javascript -->
+    {% block javascript %}
+
+    {% endblock %}
+    </body>
+{% endblock %}
+
+
+{% block extra_js %}
+    <!-- jQuery -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrapValidator/bootstrapValidator.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'plugins/adminLTE/js/adminlte.min.js' %}"></script>
+    <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+    <script src="{% static 'plugins/tippy/dist/tippy.min.js' %}"></script>
+    <script src="{% static 'plugins/wow/wow.min.js' %}"></script>
+    <script src="{% static 'plugins/select2-4.0.13/js/select2.min.js' %}"></script>
+    <script src="{% static 'plugins/select2-4.0.13/js/i18n/es.js' %}"></script>
+    <script src="{% static 'plugins/moment-2.25.3/moment-with-locales.js' %}"></script>
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'plugins/datatables-1.10.20/plugins/FixedHeader-3.1.7/js/dataTables.fixedHeader.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-1.10.20/plugins/FixedHeader-3.1.7/js/fixedHeader.bootstrap4.js' %}"></script>
+    <script src="{% static 'plugins/datatables-1.10.20/plugins/Select-1.3.1/js/dataTables.select.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-1.10.20/plugins/buttons-1.6.1/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'propios/js/funciones.js' %}"></script>
+{% endblock %}
+
+{% block mensajes %}
+       {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                <script type="text/javascript">toastr.{{ message.tags }}('{{ message }}', 'Error',{
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "3000",
+                })</script>
+                {% else %}
+                    <script type="text/javascript">toastr.{{ message.tags }}('{{ message }}', 'Exito',{
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "3000",
+                })</script>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+{% endblock %}

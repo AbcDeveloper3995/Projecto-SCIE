@@ -1,0 +1,135 @@
+{% load static %}
+{% load filters %}
+<aside class="main-sidebar sidebar-light-primary elevation-4" >
+    <a href="{% url 'usuario:home' %}" class="brand-link">
+        <img src="{% static 'propios/img/avatar (2).jpg' %}"
+             alt="AdminLTE Logo"
+             class="brand-image  elevation-3"
+             style="opacity: .8;width: 125px; border-radius: 10px">
+        <span class="brand-text font-weight-light badge bg-primary">SCIEv1.0</span>
+    </a>
+    <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{{ request.user.get_img }}" style="width: 50px" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block"><span class="badge badge-danger text-uppercase" style="margin-top: 8px"> {{ request.user }}</span></a>
+            </div>
+        </div>
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item ">
+                    <a href="{% url 'guia:captarDatos' %}" class="nav-link" id="nueva_captacion">
+                        <i class="nav-icon fa fa-folder-open"></i>
+                        <p>
+                            Captar Cuestionario
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="{% url 'guia:guiaCaptada' %}" class="nav-link">
+                        <i class="nav-icon fa fa-archive"></i>
+                        <p id="cantCuestionario">
+                            Cuestionario Captados <span class="badge bg-primary" >{{request.user|totalCuestionarios }}</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    {% if perms.usuario.usuario_admin %}
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>
+                                Administracion
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                    {% else %}
+                        <a href="#" class="nav-link" id="admin">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>
+                                Administracion
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                    {% endif %}
+            <ul class="nav nav-treeview" style="display: none;">
+              <li class="nav-header">GUIA</li>
+                <li class="nav-item">
+                <a href="{% url 'guia:listarGuias' %}" class="nav-link">
+                  <i class="fas fa-folder-plus nav-icon"></i>
+                  <p>Configurar Guia</p>
+                </a>
+              </li>
+
+                <li class="nav-header">ENTIDAD</li>
+                <li class="nav-item">
+                <a href="{% url 'entidad:listarEntidad' %}" class="nav-link">
+                  <i class="far fa-building nav-icon"></i>
+                  <p>Configurar Entidad</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{% url 'guia:listarUniverso' %}" class="nav-link">
+                  <i class="nav-icon fa fa-universal-access"></i>
+                  <p>Configurar Universo</p>
+                </a>
+              </li>
+                <li class="nav-header">SECCION</li>
+                <li class="nav-item">
+                <a href="{% url 'seccion:listarPeriodo' %}" class="nav-link">
+                  <i class="nav-icon fa fa-calendar-alt"></i>
+                  <p>Configurar Periodo</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{% url 'seccion:listarSeccion' %}" class="nav-link">
+                  <i class="nav-icon fa fa-user-secret"></i>
+                  <p>Configurar Seccion</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{% url 'seccion:listarCodigo' %}" class="nav-link">
+                  <i class="nav-icon fa fa-code-branch"></i>
+                  <p>Clasificador Codigo</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{% url 'seccion:listarColumna' %}" class="nav-link">
+                  <i class="nav-icon fa fa-cog"></i>
+                  <p>Clasificador Columna</p>
+                </a>
+              </li>
+                <li class="nav-header">INDICADORES</li>
+                <li class="nav-item">
+                <a href="{% url 'indicador:istarClasificador' %}" class="nav-link">
+                  <i class="nav-icon fa fa-question-circle"></i>
+                  <p>Grupo Preguntas</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{% url 'indicador:listarIndicador' %}" class="nav-link">
+                  <i class="nav-icon fa fa-question"></i>
+                  <p>Preguntas</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{% url 'indicador:listarRespuesta' %}" class="nav-link">
+                  <i class="nav-icon fa fa-text-width"></i>
+                  <p>Configurar Respuestas</p>
+                </a>
+              </li>
+                <li class="nav-header">USUARIOS</li>
+                <li class="nav-item">
+                <a href="{% url 'usuario:listarUsuario' %}" class="nav-link">
+                  <i class="nav-icon fa fa-users-cog"></i>
+                  <p>Gestion de usuarios</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

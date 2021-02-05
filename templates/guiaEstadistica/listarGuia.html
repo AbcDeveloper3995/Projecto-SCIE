@@ -1,0 +1,74 @@
+{% extends 'comun/listar.html' %}
+{% load static %}
+
+
+{% block titulo %}
+     {{ titulo }}
+ {% endblock %}
+
+{% block columns %}
+    <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">es_Activo</th>
+        <th scope="col">Acciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+    {% for guia in guias %}
+        <tr>
+            <td>{{ guia.nombre }}</td>
+            {% if guia.activo == True %}
+            <td><a href="#"  type="button" ><i class="fa fa-check-circle" style="color: #01ff70"></i></a></td>
+                {% else %}
+             <td><a href="#" type="button" title="{{ guia.activo }}"><i class="fa fa-times-circle" style="color: red"></i></a></td>
+            {% endif %}
+            <td>
+                <a class="miTippy" href="{% url 'guia:updateGuias' guia.id %}" type="button" title="Modificar"><i
+                        class="fa fa-edit"></i></a>
+                <a class="miTippy" href="#id{{ guia.id }}" data-toggle="modal" type="button"  title="Eliminar"><i
+                        class="fa fa-trash"></i></a>
+
+                {#Modal#}
+                <div id="id{{ guia.id }}" class="modal fade" data-model-name="modal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel2"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">
+                                    <i class="fa fa-trash"></i>
+                                    Eliminar Guia
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Está seguro que desea eliminar la guia {{ guia.nombre }} ?
+                            </div>
+                            <div class="modal-footer">
+                                <a class="btn btn-default btn-sm"
+                                   data-dismiss="modal">Cancelar</a>
+                                <a class="btn btn-primary btn-sm"
+                                   href="{% url 'guia:eliminarGuias' guia.id %}">
+                                    Si, eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block button %}
+    <div class="row">
+    <div class="col-sm-2">
+         <a href="{% url 'guia:crearGuias' %}" type="button" class="btn btn-block bg-gradient-primary">
+        <i class="fa fa-plus-circle"></i> Nueva guia</a>
+    </div>
+    </div>
+{% endblock %}
