@@ -66,18 +66,11 @@ const tabla = (nombreSeccion, idSeccion) => {
 
 //--------------------------------------------------------VALIDACIONES DE FECHAS------------------------------------------------//
 
- $('#date').datetimepicker({
-        format: 'YYYY-MM-DD',
+ $('.date').datetimepicker({
+        format: 'DD/MM/YYYY',
         date:moment().format("YYYY-MM-DD"),
         locale:'es',
         maxDate:moment().format("YYYY-MM-DD"),
-    });
-
-  $('#date2').datetimepicker({
-        format: 'YYYY-MM-DD',
-        date:moment().format("YYYY-MM-DD"),
-        locale:'es',
-        minDate:moment().format("YYYY-MM-DD"),
     });
 
 

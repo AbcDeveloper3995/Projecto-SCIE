@@ -1,7 +1,7 @@
 import json
 
 from django.contrib import messages
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -12,8 +12,7 @@ from apps.guiaEstadistica.forms import *
 from apps.guiaEstadistica.models import guiaEstadistica
 from apps.indicadores.forms import seccion, clasificadorIndicadores
 from apps.indicadores.models import Indicadores
-from apps.seccion.forms import seccionForm, nomencladorColumna, instanciaSeccion, instanciaForm, verificacionForm
-from util.validaciones import validate_entero_positivo
+from apps.seccion.forms import nomencladorColumna, instanciaSeccion, instanciaForm, verificacionForm
 
 
 class listarGuiasView(ListView):

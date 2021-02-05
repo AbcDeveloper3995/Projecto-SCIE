@@ -66,7 +66,7 @@
                                                     <div class="form-group">
                                                         <div class="input-group ">
                                                             <input type="text"
-                                                                   class="form-control datetimepicker-input" id="date"
+                                                                   class="form-control datetimepicker-input date" id="date"
                                                                    placeholder="Seleccione una fecha" name="{{ i }}" style="width: 100%" data-type="5"
                                                                    data-component="date" data-target="#date"
                                                                  data-toggle="datetimepicker">
@@ -143,47 +143,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {% for seccion_id, columnas in columnas.items %}
-                                                    {% for seccion in valor %}
-                                                        {% if seccion.id == seccion_id %}
-                                                            {% for col in columnas %}
-                                                                {% if col.codigo.all %}
-                                                                    {% for cod in col.codigo.all %}
-                                                                        <tr>
-                                                                            <td><span
-                                                                                    class="badge badge-danger text-center m-1"
-                                                                                    title="{{ cod.descripcion }}">{{ cod.codigo }}</span>
-                                                                            </td>
-                                                                            <td rowspan="1"><span
-                                                                                    class="badge badge-danger text-center m-1"
-                                                                                    title="{{ col.descripcion }}">{{ col.columna }}</span>
-                                                                            </td>
-                                                                            {% if col.columna|instancias:cod.codigo|verificacion_registro_1:i.id  == None or col.columna|instancias:cod.codigo|verificacion_dif_1:i.id == None %}
-                                                                                <td><i class="fa fa-times-circle"
-                                                                                       title="Pendiente a control"
-                                                                                       style="color: red"></i></td>
-                                                                                <td><i class="fa fa-times-circle "
-                                                                                       title="Pendiente a control"
-                                                                                       style="color: red"></i></td>
-                                                                                <td><span
-                                                                                        class="badge bg-gradient-navy text-center m-1">
-                                                                            Sin resultado</span>
-                                                                                </td>
-                                                                            {% else %}
-                                                                                <td>{{ col.columna|instancias:cod.codigo|verificacion_registro_1:i.id }}</td>
-                                                                                <td>{{ col.columna|instancias:cod.codigo|verificacion_modelo_1:i.id }}</td>
-                                                                                <td><span
-                                                                                        class="badge bg-gradient-navy text-center m-1">
-                                                                            {{ col.columna|instancias:cod.codigo|verificacion_dif_1:i.id }}</span>
-                                                                                </td>
-                                                                            {% endif %}
-                                                                        </tr>
-                                                                    {% endfor %}
-                                                                {% endif %}
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                {% endfor %}
+
                                                 </tbody>
                                             {% elif seccion.periodo_id.tipo == "Trimestral" %}
                                                 <thead>
@@ -389,7 +349,7 @@
                                                     <div class="form-group">
                                                         <div class="input-group ">
                                                             <input type="text"
-                                                                   class="form-control  datetimepicker-input" id="date2"
+                                                                   class="form-control  datetimepicker-input date" id="date2"
                                                                    placeholder="Seleccione una fecha" name="{{ i }}" style="width: 100%" data-type="5"
                                                                    data-component="date" data-target="#date2"
                                                                  data-toggle="datetimepicker">

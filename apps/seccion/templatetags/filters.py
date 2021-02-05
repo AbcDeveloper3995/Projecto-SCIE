@@ -1,9 +1,10 @@
 from django import template
 
 from apps.guiaEstadistica.models import cuestionario
-from apps.seccion.models import instanciaSeccion, seccion
+from apps.seccion.models import seccion
 
 register = template.Library()
+
 
 @register.filter(name='obtenerTipo')
 def obtenerTipo(clave):
@@ -11,4 +12,7 @@ def obtenerTipo(clave):
         print(query)
         return query[0].tipo
 
-
+@register.filter(name='totalCuestionarios')
+def totalCuestionarios(user):
+        query = cuestionario.objects.all().count()
+        return query
