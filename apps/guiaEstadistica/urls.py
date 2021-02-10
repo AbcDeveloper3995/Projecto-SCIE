@@ -20,5 +20,6 @@ urlpatterns = [
     path('listarUniverso/', listarUniversoView.as_view(), name='listarUniverso'),
     path('eliminarUniverso/<int:pk>/', eliminarUniverso.as_view(), name='eliminarUniverso'),
     path('modificarPreguntas/', modificarPreguntasView.as_view(), name='modificarPreguntas'),
+    path('reporteGeneral/', reporteGeneralExcel.as_view(), name='reporteGeneral'),
 
 ]

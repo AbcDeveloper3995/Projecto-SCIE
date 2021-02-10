@@ -1,15 +1,17 @@
 import json
 
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, TemplateView, UpdateView
+from openpyxl import Workbook
+from openpyxl.styles import Alignment, Border, Side, PatternFill, Font
 
 from apps.guiaEstadistica.forms import *
-from apps.guiaEstadistica.models import guiaEstadistica
+from apps.guiaEstadistica.models import guiaEstadistica, cuestionario
 from apps.indicadores.forms import seccion, clasificadorIndicadores
 from apps.indicadores.models import Indicadores
 from apps.seccion.forms import nomencladorColumna, instanciaSeccion, instanciaForm, verificacionForm
@@ -551,3 +553,239 @@ class modificarPreguntasView(TemplateView):
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
+
+
+class reporteGeneralExcel(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        query_cuestionario = self.getCuestionarios()
+        wb = Workbook()
+        ws = wb.active
+        self.estilosCelda(ws['A1'])
+        ws['A1'] = 'Identificacion'
+        ws.row_dimensions[1].height = 25
+        ws.column_dimensions['A'].width = 20
+        ws.merge_cells('A1:C1')
+        ws.merge_cells('A2:A3')
+        ws.merge_cells('B2:B3')
+        ws.merge_cells('C2:C3')
+        ws['A2'] = 'Empresa'
+        ws['B2'] = 'Codigo'
+        ws['C2'] = 'DPA'
+
+        self.estilosCelda(ws['D1'])
+        ws['D1'] = 'Aspectos Generales'
+        ws.merge_cells('D1:L1')
+        ws['D2'] = 'Certificado REEUP'
+        ws.merge_cells('D2:E2')
+        ws['D3'] = 'Si'
+        ws['E3'] = 'No'
+        ws['F2'] = 'Fecha Certificado'
+        ws.column_dimensions['F'].width = 15
+        ws.merge_cells('F2:F3')
+        ws['G2'] = 'Ubicacion visible'
+        ws.merge_cells('G2:H2')
+        ws['G3'] = 'Si'
+        ws['H3'] = 'No'
+        ws['I2'] = 'Estado conservacion'
+        ws.column_dimensions['J'].width = 15
+        ws.merge_cells('I2:J2')
+        ws['I3'] = 'Bueno'
+        ws['J3'] = 'Deteriorado'
+        ws['K2'] = 'Domicilio'
+        ws.merge_cells('K2:L2')
+        ws['K3'] = 'Si'
+        ws['L3'] = 'No'
+
+        self.estilosCelda(ws['M1'])
+        ws['M1'] = 'Implantacion y Comprtamiento Resolucion del SIEN'
+        ws.merge_cells('M1:P1')
+        ws['M2'] = 'Convenio'
+        ws.merge_cells('M2:N2')
+        ws['M3'] = 'Si'
+        ws['N3'] = 'No'
+        ws['O2'] = 'Firmado Director'
+        ws.merge_cells('O2:P2')
+        ws['O3'] = 'Si'
+        ws['P3'] = 'No'
+
+        self.estilosCelda(ws['Q1'])
+        ws['Q1'] = 'Disciplina informativa acumulada hasta el cierre del mes anterior (SIEN)'
+        ws.merge_cells('Q1:T1')
+        ws['Q2'] = 'Total de modelos a  reportar'
+        ws.merge_cells('Q2:Q3')
+        ws['R2'] = 'Reportados fuera fecha'
+        ws.merge_cells('R2:R3')
+        ws['S2'] = 'Reportados en fecha'
+        ws.merge_cells('S2:S3')
+        ws['T2'] = 'No reportados'
+        ws.merge_cells('T2:T3')
+
+        self.estilosCelda(ws['U1'])
+        ws['U1'] = 'Calidad de la informacion'
+        ws.merge_cells('U1:W1')
+        ws['U2'] = 'Señalamiento de errores'
+        ws.merge_cells('U2:V2')
+        ws['U3'] = 'Si'
+        ws['V3'] = 'No'
+        ws['W2'] = 'Cantidad de señalamientos'
+        ws.merge_cells('W2:W3')
+
+        self.estilosCelda(ws['X1'])
+        ws['X1'] = 'Asesoramiento metodologiaco'
+        ws.merge_cells('X1:AC1')
+        ws['X2'] = 'Resivio asesoramiento'
+        ws.merge_cells('X2:Y2')
+        ws['X3'] = 'Si'
+        ws['Y3'] = 'No'
+        ws['Z2'] = 'Posee bases metodologicas del SIEN'
+        ws.merge_cells('Z2:AA2')
+        ws['Z3'] = 'Si'
+        ws['AA3'] = 'No'
+        ws['AB2'] = 'Tipo de soporte'
+        ws.merge_cells('AB2:AC2')
+        ws['AB3'] = 'Papel'
+        ws['AC3'] = 'Digital'
+
+        self.estilosCelda(ws['AD1'])
+        ws['AD1'] = 'Cobertura'
+        ws.merge_cells('AD1:AG1')
+        ws['AD2'] = 'Establecimientos asociados'
+        ws.merge_cells('AD2:AE2')
+        ws['AD3'] = 'Si'
+        ws['AE3'] = 'No'
+        ws['AF2'] = 'Cuantos'
+        ws.merge_cells('AF2:AF3')
+        ws['AG2'] = 'Con contabilidad propia'
+        ws.merge_cells('AG2:AG3')
+
+        self.estilosCelda(ws['AH1'])
+        ws['AH1'] = 'Atencion a las estadisticas'
+        ws.merge_cells('AH1:AO1')
+        ws['AH2'] = 'Estructura para atender la actv. estadistica'
+        ws.merge_cells('AH2:AI2')
+        ws['AH3'] = 'Si'
+        ws['AI3'] = 'No'
+        ws['AJ2'] = 'Posee personal capacitado para brindar informacion estadistica'
+        ws.merge_cells('AJ2:AK2')
+        ws['AJ3'] = 'Si'
+        ws['AK3'] = 'No'
+        ws['AL2'] = 'Esta incluido en el Plan de Prevencion del centro como un punto vulnerable la infomacion estadistica'
+        ws.merge_cells('AL2:AM2')
+        ws['AL3'] = 'Si'
+        ws['AM3'] = 'No'
+        ws['AN2'] = 'Utiliza la infomacion estadisticapara la toma de decisiones'
+        ws.merge_cells('AN2:AO2')
+        ws['AN3'] = 'Si'
+        ws['AO3'] = 'No'
+        ws['A4'].fill = PatternFill(start_color="92a2ab", end_color="92a2ab", fill_type="solid")
+        ws.merge_cells('A4:AO4')
+
+        cont = 5
+
+        for cuestionario in query_cuestionario:
+            ws.cell(row=cont, column=1).value = cuestionario.entidad_codigo.nombre_CI
+            ws.cell(row=cont, column=2).value = cuestionario.entidad_codigo.codigo_CI
+            ws.cell(row=cont, column=3).value = str(cuestionario.entidad_codigo.ome_codigo)
+            preguntas = self.getPreguntas(cuestionario.id)
+            for i in preguntas:
+                if i.pregunta == "Posee certificado de Inscripcion en el REEUP" and i.respuesta == "No":
+                    ws.cell(row=cont, column=5).value = i.respuesta
+                elif i.pregunta == "Posee certificado de Inscripcion en el REEUP" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=4).value = i.respuesta
+                if i.pregunta == "Fecha de emision del certificado":
+                    ws.cell(row=cont, column=6).value = str(i.respuesta)
+                if i.pregunta == "Esta ubicado en un lugar visible" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=7).value = i.respuesta
+                elif i.pregunta == "Esta ubicado en un lugar visible" and i.respuesta == "No":
+                    ws.cell(row=cont, column=8).value = i.respuesta
+                if i.pregunta == "Estado de conservacion" and i.respuesta == "Bueno":
+                    ws.cell(row=cont, column=9).value = i.respuesta
+                elif i.pregunta == "Estado de conservacion" and i.respuesta == "Deteriorado":
+                    ws.cell(row=cont, column=10).value = i.respuesta
+                if i.pregunta == "El domicilio social es correcto" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=11).value = i.respuesta
+                elif i.pregunta == "El domicilio social es correcto" and i.respuesta == "No":
+                    ws.cell(row=cont, column=12).value = i.respuesta
+                if i.pregunta == "Le establecio la ONEI su convenio informativo del año" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=13).value = i.respuesta
+                elif i.pregunta == "Le establecio la ONEI su convenio informativo del año" and i.respuesta == "No":
+                    ws.cell(row=cont, column=14).value = i.respuesta
+                if i.pregunta == "El convenio esta firmado por el director o representante de la entidad" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=15).value = i.respuesta
+                elif i.pregunta == "El convenio esta firmado por el director o representante de la entidad" and i.respuesta == "No":
+                    ws.cell(row=cont, column=16).value = i.respuesta
+                if i.pregunta == "Total de modelos a reportar":
+                    ws.cell(row=cont, column=17).value = i.respuesta
+                if i.pregunta == "Reportados fuera de fecha":
+                    ws.cell(row=cont, column=18).value = i.respuesta
+                if i.pregunta == "Reportados en fecha":
+                    ws.cell(row=cont, column=19).value = i.respuesta
+                if i.pregunta == "No reportados":
+                    ws.cell(row=cont, column=20).value = i.respuesta
+                if i.pregunta == "Le fueron formulados señalamientos de errores" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=21).value = i.respuesta
+                elif i.pregunta == "Le fueron formulados señalamientos de errores" and i.respuesta == "No":
+                    ws.cell(row=cont, column=22).value = i.respuesta
+                if i.pregunta == "Cuantos señalamientos se le formularon":
+                    ws.cell(row=cont, column=23).value = i.respuesta
+                if i.pregunta == "Recibio Asesoramiento para los cambios del SIEN" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=24).value = i.respuesta
+                elif i.pregunta == "Recibio Asesoramiento para los cambios del SIEN" and i.respuesta == "No":
+                    ws.cell(row=cont, column=25).value = i.respuesta
+                if i.pregunta == "Posee las Bases Metodologicas" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=26).value = i.respuesta
+                elif i.pregunta == "Posee las Bases Metodologicas" and i.respuesta == "No":
+                    ws.cell(row=cont, column=27).value = i.respuesta
+                if i.pregunta == "Tipo de soprte en que poseen las Bases Metodologicas" and i.respuesta == "Papel":
+                    ws.cell(row=cont, column=28).value = i.respuesta
+                elif i.pregunta == "Tipo de soprte en que poseen las Bases Metodologicas" and i.respuesta == "Digital":
+                    ws.cell(row=cont, column=29).value = i.respuesta
+                if i.pregunta == "Tiene establecimientos asociados" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=30).value = i.respuesta
+                elif i.pregunta == "Tiene establecimientos asociados" and i.respuesta == "No":
+                    ws.cell(row=cont, column=31).value = i.respuesta
+                if i.pregunta == "Cuantos establecimientos posee":
+                    ws.cell(row=cont, column=32).value = i.respuesta
+                if i.pregunta == "Cuantos con contabilidad propia":
+                    ws.cell(row=cont, column=33).value = i.respuesta
+                if i.pregunta == "Estructura para atender la actividad estadistica" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=34).value = i.respuesta
+                elif i.pregunta == "Estructura para atender la actividad estadistica" and i.respuesta == "No":
+                    ws.cell(row=cont, column=35).value = i.respuesta
+                if i.pregunta == "Posee personal capacitado" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=36).value = i.respuesta
+                elif i.pregunta == "Posee personal capacitado" and i.respuesta == "No":
+                    ws.cell(row=cont, column=37).value = i.respuesta
+                if i.pregunta == "Esta incluido en el Plan de Prevencion del Centro" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=38).value = i.respuesta
+                elif i.pregunta == "Esta incluido en el Plan de Prevencion del Centro" and i.respuesta == "No":
+                    ws.cell(row=cont, column=39).value = i.respuesta
+                if i.pregunta == "Utiliza la informacion estadistica" and i.respuesta == "Si":
+                    ws.cell(row=cont, column=40).value = i.respuesta
+                elif i.pregunta == "Utiliza la informacion estadistica" and i.respuesta == "No":
+                    ws.cell(row=cont, column=41).value = i.respuesta
+
+            cont += 1
+
+        nombre_archivo = "ReporteGeneral.xls"
+        response = HttpResponse(content_type="aplication/ms-excel")
+        content = "attachment; filename = {0}".format(nombre_archivo)
+        response['Content-Disposition'] = content
+        wb.save(response)
+        return response
+
+    def getCuestionarios(self):
+        query = cuestionario.objects.all()
+        return query
+
+    def getPreguntas(self, cuestionario):
+        query = PreguntasEvaluadas.objects.filter(captacion_id__id=cuestionario)
+        return query
+
+    def estilosCelda(self,celda):
+        celda.alignment = Alignment(horizontal='center', vertical='center')
+        celda.border = Border(left=Side(border_style="thin"), right=Side(border_style="thin"),
+                              bottom=Side(border_style="thin"))
+        celda.fill = PatternFill(start_color="66FFCC", end_color="66FFCC", fill_type="solid")
+        celda.font = Font(name='Broadway', size=12, bold=True)
