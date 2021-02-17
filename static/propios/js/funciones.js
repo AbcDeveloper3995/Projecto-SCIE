@@ -178,7 +178,23 @@ $('form[name="formVerificacion"]').on('submit', function (e) {
 });
 
 //-----------------------VALIDACIONES PARA LA SECCION IDENTIFICACION Y SOBRE ENTIDAD-----------------------------------------//
-
+const verificarExistencia = (element) => {
+    if(element.length==0){
+        return false
+    }
+}
+const validacionChecked = (element) => {
+    if(element.is(':checked')){
+         console.log('chekeado')
+     }else {
+         toastr.error(element.prop('name')+" es requerido.", 'Error', {
+             progressBar: true,
+             closeButton: true,
+             "timeOut": "5000",
+    });
+         return false;
+     }
+}
 function validate_radios_no_empty() {
     let cod_pregunta_11 =  $('.formCaptacion input[data-cod-pregunta="11"]' );
     let cod_pregunta_13 =  $('.formCaptacion input[data-cod-pregunta="13"]' );
@@ -195,207 +211,93 @@ function validate_radios_no_empty() {
     let cod_pregunta_72 =  $('.formCaptacion input[data-cod-pregunta="72"]' );
     let cod_pregunta_73 =  $('.formCaptacion input[data-cod-pregunta="73"]' );
 
-    if(cod_pregunta_11.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_11.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_13.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_13.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_14.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_14.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_15.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_15.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_21.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_21.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_22.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_22.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_41.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_41.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_51.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_51.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_52.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_52.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_53.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_53.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_61.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_61.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_71.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_71.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_72.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_72.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
-    if(cod_pregunta_73.is(':checked')){
-         console.log('chekeado')
-     }else {
-         toastr.error(cod_pregunta_73.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
+    if (verificarExistencia(cod_pregunta_11)==false) {return false};
+    if(validacionChecked(cod_pregunta_11)== false){return false};
+
+    if (verificarExistencia(cod_pregunta_13)==false) {return false};
+    if(validacionChecked(cod_pregunta_13)== false){return false};
+
+    if (verificarExistencia(cod_pregunta_14)==false) {return false};
+    if(validacionChecked(cod_pregunta_14)== false){return false};
+
+    if (verificarExistencia(cod_pregunta_15)==false) {return false};
+    if(validacionChecked(cod_pregunta_15)== false){return false};
+
+    if (verificarExistencia(cod_pregunta_21) != false) {
+        if(validacionChecked(cod_pregunta_21)== false){
+            return false
+        };
+    };
+
+
 }
 
 function validate_component_entero() {
 
-    let cod_pregunta_31 =  $('.formCaptacion input[data-cod-pregunta="31"]' );
-    let cod_pregunta_32 =  $('.formCaptacion input[data-cod-pregunta="32"]' );
-    let cod_pregunta_33 =  $('.formCaptacion input[data-cod-pregunta="33"]' );
-    let cod_pregunta_34 =  $('.formCaptacion input[data-cod-pregunta="34"]' );
-    let cod_pregunta_42 =  $('.formCaptacion input[data-cod-pregunta="42"]' );
-    let cod_pregunta_62 =  $('.formCaptacion input[data-cod-pregunta="62"]' );
-    let suma_modelos = parseInt(cod_pregunta_32.val()) + parseInt(cod_pregunta_33.val()) + parseInt(cod_pregunta_34.val())
+    let cod_pregunta_31 = $('.formCaptacion input[data-cod-pregunta="31"]');
+    let cod_pregunta_32 = $('.formCaptacion input[data-cod-pregunta="32"]');
+    let cod_pregunta_33 = $('.formCaptacion input[data-cod-pregunta="33"]');
+    let cod_pregunta_34 = $('.formCaptacion input[data-cod-pregunta="34"]');
+    let cod_pregunta_42 = $('.formCaptacion input[data-cod-pregunta="42"]');
+    let cod_pregunta_62 = $('.formCaptacion input[data-cod-pregunta="62"]');
 
-    if(cod_pregunta_31.val() < 0 || cod_pregunta_32.val() < 0 || cod_pregunta_33.val() < 0 || cod_pregunta_34.val() < 0 || cod_pregunta_42.val() < 0  || cod_pregunta_62.val() < 0 ){
-        toastr.error("Verifique no haber entrado valores negativos.", 'Error', {
-            progressBar: true,
-            closeButton: true,
-            "timeOut": "5000",
-        });
-        return false
-    }
+    if (verificarExistencia(cod_pregunta_31) != false && verificarExistencia(cod_pregunta_32) != false && verificarExistencia(cod_pregunta_33) != false
+        && verificarExistencia(cod_pregunta_34) != false && verificarExistencia(cod_pregunta_42) != false && verificarExistencia(cod_pregunta_62) != false) {
 
-    if(cod_pregunta_31.val().length > 3 || cod_pregunta_32.val().length > 3 || cod_pregunta_33.val().length > 3 || cod_pregunta_34.val().length > 3 ){
-        toastr.error("Los campos vinculados a los reportes de modelos deben contener como maximo 3 digitos.", 'Error', {
-            progressBar: true,
-            closeButton: true,
-            "timeOut": "5000",
-        });
-        return false
-    }
-    if (cod_pregunta_31.val() <= cod_pregunta_32.val()) {
-        toastr.error("La cantidad de modelos " + cod_pregunta_32.prop('name') + " debe ser menor el que " + cod_pregunta_31.prop('name') + ".", 'Error', {
-            progressBar: true,
-            closeButton: true,
-            "timeOut": "5000",
-        });
-        return false
-    }
-    if (cod_pregunta_31.val() <= cod_pregunta_33.val()) {
-        toastr.error("La cantidad de modelos " + cod_pregunta_33.prop('name') + " debe ser menor el que " + cod_pregunta_31.prop('name') + ".", 'Error', {
-            progressBar: true,
-            closeButton: true,
-            "timeOut": "5000",
-        });
-        return false
-    }
-    if (cod_pregunta_31.val() <= cod_pregunta_34.val()) {
-        toastr.error("La cantidad de modelos " + cod_pregunta_34.prop('name') + " debe ser menor el que " + cod_pregunta_31.prop('name') + ".", 'Error', {
-            progressBar: true,
-            closeButton: true,
-            "timeOut": "5000",
-        });
-        return false
-    }
-    if (parseInt(cod_pregunta_31.val()) !== suma_modelos ) {
-        toastr.error("El " + cod_pregunta_31.prop('name') + " no se corresponde con la suma entre: " + cod_pregunta_32.prop('name') + " " + cod_pregunta_33.prop('name') + " y " + cod_pregunta_34.prop('name') + ".", 'Error', {
-            progressBar: true,
-            closeButton: true,
-            "timeOut": "5000",
-        });
-        return false
-    }
+        let suma_modelos = parseInt(cod_pregunta_32.val()) + parseInt(cod_pregunta_33.val()) + parseInt(cod_pregunta_34.val())
+
+        if (cod_pregunta_31.val() < 0 || cod_pregunta_32.val() < 0 || cod_pregunta_33.val() < 0 || cod_pregunta_34.val() < 0 || cod_pregunta_42.val() < 0 || cod_pregunta_62.val() < 0) {
+            toastr.error("Verifique no haber entrado valores negativos.", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+            return false
+        }
+
+        if (cod_pregunta_31.val().length > 3 || cod_pregunta_32.val().length > 3 || cod_pregunta_33.val().length > 3 || cod_pregunta_34.val().length > 3) {
+            toastr.error("Los campos vinculados a los reportes de modelos deben contener como maximo 3 digitos.", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+            return false
+        }
+        if (cod_pregunta_31.val() <= cod_pregunta_32.val()) {
+            toastr.error("La cantidad de modelos " + cod_pregunta_32.prop('name') + " debe ser menor el que " + cod_pregunta_31.prop('name') + ".", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+            return false
+        }
+        if (cod_pregunta_31.val() <= cod_pregunta_33.val()) {
+            toastr.error("La cantidad de modelos " + cod_pregunta_33.prop('name') + " debe ser menor el que " + cod_pregunta_31.prop('name') + ".", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+            return false
+        }
+        if (cod_pregunta_31.val() <= cod_pregunta_34.val()) {
+            toastr.error("La cantidad de modelos " + cod_pregunta_34.prop('name') + " debe ser menor el que " + cod_pregunta_31.prop('name') + ".", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+            return false
+        }
+        if (parseInt(cod_pregunta_31.val()) !== suma_modelos) {
+            toastr.error("El " + cod_pregunta_31.prop('name') + " no se corresponde con la suma entre: " + cod_pregunta_32.prop('name') + " " + cod_pregunta_33.prop('name') + " y " + cod_pregunta_34.prop('name') + ".", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+            return false
+        }
+    };
+
+
 }
 
 function validate_depedencias_campos() {
@@ -470,10 +372,6 @@ $('form[class="formCaptacion"]').on('submit', function (e) {
     e.preventDefault();
     let  campos = new FormData(this);
 
-    if( validate_radios_no_empty() === false){return false};
-    if( validate_component_entero() === false){return false};
-
-
     for (var i=0; i<texto.length; i++){
         if(texto[i].dataset.type ==="1" && texto[i].value === ""){
              toastr.error(texto[i].name+" es requerido.", 'Error', {
@@ -494,6 +392,8 @@ $('form[class="formCaptacion"]').on('submit', function (e) {
             }
         }
     }
+     if( validate_radios_no_empty() === false){return false};
+     if( validate_component_entero() === false){return false};
 
     $.ajax({
         url: '/guia/dataCaptacion/',

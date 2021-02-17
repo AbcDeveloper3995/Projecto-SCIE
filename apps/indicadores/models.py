@@ -46,13 +46,14 @@ class Indicadores(models.Model):
     nombre = models.CharField(verbose_name='Nombre', max_length=255, blank=False, null=False)
     activo = models.BooleanField(verbose_name='Es_activo', default=True)
     cod_indicador = models.IntegerField(verbose_name='Codigo de pregunta', blank=True, null=True)
+    fechaCreacion = models.DateField(verbose_name='Fecha de creacion', auto_now=False, auto_now_add=True, blank=True, null=True)
 
 
     class Meta:
         db_table = 'Nomenclador Indicadores'
         verbose_name = 'Indicador'
         verbose_name_plural = 'Indicadores'
-        ordering = ['nombre']
+        ordering = ['fechaCreacion']
 
     def __str__(self):
         return '{0}-{1}'.format(self.nombre, self.clasificadorIndicadores_id.seccion_id)

@@ -29,12 +29,6 @@ class indicadorForm(ModelForm):
     class Meta:
         model = Indicadores
         fields = '__all__'
-        labels = {
-                     'nombre': 'Nombre',
-                     'respuestas': 'Respuesta',
-                     'clasificadorIndicadores': 'Clasificador al que se asocia',
-                     'activo': 'es_Activo'
-                 },
         widgets = {
             'nombre': TextInput(attrs={'class':'form-control'}),
             'cod_indicador': NumberInput(attrs={'class':'form-control'}),

@@ -7,13 +7,13 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, TemplateView, UpdateView
+
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border, Side, PatternFill, Font
-
 from apps.guiaEstadistica.forms import *
 from apps.guiaEstadistica.models import guiaEstadistica, cuestionario
 from apps.indicadores.forms import seccion, clasificadorIndicadores
-from apps.indicadores.models import Indicadores
+from apps.indicadores.models import Indicadores, posiblesRespuestas
 from apps.seccion.forms import nomencladorColumna, instanciaSeccion, instanciaForm, verificacionForm
 
 
@@ -106,7 +106,6 @@ class captarDatosView(TemplateView):
             messages.error(self.request, "No hay guias activas en este momento.")
             return None
 
-
     def getSecciones(self):
         data = []
         guia = self.getGuia()
@@ -114,7 +113,6 @@ class captarDatosView(TemplateView):
         for i in secciones:
             data.append(i.id)
         return data
-
 
     def getDatos(self):
 
@@ -143,10 +141,9 @@ class captarDatosView(TemplateView):
             return aux
 
     def getIndicador(self, i, aux):
-        indicadores = Indicadores.objects.filter(clasificadorIndicadores_id=i.id)
+        indicadores = Indicadores.objects.filter(clasificadorIndicadores_id=i.id).order_by('fechaCreacion')
         for i in indicadores:
             aux.append(i)
-
 
     def getCol(self):
         data ={}
@@ -263,7 +260,6 @@ class updateUniversoView(UpdateView):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de universo'
         return context
-
 
 class listarUniversoView(ListView):
     model = universoEntidades
@@ -396,7 +392,6 @@ class dataCaptacion(captarDatosView):
         query = cuestionario.objects.last()
         return query
 
-
 class guiaCaptada(ListView):
     template_name = 'guiaEstadistica/guiaCaptada.html'
     model = cuestionario
@@ -495,7 +490,6 @@ class informacionCaptada(TemplateView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
-
 class seccionCaptada(TemplateView):
 
     @method_decorator(csrf_exempt)
@@ -522,8 +516,6 @@ class seccionCaptada(TemplateView):
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
-
-
 
 class modificarPreguntasView(TemplateView):
 
@@ -553,7 +545,6 @@ class modificarPreguntasView(TemplateView):
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
-
 
 class reporteGeneralExcel(TemplateView):
 
@@ -682,89 +673,14 @@ class reporteGeneralExcel(TemplateView):
         ws.merge_cells('A4:AO4')
 
         cont = 5
-
+        listaPreguntas = self.listadoPreguntas()
         for cuestionario in query_cuestionario:
             ws.cell(row=cont, column=1).value = cuestionario.entidad_codigo.nombre_CI
             ws.cell(row=cont, column=2).value = cuestionario.entidad_codigo.codigo_CI
             ws.cell(row=cont, column=3).value = str(cuestionario.entidad_codigo.ome_codigo)
-            preguntas = self.getPreguntas(cuestionario.id)
-            for i in preguntas:
-                if i.pregunta == "Posee certificado de Inscripcion en el REEUP" and i.respuesta == "No":
-                    ws.cell(row=cont, column=5).value = i.respuesta
-                elif i.pregunta == "Posee certificado de Inscripcion en el REEUP" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=4).value = i.respuesta
-                if i.pregunta == "Fecha de emision del certificado":
-                    ws.cell(row=cont, column=6).value = str(i.respuesta)
-                if i.pregunta == "Esta ubicado en un lugar visible" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=7).value = i.respuesta
-                elif i.pregunta == "Esta ubicado en un lugar visible" and i.respuesta == "No":
-                    ws.cell(row=cont, column=8).value = i.respuesta
-                if i.pregunta == "Estado de conservacion" and i.respuesta == "Bueno":
-                    ws.cell(row=cont, column=9).value = i.respuesta
-                elif i.pregunta == "Estado de conservacion" and i.respuesta == "Deteriorado":
-                    ws.cell(row=cont, column=10).value = i.respuesta
-                if i.pregunta == "El domicilio social es correcto" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=11).value = i.respuesta
-                elif i.pregunta == "El domicilio social es correcto" and i.respuesta == "No":
-                    ws.cell(row=cont, column=12).value = i.respuesta
-                if i.pregunta == "Le establecio la ONEI su convenio informativo del año" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=13).value = i.respuesta
-                elif i.pregunta == "Le establecio la ONEI su convenio informativo del año" and i.respuesta == "No":
-                    ws.cell(row=cont, column=14).value = i.respuesta
-                if i.pregunta == "El convenio esta firmado por el director o representante de la entidad" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=15).value = i.respuesta
-                elif i.pregunta == "El convenio esta firmado por el director o representante de la entidad" and i.respuesta == "No":
-                    ws.cell(row=cont, column=16).value = i.respuesta
-                if i.pregunta == "Total de modelos a reportar":
-                    ws.cell(row=cont, column=17).value = i.respuesta
-                if i.pregunta == "Reportados fuera de fecha":
-                    ws.cell(row=cont, column=18).value = i.respuesta
-                if i.pregunta == "Reportados en fecha":
-                    ws.cell(row=cont, column=19).value = i.respuesta
-                if i.pregunta == "No reportados":
-                    ws.cell(row=cont, column=20).value = i.respuesta
-                if i.pregunta == "Le fueron formulados señalamientos de errores" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=21).value = i.respuesta
-                elif i.pregunta == "Le fueron formulados señalamientos de errores" and i.respuesta == "No":
-                    ws.cell(row=cont, column=22).value = i.respuesta
-                if i.pregunta == "Cuantos señalamientos se le formularon":
-                    ws.cell(row=cont, column=23).value = i.respuesta
-                if i.pregunta == "Recibio Asesoramiento para los cambios del SIEN" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=24).value = i.respuesta
-                elif i.pregunta == "Recibio Asesoramiento para los cambios del SIEN" and i.respuesta == "No":
-                    ws.cell(row=cont, column=25).value = i.respuesta
-                if i.pregunta == "Posee las Bases Metodologicas" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=26).value = i.respuesta
-                elif i.pregunta == "Posee las Bases Metodologicas" and i.respuesta == "No":
-                    ws.cell(row=cont, column=27).value = i.respuesta
-                if i.pregunta == "Tipo de soprte en que poseen las Bases Metodologicas" and i.respuesta == "Papel":
-                    ws.cell(row=cont, column=28).value = i.respuesta
-                elif i.pregunta == "Tipo de soprte en que poseen las Bases Metodologicas" and i.respuesta == "Digital":
-                    ws.cell(row=cont, column=29).value = i.respuesta
-                if i.pregunta == "Tiene establecimientos asociados" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=30).value = i.respuesta
-                elif i.pregunta == "Tiene establecimientos asociados" and i.respuesta == "No":
-                    ws.cell(row=cont, column=31).value = i.respuesta
-                if i.pregunta == "Cuantos establecimientos posee":
-                    ws.cell(row=cont, column=32).value = i.respuesta
-                if i.pregunta == "Cuantos con contabilidad propia":
-                    ws.cell(row=cont, column=33).value = i.respuesta
-                if i.pregunta == "Estructura para atender la actividad estadistica" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=34).value = i.respuesta
-                elif i.pregunta == "Estructura para atender la actividad estadistica" and i.respuesta == "No":
-                    ws.cell(row=cont, column=35).value = i.respuesta
-                if i.pregunta == "Posee personal capacitado" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=36).value = i.respuesta
-                elif i.pregunta == "Posee personal capacitado" and i.respuesta == "No":
-                    ws.cell(row=cont, column=37).value = i.respuesta
-                if i.pregunta == "Esta incluido en el Plan de Prevencion del Centro" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=38).value = i.respuesta
-                elif i.pregunta == "Esta incluido en el Plan de Prevencion del Centro" and i.respuesta == "No":
-                    ws.cell(row=cont, column=39).value = i.respuesta
-                if i.pregunta == "Utiliza la informacion estadistica" and i.respuesta == "Si":
-                    ws.cell(row=cont, column=40).value = i.respuesta
-                elif i.pregunta == "Utiliza la informacion estadistica" and i.respuesta == "No":
-                    ws.cell(row=cont, column=41).value = i.respuesta
+            preguntas = self.getPreguntasDelCuestionario(cuestionario.id)
+            self.pintarDatos(ws,cont,listaPreguntas,preguntas)
+
 
             cont += 1
 
@@ -779,7 +695,11 @@ class reporteGeneralExcel(TemplateView):
         query = cuestionario.objects.all()
         return query
 
-    def getPreguntas(self, cuestionario):
+    def listadoPreguntas(self):
+        query = PreguntasEvaluadas.objects.all()
+        return query
+
+    def getPreguntasDelCuestionario(self, cuestionario):
         query = PreguntasEvaluadas.objects.filter(captacion_id__id=cuestionario)
         return query
 
@@ -789,3 +709,37 @@ class reporteGeneralExcel(TemplateView):
                               bottom=Side(border_style="thin"))
         celda.fill = PatternFill(start_color="66FFCC", end_color="66FFCC", fill_type="solid")
         celda.font = Font(name='Broadway', size=12, bold=True)
+
+    def pintarDatos(self, ws, cont, listadoPreguntas, preguntasDelCuestionario):
+        columna = 4
+        for p in listadoPreguntas[4:]:
+            for i in preguntasDelCuestionario[4:]:
+                if i.pregunta == p.pregunta and i.respuesta == p.respuesta:
+                    ws.cell(row=cont, column=columna).value = i.respuesta
+            columna += 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
