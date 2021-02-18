@@ -25,18 +25,18 @@
                 {% else %}
             <td><span class="badge bg-gradient-navy">{{ seccion.guia_id }}</span></td>
             {% endif %}
-            {% if seccion.nombre == "Identificacion" or seccion.nombre == "Sobre_Entidad" %}
+            {% if seccion.tipo == 1 or seccion.tipo == 2 %}
             <td><a href="#"  type="button" ><i class="fa fa-times-circle" style="color: red"></i></a></td>
                 {% else %}
             <td>{{ seccion.numero }}</td>
             {% endif %}
-            {% if seccion.nombre == "Identificacion" or seccion.nombre == "Sobre_Entidad" %}
+            {% if seccion.tipo == 1 or seccion.tipo == 2 %}
             <td><a href="#"  type="button" ><i class="fa fa-times-circle" style="color: red"></i></a></td>
                 {% else %}
 
             <td>{{ seccion.subNumero }}</td>
             {% endif %}
-             {% if seccion.nombre == "Identificacion" or seccion.nombre == "Sobre_Entidad" %}
+             {% if seccion.tipo == 1 or seccion.tipo == 2 %}
             <td><a href="#"  type="button" ><i class="fa fa-times-circle" style="color: red"></i></a></td>
                 {% else %}
             <td><span class="badge bg-gradient-navy">{{ seccion.periodo_id }}</span></td>

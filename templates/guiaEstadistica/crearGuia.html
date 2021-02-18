@@ -11,6 +11,18 @@
         <label>{{ form.nombre.label }}</label>
         {{ form.nombre }}
     </div>
+    <div class="form-group ">
+        <div class="custom-control custom-checkbox">
+            <input class="custom-control-input" id="guiasDefinidas" type="checkbox"  value="option1">
+            <label for="guiasDefinidas" class="custom-control-label miTippy" title="Solo para cuando se quiere crear una guia con
+            la misma configuracion de otra ya definida. ">Hab/Des guias definidas</label>
+        </div>
+        <select class="form-control select2" disabled  id="listadoGuiasDefinidas" style="width: 100%;" name="guiasDefinidas">
+            {% for i in guias %}
+                <option value="{{ i.nombre}}">{{ i.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
     <div class="form-group">
         <div class="custom-control custom-checkbox">
             {{ form.activo }}
@@ -21,11 +33,13 @@
 {% endblock %}
 
 {% block form_buttons %}
-    <button type="submit" class="btn btn-primary">
+    <button type="submit" id="salvadoNormal" class="btn btn-primary">
         <i class="fas fa-save"></i> Salvar
     </button>
-
-    <a type="button" href="{% url 'guia:listarGuias' %}" class="btn btn-danger">
+     <button type="button"  disabled id="safe" class="btn btn-primary">
+        <i class="fas fa-tag"></i> Salvar con una cofiguracion
+    </button>
+    <a type="button"  href="{% url 'guia:listarGuias' %}" class="btn btn-danger">
         <i class="fas fa-arrow-circle-left"></i> Cancelar
     </a>
 {% endblock %}

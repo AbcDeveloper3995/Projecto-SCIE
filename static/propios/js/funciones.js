@@ -1365,5 +1365,52 @@ $('#userForm').bootstrapValidator({
         }
     });
 
+//------------------PORCEDIMIENTO PARA CREAR UNA GUIA CON LAS MISMASCONFIGURACIONES DE OTRA YA DEFINIDA-----------------------//
 
+guias = $('#listadoGuiasDefinidas');
+buttonSafe = $('#safe');
+checkboxGuias = $('#guiasDefinidas');
+salvadoNormal = $('#salvadoNormal');
+
+checkboxGuias.on('click', function () {
+    if(checkboxGuias.is(':checked')==true){
+   guias.prop('disabled', false);
+   buttonSafe.prop('disabled', false);
+   salvadoNormal.prop('disabled', true)
+
+}else {
+     guias.prop('disabled', true);
+   buttonSafe.prop('disabled', true);
+        salvadoNormal.prop('disabled', false)
+}
+});
+
+$('#safe').on('click', function () {
+    guiaNombre = $('#guiaNombre');
+    guiaActiva = $('#guiaActiva');
+    if(guias.val()===guiaNombre.val()){
+        toastr.error("El nombre de la guia a crear ya existe.", 'Error',{
+        progressBar: true,
+        closeButton: true,
+        "timeOut": "3000",
+    });
+        return false
+    }
+    alert(guias.val() + guiaNombre.val())
+    $.ajax({
+        url: '/guia/crearGuiaDefinida/',
+        type: 'POST',
+        data: {
+            'action':'creacionDeGuia',
+            'guiaNueva': guiaNombre.val(),
+            'guiaYaDefinida': guias.val()
+        },
+        dataType: 'json',
+    }).done(function (data) {
+        alert(data.sms)
+    }).fail(function (jqXHR, textStatus,errorThrown) {
+        alert(textStatus+' : '+errorThrown)
+    })
+
+})
 

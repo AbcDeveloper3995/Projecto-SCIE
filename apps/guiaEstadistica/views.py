@@ -15,6 +15,7 @@ from apps.guiaEstadistica.models import guiaEstadistica, cuestionario
 from apps.indicadores.forms import seccion, clasificadorIndicadores
 from apps.indicadores.models import Indicadores, posiblesRespuestas
 from apps.seccion.forms import nomencladorColumna, instanciaSeccion, instanciaForm, verificacionForm
+from apps.seccion.models import clasificadorPeriodo
 
 
 class listarGuiasView(ListView):
@@ -36,7 +37,12 @@ class crearGuiasView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de guia'
+        context['guias'] = self.getGuias()
         return context
+
+    def getGuias(self):
+        query = guiaEstadistica.objects.all()
+        return query
 
 class updateGuiaView(UpdateView):
     model = guiaEstadistica
@@ -717,6 +723,59 @@ class reporteGeneralExcel(TemplateView):
                 if i.pregunta == p.pregunta and i.respuesta == p.respuesta:
                     ws.cell(row=cont, column=columna).value = i.respuesta
             columna += 1
+
+class crearGuiaDefinida(TemplateView):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        print(request.POST)
+        action = request.POST['action']
+        try:
+            if action == 'creacionDeGuia':
+                guiaNueva=guiaEstadistica(
+                    nombre=request.POST['guiaNueva'],
+                    activo=True
+                )
+                guiaNueva.save()
+                query_secciones = seccion.objects.filter(guia_id__nombre=request.POST['guiaYaDefinida'])
+                print(query_secciones)
+                for i in query_secciones:
+                    if i.periodo_id == None and i.numero == None and i.subNumero == None:
+                        aux = seccion(
+                            nombre=i.nombre,
+                            guia_id=guiaNueva,
+                            periodo_id=None,
+                            numero=None,
+                            subNumero=None,
+                            orden=i.orden,
+                            activo=i.activo,
+                            tipo=i.tipo
+                        )
+                        aux.save()
+                    else:
+                       periodo = clasificadorPeriodo.objects.get(id=i.periodo_id.id)
+                       guia = guiaEstadistica.objects.get(id=guiaNueva.id)
+                       aux=seccion(
+                            nombre=i.nombre,
+                            guia_id=guia,
+                            periodo_id=periodo,
+                            numero=i.numero,
+                            subNumero=i.subNumero,
+                            orden=i.orden,
+                            activo=i.activo,
+                            tipo=i.tipo
+                        )
+                       aux.save()
+                data['sms'] = 'siiiiiiiiii'
+            else:
+                data['sms'] = 'eroor de pillo'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
 
 
 

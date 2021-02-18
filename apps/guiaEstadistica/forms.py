@@ -15,7 +15,7 @@ class guiaEstadisticaForm(ModelForm):
                      'activo': 'es_Activo'
         },
         widgets = {
-            'nombre': TextInput(attrs={'class':'form-control'}),
+            'nombre': TextInput(attrs={'class':'form-control', 'id':'guiaNombre', 'autofocus':'on'}),
             'activo': CheckboxInput(attrs={'class':'custom-control-input', 'type': 'checkbox', 'id':'guiaActiva'})
         }
 
