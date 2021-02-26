@@ -37,6 +37,7 @@ class crearGuiasView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de guia'
+        context['action'] = 'add'
         context['guias'] = self.getGuias()
         return context
 
@@ -572,121 +573,111 @@ class reporteGeneralExcel(TemplateView):
 
         self.estilosCelda(ws['D1'])
         ws['D1'] = 'Aspectos Generales'
-        ws.merge_cells('D1:L1')
+        ws.merge_cells('D1:H1')
+        ws.column_dimensions['D'].width = 20
         ws['D2'] = 'Certificado REEUP'
-        ws.merge_cells('D2:E2')
-        ws['D3'] = 'Si'
-        ws['E3'] = 'No'
-        ws['F2'] = 'Fecha Certificado'
-        ws.column_dimensions['F'].width = 15
+        ws.merge_cells('D2:D3')
+        ws.column_dimensions['E'].width = 20
+        ws['E2'] = 'Fecha Certificado'
+        ws.merge_cells('E2:E3')
+        ws.column_dimensions['F'].width = 20
+        ws['F2'] = 'Ubicacion visible'
         ws.merge_cells('F2:F3')
-        ws['G2'] = 'Ubicacion visible'
-        ws.merge_cells('G2:H2')
-        ws['G3'] = 'Si'
-        ws['H3'] = 'No'
-        ws['I2'] = 'Estado conservacion'
-        ws.column_dimensions['J'].width = 15
-        ws.merge_cells('I2:J2')
-        ws['I3'] = 'Bueno'
-        ws['J3'] = 'Deteriorado'
-        ws['K2'] = 'Domicilio'
-        ws.merge_cells('K2:L2')
-        ws['K3'] = 'Si'
-        ws['L3'] = 'No'
+        ws.column_dimensions['G'].width = 20
+        ws['G2'] = 'Estado conservacion'
+        ws.merge_cells('G2:G3')
+        ws.column_dimensions['H'].width = 20
+        ws['H2'] = 'Domicilio'
+        ws.merge_cells('H2:H3')
 
-        self.estilosCelda(ws['M1'])
-        ws['M1'] = 'Implantacion y Comprtamiento Resolucion del SIEN'
-        ws.merge_cells('M1:P1')
-        ws['M2'] = 'Convenio'
-        ws.merge_cells('M2:N2')
-        ws['M3'] = 'Si'
-        ws['N3'] = 'No'
-        ws['O2'] = 'Firmado Director'
-        ws.merge_cells('O2:P2')
-        ws['O3'] = 'Si'
-        ws['P3'] = 'No'
+        self.estilosCelda(ws['I1'])
+        ws['I1'] = 'Implantacion y Comprtamiento Resolucion del SIEN'
+        ws.merge_cells('I1:J1')
+        ws.column_dimensions['I'].width = 20
+        ws['I2'] = 'Convenio'
+        ws.merge_cells('I2:I3')
+        ws.column_dimensions['J'].width = 20
+        ws['J2'] = 'Firmado Director'
+        ws.merge_cells('J2:J3')
+
+        self.estilosCelda(ws['K1'])
+        ws['K1'] = 'Disciplina informativa acumulada hasta el cierre del mes anterior (SIEN)'
+        ws.merge_cells('K1:N1')
+        ws.column_dimensions['K'].width = 20
+        ws['K2'] = 'Total de modelos a  reportar'
+        ws.merge_cells('K2:K3')
+        ws.column_dimensions['L'].width = 20
+        ws['L2'] = 'Reportados fuera fecha'
+        ws.merge_cells('L2:L3')
+        ws.column_dimensions['M'].width = 20
+        ws['M2'] = 'Reportados en fecha'
+        ws.merge_cells('M2:M3')
+        ws.column_dimensions['N'].width = 20
+        ws['N2'] = 'No reportados'
+        ws.merge_cells('N2:N3')
+
+        self.estilosCelda(ws['O1'])
+        ws['O1'] = 'Calidad de la informacion'
+        ws.merge_cells('O1:P1')
+        ws.column_dimensions['O'].width = 20
+        ws['O2'] = 'Señalamiento de errores'
+        ws.merge_cells('O2:O3')
+        ws.column_dimensions['P'].width = 20
+        ws['P2'] = 'Cantidad de señalamientos'
+        ws.merge_cells('P2:P3')
 
         self.estilosCelda(ws['Q1'])
-        ws['Q1'] = 'Disciplina informativa acumulada hasta el cierre del mes anterior (SIEN)'
-        ws.merge_cells('Q1:T1')
-        ws['Q2'] = 'Total de modelos a  reportar'
+        ws['Q1'] = 'Asesoramiento metodologiaco'
+        ws.merge_cells('Q1:S1')
+        ws.column_dimensions['Q'].width = 20
+        ws['Q2'] = 'Resivio asesoramiento'
         ws.merge_cells('Q2:Q3')
-        ws['R2'] = 'Reportados fuera fecha'
+        ws.column_dimensions['R'].width = 20
+        ws['R2'] = 'Posee bases metodologicas del SIEN'
         ws.merge_cells('R2:R3')
-        ws['S2'] = 'Reportados en fecha'
+        ws.column_dimensions['S'].width = 20
+        ws['S2'] = 'Tipo de soporte'
         ws.merge_cells('S2:S3')
-        ws['T2'] = 'No reportados'
+
+        self.estilosCelda(ws['T1'])
+        ws['T1'] = 'Cobertura'
+        ws.merge_cells('T1:V1')
+        ws.column_dimensions['T'].width = 20
+        ws['T2'] = 'Establecimientos asociados'
         ws.merge_cells('T2:T3')
+        ws.column_dimensions['U'].width = 20
+        ws['U2'] = 'Cuantos'
+        ws.merge_cells('U2:U3')
+        ws.column_dimensions['V'].width = 20
+        ws['V2'] = 'Con contabilidad propia'
+        ws.merge_cells('V2:V3')
 
-        self.estilosCelda(ws['U1'])
-        ws['U1'] = 'Calidad de la informacion'
-        ws.merge_cells('U1:W1')
-        ws['U2'] = 'Señalamiento de errores'
-        ws.merge_cells('U2:V2')
-        ws['U3'] = 'Si'
-        ws['V3'] = 'No'
-        ws['W2'] = 'Cantidad de señalamientos'
+        self.estilosCelda(ws['W1'])
+        ws['W1'] = 'Atencion a las estadisticas'
+        ws.merge_cells('W1:Z1')
+        ws.column_dimensions['W'].width = 20
+        ws['W2'] = 'Estructura para atender la actv. estadistica'
         ws.merge_cells('W2:W3')
-
-        self.estilosCelda(ws['X1'])
-        ws['X1'] = 'Asesoramiento metodologiaco'
-        ws.merge_cells('X1:AC1')
-        ws['X2'] = 'Resivio asesoramiento'
-        ws.merge_cells('X2:Y2')
-        ws['X3'] = 'Si'
-        ws['Y3'] = 'No'
-        ws['Z2'] = 'Posee bases metodologicas del SIEN'
-        ws.merge_cells('Z2:AA2')
-        ws['Z3'] = 'Si'
-        ws['AA3'] = 'No'
-        ws['AB2'] = 'Tipo de soporte'
-        ws.merge_cells('AB2:AC2')
-        ws['AB3'] = 'Papel'
-        ws['AC3'] = 'Digital'
-
-        self.estilosCelda(ws['AD1'])
-        ws['AD1'] = 'Cobertura'
-        ws.merge_cells('AD1:AG1')
-        ws['AD2'] = 'Establecimientos asociados'
-        ws.merge_cells('AD2:AE2')
-        ws['AD3'] = 'Si'
-        ws['AE3'] = 'No'
-        ws['AF2'] = 'Cuantos'
-        ws.merge_cells('AF2:AF3')
-        ws['AG2'] = 'Con contabilidad propia'
-        ws.merge_cells('AG2:AG3')
-
-        self.estilosCelda(ws['AH1'])
-        ws['AH1'] = 'Atencion a las estadisticas'
-        ws.merge_cells('AH1:AO1')
-        ws['AH2'] = 'Estructura para atender la actv. estadistica'
-        ws.merge_cells('AH2:AI2')
-        ws['AH3'] = 'Si'
-        ws['AI3'] = 'No'
-        ws['AJ2'] = 'Posee personal capacitado para brindar informacion estadistica'
-        ws.merge_cells('AJ2:AK2')
-        ws['AJ3'] = 'Si'
-        ws['AK3'] = 'No'
-        ws['AL2'] = 'Esta incluido en el Plan de Prevencion del centro como un punto vulnerable la infomacion estadistica'
-        ws.merge_cells('AL2:AM2')
-        ws['AL3'] = 'Si'
-        ws['AM3'] = 'No'
-        ws['AN2'] = 'Utiliza la infomacion estadisticapara la toma de decisiones'
-        ws.merge_cells('AN2:AO2')
-        ws['AN3'] = 'Si'
-        ws['AO3'] = 'No'
+        ws.column_dimensions['X'].width = 20
+        ws['X2'] = 'Posee personal capacitado para brindar informacion estadistica'
+        ws.merge_cells('X2:X3')
+        ws.column_dimensions['Y'].width = 20
+        ws['Y2'] = 'Esta incluido en el Plan de Prevencion del centro como un punto vulnerable la infomacion estadistica'
+        ws.merge_cells('Y2:Y3')
+        ws.column_dimensions['Z'].width = 20
+        ws['Z2'] = 'Utiliza la infomacion estadisticapara la toma de decisiones'
+        ws.merge_cells('Z2:Z3')
         ws['A4'].fill = PatternFill(start_color="92a2ab", end_color="92a2ab", fill_type="solid")
-        ws.merge_cells('A4:AO4')
+        ws.merge_cells('A4:Z4')
 
         cont = 5
-        listaPreguntas = self.listadoPreguntas()
+
         for cuestionario in query_cuestionario:
             ws.cell(row=cont, column=1).value = cuestionario.entidad_codigo.nombre_CI
             ws.cell(row=cont, column=2).value = cuestionario.entidad_codigo.codigo_CI
             ws.cell(row=cont, column=3).value = str(cuestionario.entidad_codigo.ome_codigo)
             preguntas = self.getPreguntasDelCuestionario(cuestionario.id)
-            self.pintarDatos(ws,cont,listaPreguntas,preguntas)
-
+            self.pintarDatos(ws,cont,preguntas)
 
             cont += 1
 
@@ -701,8 +692,8 @@ class reporteGeneralExcel(TemplateView):
         query = cuestionario.objects.all()
         return query
 
-    def listadoPreguntas(self):
-        query = PreguntasEvaluadas.objects.all()
+    def listadoPreguntas(self, cuestionario):
+        query = PreguntasEvaluadas.objects.filter(captacion_id__id=cuestionario)
         return query
 
     def getPreguntasDelCuestionario(self, cuestionario):
@@ -716,12 +707,11 @@ class reporteGeneralExcel(TemplateView):
         celda.fill = PatternFill(start_color="66FFCC", end_color="66FFCC", fill_type="solid")
         celda.font = Font(name='Broadway', size=12, bold=True)
 
-    def pintarDatos(self, ws, cont, listadoPreguntas, preguntasDelCuestionario):
+    def pintarDatos(self, ws, cont, preguntasDelCuestionario):
         columna = 4
-        for p in listadoPreguntas[4:]:
-            for i in preguntasDelCuestionario[4:]:
-                if i.pregunta == p.pregunta and i.respuesta == p.respuesta:
-                    ws.cell(row=cont, column=columna).value = i.respuesta
+        aux = preguntasDelCuestionario[::-1]
+        for p in aux[4:]:
+            ws.cell(row=cont, column=columna).value = p.respuesta
             columna += 1
 
 class crearGuiaDefinida(TemplateView):
@@ -732,7 +722,6 @@ class crearGuiaDefinida(TemplateView):
 
     def post(self, request, *args, **kwargs):
         data = {}
-        print(request.POST)
         action = request.POST['action']
         try:
             if action == 'creacionDeGuia':
@@ -742,9 +731,8 @@ class crearGuiaDefinida(TemplateView):
                 )
                 guiaNueva.save()
                 query_secciones = seccion.objects.filter(guia_id__nombre=request.POST['guiaYaDefinida'])
-                print(query_secciones)
                 for i in query_secciones:
-                    if i.periodo_id == None and i.numero == None and i.subNumero == None:
+                    if i.tipo == 1 or i.tipo == 2:
                         aux = seccion(
                             nombre=i.nombre,
                             guia_id=guiaNueva,
@@ -756,13 +744,12 @@ class crearGuiaDefinida(TemplateView):
                             tipo=i.tipo
                         )
                         aux.save()
+                        self.crearGrupoPreguntas(i, guiaNueva)
                     else:
-                       periodo = clasificadorPeriodo.objects.get(id=i.periodo_id.id)
-                       guia = guiaEstadistica.objects.get(id=guiaNueva.id)
                        aux=seccion(
                             nombre=i.nombre,
-                            guia_id=guia,
-                            periodo_id=periodo,
+                            guia_id=guiaEstadistica.objects.get(id=guiaNueva.id),
+                            periodo_id=clasificadorPeriodo.objects.get(id=i.periodo_id.id),
                             numero=i.numero,
                             subNumero=i.subNumero,
                             orden=i.orden,
@@ -770,35 +757,53 @@ class crearGuiaDefinida(TemplateView):
                             tipo=i.tipo
                         )
                        aux.save()
-                data['sms'] = 'siiiiiiiiii'
+                data['sms'] = 'correcto'
             else:
                 data['sms'] = 'eroor de pillo'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
+    def crearGrupoPreguntas(self, objSeccion, guia):
+        query = seccion.objects.filter(guia_id__id=guia.id)
+        for i in query:
+            if i.nombre == objSeccion.nombre:
+                grupoPreguntas = clasificadorIndicadores.objects.filter(seccion_id__id=objSeccion.id)
+                for j in grupoPreguntas:
+                    aux = clasificadorIndicadores(
+                        seccion_id=seccion.objects.get(id=i.id),
+                        nombre=j.nombre,
+                        activo=True
+                    )
+                    aux.save()
+                    self.crearPreguntas(j, aux)
 
+    def crearPreguntas(self, grupoPreguntaGuiaDefinida, grupoPreguntaGuiaNueva):
+        query = Indicadores.objects.filter(clasificadorIndicadores_id__id=grupoPreguntaGuiaDefinida.id)
+        if grupoPreguntaGuiaDefinida.nombre == grupoPreguntaGuiaNueva.nombre:
+            for i in query:
+                if i.cod_indicador == None:
+                    try:
+                        aux = Indicadores(
+                            clasificadorIndicadores_id=clasificadorIndicadores.objects.get(id=grupoPreguntaGuiaNueva.id),
+                            nombre=i.nombre,
+                        )
+                        aux.save()
+                        self.asignarRespuesta(aux, i.respuestas_id.all())
+                    except:
+                        print('error')
+                else:
+                    try:
+                        aux = Indicadores(
+                            clasificadorIndicadores_id=clasificadorIndicadores.objects.get(id=grupoPreguntaGuiaNueva.id),
+                            nombre=i.nombre,
+                            cod_indicador=i.cod_indicador
+                        )
+                        aux.save()
+                        self.asignarRespuesta(aux, i.respuestas_id.all())
+                    except:
+                        print('error')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def asignarRespuesta(self, preguntaNueva, listaRespuestasDefinidas):
+        for i in listaRespuestasDefinidas:
+            preguntaNueva.respuestas_id.add(i)
