@@ -272,7 +272,7 @@ class comprobarIndicadoresEvaluados(TemplateView):
                 indicadoresCoinciden=request.POST['indicadoresCoinciden'],
                 indicadoresIncluidos=request.POST['indicadoresIncluidos'],
             )
-            #obj_verificacion.save()
+            obj_verificacion.save()
             data['exito'] = 'Control y verificacion de la seccion ' + obj_seccion.nombre + ' realizadas conrrectamente.'
         except Exception as e:
             data['error'] = str(e)

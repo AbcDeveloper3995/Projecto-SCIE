@@ -4,7 +4,8 @@
     <list default="true" id="9c9dd07d-359a-4682-a50c-d144b1c61bf1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/guiaEstadistica/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/guiaEstadistica/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/guiaEstadistica/crearGuia.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/guiaEstadistica/crearGuia.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/seccion/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/seccion/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/propios/js/funciones.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/propios/js/funciones.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/propios/js/funciones.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1564">
-              <caret line="222" column="68" selection-start-line="222" selection-start-column="68" selection-end-line="222" selection-end-column="68" />
+            <state relative-caret-position="1377">
+              <caret line="271" column="24" lean-forward="true" selection-start-line="271" selection-start-column="24" selection-end-line="271" selection-end-column="24" />
               <folding>
                 <element signature="e#510#1895#0" />
                 <element signature="e#2403#2770#0" />
@@ -43,15 +44,21 @@
                 <element signature="e#3397#3754#0" />
                 <element signature="e#3867#4531#0" />
                 <element signature="e#4704#6349#0" />
+                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#h6#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#td#8;n#tr#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#td#11;n#tr#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/crearGuia.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
+            <state relative-caret-position="748">
               <caret line="44" column="12" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
             </state>
           </provider>
@@ -72,26 +79,18 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
+            <state relative-caret-position="280">
+              <caret line="472" column="40" selection-start-line="472" selection-start-column="40" selection-end-line="472" selection-end-column="40" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#2113#2393#0" />
-                <element signature="e#2436#11298#0" />
-                <element signature="e#11341#11669#0" />
-                <element signature="e#11713#12040#0" />
-                <element signature="e#12082#12363#0" />
-                <element signature="e#12408#12740#0" />
-                <element signature="e#12784#13788#0" />
-                <element signature="e#13832#17222#0" />
-                <element signature="e#17257#21848#0" />
-                <element signature="e#21896#22209#0" />
-                <element signature="e#22256#23105#0" />
-                <element signature="e#23148#24144#0" />
-                <element signature="e#24195#25271#0" />
-                <element signature="e#25319#31901#0" />
-                <element signature="e#30949#31332#0" />
-                <element signature="e#31753#35801#0" />
+                <element signature="e#2450#11312#0" />
+                <element signature="e#11355#11683#0" />
+                <element signature="e#11727#12054#0" />
+                <element signature="e#12096#12377#0" />
+                <element signature="e#12422#12754#0" />
+                <element signature="e#12798#13802#0" />
+                <element signature="e#13846#17236#0" />
+                <element signature="e#17271#21862#0" />
               </folding>
             </state>
           </provider>
@@ -214,7 +213,6 @@
         <option value="$PROJECT_DIR$/templates/seccion/crear/seccion.html" />
         <option value="$PROJECT_DIR$/apps/seccion/forms.py" />
         <option value="$PROJECT_DIR$/apps/usuario/views.py" />
-        <option value="$PROJECT_DIR$/apps/seccion/views.py" />
         <option value="$PROJECT_DIR$/apps/seccion/models.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/apps/seccion/templatetags/filters.py" />
@@ -225,12 +223,13 @@
         <option value="$PROJECT_DIR$/templates/indicadores/crear/preguntas.html" />
         <option value="$PROJECT_DIR$/apps/guiaEstadistica/urls.py" />
         <option value="$PROJECT_DIR$/apps/guiaEstadistica/forms.py" />
-        <option value="$PROJECT_DIR$/static/propios/js/funciones.js" />
         <option value="$PROJECT_DIR$/templates/seccion/listar/seccion.html" />
         <option value="$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html" />
         <option value="$PROJECT_DIR$/apps/indicadores/models.py" />
-        <option value="$PROJECT_DIR$/apps/guiaEstadistica/views.py" />
         <option value="$PROJECT_DIR$/templates/guiaEstadistica/crearGuia.html" />
+        <option value="$PROJECT_DIR$/apps/guiaEstadistica/views.py" />
+        <option value="$PROJECT_DIR$/static/propios/js/funciones.js" />
+        <option value="$PROJECT_DIR$/apps/seccion/views.py" />
       </list>
     </option>
   </component>
@@ -246,6 +245,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -261,19 +261,13 @@
             <path>
               <item name="SCIEv1" type="b2602c69:ProjectViewProjectNode" />
               <item name="SCIEv1" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SCIEv1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SCIEv1" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="guiaEstadistica" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="seccion" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -288,19 +282,19 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\indicadores\listar" />
-      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\indicadores\crear" />
-      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion\crear" />
-      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion\listar" />
-      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\static" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\util" />
       <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\apps\seccion\templatetags" />
       <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\indicadores\listar" />
       <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion\listar" />
       <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\indicadores\listar" />
+      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\indicadores\crear" />
+      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion\crear" />
+      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion\listar" />
+      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\static" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -511,7 +505,9 @@
       <workItem from="1613744215090" duration="4708000" />
       <workItem from="1614204141736" duration="7245000" />
       <workItem from="1614274525198" duration="6071000" />
-      <workItem from="1614370822779" duration="6318000" />
+      <workItem from="1614370822779" duration="6896000" />
+      <workItem from="1614480749177" duration="691000" />
+      <workItem from="1614643648869" duration="2268000" />
     </task>
     <task id="LOCAL-00001" summary="Agregue el reporte general, cambios en la vista guiaEstadistica">
       <created>1612994478574</created>
@@ -534,22 +530,29 @@
       <option name="project" value="LOCAL" />
       <updated>1613688313922</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Cambios en la clase del reporte general, tanto el diseño, como en el pintado de los datos; Concluido el proceso de diseñar una guia a partir de otra ya definida creando la clase crearGuiaDefinida; modificado el template de crear guia para dicho proceso anterior">
+      <created>1614377652706</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1614377652706</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="882628000" />
+    <option name="totallyTimeSpent" value="886165000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16414523" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16868381" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.15726496" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27008548" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5863248" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -627,7 +630,8 @@
     <MESSAGE value="Agregue el reporte general, cambios en la vista guiaEstadistica" />
     <MESSAGE value="Se modifico las validaciones para Sobre entidad, validacion verificarExistencia agregada, se agrego el campo validacion en el modelo Indicadores" />
     <MESSAGE value="Hice parte del procedimiento para crear una guia con las misma configuraciones de otra; agregando la clase creaGuiaDefinida, modificando la template de crearGuia y el archivo funciones para este proceso; Ademas modifique los if en la template de listar seccion, comparando por tipo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hice parte del procedimiento para crear una guia con las misma configuraciones de otra; agregando la clase creaGuiaDefinida, modificando la template de crearGuia y el archivo funciones para este proceso; Ademas modifique los if en la template de listar seccion, comparando por tipo" />
+    <MESSAGE value="Cambios en la clase del reporte general, tanto el diseño, como en el pintado de los datos; Concluido el proceso de diseñar una guia a partir de otra ya definida creando la clase crearGuiaDefinida; modificado el template de crear guia para dicho proceso anterior" />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios en la clase del reporte general, tanto el diseño, como en el pintado de los datos; Concluido el proceso de diseñar una guia a partir de otra ya definida creando la clase crearGuiaDefinida; modificado el template de crear guia para dicho proceso anterior" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
@@ -869,26 +873,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/seccion/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="254" column="6" selection-start-line="254" selection-start-column="6" selection-end-line="254" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/seccion/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="26" column="50" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/comun/menu.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="205">
@@ -984,18 +968,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/propios/js/funciones.js">
+    <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/crearGuia.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1564">
-          <caret line="222" column="68" selection-start-line="222" selection-start-column="68" selection-end-line="222" selection-end-column="68" />
-          <folding>
-            <element signature="e#510#1895#0" />
-            <element signature="e#2403#2770#0" />
-            <element signature="e#2954#3318#0" />
-            <element signature="e#3397#3754#0" />
-            <element signature="e#3867#4531#0" />
-            <element signature="e#4704#6349#0" />
-          </folding>
+        <state relative-caret-position="748">
+          <caret line="44" column="12" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -1028,34 +1004,60 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
+        <state relative-caret-position="280">
+          <caret line="472" column="40" selection-start-line="472" selection-start-column="40" selection-end-line="472" selection-end-column="40" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#2113#2393#0" />
-            <element signature="e#2436#11298#0" />
-            <element signature="e#11341#11669#0" />
-            <element signature="e#11713#12040#0" />
-            <element signature="e#12082#12363#0" />
-            <element signature="e#12408#12740#0" />
-            <element signature="e#12784#13788#0" />
-            <element signature="e#13832#17222#0" />
-            <element signature="e#17257#21848#0" />
-            <element signature="e#21896#22209#0" />
-            <element signature="e#22256#23105#0" />
-            <element signature="e#23148#24144#0" />
-            <element signature="e#24195#25271#0" />
-            <element signature="e#25319#31901#0" />
-            <element signature="e#30949#31332#0" />
-            <element signature="e#31753#35801#0" />
+            <element signature="e#2450#11312#0" />
+            <element signature="e#11355#11683#0" />
+            <element signature="e#11727#12054#0" />
+            <element signature="e#12096#12377#0" />
+            <element signature="e#12422#12754#0" />
+            <element signature="e#12798#13802#0" />
+            <element signature="e#13846#17236#0" />
+            <element signature="e#17271#21862#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/crearGuia.html">
+    <entry file="file://$PROJECT_DIR$/apps/seccion/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="44" column="12" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
+        <state relative-caret-position="112">
+          <caret line="268" column="39" lean-forward="true" selection-start-line="268" selection-start-column="39" selection-end-line="268" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/seccion/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="26" column="59" selection-start-line="26" selection-start-column="59" selection-end-line="26" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/propios/js/funciones.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1377">
+          <caret line="271" column="24" lean-forward="true" selection-start-line="271" selection-start-column="24" selection-end-line="271" selection-end-column="24" />
+          <folding>
+            <element signature="e#510#1895#0" />
+            <element signature="e#2403#2770#0" />
+            <element signature="e#2954#3318#0" />
+            <element signature="e#3397#3754#0" />
+            <element signature="e#3867#4531#0" />
+            <element signature="e#4704#6349#0" />
+            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#h6#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#td#8;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#td#11;n#tr#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

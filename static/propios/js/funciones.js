@@ -229,6 +229,55 @@ function validate_radios_no_empty() {
         };
     };
 
+    if (verificarExistencia(cod_pregunta_22) != false) {
+        if(validacionChecked(cod_pregunta_22)== false){
+            return false
+        };
+    };
+
+    if (verificarExistencia(cod_pregunta_41) != false) {
+        if(validacionChecked(cod_pregunta_41)== false){
+            return false
+        };
+    };
+
+    if (verificarExistencia(cod_pregunta_51) != false) {
+        if(validacionChecked(cod_pregunta_51)== false){
+            return false
+        };
+    };
+
+    if (verificarExistencia(cod_pregunta_52) != false) {
+        if(validacionChecked(cod_pregunta_52)== false){
+            return false
+        };
+    };
+    if (verificarExistencia(cod_pregunta_53) != false) {
+        if(validacionChecked(cod_pregunta_53)== false){
+            return false
+        };
+    };
+    if (verificarExistencia(cod_pregunta_61) != false) {
+        if(validacionChecked(cod_pregunta_61)== false){
+            return false
+        };
+    };
+    if (verificarExistencia(cod_pregunta_71) != false) {
+        if(validacionChecked(cod_pregunta_71)== false){
+            return false
+        };
+    };
+    if (verificarExistencia(cod_pregunta_72) != false) {
+        if(validacionChecked(cod_pregunta_72)== false){
+            return false
+        };
+    };
+    if (verificarExistencia(cod_pregunta_73) != false) {
+        if(validacionChecked(cod_pregunta_73)== false){
+            return false
+        };
+    };
+
 
 }
 

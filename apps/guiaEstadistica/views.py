@@ -7,13 +7,13 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, TemplateView, UpdateView
-
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border, Side, PatternFill, Font
+
 from apps.guiaEstadistica.forms import *
 from apps.guiaEstadistica.models import guiaEstadistica, cuestionario
 from apps.indicadores.forms import seccion, clasificadorIndicadores
-from apps.indicadores.models import Indicadores, posiblesRespuestas
+from apps.indicadores.models import Indicadores
 from apps.seccion.forms import nomencladorColumna, instanciaSeccion, instanciaForm, verificacionForm
 from apps.seccion.models import clasificadorPeriodo
 
@@ -470,7 +470,7 @@ class eliminarGuiaCaptada(TemplateView):
     def get(self, request, *args, **kwargs):
         guia = get_object_or_404(cuestionario, id=self.kwargs['pk'])
         guia.delete()
-        messages.success(self.request,"el cuestionario captado a " + guia.entidad_codigo.nombre_CI + " ha sido eliminado correctamente.")
+        messages.success(self.request,"El cuestionario captado a " + guia.entidad_codigo.nombre_CI + " ha sido eliminado correctamente.")
         return redirect('guia:guiaCaptada')
 
 class informacionCaptada(TemplateView):
