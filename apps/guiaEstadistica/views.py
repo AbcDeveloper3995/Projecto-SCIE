@@ -722,12 +722,21 @@ class crearGuiaDefinida(TemplateView):
 
     def post(self, request, *args, **kwargs):
         data = {}
+        activo = None
+        query = guiaEstadistica.objects.all()
         action = request.POST['action']
+        if request.POST['activo'] == 'true':
+            activo = True
+            for i in query:
+                i.activo = False
+                i.save()
+        else:
+            activo = False
         try:
             if action == 'creacionDeGuia':
                 guiaNueva=guiaEstadistica(
                     nombre=request.POST['guiaNueva'],
-                    activo=True
+                    activo=activo
                 )
                 guiaNueva.save()
                 query_secciones = seccion.objects.filter(guia_id__nombre=request.POST['guiaYaDefinida'])

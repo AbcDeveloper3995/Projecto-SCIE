@@ -277,6 +277,11 @@ function validate_radios_no_empty() {
             return false
         };
     };
+    if (verificarExistencia(cod_pregunta_74) != false) {
+        if(validacionChecked(cod_pregunta_74)== false){
+            return false
+        };
+    };
 
 
 }
@@ -289,13 +294,15 @@ function validate_component_entero() {
     let cod_pregunta_34 = $('.formCaptacion input[data-cod-pregunta="34"]');
     let cod_pregunta_42 = $('.formCaptacion input[data-cod-pregunta="42"]');
     let cod_pregunta_62 = $('.formCaptacion input[data-cod-pregunta="62"]');
+    let cod_pregunta_63 = $('.formCaptacion input[data-cod-pregunta="63"]');
 
     if (verificarExistencia(cod_pregunta_31) != false && verificarExistencia(cod_pregunta_32) != false && verificarExistencia(cod_pregunta_33) != false
-        && verificarExistencia(cod_pregunta_34) != false && verificarExistencia(cod_pregunta_42) != false && verificarExistencia(cod_pregunta_62) != false) {
+        && verificarExistencia(cod_pregunta_34) != false && verificarExistencia(cod_pregunta_42) != false && verificarExistencia(cod_pregunta_62) != false
+    && verificarExistencia(cod_pregunta_63) != false) {
 
         let suma_modelos = parseInt(cod_pregunta_32.val()) + parseInt(cod_pregunta_33.val()) + parseInt(cod_pregunta_34.val())
 
-        if (cod_pregunta_31.val() < 0 || cod_pregunta_32.val() < 0 || cod_pregunta_33.val() < 0 || cod_pregunta_34.val() < 0 || cod_pregunta_42.val() < 0 || cod_pregunta_62.val() < 0) {
+        if (cod_pregunta_31.val() < 0 || cod_pregunta_32.val() < 0 || cod_pregunta_33.val() < 0 || cod_pregunta_34.val() < 0 || cod_pregunta_42.val() < 0 || cod_pregunta_62.val() < 0 || cod_pregunta_63.val() < 0) {
             toastr.error("Verifique no haber entrado valores negativos.", 'Error', {
                 progressBar: true,
                 closeButton: true,
@@ -357,20 +364,26 @@ function validate_depedencias_campos() {
     let cod_pregunta_61_No =  $('.formCaptacion input[data-cod-pregunta="61"]:input[value="No"] ' );
     let cod_pregunta_61_Si =  $('.formCaptacion input[data-cod-pregunta="61"]:input[value="Si"] ' );
     let cod_pregunta_62 =  $('.formCaptacion input[data-cod-pregunta="62"]' );
+    let cod_pregunta_63 =  $('.formCaptacion input[data-cod-pregunta="63"]' );
     let cod_pregunta_71_No =  $('.formCaptacion input[data-cod-pregunta="71"]:input[value="No"] ' );
     let cod_pregunta_71_Si =  $('.formCaptacion input[data-cod-pregunta="71"]:input[value="Si"] ' );
-    let cod_pregunta_71_Texto =  $('.formCaptacion textarea[data-cod-pregunta="71"]' );
+    let cod_pregunta_71_TextoLargo =  $('.formCaptacion textarea[data-cod-pregunta="71"]' );
     let cod_pregunta_72_No =  $('.formCaptacion input[data-cod-pregunta="72"]:input[value="No"] ' );
     let cod_pregunta_72_Si =  $('.formCaptacion input[data-cod-pregunta="72"]:input[value="Si"] ' );
-    let cod_pregunta_72_Texto =  $('.formCaptacion textarea[data-cod-pregunta="72"]' );
+    let cod_pregunta_72_TextoLargo =  $('.formCaptacion textarea[data-cod-pregunta="72"]' );
     let cod_pregunta_73_No =  $('.formCaptacion input[data-cod-pregunta="73"]:input[value="No"] ' );
     let cod_pregunta_73_Si =  $('.formCaptacion input[data-cod-pregunta="73"]:input[value="Si"] ' );
-    let cod_pregunta_73_Texto =  $('.formCaptacion textarea[data-cod-pregunta="73"]' );
-    cod_pregunta_62.prop('disabled', true);
+    let cod_pregunta_73_TextoLargo =  $('.formCaptacion textarea[data-cod-pregunta="73"]' );
+    let cod_pregunta_74_No =  $('.formCaptacion input[data-cod-pregunta="74"]:input[value="No"] ' );
+    let cod_pregunta_74_Si =  $('.formCaptacion input[data-cod-pregunta="74"]:input[value="Si"] ' );
+    let cod_pregunta_74_TextoLargo =  $('.formCaptacion textarea[data-cod-pregunta="74"]' );
     cod_pregunta_42.prop('disabled', true);
-    cod_pregunta_71_Texto.prop('disabled', true);
-    cod_pregunta_72_Texto.prop('disabled', true);
-    cod_pregunta_73_Texto.prop('disabled', true);
+    cod_pregunta_62.prop('disabled', true);
+    cod_pregunta_63.prop('disabled', true);
+    cod_pregunta_71_TextoLargo.prop('disabled', true);
+    cod_pregunta_72_TextoLargo.prop('disabled', true);
+    cod_pregunta_73_TextoLargo.prop('disabled', true);
+    cod_pregunta_74_TextoLargo.prop('disabled', true);
 
     cod_pregunta_41_No.on('click', function () {
         cod_pregunta_42.prop('disabled', true);
@@ -380,27 +393,35 @@ function validate_depedencias_campos() {
     });
     cod_pregunta_61_No.on('click', function () {
         cod_pregunta_62.prop('disabled', true);
+        cod_pregunta_63.prop('disabled', true);
     });
     cod_pregunta_61_Si.on('click', function () {
         cod_pregunta_62.prop('disabled', false);
+        cod_pregunta_63.prop('disabled', false);
     });
-     cod_pregunta_71_No.on('click', function () {
-        cod_pregunta_71_Texto.prop('disabled', false);
+    cod_pregunta_71_No.on('click', function () {
+        cod_pregunta_71_TextoLargo.prop('disabled', true);
     });
     cod_pregunta_71_Si.on('click', function () {
-        cod_pregunta_71_Texto.prop('disabled', true);
+        cod_pregunta_71_TextoLargo.prop('disabled', false);
     });
      cod_pregunta_72_No.on('click', function () {
-        cod_pregunta_72_Texto.prop('disabled', false);
+        cod_pregunta_72_TextoLargo.prop('disabled', false);
     });
     cod_pregunta_72_Si.on('click', function () {
-        cod_pregunta_72_Texto.prop('disabled', true);
+        cod_pregunta_72_TextoLargo.prop('disabled', true);
     });
      cod_pregunta_73_No.on('click', function () {
-        cod_pregunta_73_Texto.prop('disabled', false);
+        cod_pregunta_73_TextoLargo.prop('disabled', false);
     });
     cod_pregunta_73_Si.on('click', function () {
-        cod_pregunta_73_Texto.prop('disabled', true);
+        cod_pregunta_73_TextoLargo.prop('disabled', true);
+    });
+     cod_pregunta_74_No.on('click', function () {
+        cod_pregunta_74_TextoLargo.prop('disabled', false);
+    });
+    cod_pregunta_74_Si.on('click', function () {
+        cod_pregunta_74_TextoLargo.prop('disabled', true);
     })
 
 }
@@ -1445,14 +1466,14 @@ $('#safe').on('click', function () {
     });
         return false
     }
-    alert(guias.val() + guiaNombre.val())
     $.ajax({
         url: '/guia/crearGuiaDefinida/',
         type: 'POST',
         data: {
             'action':'creacionDeGuia',
             'guiaNueva': guiaNombre.val(),
-            'guiaYaDefinida': guias.val()
+            'guiaYaDefinida': guias.val(),
+            'activo':guiaActiva[0].checked
         },
         dataType: 'json',
     }).done(function (data) {
