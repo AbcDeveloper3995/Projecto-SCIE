@@ -1,0 +1,41 @@
+{% extends 'comun/listar.html' %}
+{% load static %}\
+{% load filters %}
+
+{% block titulo %}
+    {{ titulo }}
+ {% endblock %}
+{% block idTable %}id="excel" {% endblock %}
+{% block columns %}
+    <tr>
+        <th scope="col">Concepto</th>
+        {% for clave, valor in secciones.items %}
+            <th scope="col">{{ clave|numeroSeccion }} - {{ clave }} </th>
+        {% endfor %}
+    </tr>
+{% endblock %}
+
+{% block rows %}
+    <tr>
+        <td>Indicadores verificados</td>
+        {% for clave,valor in secciones.items %}
+        <td><span class="badge badge-primary">{{ valor }}</span> </td>
+        {% endfor %}
+    </tr>
+    <tr>
+    <td> No coinciden</td>
+    {% for clave,valor in secciones.items %}
+        <td><span class="badge badge-primary">{{ clave|verificadosNoCoinciden }}</span> </td>
+        {% endfor %}
+    </tr>
+    <tr>
+    <td> Porciento que representa (%) </td>
+      {% for clave,valor in secciones.items %}
+        <td><span class="badge badge-primary">{{ clave|porciento }}%</span> </td>
+        {% endfor %}
+    </tr>
+{% endblock %}
+
+{% block button %}
+
+{% endblock %}

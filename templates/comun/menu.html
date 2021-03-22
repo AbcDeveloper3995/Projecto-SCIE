@@ -39,18 +39,24 @@
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-file"></i>
-                            <p>
-                                Reportes
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>
+                            Reportes
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
                     <ul class="nav nav-treeview" style="display: none;">
                         <li class="nav-item">
                             <a href="{% url 'guia:reporteGeneral' %}" class="nav-link">
                                 <i class="fas fa-file-excel nav-icon"></i>
                                 <p>General</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'guia:reporteVerificacion' %}" class="nav-link">
+                                <i class="fas fa-file-excel nav-icon"></i>
+                                <p>Verificacion de Indicadores</p>
                             </a>
                         </li>
                     </ul>

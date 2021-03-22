@@ -1,4 +1,6 @@
 //--------------------------------------------------------INICIALIZACIONES----------------------------------------------------------//
+ $('#dataTable').dataTable({
+});
 
  $('.select2').select2({
      theme: 'bootstrap4',
@@ -210,6 +212,7 @@ function validate_radios_no_empty() {
     let cod_pregunta_71 =  $('.formCaptacion input[data-cod-pregunta="71"]' );
     let cod_pregunta_72 =  $('.formCaptacion input[data-cod-pregunta="72"]' );
     let cod_pregunta_73 =  $('.formCaptacion input[data-cod-pregunta="73"]' );
+    let cod_pregunta_74 =  $('.formCaptacion input[data-cod-pregunta="74"]' );
 
     if (verificarExistencia(cod_pregunta_11)==false) {return false};
     if(validacionChecked(cod_pregunta_11)== false){return false};
@@ -721,9 +724,6 @@ $(document).ready(function () {
 });
 });
 
-
- $('#dataTable').dataTable({
-});
 
 $('div[data-model-name="modal"]').on('shown.bs.modal', function () {
     $('form[name="instanciaForm"]')[0].reset();
@@ -1435,8 +1435,10 @@ $('#userForm').bootstrapValidator({
         }
     });
 
-//------------------PORCEDIMIENTO PARA CREAR UNA GUIA CON LAS MISMASCONFIGURACIONES DE OTRA YA DEFINIDA-----------------------//
-
+//------------------PORCEDIMIENTO PARA CREAR UNA GUIA CON LAS MISMAS CONFIGURACIONES DE OTRA YA DEFINIDA-----------------------//
+ function url() {
+           location.href='http://127.0.0.1:8000/guia/listarGuias/';
+       }
 guias = $('#listadoGuiasDefinidas');
 buttonSafe = $('#safe');
 checkboxGuias = $('#guiasDefinidas');
@@ -1477,10 +1479,37 @@ $('#safe').on('click', function () {
         },
         dataType: 'json',
     }).done(function (data) {
-        alert(data.sms)
+        toastr.success(data.exito, 'Exito', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "1500",
+            });
+        setTimeout (url,1500);
     }).fail(function (jqXHR, textStatus,errorThrown) {
         alert(textStatus+' : '+errorThrown)
     })
 
 })
 
+//------------------PORCEDIMIENTO PARA El REPORTE DE VERIFICACION-------------//
+ $('#excel').DataTable({
+     dom: "Bfrtip",
+     buttons: {
+         dom: {
+             button: {
+                 className: 'btn fas fa-file-alt'
+             }
+         },
+         buttons: [
+             {
+                 extend: "excel",
+                 text: ' Exportar excel',
+                 title: 'Reporte de Verificacion',
+                 className: "btn btn-outline-primary",
+                 excelStyles: {
+                     template: "blue_medium",
+                 },
+             },
+         ]
+     }
+ });

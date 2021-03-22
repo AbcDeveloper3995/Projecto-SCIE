@@ -15,7 +15,7 @@ from apps.guiaEstadistica.models import guiaEstadistica, cuestionario
 from apps.indicadores.forms import seccion, clasificadorIndicadores
 from apps.indicadores.models import Indicadores
 from apps.seccion.forms import nomencladorColumna, instanciaSeccion, instanciaForm, verificacionForm
-from apps.seccion.models import clasificadorPeriodo
+from apps.seccion.models import clasificadorPeriodo, verificacion
 
 
 class listarGuiasView(ListView):
@@ -665,7 +665,7 @@ class reporteGeneralExcel(TemplateView):
         ws['Y2'] = 'Esta incluido en el Plan de Prevencion del centro como un punto vulnerable la infomacion estadistica'
         ws.merge_cells('Y2:Y3')
         ws.column_dimensions['Z'].width = 20
-        ws['Z2'] = 'Utiliza la infomacion estadisticapara la toma de decisiones'
+        ws['Z2'] = 'Utiliza la infomacion estadistica para la toma de decisiones'
         ws.merge_cells('Z2:Z3')
         ws['A4'].fill = PatternFill(start_color="92a2ab", end_color="92a2ab", fill_type="solid")
         ws.merge_cells('A4:Z4')
@@ -689,8 +689,16 @@ class reporteGeneralExcel(TemplateView):
         return response
 
     def getCuestionarios(self):
-        query = cuestionario.objects.all()
-        return query
+       if self.request.user.is_superuser:
+            query = cuestionario.objects.all()
+            return query
+       elif self.request.user.has_perm('guiaEstadistica.pinar'):
+            query = cuestionario.objects.filter(entidad_codigo__ote_codigo=21)
+            return query
+       elif self.request.user.has_perm('guiaEstadistica.habana'):
+           query = cuestionario.objects.filter(entidad_codigo__ote_codigo=23)
+           return query
+
 
     def listadoPreguntas(self, cuestionario):
         query = PreguntasEvaluadas.objects.filter(captacion_id__id=cuestionario)
@@ -766,9 +774,9 @@ class crearGuiaDefinida(TemplateView):
                             tipo=i.tipo
                         )
                        aux.save()
-                data['sms'] = 'correcto'
+                data['exito'] = 'La guia '+ guiaNueva.nombre + 'ha sido creada correctamente.'
             else:
-                data['sms'] = 'eroor de pillo'
+                data['error'] = 'error'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
@@ -816,3 +824,26 @@ class crearGuiaDefinida(TemplateView):
     def asignarRespuesta(self, preguntaNueva, listaRespuestasDefinidas):
         for i in listaRespuestasDefinidas:
             preguntaNueva.respuestas_id.add(i)
+
+class reporteVerificacionIndicadores(TemplateView):
+    template_name = 'reportes/verificacion.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Reposte de Verificacion de Indicadores'
+        context['secciones'] = self.getSecciones()
+        return context
+
+    def getSecciones(self):
+        data = {}
+        secciones = seccion.objects.filter(guia_id__activo=True)
+        for i in secciones:
+            verificados = 0
+            if i.numero != None:
+                query = verificacion.objects.filter(seccion_id__id=i.id)
+                if query.count()!= 0:
+                    for j in query:
+                        verificados += j.indicadoresVerificados
+                    data[i.nombre]=verificados
+        return data
+
