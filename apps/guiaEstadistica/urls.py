@@ -22,6 +22,11 @@ urlpatterns = [
     path('modificarPreguntas/', modificarPreguntasView.as_view(), name='modificarPreguntas'),
     path('reporteGeneral/', reporteGeneralExcel.as_view(), name='reporteGeneral'),
     path('reporteVerificacion/', reporteVerificacionIndicadores.as_view(), name='reporteVerificacion'),
+    path('reporteDisciplinaInfo/', reporteDisciplinaInformativa.as_view(), name='reporteDisciplinaInfo'),
+    path('reporteDisciplinaInfoCC/', reporteDisciplinaInformativaCentroControlado.as_view(), name='reporteDisciplinaInfoCC'),
+    path('reporteErrores/', reporteSeñalamientosErrores.as_view(), name='reporteErrores'),
+    path('reporteDomicilio/', reporteDomicilioSocial.as_view(), name='reporteDomicilio'),
+    path('reporteDeficiencias/', reporteDeficiencias.as_view(), name='reporteDeficiencias'),
     path('crearGuiaDefinida/', crearGuiaDefinida.as_view(), name='crearGuiaDefinidal'),
 
 ]

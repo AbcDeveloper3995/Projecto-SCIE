@@ -1,0 +1,43 @@
+{% extends 'comun/listar.html' %}
+{% load static %}\
+{% load filters %}
+
+{% block titulo %}
+    {{ titulo }}
+ {% endblock %}
+{% block idTable %}id="reporteGeneral" {% endblock %}
+{% block columns %}
+    <tr>
+        <th colspan="3">Identificacion</th>
+        {% for clave, valor in grupoPreguntas.items %}
+            <th colspan="{{ clave|cantDepreguntas }}">{{ valor }} </th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <th >Centro Infomante</th>
+        <th >Codigo</th>
+        <th >DPA</th>
+        {% for clave, valor in grupoPreguntas.items %}
+            {% for i in clave|preguntas %}
+                <th>{{ i.nombre }} </th>
+            {% endfor %}
+        {% endfor %}
+    </tr>
+{% endblock %}
+
+{% block rows %}
+    {% for i in cuestionarios %}
+    <tr>
+        <td>{{ i.entidad_codigo.nombre_CI }}</td>
+        <td>{{ i.entidad_codigo.codigo_CI }}</td>
+        <td>{{ i.entidad_codigo.ome_codigo }}</td>
+        {% for j in i|respuestas %}
+        <td class="text-center">{{  j.respuesta }}</td>
+            {% endfor %}
+    </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block button %}
+
+{% endblock %}

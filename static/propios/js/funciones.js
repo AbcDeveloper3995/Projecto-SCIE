@@ -1491,8 +1491,8 @@ $('#safe').on('click', function () {
 
 })
 
-//------------------PORCEDIMIENTO PARA El REPORTE DE VERIFICACION-------------//
- $('#excel').DataTable({
+//---------------------------------PORCEDIMIENTO PARA El REPORTE DE VERIFICACION--------------------------------------//
+ $('#reporteVerificacion').DataTable({
      dom: "Bfrtip",
      buttons: {
          dom: {
@@ -1505,6 +1505,145 @@ $('#safe').on('click', function () {
                  extend: "excel",
                  text: ' Exportar excel',
                  title: 'Reporte de Verificacion',
+                 className: "btn btn-outline-primary",
+                 excelStyles: {
+                     template: "blue_medium",
+                 },
+             },
+         ]
+     }
+ });
+
+//--------------------------------------PORCEDIMIENTO PARA El REPORTE GENERAL---------------------------------------------//
+ $('#reporteGeneral').DataTable({
+     scrollX:true,
+     dom: "Bfrtip",
+     buttons: {
+         dom: {
+             button: {
+                 className: 'btn fas fa-file-alt'
+             }
+         },
+         buttons: [
+             {
+                 extend: "excel",
+                 text: ' Exportar excel',
+                 title: 'Reporte General',
+                 className: "btn btn-outline-primary",
+                 excelStyles: {
+                     template: "blue_medium",
+                 },
+             },
+         ]
+     }
+ });
+
+ //--------------------------PORCEDIMIENTO PARA El REPORTE DE DISCIPLINA INFORMATIVA----------------------------------//
+ $('#reporteDisciplinaInfo').DataTable({
+     dom: "Bfrtip",
+     buttons: {
+         dom: {
+             button: {
+                 className: 'btn fas fa-file-alt'
+             }
+         },
+         buttons: [
+             {
+                 extend: "excel",
+                 text: ' Exportar excel',
+                 title: 'Reporte de Disciplina Informativa',
+                 className: "btn btn-outline-primary",
+                 excelStyles: {
+                     template: "blue_medium",
+                 },
+             },
+         ]
+     }
+ });
+
+ //---------------------------------PORCEDIMIENTO PARA El REPORTE DE SEÑALAMIENTO DE ERRORES-----------------------------//
+ $('#reporteErrores').DataTable({
+     dom: "Bfrtip",
+     buttons: {
+         dom: {
+             button: {
+                 className: 'btn fas fa-file-alt'
+             }
+         },
+         buttons: [
+             {
+                 extend: "excel",
+                 text: ' Exportar excel',
+                 title: 'Reporte de Señalamientos de Errores',
+                 className: "btn btn-outline-primary",
+                 excelStyles: {
+                     template: "blue_medium",
+                 },
+             },
+         ]
+     }
+ });
+
+ //---------------------------PORCEDIMIENTO PARA El REPORTE DE Displina info Centro Controlado-----------------------------//
+ $('#reporteDisciplinaInfoCentroControlados').DataTable({
+     dom: "Bfrtip",
+     buttons: {
+         dom: {
+             button: {
+                 className: 'btn fas fa-file-alt'
+             }
+         },
+         buttons: [
+             {
+                 extend: "excel",
+                 text: ' Exportar excel',
+                 title: 'Reporte de Disciplina Informativa Centros Controlados',
+                 className: "btn btn-outline-primary",
+                 excelStyles: {
+                     template: "blue_medium",
+                 },
+             },
+         ]
+     }
+ });
+
+ //------------------------------PORCEDIMIENTO PARA El REPORTE DE Domicilio Social Incorrecto-----------------------------//
+ $('#reporteDomicilioSocial').DataTable({
+     dom: "Bfrtip",
+     buttons: {
+         dom: {
+             button: {
+                 className: 'btn fas fa-file-alt'
+             }
+         },
+         buttons: [
+             {
+                 extend: "excel",
+                 text: ' Exportar excel',
+                 title: 'Reporte de Domicilio Social Incorrecto',
+                 className: "btn btn-outline-primary",
+                 excelStyles: {
+                     template: "blue_medium",
+                 },
+             },
+         ]
+     }
+ });
+
+ //---------------------------------PORCEDIMIENTO PARA El REPORTE DE Deficiencias-----------------------------//
+ $('#reporteDeficiencias').DataTable({
+     dom: "Bfrtip",
+     buttons: {
+         dom: {
+             button: {
+                 className: 'btn fas fa-file-alt'
+             }
+         },
+         buttons: [
+             {
+                 extend: "excel",
+                 text: ' Exportar excel',
+                 title: 'Reporte de Deficiencias',
                  className: "btn btn-outline-primary",
                  excelStyles: {
                      template: "blue_medium",

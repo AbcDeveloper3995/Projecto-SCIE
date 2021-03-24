@@ -1,6 +1,7 @@
 from django import template
 
-from apps.guiaEstadistica.models import cuestionario
+from apps.guiaEstadistica.models import cuestionario, PreguntasEvaluadas
+from apps.indicadores.models import Indicadores
 from apps.seccion.models import seccion, verificacion
 
 register = template.Library()
@@ -47,3 +48,19 @@ def porciento(seccion):
         else:
            porciento = noCoinciden*100//verificados
            return porciento
+
+@register.filter(name='cantDepreguntas')
+def cantDepreguntas(idGrupoPregunta):
+        query = Indicadores.objects.filter(clasificadorIndicadores_id__id=idGrupoPregunta).count()
+        print(query)
+        return query
+
+@register.filter(name='preguntas')
+def preguntas(idGrupoPregunta):
+    query = Indicadores.objects.filter(clasificadorIndicadores_id__id=idGrupoPregunta)
+    return query
+
+@register.filter(name='respuestas')
+def preguntas(Cuestionario):
+    query = PreguntasEvaluadas.objects.filter(captacion_id__id=Cuestionario.id)[4:]
+    return query
