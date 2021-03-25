@@ -20,6 +20,7 @@ urlpatterns = [
     path('listarUniverso/', listarUniversoView.as_view(), name='listarUniverso'),
     path('eliminarUniverso/<int:pk>/', eliminarUniverso.as_view(), name='eliminarUniverso'),
     path('modificarPreguntas/', modificarPreguntasView.as_view(), name='modificarPreguntas'),
+    path('crearGuiaDefinida/', crearGuiaDefinida.as_view(), name='crearGuiaDefinidal'),
     path('reporteGeneral/', reporteGeneralExcel.as_view(), name='reporteGeneral'),
     path('reporteVerificacion/', reporteVerificacionIndicadores.as_view(), name='reporteVerificacion'),
     path('reporteDisciplinaInfo/', reporteDisciplinaInformativa.as_view(), name='reporteDisciplinaInfo'),
@@ -27,6 +28,5 @@ urlpatterns = [
     path('reporteErrores/', reporteSeñalamientosErrores.as_view(), name='reporteErrores'),
     path('reporteDomicilio/', reporteDomicilioSocial.as_view(), name='reporteDomicilio'),
     path('reporteDeficiencias/', reporteDeficiencias.as_view(), name='reporteDeficiencias'),
-    path('crearGuiaDefinida/', crearGuiaDefinida.as_view(), name='crearGuiaDefinidal'),
 
 ]

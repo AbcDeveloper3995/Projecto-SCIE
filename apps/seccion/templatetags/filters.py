@@ -64,3 +64,53 @@ def preguntas(idGrupoPregunta):
 def preguntas(Cuestionario):
     query = PreguntasEvaluadas.objects.filter(captacion_id__id=Cuestionario.id)[4:]
     return query
+
+@register.filter(name='procedimientoDiscplinaInfo')
+def getCuestionarios(user,codPeticion):
+    if user.is_superuser:
+        query = cuestionario.objects.all()
+        if codPeticion == 1:
+            pregunta = getPregunta31()
+            totalReportar = getTotal(query,pregunta)
+            return totalReportar
+        elif codPeticion == 2:
+            pregunta = getPregunta32()
+            totalReportar = getTotal(query, pregunta)
+            return totalReportar
+        elif codPeticion == 3:
+            pregunta = getPregunta33()
+            totalReportar = getTotal(query, pregunta)
+            return totalReportar
+        elif codPeticion == 4:
+            pregunta = getPregunta34()
+            totalReportar = getTotal(query, pregunta)
+            return totalReportar
+
+    elif user.has_perm('guiaEstadistica.pinar'):
+        query = cuestionario.objects.filter(entidad_codigo__ote_codigo=21, guia__activo=True)
+        return query
+    elif user.has_perm('guiaEstadistica.habana'):
+        query = cuestionario.objects.filter(entidad_codigo__ote_codigo=23, guia__activo=True)
+        return query
+
+def getPregunta31():
+    query = Indicadores.objects.get(cod_indicador=31)
+    return query.nombre
+def getPregunta32():
+    query = Indicadores.objects.get(cod_indicador=32)
+    return query.nombre
+def getPregunta33():
+    query = Indicadores.objects.get(cod_indicador=33)
+    return query.nombre
+def getPregunta34():
+    query = Indicadores.objects.get(cod_indicador=34)
+    return query.nombre
+
+def getTotal(listaCuestionario, nombrePregunta):
+    total = 0
+    for i in listaCuestionario :
+        query = PreguntasEvaluadas.objects.get(captacion_id__id=i.id, pregunta=nombrePregunta)
+        total+=int(query.respuesta)
+    return total
+
+

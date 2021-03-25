@@ -17,10 +17,11 @@
 
 {% block rows %}
     <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>c</td>
-        <td>d</td>
+        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoDiscplinaInfo:1 }}</span></td>
+        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoDiscplinaInfo:2 }}</span></td>
+        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoDiscplinaInfo:3 }}</span></td>
+        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoDiscplinaInfo:4 }}</span></td>
+
     </tr>
 {% endblock %}
 
