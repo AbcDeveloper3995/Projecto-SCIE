@@ -1,5 +1,7 @@
 from django import template
 
+import utils
+
 from apps.guiaEstadistica.models import cuestionario, PreguntasEvaluadas
 from apps.indicadores.models import Indicadores
 from apps.seccion.models import seccion, verificacion
@@ -65,46 +67,25 @@ def preguntas(Cuestionario):
     query = PreguntasEvaluadas.objects.filter(captacion_id__id=Cuestionario.id)[4:]
     return query
 
-@register.filter(name='procedimientoDiscplinaInfo')
-def getCuestionarios(user,codPeticion):
-    if user.is_superuser:
-        query = cuestionario.objects.all()
-        if codPeticion == 1:
-            pregunta = getPregunta31()
-            totalReportar = getTotal(query,pregunta)
-            return totalReportar
-        elif codPeticion == 2:
-            pregunta = getPregunta32()
-            totalReportar = getTotal(query, pregunta)
-            return totalReportar
-        elif codPeticion == 3:
-            pregunta = getPregunta33()
-            totalReportar = getTotal(query, pregunta)
-            return totalReportar
-        elif codPeticion == 4:
-            pregunta = getPregunta34()
-            totalReportar = getTotal(query, pregunta)
-            return totalReportar
-
-    elif user.has_perm('guiaEstadistica.pinar'):
-        query = cuestionario.objects.filter(entidad_codigo__ote_codigo=21, guia__activo=True)
-        return query
-    elif user.has_perm('guiaEstadistica.habana'):
-        query = cuestionario.objects.filter(entidad_codigo__ote_codigo=23, guia__activo=True)
-        return query
-
-def getPregunta31():
-    query = Indicadores.objects.get(cod_indicador=31)
-    return query.nombre
-def getPregunta32():
-    query = Indicadores.objects.get(cod_indicador=32)
-    return query.nombre
-def getPregunta33():
-    query = Indicadores.objects.get(cod_indicador=33)
-    return query.nombre
-def getPregunta34():
-    query = Indicadores.objects.get(cod_indicador=34)
-    return query.nombre
+@register.filter(name='procedimientoTotalDiscplinaInfo')
+def determinarTotales(user,codPeticion):
+    query = utils.getCuestionarios(user)
+    if codPeticion == 1:
+        pregunta = utils.getPregunta31()
+        totalReportar = getTotal(query,pregunta)
+        return totalReportar
+    elif codPeticion == 2:
+        pregunta = utils.getPregunta32()
+        totalReportar = getTotal(query, pregunta)
+        return totalReportar
+    elif codPeticion == 3:
+        pregunta = utils.getPregunta33()
+        totalReportar = getTotal(query, pregunta)
+        return totalReportar
+    elif codPeticion == 4:
+        pregunta = utils.getPregunta34()
+        totalReportar = getTotal(query, pregunta)
+        return totalReportar
 
 def getTotal(listaCuestionario, nombrePregunta):
     total = 0
@@ -113,4 +94,25 @@ def getTotal(listaCuestionario, nombrePregunta):
         total+=int(query.respuesta)
     return total
 
+@register.filter(name='discplinaInfoEntidad')
+def determinarRespuesta(cuestionario,codPeticion):
+    if codPeticion == 1:
+        pregunta = utils.getPregunta31()
+        totalReportar = getRespuesta(cuestionario,pregunta)
+        return totalReportar
+    elif codPeticion == 2:
+        pregunta = utils.getPregunta32()
+        totalReportar = getRespuesta(cuestionario, pregunta)
+        return totalReportar
+    elif codPeticion == 3:
+        pregunta = utils.getPregunta33()
+        totalReportar = getRespuesta(cuestionario, pregunta)
+        return totalReportar
+    elif codPeticion == 4:
+        pregunta = utils.getPregunta34()
+        totalReportar = getRespuesta(cuestionario,pregunta)
+        return totalReportar
 
+def getRespuesta(cuestionario, nombrePregunta):
+    query = PreguntasEvaluadas.objects.get(captacion_id__id=cuestionario.id, pregunta=nombrePregunta)
+    return query.respuesta

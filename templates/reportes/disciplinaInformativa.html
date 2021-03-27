@@ -8,7 +8,9 @@
 {% block idTable %}id="reporteDisciplinaInfo" {% endblock %}
 {% block columns %}
     <tr>
-        <th >Total de modelos a reportar</th>
+        <th>Codigo de Centro Informante</th>
+        <th>Centro Informante</th>
+        <th>Total de modelos a reportar</th>
         <th >Reportados fuera de fecha</th>
         <th >Reportados en fecha</th>
         <th >No reportados</th>
@@ -17,12 +19,25 @@
 
 {% block rows %}
     <tr>
-        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoDiscplinaInfo:1 }}</span></td>
-        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoDiscplinaInfo:2 }}</span></td>
-        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoDiscplinaInfo:3 }}</span></td>
-        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoDiscplinaInfo:4 }}</span></td>
+    <td class="text-center text-uppercase text-bold ">Total</td>
+        <td></td>
+        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoTotalDiscplinaInfo:1 }}</span></td>
+        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoTotalDiscplinaInfo:2 }}</span></td>
+        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoTotalDiscplinaInfo:3 }}</span></td>
+        <td class="text-center"><span class="badge badge-primary">{{ request.user|procedimientoTotalDiscplinaInfo:4 }}</span></td>
 
     </tr>
+    {% for i in cuestionarios %}
+        <tr>
+            <td>{{ i.entidad_codigo.codigo_CI }}</td>
+            <td>{{ i.entidad_codigo.nombre_CI }}</td>
+            <td class="text-center"><span class="badge badge-primary">{{ i|discplinaInfoEntidad:1 }}</span></td>
+            <td class="text-center"><span class="badge badge-primary">{{ i|discplinaInfoEntidad:2 }}</span></td>
+            <td class="text-center"><span class="badge badge-primary">{{ i|discplinaInfoEntidad:3 }}</span></td>
+            <td class="text-center"><span class="badge badge-primary">{{ i|discplinaInfoEntidad:4 }}</span></td>
+        </tr>
+    {% endfor %}
+
 {% endblock %}
 
 {% block button %}

@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, TemplateView, UpdateView
+from utils import getCuestionarios
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Border, Side, PatternFill, Font
 
@@ -880,7 +881,12 @@ class reporteDisciplinaInformativa(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte de Disciplina Informativa'
+        context['cuestionarios'] = self.listaCuestionario()
         return context
+
+    def listaCuestionario(self):
+        query = getCuestionarios(self.request.user)
+        return query
 
 class reporteSeñalamientosErrores(TemplateView):
     template_name = 'reportes/señalamientosErrores.html'
