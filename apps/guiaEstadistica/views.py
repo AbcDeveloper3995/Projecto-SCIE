@@ -888,7 +888,7 @@ class reporteDisciplinaInformativa(TemplateView):
         query = getCuestionarios(self.request.user)
         return query
 
-class reporteSeñalamientosErrores(TemplateView):
+class reporteSeñalamientosErrores(reporteDisciplinaInformativa):
     template_name = 'reportes/señalamientosErrores.html'
 
     def get_context_data(self, **kwargs):
@@ -904,7 +904,7 @@ class reporteDisciplinaInformativaCentroControlado(TemplateView):
         context['titulo'] = 'Reporte de Disciplina Informativa Centros Controlados'
         return context
 
-class reporteDomicilioSocial(TemplateView):
+class reporteDomicilioSocial(reporteDisciplinaInformativa):
     template_name = 'reportes/domicilioSocial.html'
 
     def get_context_data(self, **kwargs):

@@ -8,17 +8,21 @@
 {% block idTable %}id="reporteDomicilioSocial" {% endblock %}
 {% block columns %}
     <tr>
-        <th scope="col">REEUP</th>
-        <th scope="col">Centro Informante</th>
+        <th >Codigo de Centro Informante</th>
+        <th >Centro Informante</th>
 
     </tr>
 {% endblock %}
 
 {% block rows %}
-    <tr>
-        <td>a</td>
-        <td>a</td>
-    </tr>
+    {% for i in cuestionarios %}
+         {% if i|domicilioIncorrecto == "No" %}
+            <tr>
+                <td class="text-center"><span class="badge badge-primary">{{ i.entidad_codigo.codigo_CI }}</span></td>
+                <td>{{  i.entidad_codigo.nombre_CI }}</td>
+            </tr>
+        {% endif %}
+        {% endfor %}
 {% endblock %}
 
 {% block button %}

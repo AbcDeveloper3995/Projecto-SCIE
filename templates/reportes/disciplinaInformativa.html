@@ -29,7 +29,7 @@
     </tr>
     {% for i in cuestionarios %}
         <tr>
-            <td>{{ i.entidad_codigo.codigo_CI }}</td>
+            <td class="text-center"><span class="badge badge-primary">{{ i.entidad_codigo.codigo_CI }}</span></td>
             <td>{{ i.entidad_codigo.nombre_CI }}</td>
             <td class="text-center"><span class="badge badge-primary">{{ i|discplinaInfoEntidad:1 }}</span></td>
             <td class="text-center"><span class="badge badge-primary">{{ i|discplinaInfoEntidad:2 }}</span></td>

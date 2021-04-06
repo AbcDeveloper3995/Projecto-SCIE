@@ -370,61 +370,61 @@ function validate_depedencias_campos() {
     let cod_pregunta_63 =  $('.formCaptacion input[data-cod-pregunta="63"]' );
     let cod_pregunta_71_No =  $('.formCaptacion input[data-cod-pregunta="71"]:input[value="No"] ' );
     let cod_pregunta_71_Si =  $('.formCaptacion input[data-cod-pregunta="71"]:input[value="Si"] ' );
-    let cod_pregunta_71_TextoLargo =  $('.formCaptacion textarea[data-cod-pregunta="71"]' );
+    let cod_pregunta_711 =  $('.formCaptacion textarea[data-cod-pregunta="711"]' );
     let cod_pregunta_72_No =  $('.formCaptacion input[data-cod-pregunta="72"]:input[value="No"] ' );
     let cod_pregunta_72_Si =  $('.formCaptacion input[data-cod-pregunta="72"]:input[value="Si"] ' );
-    let cod_pregunta_72_TextoLargo =  $('.formCaptacion textarea[data-cod-pregunta="72"]' );
+    let cod_pregunta_721 =  $('.formCaptacion textarea[data-cod-pregunta="721"]' );
     let cod_pregunta_73_No =  $('.formCaptacion input[data-cod-pregunta="73"]:input[value="No"] ' );
     let cod_pregunta_73_Si =  $('.formCaptacion input[data-cod-pregunta="73"]:input[value="Si"] ' );
-    let cod_pregunta_73_TextoLargo =  $('.formCaptacion textarea[data-cod-pregunta="73"]' );
+    let cod_pregunta_731 =  $('.formCaptacion textarea[data-cod-pregunta="731"]' );
     let cod_pregunta_74_No =  $('.formCaptacion input[data-cod-pregunta="74"]:input[value="No"] ' );
     let cod_pregunta_74_Si =  $('.formCaptacion input[data-cod-pregunta="74"]:input[value="Si"] ' );
-    let cod_pregunta_74_TextoLargo =  $('.formCaptacion textarea[data-cod-pregunta="74"]' );
-    cod_pregunta_42.prop('disabled', true);
-    cod_pregunta_62.prop('disabled', true);
-    cod_pregunta_63.prop('disabled', true);
-    cod_pregunta_71_TextoLargo.prop('disabled', true);
-    cod_pregunta_72_TextoLargo.prop('disabled', true);
-    cod_pregunta_73_TextoLargo.prop('disabled', true);
-    cod_pregunta_74_TextoLargo.prop('disabled', true);
+    let cod_pregunta_741 =  $('.formCaptacion textarea[data-cod-pregunta="741"]' );
+    cod_pregunta_42.prop('readonly', true);
+    cod_pregunta_62.prop('readonly', true);
+    cod_pregunta_63.prop('readonly', true);
+    cod_pregunta_711.prop('readonly', true).prop('value', "Ninguno");
+    cod_pregunta_721.prop('readonly', true).prop('value', "");
+    cod_pregunta_731.prop('readonly', true).prop('value', "");
+    cod_pregunta_741.prop('readonly', true).prop('value', "");
 
     cod_pregunta_41_No.on('click', function () {
-        cod_pregunta_42.prop('disabled', true);
+        cod_pregunta_42.prop('readonly', true);
     });
     cod_pregunta_41_Si.on('click', function () {
-        cod_pregunta_42.prop('disabled', false);
+        cod_pregunta_42.prop('readonly', false);
     });
     cod_pregunta_61_No.on('click', function () {
-        cod_pregunta_62.prop('disabled', true);
-        cod_pregunta_63.prop('disabled', true);
+        cod_pregunta_62.prop('readonly', true);
+        cod_pregunta_63.prop('readonly', true);
     });
     cod_pregunta_61_Si.on('click', function () {
-        cod_pregunta_62.prop('disabled', false);
-        cod_pregunta_63.prop('disabled', false);
+        cod_pregunta_62.prop('readonly', false);
+        cod_pregunta_63.prop('readonly', false);
     });
     cod_pregunta_71_No.on('click', function () {
-        cod_pregunta_71_TextoLargo.prop('disabled', true);
+        cod_pregunta_711.prop('readonly', true).prop('value', "Ninguno");;
     });
     cod_pregunta_71_Si.on('click', function () {
-        cod_pregunta_71_TextoLargo.prop('disabled', false);
+        cod_pregunta_711.prop('readonly', false).prop('value', "");
     });
      cod_pregunta_72_No.on('click', function () {
-        cod_pregunta_72_TextoLargo.prop('disabled', false);
+        cod_pregunta_721.prop('readonly', false).prop('value', "");
     });
     cod_pregunta_72_Si.on('click', function () {
-        cod_pregunta_72_TextoLargo.prop('disabled', true);
+        cod_pregunta_721.prop('readonly', true).prop('value', "");
     });
      cod_pregunta_73_No.on('click', function () {
-        cod_pregunta_73_TextoLargo.prop('disabled', false);
+        cod_pregunta_731.prop('readonly', false).prop('value', "");
     });
     cod_pregunta_73_Si.on('click', function () {
-        cod_pregunta_73_TextoLargo.prop('disabled', true);
+        cod_pregunta_731.prop('readonly', true).prop('value', "");
     });
      cod_pregunta_74_No.on('click', function () {
-        cod_pregunta_74_TextoLargo.prop('disabled', false);
+        cod_pregunta_741.prop('readonly', false).prop('value', "");
     });
     cod_pregunta_74_Si.on('click', function () {
-        cod_pregunta_74_TextoLargo.prop('disabled', true);
+        cod_pregunta_741.prop('readonly', true).prop('value', "");
     })
 
 }
@@ -444,6 +444,9 @@ let texto = $('.formCaptacion input[data-component="texto"]:text' );
 $('form[class="formCaptacion"]').on('submit', function (e) {
     e.preventDefault();
     let  campos = new FormData(this);
+    campos.forEach(function (value, key) {
+        console.log(key+':'+value)
+    })
 
     for (var i=0; i<texto.length; i++){
         if(texto[i].dataset.type ==="1" && texto[i].value === ""){

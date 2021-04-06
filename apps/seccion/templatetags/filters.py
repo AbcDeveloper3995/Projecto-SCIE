@@ -71,19 +71,19 @@ def preguntas(Cuestionario):
 def determinarTotales(user,codPeticion):
     query = utils.getCuestionarios(user)
     if codPeticion == 1:
-        pregunta = utils.getPregunta31()
+        pregunta = utils.getPregunta(31)
         totalReportar = getTotal(query,pregunta)
         return totalReportar
     elif codPeticion == 2:
-        pregunta = utils.getPregunta32()
+        pregunta = utils.getPregunta(32)
         totalReportar = getTotal(query, pregunta)
         return totalReportar
     elif codPeticion == 3:
-        pregunta = utils.getPregunta33()
+        pregunta = utils.getPregunta(33)
         totalReportar = getTotal(query, pregunta)
         return totalReportar
     elif codPeticion == 4:
-        pregunta = utils.getPregunta34()
+        pregunta = utils.getPregunta(34)
         totalReportar = getTotal(query, pregunta)
         return totalReportar
 
@@ -97,22 +97,42 @@ def getTotal(listaCuestionario, nombrePregunta):
 @register.filter(name='discplinaInfoEntidad')
 def determinarRespuesta(cuestionario,codPeticion):
     if codPeticion == 1:
-        pregunta = utils.getPregunta31()
+        pregunta = utils.getPregunta(31)
         totalReportar = getRespuesta(cuestionario,pregunta)
         return totalReportar
     elif codPeticion == 2:
-        pregunta = utils.getPregunta32()
+        pregunta = utils.getPregunta(32)
         totalReportar = getRespuesta(cuestionario, pregunta)
         return totalReportar
     elif codPeticion == 3:
-        pregunta = utils.getPregunta33()
+        pregunta = utils.getPregunta(33)
         totalReportar = getRespuesta(cuestionario, pregunta)
         return totalReportar
     elif codPeticion == 4:
-        pregunta = utils.getPregunta34()
+        pregunta = utils.getPregunta(34)
         totalReportar = getRespuesta(cuestionario,pregunta)
         return totalReportar
 
 def getRespuesta(cuestionario, nombrePregunta):
     query = PreguntasEvaluadas.objects.get(captacion_id__id=cuestionario.id, pregunta=nombrePregunta)
     return query.respuesta
+
+@register.filter(name='senalamientos')
+def getSenalamientos(cuestionario):
+    pregunta = utils.getPregunta(42)
+    respuesta = getRespuesta(cuestionario, pregunta)
+    return respuesta
+
+@register.filter(name='totalsenalamientos')
+def determinarTotales(user):
+    query = utils.getCuestionarios(user)
+    pregunta = utils.getPregunta(42)
+    totalReportar = getTotal(query, pregunta)
+    return totalReportar
+
+@register.filter(name='domicilioIncorrecto')
+def getDomicilioIncorrecto(cuestionario):
+    pregunta = utils.getPregunta(15)
+    respuesta = getRespuesta(cuestionario, pregunta)
+    return respuesta
+

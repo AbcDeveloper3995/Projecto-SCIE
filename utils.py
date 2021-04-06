@@ -13,15 +13,6 @@ def getCuestionarios(user):
         query = cuestionario.objects.filter(entidad_codigo__ote_codigo=23, guia__activo=True)
         return query
 
-def getPregunta31():
-    query = Indicadores.objects.get(cod_indicador=31)
-    return query.nombre
-def getPregunta32():
-    query = Indicadores.objects.get(cod_indicador=32)
-    return query.nombre
-def getPregunta33():
-    query = Indicadores.objects.get(cod_indicador=33)
-    return query.nombre
-def getPregunta34():
-    query = Indicadores.objects.get(cod_indicador=34)
+def getPregunta(codPregunta):
+    query = Indicadores.objects.get(cod_indicador=codPregunta)
     return query.nombre
