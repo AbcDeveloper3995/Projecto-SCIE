@@ -25,7 +25,7 @@ def voz(request):
 
 
 
-
+# MOSTAR PAGINA PRINCIPAL
 class homeView(TemplateView):
     template_name = 'comun/home.html'
 
@@ -40,7 +40,7 @@ class homeView(TemplateView):
         context['usuarios'] = Usuario.objects.all().count()
         return context
 
-
+# PROCEDIMIENTO PARA LOGIARSE.
 class Login(LoginView):
     template_name = 'usuario/login.html'
 
@@ -55,6 +55,7 @@ class Login(LoginView):
         context['title'] = 'Inicio de sesion'
         return context
 
+# PROCEDIMIENTO PARA LISTAR USUARIOS.
 class listarUsuariosView(ListView):
     template_name = 'usuario/listarUsuario.html'
     model = Usuario
@@ -65,6 +66,7 @@ class listarUsuariosView(ListView):
         context['titulo'] = 'Listado de Usuarios'
         return context
 
+# PROCEDIMIENTO PARA CREAR USUARIOS.
 class crearUsuarioView(CreateView):
     template_name = 'usuario/crearUsuario.html'
     model = Usuario
@@ -76,7 +78,7 @@ class crearUsuarioView(CreateView):
         context['titulo'] = 'Creacion de usuario'
         return context
 
-
+# PROCEDIMIENTO PARA MODIFICAR USUARIOS.
 class updateUsuarioView(UpdateView):
     model = Usuario
     form_class = usuarioForm
@@ -88,6 +90,7 @@ class updateUsuarioView(UpdateView):
         context['titulo'] = 'Edicion de usuario'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR USUARIOS.
 class eliminarUsuario(TemplateView):
 
     def get(self, request, *args, **kwargs):

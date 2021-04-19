@@ -1,6 +1,5 @@
 //--------------------------------------------------------INICIALIZACIONES----------------------------------------------------------//
- $('#dataTable').dataTable({
-});
+ $('#dataTable').dataTable({});
 
  $('.select2').select2({
      theme: 'bootstrap4',
@@ -49,14 +48,12 @@ const tabla = (nombreSeccion, idSeccion) => {
 
         }
     });
-    console.log(datatable.data().any() );
     if (datatable.flatten().Length === 0) {
         alert('Empty table1');
     } else {
         for(var i=0; i<form_verificacion.length; i++){
-            console.log(idSeccion,form_verificacion[i].dataset.id)
             if(idSeccion === parseInt(form_verificacion[i].dataset.id)){
-                form_verificacion.prop('hidden', false)
+                form_verificacion.prop('hidden', false);
                 return false;
             }
         }
@@ -539,7 +536,6 @@ let select = $('select[name="seccion_id"]');
 $('a[name="valor"]').on('click', function (e) {
         let id = $(this).data('id');
         let nombre = $(this).data('nombre');
-        console.log(id, nombre);
         let options = '<option value="">--------</option>';
         options+='<option value="'+id+'">'+nombre+'</option>';
         select.html(options)
@@ -557,7 +553,6 @@ $('a[name="valor"]').on('click', function (e) {
         },
         dataType: 'json'
     }).done(function (data) {
-        console.log(data);
         if(!data.hasOwnProperty('error')){
             selectCol.html('').select2({
                 theme: "bootstrap4",
@@ -574,7 +569,6 @@ $('a[name="valor"]').on('click', function (e) {
  let selectCod = $('select[name="codigo_id"]');
  $('select[name="columna_id"]').on('change', function () {
      let columna_id=$(this).val();
-     console.log(columna_id);
      let options = '<option value="">---------</option>';
      if (columna_id===''){
          selectCol.html(options)
@@ -588,7 +582,6 @@ $('a[name="valor"]').on('click', function (e) {
         },
         dataType: 'json'
     }).done(function (data) {
-        console.log(data);
         if(!data.hasOwnProperty('error')){
             selectCod.html('').select2({
                 theme: "bootstrap4",
@@ -747,7 +740,6 @@ $('.ocultar').on('click', function () {
 
 $('a[name="detalles"]').on('click', function () {
     var id = $(this).data('id');
-    console.log(id);
     $.ajax({
         url: '/guia/informacionCaptada/',
         type: 'POST',
@@ -831,7 +823,6 @@ $('a[name="modificarPreguntas"]').on('click', function () {
     }).done(function (data) {
         $('#modificacionPreguntas').prop("hidden", false);
         for (var i = 0; i < data.length; i++) {
-           console.log(data[i].pregunta+':'+data[i].respuesta);
            if (data[i].pregunta === "Entidad"){
                campos += '<div class="form-group"><label>'+data[i].pregunta+'</label><input class="form-control" type="text" name="'+data[i].pregunta+'" readonly value="'+data[i].respuesta+'"></div>'
            }else {
@@ -952,7 +943,7 @@ $('.acordeon').on('click', function () {
 });
 
 
-//-------------------------------VALIDACIONS DENTRO DE LOS FORMULARIOS DENTRO DE LA SECCION ADMIN--------------//
+//-------------------------------VALIDACIONS DENTRO DE LOS FORMULARIOS DENTRO DE LA SECCION ADMIN--------------------------//
 
 $(' #guiaForm').bootstrapValidator({
     message: 'This value is not valid',

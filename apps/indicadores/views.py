@@ -6,7 +6,7 @@ from django.views.generic import ListView, CreateView, UpdateView, TemplateView
 from apps.indicadores.forms import *
 from apps.indicadores.models import *
 
-
+# PROCEDIMIENTO PARA LISTAR GRUPO DE PREGUNTAS.
 class listarClasificadIndicadorView(ListView):
     template_name = 'indicadores/listar/grupoPreguntas.html'
     model = clasificadorIndicadores
@@ -17,6 +17,7 @@ class listarClasificadIndicadorView(ListView):
         context['titulo'] = 'Listado de Grupo de Preguntas'
         return context
 
+# PROCEDIMIENTO PARA CREAR GRUPO DE PREGUNTAS.
 class crearClasificadorIndicadorView(CreateView):
     template_name = 'indicadores/crear/grupoPreguntas.html'
     model = clasificadorIndicadores
@@ -28,6 +29,7 @@ class crearClasificadorIndicadorView(CreateView):
         context['titulo'] = 'Creacion de grupo de preguntas'
         return context
 
+# PROCEDIMIENTO PARA MODIFICAR GRUPO DE PREGUNTAS.
 class updateClasificadorIndView(UpdateView):
     model = clasificadorIndicadores
     form_class = clasificadorIndicadorForm
@@ -39,6 +41,7 @@ class updateClasificadorIndView(UpdateView):
         context['titulo'] = 'Edicion de grupo de preguntas'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR GRUPO DE PREGUNTAS.
 class eliminarClasificadorInd(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -47,6 +50,7 @@ class eliminarClasificadorInd(TemplateView):
         messages.success(self.request, "El grupo de preguntas " + query.nombre + " ha sido eliminado correctamente.")
         return redirect('indicador:istarClasificador')
 
+# PROCEDIMIENTO PARA LISTAR PREGUNTAS.
 class listarIndicadorView(ListView):
     template_name = 'indicadores/listar/preguntas.html'
     model = Indicadores
@@ -57,6 +61,7 @@ class listarIndicadorView(ListView):
         context['titulo'] = 'Listado de Preguntas'
         return context
 
+# PROCEDIMIENTO PARA CREAR PREGUNTAS.
 class crearIndicadorView(CreateView):
     template_name = 'indicadores/crear/preguntas.html'
     model = clasificadorIndicadores
@@ -68,6 +73,7 @@ class crearIndicadorView(CreateView):
         context['titulo'] = 'Creacion de preguntas'
         return context
 
+# PROCEDIMIENTO PARA MODIFICAR PREGUNTAS.
 class updateIndicadorView(UpdateView):
     model = Indicadores
     form_class = indicadorForm
@@ -79,6 +85,7 @@ class updateIndicadorView(UpdateView):
         context['titulo'] = 'Edicion de preguntas'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR PREGUNTAS.
 class eliminarIndicador(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -87,7 +94,7 @@ class eliminarIndicador(TemplateView):
         messages.success(self.request, "La pregunta " + query.nombre + " ha sido eliminada correctamente.")
         return redirect('indicador:listarIndicador')
 
-
+# PROCEDIMIENTO PARA LISTAR RESPUESTAS.
 class listarPosiblesRespuestasView(ListView):
     template_name = 'indicadores/listar/posiblesResp.html'
     model = posiblesRespuestas
@@ -98,6 +105,7 @@ class listarPosiblesRespuestasView(ListView):
         context['titulo'] = 'Listado de Posibles Respuestas'
         return context
 
+# PROCEDIMIENTO PARA CREAR RESPUESTAS.
 class crearPosiblesRespuestasView(CreateView):
     template_name = 'indicadores/crear/posiblesResp.html'
     model = posiblesRespuestas
@@ -109,6 +117,7 @@ class crearPosiblesRespuestasView(CreateView):
         context['titulo'] = 'Creacion de posibles respuestas'
         return context
 
+# PROCEDIMIENTO PARA MODIFICAR RESPUESTAS.
 class updatePosiblresResView(UpdateView):
     model = posiblesRespuestas
     form_class = posiblesRespuestasForm
@@ -120,6 +129,7 @@ class updatePosiblresResView(UpdateView):
         context['titulo'] = 'Edicion de respuestas'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR RESPUESTAS.
 class eliminarPosibleRes(TemplateView):
 
     def get(self, request, *args, **kwargs):

@@ -1,17 +1,12 @@
-import json
-
 from django.contrib import messages
-from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, UpdateView, TemplateView
 
-from apps.entidad.forms import entidadForm #universoForm
+from apps.entidad.forms import entidadForm
 from apps.entidad.models import *
 
-
+# PROCEDIMIENTO PARA LISTAR LAS ENTIDADES
 class listarEntidadView(ListView):
     model = Entidad
     template_name = 'entidad/listarEntidad.html'
@@ -22,6 +17,7 @@ class listarEntidadView(ListView):
         context['titulo'] = 'Listado de Entidades'
         return context
 
+# PROCEDIMIENTO PARA CREAR UNA ENTIDAD
 class crearEntidadView(CreateView):
     template_name = 'entidad/crearEntidad.html'
     model = Entidad
@@ -33,6 +29,7 @@ class crearEntidadView(CreateView):
         context['titulo'] = 'Creacion de entidad'
         return context
 
+# PROCEDIMIENTO PARA ACTUALIZAR UNA ENTIDAD
 class updateEntidadView(UpdateView):
     model = Entidad
     form_class = entidadForm
@@ -44,6 +41,7 @@ class updateEntidadView(UpdateView):
         context['titulo'] = 'Edicion de entidad'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR UNA ENTIDAD
 class eliminarEntidad(TemplateView):
 
     def get(self, request, *args, **kwargs):

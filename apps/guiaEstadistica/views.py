@@ -1,15 +1,12 @@
 import json
 
 from django.contrib import messages
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, TemplateView, UpdateView
-from utils import getCuestionarios
-from openpyxl import Workbook
-from openpyxl.styles import Alignment, Border, Side, PatternFill, Font
 
 from apps.guiaEstadistica.forms import *
 from apps.guiaEstadistica.models import guiaEstadistica, cuestionario
@@ -17,8 +14,9 @@ from apps.indicadores.forms import seccion, clasificadorIndicadores
 from apps.indicadores.models import Indicadores
 from apps.seccion.forms import nomencladorColumna, instanciaSeccion, instanciaForm, verificacionForm
 from apps.seccion.models import clasificadorPeriodo, verificacion
+from utils import getCuestionarios
 
-
+# PROCEDIMIENTO PARA LISTAR LAS GUIAS.
 class listarGuiasView(ListView):
     template_name = 'guiaEstadistica/listarGuia.html'
     model = guiaEstadistica
@@ -29,6 +27,7 @@ class listarGuiasView(ListView):
         context['titulo'] = 'Listado de Guias'
         return context
 
+# PROCEDIMIENTO PARA CREAR UNA GUIA.
 class crearGuiasView(CreateView):
     template_name = 'guiaEstadistica/crearGuia.html'
     model = guiaEstadistica
@@ -46,6 +45,7 @@ class crearGuiasView(CreateView):
         query = guiaEstadistica.objects.all()
         return query
 
+# PROCEDIMIENTO PARA ACTUALIZAR UNA GUIA.
 class updateGuiaView(UpdateView):
     model = guiaEstadistica
     form_class = guiaEstadisticaForm
@@ -57,6 +57,7 @@ class updateGuiaView(UpdateView):
         context['titulo'] = 'Edicion de guia'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR UNA GUIA.
 class eliminarGuia(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -65,6 +66,7 @@ class eliminarGuia(TemplateView):
         messages.success(self.request,"La guia " + guia.nombre + " ha sido eliminada correctamente.")
         return redirect('guia:listarGuias')
 
+# PROCEDIMIENTO PARA OBTENER Y MOSTRAR TODA LA CONFIGURACION DE UNA GUIA, PARA PODER CAPTAR LOS DATOS NECESARIOS.
 class captarDatosView(TemplateView):
     template_name = 'guiaEstadistica/captarDatos.html'
 
@@ -74,8 +76,9 @@ class captarDatosView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         data = {}
-        print(request.POST)
         action = request.POST['action']
+        '''OBTENER EL ULTIMO CUESTIONARIO CREADO, EL CUAL ES CREADO AUTOMATICAMENTE CUANDO SE SALVA LO CAPTADO 
+           EN LA SECCION IDENTIFICACION Y SOBRE ENTIDAD'''
         lastCuestionario = cuestionario.objects.last()
         query = instanciaSeccion.objects.filter(seccion_id=request.POST['id_seccion'], cuestionario_fk_id=lastCuestionario.id)
         try:
@@ -106,6 +109,7 @@ class captarDatosView(TemplateView):
             context['titulo'] = 'Informacion vinculada a la entidad:'
         return context
 
+    # FUNCION PARA OBTENER LA GUIA ACTIVA
     def getGuia(self):
         try:
             guia = guiaEstadistica.objects.get(activo=True)
@@ -114,6 +118,7 @@ class captarDatosView(TemplateView):
             messages.error(self.request, "No hay guias activas en este momento.")
             return None
 
+    # FUNCION PARA OBTENER LAS SECCIONES DE LA GUIA ACTIVA.
     def getSecciones(self):
         data = []
         guia = self.getGuia()
@@ -122,8 +127,8 @@ class captarDatosView(TemplateView):
             data.append(i.id)
         return data
 
+    # FUNCION PARA OBTENER LA SECCION COMO CLAVE Y LOS GRUPOS DE PREGUNTAS CORRESPONDIENTE A ESA SECCION COMO VALOR.
     def getDatos(self):
-
         guia = self.getGuia()
         data = {}
         secciones = seccion.objects.filter(guia_id=guia.id)
@@ -132,14 +137,17 @@ class captarDatosView(TemplateView):
             data.copy()
         return data
 
+    # FUNCION PARA OBTENER A PARTIR DE UNA SECCION TODOS SUS GRUPOS DE PREGUNTAS.
     def getGrupoIndicador(self, idSeccion):
         aux = []
+        # PARA CUANDO LA SECCION SI TIENE GRUPOS DE PREGUNTAS ASOCIADOS
         if clasificadorIndicadores.objects.filter(seccion_id=idSeccion).exists():
             grupoInd = clasificadorIndicadores.objects.filter(seccion_id=idSeccion)
             for i in grupoInd:
                 aux.append(i)
                 self.getIndicador(i, aux)
             return aux
+        # PARA CUANDO LA SECCION NO TIENE GRUPOS DE PREGUNTAS ASOCIADOS
         else:
             secciones = self.getSecciones()
             for i in secciones:
@@ -148,11 +156,14 @@ class captarDatosView(TemplateView):
                     aux.append(query)
             return aux
 
+    # FUNCION PARA A PARTIR DE UN GRUPO DE PREGUNTAS OBTENER TODAS SUS PREGUNTAS
     def getIndicador(self, i, aux):
         indicadores = Indicadores.objects.filter(clasificadorIndicadores_id=i.id).order_by('fechaCreacion')
         for i in indicadores:
             aux.append(i)
 
+    '''FUNCION PARA OBTENER LAS COLUMNAS DE UNA SECCION(NO DEBE APLICAR PARA IDENTIFICACION Y SOBRE ENTIDAD),
+    SE OBTIENE LA SECCION COMO CLAVE Y LAS COLUMNAS COMO VALOR'''
     def getCol(self):
         data ={}
         secciones = self.getSecciones()
@@ -162,6 +173,8 @@ class captarDatosView(TemplateView):
             data.copy()
         return data
 
+    '''FUNCION PARA OBTENER LAS INTANCIAS DE UNA SECCION(NO DEBE APLICAR PARA IDENTIFICACION Y SOBRE ENTIDAD),
+        SE OBTIENE LA SECCION COMO CLAVE Y LAS INTANCIAS COMO VALOR.'''
     def getInstancias(self):
         data = {}
         secciones = self.getSecciones()
@@ -171,6 +184,7 @@ class captarDatosView(TemplateView):
             data.copy()
         return data
 
+    # FUNCION PARA OBTENER EL UNIVERSO AL CUAL SE LE VA HA APLICAR LA GUIA, TENIENDO EN CUENTA LOS PERMISOS DE USUARIOS.
     def getUniverso(self):
         data = []
         if self.request.user.is_superuser:
@@ -247,6 +261,7 @@ class captarDatosView(TemplateView):
                 data.append(i.entidad_codigo)
         return data
 
+# PROCEDIMIENTO PARA CREAR EL UNIVERSO.
 class crearUniversoView(CreateView):
     template_name = 'entidad/crearUniverso.html'
     model = universoEntidades
@@ -258,6 +273,7 @@ class crearUniversoView(CreateView):
         context['titulo'] = 'Creacion de universo'
         return context
 
+# PROCEDIMIENTO PARA ACTUALIZAR EL UNIVERSO.
 class updateUniversoView(UpdateView):
     model = universoEntidades
     form_class = universoForm
@@ -269,6 +285,7 @@ class updateUniversoView(UpdateView):
         context['titulo'] = 'Edicion de universo'
         return context
 
+# PROCEDIMIENTO PARA LISTAR EL UNIVERSO.
 class listarUniversoView(ListView):
     model = universoEntidades
     template_name = 'entidad/listarUniverso.html'
@@ -279,6 +296,7 @@ class listarUniversoView(ListView):
         context['titulo'] = 'Universos definidos'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR EL UNIVERSO.
 class eliminarUniverso(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -287,6 +305,7 @@ class eliminarUniverso(TemplateView):
         messages.success(self.request, "La entidad " + universo.entidad_codigo.nombre_CI + " ha sido eliminada del universo correctamente.")
         return redirect('guia:listarUniverso')
 
+# PROCEDIMIENTO PARA CREAR EL UNIVERSO A PARTIR DE LAS ENTIDADES QUE HAYAN SIDO SELECCIONADAS EN LA TABLA DE ENTIDADES.
 class dataUniversoView(TemplateView):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -294,19 +313,17 @@ class dataUniversoView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         data = {}
-        print(request.POST)
         dataJson = json.loads(request.POST['data'])
         enitdad = Entidad.objects.all()
         try:
             for j in enitdad:
                  for i in dataJson:
                      if i == j.codigo_CI:
-                         print(i,j , 'Coinciden')
                          self.crearUniverso(j)
             data['exito'] = 'Universo creado correctamente.'
         except Exception as e:
             data['error'] =str(e)
-        return JsonResponse(data, safe= False)
+        return JsonResponse(data, safe=False)
 
 
     def getGuia(self):
@@ -320,6 +337,7 @@ class dataUniversoView(TemplateView):
             )
             obj.save()
 
+# PROCEDIMIENTO PARA CREAR LAS PREGUNTAS EVALUADAS Y LAS INSTANCIAS DE SECCION
 class dataCaptacion(captarDatosView):
     template_name = 'guiaEstadistica/captarDatos.html'
 
@@ -333,6 +351,7 @@ class dataCaptacion(captarDatosView):
         action = campos.get('action')
         entidad = campos.get('Entidad')
         try:
+            # PARTE PARA CREAR PREGUNTAS EVALUADAS
             if action[0] == 'dataCaptacion':
                 objCuestionario = self.createCuestionario(entidad)
                 if objCuestionario == False:
@@ -347,9 +366,10 @@ class dataCaptacion(captarDatosView):
                             )
                             queryPreEval.save()
                     data['exito'] = 'Informacion guardada correctamente.'
+            # PARTE PARA CREAR LAS INSTANCIAS
             if action[0] == 'crearInstancia':
                 objSeccion = seccion.objects.get(id=request.POST['seccion_id'])
-                lastCuestionario = self.getLastCuestionario()
+                lastCuestionario = cuestionario.objects.last()
                 if objSeccion.periodo_id.tipo == "Anual":
                     instancia = instanciaSeccion(
                         seccion_id_id=request.POST['seccion_id'],
@@ -395,11 +415,7 @@ class dataCaptacion(captarDatosView):
         except:
             return False
 
-
-    def getLastCuestionario(self):
-        query = cuestionario.objects.last()
-        return query
-
+# PROCEDIMIENTO PARA MOSTRAR EL LISTADO DE LOS CUESTIONARIOS CAPTADOS SEGUN EL PERMISO DEL USUARIO
 class guiaCaptada(ListView):
     template_name = 'guiaEstadistica/guiaCaptada.html'
     model = cuestionario
@@ -407,65 +423,14 @@ class guiaCaptada(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.is_superuser:
-            context['cuestionarios'] = cuestionario.objects.all()
-        elif self.request.user.has_perm('guiaEstadistica.pinar'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=21)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_artemisa'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=22)
-        elif self.request.user.has_perm('guiaEstadistica.habana'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=23)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_mayabeque'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=24)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_matanzas'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=25)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_villa_clara'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=26)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_cienfuegos'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=27)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_santi_spiritu'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=28)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_ciego'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=29)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_camaguey'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=30)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_las_tunas'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=31)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_holguin'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=32)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_granma'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=33)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_santiago'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=34)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_guantanamo'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=35)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_la_isla'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=40)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_ZED_mariel'):
-            context['cuestionarios'] = cuestionario.objects.filter(guia__activo=True).filter(
-                entidad_codigo__ote_codigo__codigo__exact=41)
+        context['cuestionarios'] = getCuestionarios(self.request.user)
         context['titulo'] = 'Cuestionarios captados'
         context['titulo2'] = 'Informacion Captada'
         context['titulo3'] = 'Modificar Preguntas'
         context['titulo4'] = 'Modificar Instancias'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR UN CUESTIONARIO CAPTADO
 class eliminarGuiaCaptada(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -474,6 +439,7 @@ class eliminarGuiaCaptada(TemplateView):
         messages.success(self.request,"El cuestionario captado a " + guia.entidad_codigo.nombre_CI + " ha sido eliminado correctamente.")
         return redirect('guia:guiaCaptada')
 
+# PROCEDIMIENTO PARA OBTENER LA INFORMACION DE UN CUESTIONARIO CAPTADO
 class informacionCaptada(TemplateView):
 
     @method_decorator(csrf_exempt)
@@ -498,6 +464,7 @@ class informacionCaptada(TemplateView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
+# PROCEDIMIENTO PARA OBTENER LAS INSTANCIAS DE LAS SECCIONES CAPTADAS
 class seccionCaptada(TemplateView):
 
     @method_decorator(csrf_exempt)
@@ -525,6 +492,7 @@ class seccionCaptada(TemplateView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
+# PROCEDIMIENTO PARA EDITAR LA INFOMACION DE LAS PREGUNTAS EVALUADAS A UN CUESTIONARIO
 class modificarPreguntasView(TemplateView):
 
     @method_decorator(csrf_exempt)
@@ -554,202 +522,7 @@ class modificarPreguntasView(TemplateView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
-
-class reporteGeneralExcel(TemplateView):
-    # def get(self, request, *args, **kwargs):
-    #     query_cuestionario = self.getCuestionarios()
-    #     wb = Workbook()
-    #     ws = wb.active
-    #     self.estilosCelda(ws['A1'])
-    #     ws['A1'] = 'Identificacion'
-    #     ws.row_dimensions[1].height = 25
-    #     ws.column_dimensions['A'].width = 20
-    #     ws.merge_cells('A1:C1')
-    #     ws.merge_cells('A2:A3')
-    #     ws.merge_cells('B2:B3')
-    #     ws.merge_cells('C2:C3')
-    #     ws['A2'] = 'Empresa'
-    #     ws['B2'] = 'Codigo'
-    #     ws['C2'] = 'DPA'
-    #
-    #     self.estilosCelda(ws['D1'])
-    #     ws['D1'] = 'Aspectos Generales'
-    #     ws.merge_cells('D1:H1')
-    #     ws.column_dimensions['D'].width = 20
-    #     ws['D2'] = 'Certificado REEUP'
-    #     ws.merge_cells('D2:D3')
-    #     ws.column_dimensions['E'].width = 20
-    #     ws['E2'] = 'Fecha Certificado'
-    #     ws.merge_cells('E2:E3')
-    #     ws.column_dimensions['F'].width = 20
-    #     ws['F2'] = 'Ubicacion visible'
-    #     ws.merge_cells('F2:F3')
-    #     ws.column_dimensions['G'].width = 20
-    #     ws['G2'] = 'Estado conservacion'
-    #     ws.merge_cells('G2:G3')
-    #     ws.column_dimensions['H'].width = 20
-    #     ws['H2'] = 'Domicilio'
-    #     ws.merge_cells('H2:H3')
-    #
-    #     self.estilosCelda(ws['I1'])
-    #     ws['I1'] = 'Implantacion y Comprtamiento Resolucion del SIEN'
-    #     ws.merge_cells('I1:J1')
-    #     ws.column_dimensions['I'].width = 20
-    #     ws['I2'] = 'Convenio'
-    #     ws.merge_cells('I2:I3')
-    #     ws.column_dimensions['J'].width = 20
-    #     ws['J2'] = 'Firmado Director'
-    #     ws.merge_cells('J2:J3')
-    #
-    #     self.estilosCelda(ws['K1'])
-    #     ws['K1'] = 'Disciplina informativa acumulada hasta el cierre del mes anterior (SIEN)'
-    #     ws.merge_cells('K1:N1')
-    #     ws.column_dimensions['K'].width = 20
-    #     ws['K2'] = 'Total de modelos a  reportar'
-    #     ws.merge_cells('K2:K3')
-    #     ws.column_dimensions['L'].width = 20
-    #     ws['L2'] = 'Reportados fuera fecha'
-    #     ws.merge_cells('L2:L3')
-    #     ws.column_dimensions['M'].width = 20
-    #     ws['M2'] = 'Reportados en fecha'
-    #     ws.merge_cells('M2:M3')
-    #     ws.column_dimensions['N'].width = 20
-    #     ws['N2'] = 'No reportados'
-    #     ws.merge_cells('N2:N3')
-    #
-    #     self.estilosCelda(ws['O1'])
-    #     ws['O1'] = 'Calidad de la informacion'
-    #     ws.merge_cells('O1:P1')
-    #     ws.column_dimensions['O'].width = 20
-    #     ws['O2'] = 'Señalamiento de errores'
-    #     ws.merge_cells('O2:O3')
-    #     ws.column_dimensions['P'].width = 20
-    #     ws['P2'] = 'Cantidad de señalamientos'
-    #     ws.merge_cells('P2:P3')
-    #
-    #     self.estilosCelda(ws['Q1'])
-    #     ws['Q1'] = 'Asesoramiento metodologiaco'
-    #     ws.merge_cells('Q1:S1')
-    #     ws.column_dimensions['Q'].width = 20
-    #     ws['Q2'] = 'Resivio asesoramiento'
-    #     ws.merge_cells('Q2:Q3')
-    #     ws.column_dimensions['R'].width = 20
-    #     ws['R2'] = 'Posee bases metodologicas del SIEN'
-    #     ws.merge_cells('R2:R3')
-    #     ws.column_dimensions['S'].width = 20
-    #     ws['S2'] = 'Tipo de soporte'
-    #     ws.merge_cells('S2:S3')
-    #
-    #     self.estilosCelda(ws['T1'])
-    #     ws['T1'] = 'Cobertura'
-    #     ws.merge_cells('T1:V1')
-    #     ws.column_dimensions['T'].width = 20
-    #     ws['T2'] = 'Establecimientos asociados'
-    #     ws.merge_cells('T2:T3')
-    #     ws.column_dimensions['U'].width = 20
-    #     ws['U2'] = 'Cuantos'
-    #     ws.merge_cells('U2:U3')
-    #     ws.column_dimensions['V'].width = 20
-    #     ws['V2'] = 'Con contabilidad propia'
-    #     ws.merge_cells('V2:V3')
-    #
-    #     self.estilosCelda(ws['W1'])
-    #     ws['W1'] = 'Atencion a las estadisticas'
-    #     ws.merge_cells('W1:Z1')
-    #     ws.column_dimensions['W'].width = 20
-    #     ws['W2'] = 'Estructura para atender la actv. estadistica'
-    #     ws.merge_cells('W2:W3')
-    #     ws.column_dimensions['X'].width = 20
-    #     ws['X2'] = 'Posee personal capacitado para brindar informacion estadistica'
-    #     ws.merge_cells('X2:X3')
-    #     ws.column_dimensions['Y'].width = 20
-    #     ws['Y2'] = 'Esta incluido en el Plan de Prevencion del centro como un punto vulnerable la infomacion estadistica'
-    #     ws.merge_cells('Y2:Y3')
-    #     ws.column_dimensions['Z'].width = 20
-    #     ws['Z2'] = 'Utiliza la infomacion estadistica para la toma de decisiones'
-    #     ws.merge_cells('Z2:Z3')
-    #     ws['A4'].fill = PatternFill(start_color="92a2ab", end_color="92a2ab", fill_type="solid")
-    #     ws.merge_cells('A4:Z4')
-    #
-    #     cont = 5
-    #
-    #     for cuestionario in query_cuestionario:
-    #         ws.cell(row=cont, column=1).value = cuestionario.entidad_codigo.nombre_CI
-    #         ws.cell(row=cont, column=2).value = cuestionario.entidad_codigo.codigo_CI
-    #         ws.cell(row=cont, column=3).value = str(cuestionario.entidad_codigo.ome_codigo)
-    #         preguntas = self.getPreguntasDelCuestionario(cuestionario.id)
-    #         self.pintarDatos(ws,cont,preguntas)
-    #
-    #         cont += 1
-    #
-    #     nombre_archivo = "ReporteGeneral.xls"
-    #     response = HttpResponse(content_type="aplication/ms-excel")
-    #     content = "attachment; filename = {0}".format(nombre_archivo)
-    #     response['Content-Disposition'] = content
-    #     wb.save(response)
-    #     return response
-    #
-    # def getCuestionarios(self):
-    #    if self.request.user.is_superuser:
-    #         query = cuestionario.objects.all()
-    #         return query
-    #    elif self.request.user.has_perm('guiaEstadistica.pinar'):
-    #         query = cuestionario.objects.filter(entidad_codigo__ote_codigo=21)
-    #         return query
-    #    elif self.request.user.has_perm('guiaEstadistica.habana'):
-    #        query = cuestionario.objects.filter(entidad_codigo__ote_codigo=23)
-    #        return query
-    #
-    #
-    # def listadoPreguntas(self, cuestionario):
-    #     query = PreguntasEvaluadas.objects.filter(captacion_id__id=cuestionario)
-    #     return query
-    #
-    # def getPreguntasDelCuestionario(self, cuestionario):
-    #     query = PreguntasEvaluadas.objects.filter(captacion_id__id=cuestionario)
-    #     return query
-    #
-    # def estilosCelda(self,celda):
-    #     celda.alignment = Alignment(horizontal='center', vertical='center')
-    #     celda.border = Border(left=Side(border_style="thin"), right=Side(border_style="thin"),
-    #                           bottom=Side(border_style="thin"))
-    #     celda.fill = PatternFill(start_color="66FFCC", end_color="66FFCC", fill_type="solid")
-    #     celda.font = Font(name='Broadway', size=12, bold=True)
-    #
-    # def pintarDatos(self, ws, cont, preguntasDelCuestionario):
-    #     columna = 4
-    #     aux = preguntasDelCuestionario[::-1]
-    #     for p in aux[4:]:
-    #         ws.cell(row=cont, column=columna).value = p.respuesta
-    #         columna += 1
-
-    template_name = 'reportes/general.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titulo'] = 'Reporte General'
-        context['grupoPreguntas'] = self.getGrupoPreguntas()
-        context['cuestionarios'] = self.getCuestionarios()
-        return context
-
-    def getGrupoPreguntas(self):
-        data = {}
-        query = clasificadorIndicadores.objects.filter(seccion_id__guia_id__activo=True)
-        for i in query[1:]:
-            data[i.id] = i.nombre
-        return data
-
-    def getCuestionarios(self):
-        if self.request.user.is_superuser:
-            query = cuestionario.objects.all()
-            return query
-        elif self.request.user.has_perm('guiaEstadistica.pinar'):
-            query = cuestionario.objects.filter(entidad_codigo__ote_codigo=21,guia__activo=True)
-            return query
-        elif self.request.user.has_perm('guiaEstadistica.habana'):
-            query = cuestionario.objects.filter(entidad_codigo__ote_codigo=23,guia__activo=True)
-            return query
-
+# PROCEDIMIENTO PARA CREAR UNA GUIA CON LA MISMA CONFIGURACION DE OTRA YA EXISTENTE
 class crearGuiaDefinida(TemplateView):
 
     @method_decorator(csrf_exempt)
@@ -777,6 +550,7 @@ class crearGuiaDefinida(TemplateView):
                 guiaNueva.save()
                 query_secciones = seccion.objects.filter(guia_id__nombre=request.POST['guiaYaDefinida'])
                 for i in query_secciones:
+                    # PARA PODER CREAR LAS SECCIONES DE IDENTIFICACION Y SOBRE ENTIDAD
                     if i.tipo == 1 or i.tipo == 2:
                         aux = seccion(
                             nombre=i.nombre,
@@ -790,6 +564,7 @@ class crearGuiaDefinida(TemplateView):
                         )
                         aux.save()
                         self.crearGrupoPreguntas(i, guiaNueva)
+                    # PARA PODER CREAR EL RESTO DE LAS SECCIONES
                     else:
                        aux=seccion(
                             nombre=i.nombre,
@@ -809,6 +584,7 @@ class crearGuiaDefinida(TemplateView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
+    # FUNCION PARA CREAR EN LA GUIA NUEVA LOS MISMO GRUPO DE PREGUNTAS QUE TIENE LA GUIA DEFINIDA
     def crearGrupoPreguntas(self, objSeccion, guia):
         query = seccion.objects.filter(guia_id__id=guia.id)
         for i in query:
@@ -823,6 +599,7 @@ class crearGuiaDefinida(TemplateView):
                     aux.save()
                     self.crearPreguntas(j, aux)
 
+    # FUNCION PARA CREAR EN LA GUIA NUEVA LAS MISMAS PREGUNTAS QUE TIENE LA GUIA DEFINIDA
     def crearPreguntas(self, grupoPreguntaGuiaDefinida, grupoPreguntaGuiaNueva):
         query = Indicadores.objects.filter(clasificadorIndicadores_id__id=grupoPreguntaGuiaDefinida.id)
         if grupoPreguntaGuiaDefinida.nombre == grupoPreguntaGuiaNueva.nombre:
@@ -849,10 +626,32 @@ class crearGuiaDefinida(TemplateView):
                     except:
                         print('error')
 
+    # FUNCION PARA ASIGNAR LAS RESPUESTAS CORRESPONDIENTES A CADA PREGUNTAS.
     def asignarRespuesta(self, preguntaNueva, listaRespuestasDefinidas):
         for i in listaRespuestasDefinidas:
             preguntaNueva.respuestas_id.add(i)
 
+# PROCEDIMIENTO PARA EL REPORTE GENERAL EN EXCEL.
+class reporteGeneralExcel(TemplateView):
+
+    template_name = 'reportes/general.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Reporte General'
+        context['grupoPreguntas'] = self.getGrupoPreguntas()
+        context['cuestionarios'] = getCuestionarios(self.request.user)
+        return context
+
+    def getGrupoPreguntas(self):
+        data = {}
+        query = clasificadorIndicadores.objects.filter(seccion_id__guia_id__activo=True)
+        for i in query[1:]:
+            data[i.id] = i.nombre
+        return data
+
+
+# PROCEDIMIENTO PARA EL REPORTE EXCEL DE VERIFICACION DE LOS INDICADORES
 class reporteVerificacionIndicadores(TemplateView):
     template_name = 'reportes/verificacion.html'
 
@@ -875,19 +674,18 @@ class reporteVerificacionIndicadores(TemplateView):
                     data[i.nombre]=verificados
         return data
 
+# PROCEDIMIENTO PARA EL REPORTE EXCEL DE DISCIPLINA INFORMATIVA
 class reporteDisciplinaInformativa(TemplateView):
     template_name = 'reportes/disciplinaInformativa.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte de Disciplina Informativa'
-        context['cuestionarios'] = self.listaCuestionario()
+        context['cuestionarios'] = getCuestionarios(self.request.user)
         return context
 
-    def listaCuestionario(self):
-        query = getCuestionarios(self.request.user)
-        return query
 
+# PROCEDIMIENTO PARA EL REPORTE EXCEL DE SENALAMIENTOS DE ERRORES
 class reporteSeñalamientosErrores(reporteDisciplinaInformativa):
     template_name = 'reportes/señalamientosErrores.html'
 
@@ -896,26 +694,11 @@ class reporteSeñalamientosErrores(reporteDisciplinaInformativa):
         context['titulo'] = 'Reporte de Señalamientos Errores'
         return context
 
-class reporteDisciplinaInformativaCentroControlado(TemplateView):
-    template_name = 'reportes/disciplinaInfoCentrosControlados.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titulo'] = 'Reporte de Disciplina Informativa Centros Controlados'
-        return context
-
+# PROCEDIMIENTO PARA EL REPORTE EXCEL DE DOMICILIO SOCIAL INCORRECTO
 class reporteDomicilioSocial(reporteDisciplinaInformativa):
     template_name = 'reportes/domicilioSocial.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte de Domicilio Social Incorrecto'
-        return context
-
-class reporteDeficiencias(TemplateView):
-    template_name = 'reportes/deficiencias.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titulo'] = 'Reporte de Deficiencias'
         return context

@@ -9,7 +9,7 @@ from django.views.generic import ListView, CreateView, TemplateView, UpdateView
 from apps.seccion.forms import *
 from apps.seccion.models import *
 
-
+# PROCEDIMIENTO PARA LISTAR SECCIONES.
 class listarSeccionView(ListView):
     model = seccion
     template_name = 'seccion/listar/seccion.html'
@@ -20,6 +20,7 @@ class listarSeccionView(ListView):
         context['titulo'] = 'Listado de Secciones'
         return context
 
+# PROCEDIMIENTO PARA CREAR SECCIONES.
 class crearSeccionView(CreateView):
     model = seccion
     template_name = 'seccion/crear/seccion.html'
@@ -31,6 +32,7 @@ class crearSeccionView(CreateView):
         context['titulo'] = 'Creacion de seccion'
         return context
 
+# PROCEDIMIENTO PARA MODIFICAR SECCIONES.
 class updateSeccionView(UpdateView):
     model = seccion
     form_class = seccionForm
@@ -42,6 +44,7 @@ class updateSeccionView(UpdateView):
         context['titulo'] = 'Edicion de seccion'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR SECCIONES.
 class eliminarSeccion(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -50,6 +53,7 @@ class eliminarSeccion(TemplateView):
         messages.success(self.request, "La seccion " + query.nombre + " de la guia " + query.guia_id.nombre + " ha sido eliminada correctamente.")
         return redirect('seccion:listarSeccion')
 
+# PROCEDIMIENTO PARA LISTAR PERIODO.
 class listarPeriodoView(ListView):
     model = clasificadorPeriodo
     template_name = 'seccion/listar/periodo.html'
@@ -60,6 +64,7 @@ class listarPeriodoView(ListView):
         context['titulo'] = 'Listado de Periodos'
         return context
 
+# PROCEDIMIENTO PARA CREAR PERIODO.
 class crearPeriodoView(CreateView):
     model = clasificadorPeriodo
     template_name = 'seccion/crear/periodo.html'
@@ -71,6 +76,7 @@ class crearPeriodoView(CreateView):
         context['titulo'] = 'Creacion de periodo'
         return context
 
+# PROCEDIMIENTO PARA MODIFICAR PERIODO.
 class updatePeriodoView(UpdateView):
     model = clasificadorPeriodo
     form_class = periodoForm
@@ -82,6 +88,7 @@ class updatePeriodoView(UpdateView):
         context['titulo'] = 'Edicion de periodo'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR PERIODO.
 class eliminarPeriodo(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -90,6 +97,7 @@ class eliminarPeriodo(TemplateView):
         messages.success(self.request, "El periodo ha sido eliminado correctamente.")
         return redirect('seccion:listarPeriodo')
 
+# PROCEDIMIENTO PARA LISTAR CODIGO.
 class listarCodigoView(ListView):
     model = nomencladorCodigo
     template_name = 'seccion/listar/codigo.html'
@@ -100,6 +108,7 @@ class listarCodigoView(ListView):
         context['titulo'] = 'Listado de Codigos'
         return context
 
+# PROCEDIMIENTO PARA CREAR CODIGO.
 class crearCodigoView(CreateView):
     model = nomencladorCodigo
     template_name = 'seccion/crear/codigo.html'
@@ -111,6 +120,7 @@ class crearCodigoView(CreateView):
         context['titulo'] = 'Creacion de codigo'
         return context
 
+# PROCEDIMIENTO PARA MODIFICAR CODIGO.
 class updateCodigoView(UpdateView):
     model = nomencladorCodigo
     form_class = codigoForm
@@ -122,6 +132,7 @@ class updateCodigoView(UpdateView):
         context['titulo'] = 'Edicion de codigo'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR CODIGO.
 class eliminarCodigo(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -130,6 +141,7 @@ class eliminarCodigo(TemplateView):
         messages.success(self.request, "El codigo " + query.codigo + " ha sido eliminado correctamente.")
         return redirect('seccion:listarCodigo')
 
+# PROCEDIMIENTO PARA LISTAR COLUMNA.
 class listarColumnaView(ListView):
     model = nomencladorColumna
     template_name = 'seccion/listar/columna.html'
@@ -140,6 +152,7 @@ class listarColumnaView(ListView):
         context['titulo'] = 'Listado de Columnas'
         return context
 
+# PROCEDIMIENTO PARA CREAR COLUMNA.
 class crearColumnaView(CreateView):
     model = nomencladorColumna
     template_name = 'seccion/crear/columna.html'
@@ -151,6 +164,7 @@ class crearColumnaView(CreateView):
         context['titulo'] = 'Creacion de columna'
         return context
 
+# PROCEDIMIENTO PARA MODIFICAR COLUMNA.
 class updateColumnaView(UpdateView):
     model = nomencladorColumna
     form_class = columnaForm
@@ -162,6 +176,7 @@ class updateColumnaView(UpdateView):
         context['titulo'] = 'Edicion de columna'
         return context
 
+# PROCEDIMIENTO PARA ELIMINAR COLUMNA.
 class eliminarColumna(TemplateView):
 
     def get(self, request, *args, **kwargs):
@@ -170,6 +185,7 @@ class eliminarColumna(TemplateView):
         messages.success(self.request, "La columna " + query.columna +  " ha sido eliminada correctamente.")
         return redirect('seccion:listarColumna')
 
+# PROCEDIMIENTO PARA CREAR UNA ISTANCIA DE SECCION.
 class crearInstanciaView(TemplateView):
     template_name = 'guiaEstadistica/captarDatos.html'
 
@@ -213,6 +229,7 @@ class crearInstanciaView(TemplateView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
+# PROCEDIMIENTO PARA OBTENER LAS COLUMNAS DE UNA SECCION.
 class getColumnas(TemplateView):
 
     @method_decorator(csrf_exempt)
@@ -231,6 +248,7 @@ class getColumnas(TemplateView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
+# PROCEDIMIENTO PARA OBTENER LOS CODIGOS DE UNA COLUMNA DE UNA SECCION.
 class getCodigos(TemplateView):
 
     @method_decorator(csrf_exempt)
@@ -251,7 +269,7 @@ class getCodigos(TemplateView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
-
+# PROCEDIMIENTO PARA COMPROBAR LA VERIFICACION DE LOS INDICADORES DE UNA SECCION.
 class comprobarIndicadoresEvaluados(TemplateView):
     template_name = 'guiaEstadistica/captardatos.html'
 
@@ -262,7 +280,6 @@ class comprobarIndicadoresEvaluados(TemplateView):
     def post(self, request, *args, **kwargs):
         data = {}
         try:
-            print(request.POST['seccion'])
             obj_seccion = seccion.objects.get(id=request.POST['seccion'])
             obj_cuestionario = cuestionario.objects.last()
             obj_verificacion = verificacion(
@@ -278,6 +295,7 @@ class comprobarIndicadoresEvaluados(TemplateView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
+# PROCEDIMIENTO PARA MODIFICAR EL VALOR DE LAS INSTANCIAS DE LAS SECCION EVALUADAS.
 class modificarInstanciasView(TemplateView):
 
     @method_decorator(csrf_exempt)
@@ -316,7 +334,6 @@ class modificarInstanciasView(TemplateView):
                 while i < len(id):
                     aux = id[i], modelo_1[i], registro_1[i], modelo_2[i], registro_2[i], modelo_3[i], registro_3[i]
                     query =instanciaSeccion.objects.get(id=(aux[0]))
-                    print(aux)
                     query.modelo_1=aux[1]
                     query.modelo_2=aux[3]
                     query.modelo_3=aux[5]
