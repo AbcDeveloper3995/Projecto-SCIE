@@ -79,17 +79,4 @@
             {% endfor %}
         {% endif %}
     </script>
-<script type="text/javascript">
-        $(document).ready(function () {
-    $.ajax({
-        url: '/asistente/',
-    }).done(function (data) {
-        console(data);
-        window.location.reload()
-    }).fail(function (jqXHR, textStatus,errorThrown) {
-        console.log(textStatus+' : '+errorThrown)
-    })
-});
-
-    </script>
 </body>

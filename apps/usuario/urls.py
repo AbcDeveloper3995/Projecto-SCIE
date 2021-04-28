@@ -12,5 +12,5 @@ urlpatterns = [
     path('crearUsuario/', crearUsuarioView.as_view(), name='crearUsuario'),
     path('modificarUsuario/<int:pk>', updateUsuarioView.as_view(), name='modificarUsuario'),
     path('eliminarUsuario/<int:pk>/', eliminarUsuario.as_view(), name='eliminarUsuario'),
-    path('asistente/', voz, name='voz'),
+    path('profile/', updateUsuarioProfileView.as_view(), name='profile'),
 ]

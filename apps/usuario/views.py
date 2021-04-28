@@ -1,4 +1,3 @@
-import pyttsx3
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
@@ -11,19 +10,8 @@ from django.views.generic import TemplateView, ListView, CreateView, UpdateView
 from SCIEv1 import settings
 from apps.entidad.models import Entidad
 from apps.guiaEstadistica.models import guiaEstadistica
-from apps.usuario.form import usuarioForm
+from apps.usuario.form import usuarioForm, usuarioProfileForm
 from apps.usuario.models import Usuario
-
-def voz(request):
-    eng = pyttsx3.init()
-    list_voices = eng.getProperty("voices")
-    eng.setProperty("voice", list_voices[0].id)
-    eng.setProperty("rate", 130)
-    eng.setProperty('volumen', 1.0)
-    eng.say('Bienvenido, ingrese sus credenciales para acceder al Sistema de Control Integral Estatal.')
-    eng.runAndWait()
-
-
 
 # MOSTAR PAGINA PRINCIPAL
 class homeView(TemplateView):
@@ -98,3 +86,23 @@ class eliminarUsuario(TemplateView):
         query.delete()
         messages.success(self.request, "El usuario " + query.first_name + " ha sido eliminado correctamente.")
         return redirect('usuario:listarUsuario')
+
+
+# PROCEDIMIENTO PARA QUE UN USUARIO MODIFIQUE SU PERFIL.
+class updateUsuarioProfileView(UpdateView):
+    model = Usuario
+    form_class = usuarioProfileForm
+    template_name = 'usuario/usuarioProfile.html'
+    success_url = reverse_lazy('usuario:home')
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Edicion de perfil'
+        return context
