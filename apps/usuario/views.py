@@ -1,5 +1,6 @@
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib import messages
@@ -14,7 +15,7 @@ from apps.usuario.form import usuarioForm, usuarioProfileForm
 from apps.usuario.models import Usuario
 
 # MOSTAR PAGINA PRINCIPAL
-class homeView(TemplateView):
+class homeView(LoginRequiredMixin, TemplateView):
     template_name = 'comun/home.html'
 
     @method_decorator(login_required)
@@ -44,7 +45,7 @@ class Login(LoginView):
         return context
 
 # PROCEDIMIENTO PARA LISTAR USUARIOS.
-class listarUsuariosView(ListView):
+class listarUsuariosView(LoginRequiredMixin, ListView):
     template_name = 'usuario/listarUsuario.html'
     model = Usuario
     context_object_name = 'usuarios'
@@ -55,7 +56,7 @@ class listarUsuariosView(ListView):
         return context
 
 # PROCEDIMIENTO PARA CREAR USUARIOS.
-class crearUsuarioView(CreateView):
+class crearUsuarioView(LoginRequiredMixin, CreateView):
     template_name = 'usuario/crearUsuario.html'
     model = Usuario
     form_class = usuarioForm
@@ -67,7 +68,7 @@ class crearUsuarioView(CreateView):
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR USUARIOS.
-class updateUsuarioView(UpdateView):
+class updateUsuarioView(LoginRequiredMixin, UpdateView):
     model = Usuario
     form_class = usuarioForm
     template_name = 'usuario/crearUsuario.html'
@@ -79,7 +80,7 @@ class updateUsuarioView(UpdateView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR USUARIOS.
-class eliminarUsuario(TemplateView):
+class eliminarUsuario(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         query = get_object_or_404(Usuario, id=self.kwargs['pk'])
@@ -89,7 +90,7 @@ class eliminarUsuario(TemplateView):
 
 
 # PROCEDIMIENTO PARA QUE UN USUARIO MODIFIQUE SU PERFIL.
-class updateUsuarioProfileView(UpdateView):
+class updateUsuarioProfileView(LoginRequiredMixin, UpdateView):
     model = Usuario
     form_class = usuarioProfileForm
     template_name = 'usuario/usuarioProfile.html'

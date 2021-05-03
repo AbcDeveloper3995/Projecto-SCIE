@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -17,7 +18,7 @@ from apps.seccion.models import clasificadorPeriodo, verificacion
 from utils import getCuestionarios
 
 # PROCEDIMIENTO PARA LISTAR LAS GUIAS.
-class listarGuiasView(ListView):
+class listarGuiasView(LoginRequiredMixin, ListView):
     template_name = 'guiaEstadistica/listarGuia.html'
     model = guiaEstadistica
     context_object_name = 'guias'
@@ -28,7 +29,7 @@ class listarGuiasView(ListView):
         return context
 
 # PROCEDIMIENTO PARA CREAR UNA GUIA.
-class crearGuiasView(CreateView):
+class crearGuiasView(LoginRequiredMixin, CreateView):
     template_name = 'guiaEstadistica/crearGuia.html'
     model = guiaEstadistica
     form_class = guiaEstadisticaForm
@@ -46,7 +47,7 @@ class crearGuiasView(CreateView):
         return query
 
 # PROCEDIMIENTO PARA ACTUALIZAR UNA GUIA.
-class updateGuiaView(UpdateView):
+class updateGuiaView(LoginRequiredMixin, UpdateView):
     model = guiaEstadistica
     form_class = guiaEstadisticaForm
     template_name = 'guiaEstadistica/crearGuia.html'
@@ -58,7 +59,7 @@ class updateGuiaView(UpdateView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR UNA GUIA.
-class eliminarGuia(TemplateView):
+class eliminarGuia(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         guia = get_object_or_404(guiaEstadistica, id=self.kwargs['pk'])
@@ -67,8 +68,8 @@ class eliminarGuia(TemplateView):
         return redirect('guia:listarGuias')
 
 # PROCEDIMIENTO PARA OBTENER Y MOSTRAR TODA LA CONFIGURACION DE UNA GUIA, PARA PODER CAPTAR LOS DATOS NECESARIOS.
-class captarDatosView(TemplateView):
-    template_name = 'guiaEstadistica/captarDatos.html'
+class captarDatosView(LoginRequiredMixin, TemplateView):
+    template_name = 'guiaEstadistica/captardatos.html'
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -262,7 +263,7 @@ class captarDatosView(TemplateView):
         return data
 
 # PROCEDIMIENTO PARA CREAR EL UNIVERSO.
-class crearUniversoView(CreateView):
+class crearUniversoView(LoginRequiredMixin, CreateView):
     template_name = 'entidad/crearUniverso.html'
     model = universoEntidades
     form_class = universoForm
@@ -274,7 +275,7 @@ class crearUniversoView(CreateView):
         return context
 
 # PROCEDIMIENTO PARA ACTUALIZAR EL UNIVERSO.
-class updateUniversoView(UpdateView):
+class updateUniversoView(LoginRequiredMixin, UpdateView):
     model = universoEntidades
     form_class = universoForm
     template_name = 'entidad/crearUniverso.html'
@@ -286,7 +287,7 @@ class updateUniversoView(UpdateView):
         return context
 
 # PROCEDIMIENTO PARA LISTAR EL UNIVERSO.
-class listarUniversoView(ListView):
+class listarUniversoView(LoginRequiredMixin, ListView):
     model = universoEntidades
     template_name = 'entidad/listarUniverso.html'
     context_object_name = 'universo'
@@ -297,7 +298,7 @@ class listarUniversoView(ListView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR EL UNIVERSO.
-class eliminarUniverso(TemplateView):
+class eliminarUniverso(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         universo = get_object_or_404(universoEntidades, id=self.kwargs['pk'])
@@ -306,7 +307,7 @@ class eliminarUniverso(TemplateView):
         return redirect('guia:listarUniverso')
 
 # PROCEDIMIENTO PARA CREAR EL UNIVERSO A PARTIR DE LAS ENTIDADES QUE HAYAN SIDO SELECCIONADAS EN LA TABLA DE ENTIDADES.
-class dataUniversoView(TemplateView):
+class dataUniversoView(LoginRequiredMixin, TemplateView):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
@@ -416,7 +417,7 @@ class dataCaptacion(captarDatosView):
             return False
 
 # PROCEDIMIENTO PARA MOSTRAR EL LISTADO DE LOS CUESTIONARIOS CAPTADOS SEGUN EL PERMISO DEL USUARIO
-class guiaCaptada(ListView):
+class guiaCaptada(LoginRequiredMixin, ListView):
     template_name = 'guiaEstadistica/guiaCaptada.html'
     model = cuestionario
     context_object_name = 'cuestionarios'
@@ -431,7 +432,7 @@ class guiaCaptada(ListView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR UN CUESTIONARIO CAPTADO
-class eliminarGuiaCaptada(TemplateView):
+class eliminarGuiaCaptada(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         guia = get_object_or_404(cuestionario, id=self.kwargs['pk'])
@@ -440,7 +441,7 @@ class eliminarGuiaCaptada(TemplateView):
         return redirect('guia:guiaCaptada')
 
 # PROCEDIMIENTO PARA OBTENER LA INFORMACION DE UN CUESTIONARIO CAPTADO
-class informacionCaptada(TemplateView):
+class informacionCaptada(LoginRequiredMixin, TemplateView):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -465,7 +466,7 @@ class informacionCaptada(TemplateView):
         return JsonResponse(data, safe=False)
 
 # PROCEDIMIENTO PARA OBTENER LAS INSTANCIAS DE LAS SECCIONES CAPTADAS
-class seccionCaptada(TemplateView):
+class seccionCaptada(LoginRequiredMixin, TemplateView):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -493,7 +494,7 @@ class seccionCaptada(TemplateView):
         return JsonResponse(data, safe=False)
 
 # PROCEDIMIENTO PARA EDITAR LA INFOMACION DE LAS PREGUNTAS EVALUADAS A UN CUESTIONARIO
-class modificarPreguntasView(TemplateView):
+class modificarPreguntasView(LoginRequiredMixin, TemplateView):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -523,7 +524,7 @@ class modificarPreguntasView(TemplateView):
         return JsonResponse(data, safe=False)
 
 # PROCEDIMIENTO PARA CREAR UNA GUIA CON LA MISMA CONFIGURACION DE OTRA YA EXISTENTE
-class crearGuiaDefinida(TemplateView):
+class crearGuiaDefinida(LoginRequiredMixin, TemplateView):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -632,7 +633,7 @@ class crearGuiaDefinida(TemplateView):
             preguntaNueva.respuestas_id.add(i)
 
 # PROCEDIMIENTO PARA EL REPORTE GENERAL EN EXCEL.
-class reporteGeneralExcel(TemplateView):
+class reporteGeneralExcel(LoginRequiredMixin, TemplateView):
 
     template_name = 'reportes/general.html'
 
@@ -652,7 +653,7 @@ class reporteGeneralExcel(TemplateView):
 
 
 # PROCEDIMIENTO PARA EL REPORTE EXCEL DE VERIFICACION DE LOS INDICADORES
-class reporteVerificacionIndicadores(TemplateView):
+class reporteVerificacionIndicadores(LoginRequiredMixin, TemplateView):
     template_name = 'reportes/verificacion.html'
 
     def get_context_data(self, **kwargs):
@@ -675,7 +676,7 @@ class reporteVerificacionIndicadores(TemplateView):
         return data
 
 # PROCEDIMIENTO PARA EL REPORTE EXCEL DE DISCIPLINA INFORMATIVA
-class reporteDisciplinaInformativa(TemplateView):
+class reporteDisciplinaInformativa(LoginRequiredMixin, TemplateView):
     template_name = 'reportes/disciplinaInformativa.html'
 
     def get_context_data(self, **kwargs):

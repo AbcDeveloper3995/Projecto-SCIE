@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -7,7 +8,7 @@ from apps.indicadores.forms import *
 from apps.indicadores.models import *
 
 # PROCEDIMIENTO PARA LISTAR GRUPO DE PREGUNTAS.
-class listarClasificadIndicadorView(ListView):
+class listarClasificadIndicadorView(LoginRequiredMixin, ListView):
     template_name = 'indicadores/listar/grupoPreguntas.html'
     model = clasificadorIndicadores
     context_object_name = 'clasificadorInds'
@@ -18,7 +19,7 @@ class listarClasificadIndicadorView(ListView):
         return context
 
 # PROCEDIMIENTO PARA CREAR GRUPO DE PREGUNTAS.
-class crearClasificadorIndicadorView(CreateView):
+class crearClasificadorIndicadorView(LoginRequiredMixin, CreateView):
     template_name = 'indicadores/crear/grupoPreguntas.html'
     model = clasificadorIndicadores
     form_class = clasificadorIndicadorForm
@@ -30,7 +31,7 @@ class crearClasificadorIndicadorView(CreateView):
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR GRUPO DE PREGUNTAS.
-class updateClasificadorIndView(UpdateView):
+class updateClasificadorIndView(LoginRequiredMixin, UpdateView):
     model = clasificadorIndicadores
     form_class = clasificadorIndicadorForm
     template_name = 'indicadores/crear/grupoPreguntas.html'
@@ -42,7 +43,7 @@ class updateClasificadorIndView(UpdateView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR GRUPO DE PREGUNTAS.
-class eliminarClasificadorInd(TemplateView):
+class eliminarClasificadorInd(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         query = get_object_or_404(clasificadorIndicadores, id=self.kwargs['pk'])
@@ -51,7 +52,7 @@ class eliminarClasificadorInd(TemplateView):
         return redirect('indicador:istarClasificador')
 
 # PROCEDIMIENTO PARA LISTAR PREGUNTAS.
-class listarIndicadorView(ListView):
+class listarIndicadorView(LoginRequiredMixin, ListView):
     template_name = 'indicadores/listar/preguntas.html'
     model = Indicadores
     context_object_name = 'indicadores'
@@ -62,7 +63,7 @@ class listarIndicadorView(ListView):
         return context
 
 # PROCEDIMIENTO PARA CREAR PREGUNTAS.
-class crearIndicadorView(CreateView):
+class crearIndicadorView(LoginRequiredMixin, CreateView):
     template_name = 'indicadores/crear/preguntas.html'
     model = clasificadorIndicadores
     form_class = indicadorForm
@@ -74,7 +75,7 @@ class crearIndicadorView(CreateView):
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR PREGUNTAS.
-class updateIndicadorView(UpdateView):
+class updateIndicadorView(LoginRequiredMixin, UpdateView):
     model = Indicadores
     form_class = indicadorForm
     template_name = 'indicadores/crear/preguntas.html'
@@ -86,7 +87,7 @@ class updateIndicadorView(UpdateView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR PREGUNTAS.
-class eliminarIndicador(TemplateView):
+class eliminarIndicador(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         query = get_object_or_404(Indicadores, id=self.kwargs['pk'])
@@ -95,7 +96,7 @@ class eliminarIndicador(TemplateView):
         return redirect('indicador:listarIndicador')
 
 # PROCEDIMIENTO PARA LISTAR RESPUESTAS.
-class listarPosiblesRespuestasView(ListView):
+class listarPosiblesRespuestasView(LoginRequiredMixin, ListView):
     template_name = 'indicadores/listar/posiblesResp.html'
     model = posiblesRespuestas
     context_object_name = 'posiblesRespuestas'
@@ -106,7 +107,7 @@ class listarPosiblesRespuestasView(ListView):
         return context
 
 # PROCEDIMIENTO PARA CREAR RESPUESTAS.
-class crearPosiblesRespuestasView(CreateView):
+class crearPosiblesRespuestasView(LoginRequiredMixin, CreateView):
     template_name = 'indicadores/crear/posiblesResp.html'
     model = posiblesRespuestas
     form_class = posiblesRespuestasForm
@@ -118,7 +119,7 @@ class crearPosiblesRespuestasView(CreateView):
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR RESPUESTAS.
-class updatePosiblresResView(UpdateView):
+class updatePosiblresResView(LoginRequiredMixin, UpdateView):
     model = posiblesRespuestas
     form_class = posiblesRespuestasForm
     template_name = 'indicadores/crear/posiblesResp.html'
@@ -130,7 +131,7 @@ class updatePosiblresResView(UpdateView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR RESPUESTAS.
-class eliminarPosibleRes(TemplateView):
+class eliminarPosibleRes(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         query = get_object_or_404(posiblesRespuestas, id=self.kwargs['pk'])

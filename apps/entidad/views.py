@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, TemplateView
@@ -7,7 +8,7 @@ from apps.entidad.forms import entidadForm
 from apps.entidad.models import *
 
 # PROCEDIMIENTO PARA LISTAR LAS ENTIDADES
-class listarEntidadView(ListView):
+class listarEntidadView(LoginRequiredMixin, ListView):
     model = Entidad
     template_name = 'entidad/listarEntidad.html'
     context_object_name = 'entidades'
@@ -18,7 +19,7 @@ class listarEntidadView(ListView):
         return context
 
 # PROCEDIMIENTO PARA CREAR UNA ENTIDAD
-class crearEntidadView(CreateView):
+class crearEntidadView(LoginRequiredMixin, CreateView):
     template_name = 'entidad/crearEntidad.html'
     model = Entidad
     form_class = entidadForm
@@ -30,7 +31,7 @@ class crearEntidadView(CreateView):
         return context
 
 # PROCEDIMIENTO PARA ACTUALIZAR UNA ENTIDAD
-class updateEntidadView(UpdateView):
+class updateEntidadView(LoginRequiredMixin, UpdateView):
     model = Entidad
     form_class = entidadForm
     template_name = 'entidad/crearEntidad.html'
@@ -42,7 +43,7 @@ class updateEntidadView(UpdateView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR UNA ENTIDAD
-class eliminarEntidad(TemplateView):
+class eliminarEntidad(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         entidad = get_object_or_404(Entidad, id=self.kwargs['pk'])

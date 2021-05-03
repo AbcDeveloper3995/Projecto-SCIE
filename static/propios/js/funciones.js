@@ -75,7 +75,7 @@ const tabla = (nombreSeccion, idSeccion) => {
 
 //--------------------------------------VALIDACIONES PARA EL FORM INSTANCIAS---------------------------------------------//
 
-function validate_no_empty_instancias(seccionForm, seccionCampo) {
+const validate_no_empty_instancias = (seccionForm, seccionCampo) => {
 for (var i=0;i,i<seccionCampo.length; i++){
         if (seccionForm === seccionCampo[i].dataset.seccion && seccionCampo[i].value === "") {
               toastr.error("Asegurese de no dejar campos vacios.", 'Error', {
@@ -182,6 +182,7 @@ const verificarExistencia = (element) => {
         return false
     }
 }
+
 const validacionChecked = (element) => {
     if(element.is(':checked')){
          console.log('chekeado')
@@ -194,7 +195,8 @@ const validacionChecked = (element) => {
          return false;
      }
 }
-function validate_radios_no_empty() {
+
+const validate_radios_no_empty = () => {
     let cod_pregunta_11 =  $('.formCaptacion input[data-cod-pregunta="11"]' );
     let cod_pregunta_13 =  $('.formCaptacion input[data-cod-pregunta="13"]' );
     let cod_pregunta_14 =  $('.formCaptacion input[data-cod-pregunta="14"]' );
@@ -286,7 +288,7 @@ function validate_radios_no_empty() {
 
 }
 
-function validate_component_entero() {
+const validate_component_entero = () => {
 
     let cod_pregunta_31 = $('.formCaptacion input[data-cod-pregunta="31"]');
     let cod_pregunta_32 = $('.formCaptacion input[data-cod-pregunta="32"]');
@@ -356,7 +358,7 @@ function validate_component_entero() {
 
 }
 
-function validate_depedencias_campos() {
+const validate_depedencias_campos = () => {
 
     let cod_pregunta_41_No =  $('.formCaptacion input[data-cod-pregunta="41"]:input[value="No"] ' );
     let cod_pregunta_41_Si =  $('.formCaptacion input[data-cod-pregunta="41"]:input[value="Si"] ' );
@@ -1351,7 +1353,7 @@ $('#userForm').bootstrapValidator({
 
                 regexp: {
                     regexp: /^[a-zA-Z_ ]+$/,
-                    message: 'Solo se admiten letras'
+                    message: 'El nombre debe contener solo letras'
                 }
                 }
             },
@@ -1363,7 +1365,7 @@ $('#userForm').bootstrapValidator({
                     },
                     regexp: {
                     regexp: /^[a-zA-Z_ ]+$/,
-                    message: 'Solo se admiten letras'
+                    message: 'Los apellidos debe contener solo letras'
                 }
                 }
             },

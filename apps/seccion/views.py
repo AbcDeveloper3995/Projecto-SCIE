@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -10,7 +11,7 @@ from apps.seccion.forms import *
 from apps.seccion.models import *
 
 # PROCEDIMIENTO PARA LISTAR SECCIONES.
-class listarSeccionView(ListView):
+class listarSeccionView(LoginRequiredMixin, ListView):
     model = seccion
     template_name = 'seccion/listar/seccion.html'
     context_object_name = 'secciones'
@@ -21,7 +22,7 @@ class listarSeccionView(ListView):
         return context
 
 # PROCEDIMIENTO PARA CREAR SECCIONES.
-class crearSeccionView(CreateView):
+class crearSeccionView(LoginRequiredMixin, CreateView):
     model = seccion
     template_name = 'seccion/crear/seccion.html'
     form_class = seccionForm
@@ -33,7 +34,7 @@ class crearSeccionView(CreateView):
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR SECCIONES.
-class updateSeccionView(UpdateView):
+class updateSeccionView(LoginRequiredMixin, UpdateView):
     model = seccion
     form_class = seccionForm
     template_name = 'seccion/crear/seccion.html'
@@ -45,7 +46,7 @@ class updateSeccionView(UpdateView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR SECCIONES.
-class eliminarSeccion(TemplateView):
+class eliminarSeccion(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         query = get_object_or_404(seccion, id=self.kwargs['pk'])
@@ -54,7 +55,7 @@ class eliminarSeccion(TemplateView):
         return redirect('seccion:listarSeccion')
 
 # PROCEDIMIENTO PARA LISTAR PERIODO.
-class listarPeriodoView(ListView):
+class listarPeriodoView(LoginRequiredMixin, ListView):
     model = clasificadorPeriodo
     template_name = 'seccion/listar/periodo.html'
     context_object_name = 'periodos'
@@ -65,7 +66,7 @@ class listarPeriodoView(ListView):
         return context
 
 # PROCEDIMIENTO PARA CREAR PERIODO.
-class crearPeriodoView(CreateView):
+class crearPeriodoView(LoginRequiredMixin, CreateView):
     model = clasificadorPeriodo
     template_name = 'seccion/crear/periodo.html'
     form_class = periodoForm
@@ -77,7 +78,7 @@ class crearPeriodoView(CreateView):
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR PERIODO.
-class updatePeriodoView(UpdateView):
+class updatePeriodoView(LoginRequiredMixin, UpdateView):
     model = clasificadorPeriodo
     form_class = periodoForm
     template_name = 'seccion/crear/periodo.html'
@@ -89,7 +90,7 @@ class updatePeriodoView(UpdateView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR PERIODO.
-class eliminarPeriodo(TemplateView):
+class eliminarPeriodo(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         query = get_object_or_404(clasificadorPeriodo, id=self.kwargs['pk'])
@@ -98,7 +99,7 @@ class eliminarPeriodo(TemplateView):
         return redirect('seccion:listarPeriodo')
 
 # PROCEDIMIENTO PARA LISTAR CODIGO.
-class listarCodigoView(ListView):
+class listarCodigoView(LoginRequiredMixin, ListView):
     model = nomencladorCodigo
     template_name = 'seccion/listar/codigo.html'
     context_object_name = 'codigos'
@@ -109,7 +110,7 @@ class listarCodigoView(ListView):
         return context
 
 # PROCEDIMIENTO PARA CREAR CODIGO.
-class crearCodigoView(CreateView):
+class crearCodigoView(LoginRequiredMixin, CreateView):
     model = nomencladorCodigo
     template_name = 'seccion/crear/codigo.html'
     form_class = codigoForm
@@ -121,7 +122,7 @@ class crearCodigoView(CreateView):
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR CODIGO.
-class updateCodigoView(UpdateView):
+class updateCodigoView(LoginRequiredMixin, UpdateView):
     model = nomencladorCodigo
     form_class = codigoForm
     template_name = 'seccion/crear/codigo.html'
@@ -133,7 +134,7 @@ class updateCodigoView(UpdateView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR CODIGO.
-class eliminarCodigo(TemplateView):
+class eliminarCodigo(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         query = get_object_or_404(nomencladorCodigo, id=self.kwargs['pk'])
@@ -142,7 +143,7 @@ class eliminarCodigo(TemplateView):
         return redirect('seccion:listarCodigo')
 
 # PROCEDIMIENTO PARA LISTAR COLUMNA.
-class listarColumnaView(ListView):
+class listarColumnaView(LoginRequiredMixin, ListView):
     model = nomencladorColumna
     template_name = 'seccion/listar/columna.html'
     context_object_name = 'columnas'
@@ -153,7 +154,7 @@ class listarColumnaView(ListView):
         return context
 
 # PROCEDIMIENTO PARA CREAR COLUMNA.
-class crearColumnaView(CreateView):
+class crearColumnaView(LoginRequiredMixin, CreateView):
     model = nomencladorColumna
     template_name = 'seccion/crear/columna.html'
     form_class = columnaForm
@@ -165,7 +166,7 @@ class crearColumnaView(CreateView):
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR COLUMNA.
-class updateColumnaView(UpdateView):
+class updateColumnaView(LoginRequiredMixin, UpdateView):
     model = nomencladorColumna
     form_class = columnaForm
     template_name = 'seccion/crear/columna.html'
@@ -177,7 +178,7 @@ class updateColumnaView(UpdateView):
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR COLUMNA.
-class eliminarColumna(TemplateView):
+class eliminarColumna(LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         query = get_object_or_404(nomencladorColumna, id=self.kwargs['pk'])
@@ -186,7 +187,7 @@ class eliminarColumna(TemplateView):
         return redirect('seccion:listarColumna')
 
 # PROCEDIMIENTO PARA CREAR UNA ISTANCIA DE SECCION.
-class crearInstanciaView(TemplateView):
+class crearInstanciaView(LoginRequiredMixin, TemplateView):
     template_name = 'guiaEstadistica/captarDatos.html'
 
     @method_decorator(csrf_exempt)
@@ -230,7 +231,7 @@ class crearInstanciaView(TemplateView):
         return JsonResponse(data, safe=False)
 
 # PROCEDIMIENTO PARA OBTENER LAS COLUMNAS DE UNA SECCION.
-class getColumnas(TemplateView):
+class getColumnas(LoginRequiredMixin, TemplateView):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -249,7 +250,7 @@ class getColumnas(TemplateView):
         return JsonResponse(data, safe=False)
 
 # PROCEDIMIENTO PARA OBTENER LOS CODIGOS DE UNA COLUMNA DE UNA SECCION.
-class getCodigos(TemplateView):
+class getCodigos(LoginRequiredMixin, TemplateView):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -270,7 +271,7 @@ class getCodigos(TemplateView):
         return JsonResponse(data, safe=False)
 
 # PROCEDIMIENTO PARA COMPROBAR LA VERIFICACION DE LOS INDICADORES DE UNA SECCION.
-class comprobarIndicadoresEvaluados(TemplateView):
+class comprobarIndicadoresEvaluados(LoginRequiredMixin, TemplateView):
     template_name = 'guiaEstadistica/captardatos.html'
 
     @method_decorator(csrf_exempt)
@@ -296,7 +297,7 @@ class comprobarIndicadoresEvaluados(TemplateView):
         return JsonResponse(data, safe=False)
 
 # PROCEDIMIENTO PARA MODIFICAR EL VALOR DE LAS INSTANCIAS DE LAS SECCION EVALUADAS.
-class modificarInstanciasView(TemplateView):
+class modificarInstanciasView(LoginRequiredMixin, TemplateView):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):

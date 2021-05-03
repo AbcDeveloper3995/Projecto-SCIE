@@ -240,6 +240,43 @@
     <script src="{% static 'plugins/datatables-1.10.20/plugins/buttons-1.6.1/js/buttons.html5.styles.min.js' %}"></script>
     <script src="{% static 'plugins/datatables-1.10.20/plugins/buttons-1.6.1/js/buttons.html5.styles.templates.min.js' %}"></script>
     <script src="{% static 'propios/js/funciones.js' %}"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+     const inactividad = () => {
+           var tiempo;
+           document.onmousemove = resetearTiempo;
+           document.onkeypress = resetearTiempo;
+
+           function alert(){
+                toastr.info("Atencion {{ request.user.first_name }} su sesion cerrara en breve. " + '<hr>' + '<button class="btn btn-default text-center">Continuar en sesion</button>'+ "", 'Notificacion', {
+                       progressBar: true,
+                       closeButton: true,
+                      "preventDuplicates": true,
+                       "timeOut": "10000",
+                   });
+           }
+           function logout() {
+               $.ajax({
+                   url: '/logout/',
+                   type: 'GET',
+               }).done(function (data) {
+                   window.location.reload()
+               }).fail(function (jqXHR, textStatus, errorThrown) {
+                   alert(textStatus + ' : ' + errorThrown)
+               })}
+
+           function resetearTiempo() {
+               clearTimeout(tiempo);
+           tiempo = setTimeout(alert, 20000)
+           tiempo = setTimeout(logout, 30000)
+           }
+       };
+     inactividad()
+})
+    </script>
+
+
 {% endblock %}
 
 {% block mensajes %}
