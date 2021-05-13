@@ -74,6 +74,11 @@ class updateUsuarioView(LoginRequiredMixin, UpdateView):
     template_name = 'usuario/crearUsuario.html'
     success_url = reverse_lazy('usuario:listarUsuario')
 
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().dispatch(request, *args, **kwargs)
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de usuario'

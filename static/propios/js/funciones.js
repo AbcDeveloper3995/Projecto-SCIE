@@ -797,9 +797,37 @@ $('a[name="detalles"]').on('click', function () {
     });
 });
 
+//-----------------------------------CONTROL DE ACCESOS-------------------------------------------//
 $('#admin').on('click', function () {
      $('#admin').prop("disabled", true);
-         toastr.error('Lo sentimos no tiene los privilegios requeridos para realizar esta accion.', 'Acceso denegado',{
+         toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado',{
+        progressBar: true,
+        closeButton: true,
+        "timeOut": "3000",
+    })
+});
+
+$('#widgetGuia').on('click', function () {
+     $('#widgetGuia').prop("disabled", true);
+         toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado',{
+        progressBar: true,
+        closeButton: true,
+        "timeOut": "3000",
+    })
+});
+
+$('#widgetEntidad').on('click', function () {
+     $('#widgetEntidad').prop("disabled", true);
+         toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado',{
+        progressBar: true,
+        closeButton: true,
+        "timeOut": "3000",
+    })
+});
+
+$('#widgetUsuario').on('click', function () {
+     $('#widgetUsuario').prop("disabled", true);
+         toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado',{
         progressBar: true,
         closeButton: true,
         "timeOut": "3000",
@@ -1417,10 +1445,10 @@ $('#userForm').bootstrapValidator({
                                     message: 'La contraseña debe contener minusculas'
                                 }
                             }
-                             if (value.search(/[.*,@]/) < 0) {
+                             if (value.search(/[.*,@_]/) < 0) {
                                 return {
                                     valid: false,
-                                    message: 'La contraseña debe contener caracteres especiales (.*,@)'
+                                    message: 'La contraseña debe contener caracteres especiales (.*,@_)'
                                 }
                             }
                             return true;
