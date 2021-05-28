@@ -798,14 +798,6 @@ $('a[name="detalles"]').on('click', function () {
 });
 
 //-----------------------------------CONTROL DE ACCESOS-------------------------------------------//
-$('#admin').on('click', function () {
-     $('#admin').prop("disabled", true);
-         toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado',{
-        progressBar: true,
-        closeButton: true,
-        "timeOut": "3000",
-    })
-});
 
 $('#widgetGuia').on('click', function () {
      $('#widgetGuia').prop("disabled", true);
@@ -990,7 +982,7 @@ $(' #guiaForm').bootstrapValidator({
                     message: 'El nombre es requerido'
                 },
                 regexp: {
-                    regexp: /^[a-zA-Z_ ]+$/,
+                    regexp: /^[a-zA-ZñÑáéíóú_ ]+$/,
                     message: 'El nombre debe contener solo letras'
                 }
 
@@ -1139,7 +1131,7 @@ $(' #seccionForm').bootstrapValidator({
                     message: 'El nombre es requerido'
                 },
                 regexp: {
-                    regexp: /^[a-zA-Z_]+$/,
+                    regexp: /^[a-zA-ZñÑáéíóú_]+$/,
                     message: 'El campo nombre no debe tener especios en blanco.'
                 }
 
@@ -1277,7 +1269,7 @@ $(' #clasificadorIndForm').bootstrapValidator({
                     message: 'El nombre es requerido'
                 },
                 regexp: {
-                    regexp: /^[a-zA-Z_ ]+$/,
+                    regexp: /^[a-zA-ZñÑáéíóú_ ]+$/,
                     message: 'Solo se admiten letras'
                 }
 
@@ -1320,7 +1312,7 @@ $(' #indicadoresForm').bootstrapValidator({
                     message: 'El campo nombre es requerido'
                 },
                 regexp: {
-                    regexp: /^[a-zA-Z-ñ_ ]+$/,
+                    regexp: /^[a-zA-ZñÑáéíóú_ ]+$/,
                     message: 'Solo se admiten letras'
                 }
 
@@ -1354,7 +1346,7 @@ $(' #respuestasForm').bootstrapValidator({
                     message: 'El campo nombre es requerido'
                 },
                 regexp: {
-                    regexp: /^[a-zA-Z_ ]+$/,
+                    regexp: /^[a-zA-ZñÑáéíóú_ ]+$/,
                     message: 'Solo se admiten letras'
                 }
 
@@ -1380,7 +1372,7 @@ $('#userForm').bootstrapValidator({
                     },
 
                 regexp: {
-                    regexp: /^[a-zA-Z_ ]+$/,
+                    regexp: /^[a-zA-ZñÑáéíóú_ ]+$/,
                     message: 'El nombre debe contener solo letras'
                 }
                 }
@@ -1392,7 +1384,7 @@ $('#userForm').bootstrapValidator({
                         message: 'El apellido es requeridoo'
                     },
                     regexp: {
-                    regexp: /^[a-zA-Z_ ]+$/,
+                    regexp: /^[a-zA-ZñÑáéíóú_ ]+$/,
                     message: 'Los apellidos debe contener solo letras'
                 }
                 }

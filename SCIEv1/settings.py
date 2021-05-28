@@ -145,3 +145,15 @@ LOGOUT_REDIRECT_URL = '/login/'
 AUTH_USER_MODEL = 'usuario.Usuario'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Email
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_PORT = 587
+
+EMAIL_HOST_USER = 'abcdevelopper@gmail.com'
+
+EMAIL_HOST_PASSWORD = 'DjangoDeveloper.3995.'
+
+DOMAIN = ''

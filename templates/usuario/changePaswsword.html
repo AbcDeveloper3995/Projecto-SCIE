@@ -1,0 +1,55 @@
+{% extends 'usuario/login.html' %}
+
+{% block titulo %}Cambio de contraseña{% endblock %}
+{% block content %}
+    <form action=".." method="post">
+        <input type="hidden" name="next" value="{{ next }}">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            {{ form.password }}
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            {{ form.confirmPassword }}
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-lock"></i> Cambiar contraseña
+                </button>
+            </div>
+        </div>
+        <p class="text-center mt-2" style="font-size: 13px;">
+            Si deseas volver al login da un click <a
+                href="{% url 'usuario:login' %}">aqui </a>
+        </p>
+    </form>
+{% endblock %}
+
+{% block js %}
+<script type="application/javascript">
+    $(function () {
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            var parameters = new FormData(this);
+            envioConAjax(window.location.pathname, 'Notificación', '¿Estas seguro de cambiar tu contraseña?', parameters, function () {
+                toastr.success('Tu contraseña ha sido cambiada correctamente', 'Notificación', {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "timeOut": "5000",
+                    });
+            });
+        });
+    });
+</script>
+{% endblock js %}

@@ -13,6 +13,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'plugins/adminLTE/css/adminlte.min.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/jquery-confirm-v3.3.4/jquery-confirm.min.css' %}">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -25,8 +26,9 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <h5 class="login-box-msg text-uppercase text-bold">Inicio de Sesion...</h5>
+      <h5 class="login-box-msg text-uppercase text-bold">{% block titulo %}Inicio de Sesion{% endblock %}</h5>
 
+     {% block content %}
       <form  method="post">
           {% csrf_token %}
           <input type="hidden" name="next" value="{{ next }}">
@@ -54,6 +56,10 @@
           <!-- /.col -->
         </div>
       </form>
+         <p class="text-center mt-2" style="font-size: 13px;">
+                        Si no recuerdas tu contraseña puedes resetearla dando click <a href="{% url 'usuario:resetear_password' %}">aqui </a>
+                    </p>
+    {% endblock %}
     </div>
     <!-- /.login-card-body -->
   </div>
@@ -67,6 +73,8 @@
 <!-- AdminLTE App -->
 <script src="{% static 'plugins/adminLTE/js/adminlte.min.js' %}"></script>
  <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+ <script src="{% static 'plugins/jquery-confirm-v3.3.4/jquery-confirm.min.js' %}"></script>
+ <script src="{% static 'propios/js/utils.js' %}"></script>
 
  <script type="text/javascript">
         {% if form.errors %}
@@ -79,4 +87,5 @@
             {% endfor %}
         {% endif %}
     </script>
+{% block js %}{% endblock %}
 </body>
