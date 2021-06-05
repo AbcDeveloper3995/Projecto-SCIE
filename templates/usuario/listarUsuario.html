@@ -13,7 +13,6 @@
         <th scope="col">Apellido</th>
         <th scope="col">Username</th>
         <th scope="col">Email</th>
-        <th scope="col">Fecha de registro</th>
         <th scope="col">Roles</th>
         <th scope="col">Es_activo</th>
         <th scope="col">Acciones</th>
@@ -30,7 +29,6 @@
             <td>{{ user.last_name }}</td>
             <td><span class="badge bg-gradient-navy">{{ user.username }}</span> </td>
             <td>{{ user.email }}</td>
-            <td>{{ user.fecha_creado }}</td>
             {% if user.groups.all %}
                 <td>
                     {% for grupo in user.groups.all %}

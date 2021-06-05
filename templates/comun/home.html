@@ -280,9 +280,9 @@
     <script type="text/javascript">
     $(document).ready(function() {
     $.sessionTimeout({
-        warnAfter: 10000,
-        redirAfter: 20000,
-        message: 'Atención {{ request.user.first_name }} su sesión a expirará en breve.',
+        warnAfter: 3300000,
+        redirAfter: 3600000,
+       message: 'Atención {{ request.user.first_name }} su sesión a expirará en breve.',
         logoutUrl: '{% url 'usuario:logout' %}',
         redirUrl: "{% url 'usuario:logout' %}"
     });

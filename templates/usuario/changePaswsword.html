@@ -39,6 +39,9 @@
 {% block js %}
 <script type="application/javascript">
     $(function () {
+        const url = () => {
+           location.href='http://127.0.0.1:8000/';
+       }
         $('form').on('submit', function (e) {
             e.preventDefault();
             var parameters = new FormData(this);
@@ -46,9 +49,10 @@
                 toastr.success('Tu contraseña ha sido cambiada correctamente', 'Notificación', {
                         "closeButton": true,
                         "progressBar": true,
-                        "timeOut": "5000",
+                        "timeOut": "3000",
                     });
             });
+            setTimeout (url,3000);
         });
     });
 </script>

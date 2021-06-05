@@ -3,7 +3,7 @@ from apps.indicadores.models import Indicadores
 
 # FUNCION PARA OBTENER UN LISTADO DE CUESTIONARIOS SEGUN EL PERMISO DEL USUARIO.
 def getCuestionarios(user):
-    if user.is_superuser:
+    if user.has_perm('usuario.administrador') or user.has_perm('usuario.estadistico'):
         query = cuestionario.objects.all()
         return query
     elif user.has_perm('guiaEstadistica.pinar'):

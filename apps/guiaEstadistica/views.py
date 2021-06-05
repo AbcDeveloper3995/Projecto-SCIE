@@ -422,13 +422,20 @@ class guiaCaptada(LoginRequiredMixin, ListView):
     model = cuestionario
     context_object_name = 'cuestionarios'
 
+    def getPermisoEstadistico(self):
+        if self.request.user.has_perm('usuario.estadistico'):
+            return True
+        return False
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cuestionarios'] = getCuestionarios(self.request.user)
+        context['permisoEstadistico'] = self.getPermisoEstadistico()
         context['titulo'] = 'Cuestionarios captados'
         context['titulo2'] = 'Informacion Captada'
         context['titulo3'] = 'Modificar Preguntas'
         context['titulo4'] = 'Modificar Instancias'
+
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR UN CUESTIONARIO CAPTADO

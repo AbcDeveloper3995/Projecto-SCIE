@@ -1452,7 +1452,7 @@ $('#userForm').bootstrapValidator({
     });
 
 //------------------PORCEDIMIENTO PARA CREAR UNA GUIA CON LAS MISMAS CONFIGURACIONES DE OTRA YA DEFINIDA-----------------------//
- function url() {
+ const url = () => {
            location.href='http://127.0.0.1:8000/guia/listarGuias/';
        }
 guias = $('#listadoGuiasDefinidas');

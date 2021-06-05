@@ -1,30 +1,30 @@
 
+import smtplib
+import uuid
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
-from django.contrib import messages
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import FormView
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView
-from django.views.generic import FormView, RedirectView
 
 import SCIEv1.settings as setting
-from apps.usuario.form import resetearPasswordForm, changePasswordForm
 
-import smtplib
-import uuid
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from django.template.loader import render_to_string
-
-from SCIEv1 import settings
 from apps.entidad.models import Entidad
 from apps.guiaEstadistica.models import guiaEstadistica
+from apps.usuario.form import resetearPasswordForm, changePasswordForm
 from apps.usuario.form import usuarioForm, usuarioProfileForm
 from apps.usuario.models import Usuario
+
 
 # MOSTAR PAGINA PRINCIPAL
 class homeView(LoginRequiredMixin, TemplateView):
@@ -47,7 +47,7 @@ class Login(LoginView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect(settings.LOGIN_REDIRECT_URL)
+            return redirect(setting.LOGIN_REDIRECT_URL)
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -158,14 +158,14 @@ class resetearPasswordView(FormView):
             user.token = uuid.uuid4()
             user.save()
 
-            mailServer = smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
-            mailServer.starttls()
-            mailServer.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
+            emailServidor = smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
+            emailServidor.starttls()
+            emailServidor.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
 
-            email_to = user.email
+            email = user.email
             sms = MIMEMultipart()
             sms['From'] = setting.EMAIL_HOST_USER
-            sms['To'] = email_to
+            sms['To'] = email
             sms['Subject'] = 'Reseteo de contraseña'
 
             content = render_to_string('usuario/enviarEmail.html',{
@@ -174,7 +174,7 @@ class resetearPasswordView(FormView):
                 'link_home': 'http://{}'.format(URL)
             })
             sms.attach(MIMEText(content,'html'))
-            mailServer.sendmail(setting.EMAIL_HOST_USER, email_to, sms.as_string())
+            emailServidor.sendmail(setting.EMAIL_HOST_USER, email, sms.as_string())
         except Exception as e:
             data['error'] = str(e)
         return data
