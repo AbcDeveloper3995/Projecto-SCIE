@@ -1,0 +1,54 @@
+{% extends 'comun/listar.html' %}
+{% load static %}\
+{% load filters %}
+
+{% block titulo %}
+    {{ titulo }}
+{% endblock %}
+
+{% block table %}
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped" id="tblCaptado">
+                <thead>
+                <tr>
+                    <th>Guia</th>
+                    <th class="text-center">Centros Informantes Captados</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in cuestionarios %}
+                    <tr>
+                        <td>{{ i.guia.nombre }}</td>
+                        <td class="text-center"><span class="badge bg-gradient-navy">{{ i.entidad_codigo }}</span></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="col-md-12 mt-5" >
+         <hr>
+            <table class="table table-bordered table-striped" id="tblNoCaptado">
+                <thead>
+                <tr>
+                    <th>Guia</th>
+                    <th class="text-center">Centros Informantes No Captados</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in noCaptados %}
+                    <tr>
+                        <td>{{ i.guia.nombre }}</td>
+                        <td class="text-center"><span class="badge bg-gradient-navy">{{ i.entidad_codigo }}</span></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block button %}
+
+{% endblock %}

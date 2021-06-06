@@ -18,6 +18,7 @@
         {% block tools %}{% endblock %}
         </div>
         <div class="card-body" style="overflow-x: scroll">
+        {% block table %}
             <table class="table display" {% block idTable %}id="dataTable" {% endblock %}>
                 <thead>
                 {% block columns %}
@@ -30,6 +31,7 @@
                 {% endblock %}
                 </tbody>
             </table>
+         {% endblock %}
         </div>
         <div class="card-footer">
                  {% block button %}

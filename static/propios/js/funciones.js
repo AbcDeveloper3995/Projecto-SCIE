@@ -1646,7 +1646,7 @@ $('#safe').on('click', function () {
      }
  });
 
- //---------------------------------PORCEDIMIENTO PARA El REPORTE DE Deficiencias-----------------------------//
+ //---------------------------------PORCEDIMIENTO PARA El REPORTE DE DEFICIENCIAS-----------------------------//
  $('#reporteDeficiencias').DataTable({
      dom: "Bfrtip",
      buttons: {
@@ -1668,3 +1668,8 @@ $('#safe').on('click', function () {
          ]
      }
  });
+
+ //---------------------------------PORCEDIMIENTO PARA El REPORTE DE CAPTACION-----------------------------//
+ $('#tblCaptado').DataTable({});
+
+ $('#tblNoCaptado').DataTable({});

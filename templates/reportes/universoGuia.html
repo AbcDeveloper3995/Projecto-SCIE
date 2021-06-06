@@ -1,0 +1,28 @@
+{% extends 'comun/listar.html' %}
+{% load static %}\
+{% load filters %}
+
+{% block titulo %}
+    {{ titulo }}
+ {% endblock %}
+{% block columns %}
+<tr>
+        <th class="text-center" >Guia</th>
+        <th class="text-center">Centro Informante</th>
+
+    </tr>
+{% endblock %}
+
+{% block rows %}
+ {% for i in universo %}
+            <tr>
+                <td class="text-center">{{ i.guia.nombre }}</td>
+                <td class="text-center"><span class="badge bg-gradient-navy">{{ i.entidad_codigo }}</span></td>
+
+            </tr>
+        {% endfor %}
+{% endblock %}
+
+{% block button %}
+
+{% endblock %}

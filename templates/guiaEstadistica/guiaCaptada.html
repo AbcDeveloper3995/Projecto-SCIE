@@ -19,7 +19,7 @@
      {% for cuestionario in cuestionarios %}
         <tr>
             <td>{{ cuestionario.guia.nombre }}</td>
-            <td>{{ cuestionario.entidad_codigo }}</td>
+            <td><span class="badge bg-gradient-navy">{{ cuestionario.entidad_codigo }}</span></td>
             <td>
                 <a href="#" class="miTippy" type="button" name="detalles" data-id="{{ cuestionario.id }}" title="Ver informacion captada"><i class="fa fa-info-circle"></i></a>
                 {% if cuestionario.guia.activo == True and not permisoEstadistico%}

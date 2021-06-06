@@ -37,4 +37,6 @@ urlpatterns = [
     path('reporteDisciplinaInfo/', reporteDisciplinaInformativa.as_view(), name='reporteDisciplinaInfo'),
     path('reporteErrores/', reporteSeñalamientosErrores.as_view(), name='reporteErrores'),
     path('reporteDomicilio/', reporteDomicilioSocial.as_view(), name='reporteDomicilio'),
+    path('reporteUniverso/', reporteUniversoGuia.as_view(), name='reporteUniverso'),
+    path('reporteCaptacion/', reporteCaptacion.as_view(), name='reporteCaptacion'),
  ]

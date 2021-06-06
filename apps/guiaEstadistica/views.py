@@ -710,3 +710,37 @@ class reporteDomicilioSocial(reporteDisciplinaInformativa):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte de Domicilio Social Incorrecto'
         return context
+
+# PROCEDIMIENTO PARA EL REPORTE DEL UNIVERSO DE LA GUIA
+class reporteUniversoGuia(reporteDisciplinaInformativa):
+    template_name = 'reportes/universoGuia.html'
+
+    def getUniverso(self):
+        return universoEntidades.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Reporte del Universo de la Guia'
+        context['universo'] = self.getUniverso()
+        return context
+
+# PROCEDIMIENTO PARA EL REPORTE DE CAPTACION
+class reporteCaptacion(reporteDisciplinaInformativa):
+    template_name = 'reportes/captacion.html'
+
+    def getCINoCaptados(self, listaDeCaptados):
+        idsAExcluir = []
+        listaNoCaptados = []
+        universo = universoEntidades.objects.all()
+        for i in listaDeCaptados:
+            idsAExcluir.append(i.entidad_codigo)
+        for j in universo.exclude(entidad_codigo__in=idsAExcluir):
+            listaNoCaptados.append(j)
+        return listaNoCaptados
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'Reporte de Captacion'
+        context['noCaptados'] = self.getCINoCaptados(context['cuestionarios'])
+
+        return context
