@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c9dd07d-359a-4682-a50c-d144b1c61bf1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/reportes/captacion.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/reportes/universoGuia.html" afterDir="false" />
+    <list default="true" id="9c9dd07d-359a-4682-a50c-d144b1c61bf1" name="Default Changelist" comment="Cambios realizados: 1- Se valido que el campo groups sea obligatorio; 2- Se valido el campo password del changePasswordForm; 3- La funcion de getUniverso se movio al archivo utils.py; 4- Se modifico el proceso de validacion de componentes enteros en el archivo funciones.js, agregandose la verificacionDeMenorAlTotalAReportar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/guiaEstadistica/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/guiaEstadistica/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/guiaEstadistica/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/guiaEstadistica/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/propios/js/funciones.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/propios/js/funciones.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/comun/listar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/comun/listar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/comun/menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/comun/menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/entidad/listarUniverso.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entidad/listarUniverso.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/guiaEstadistica/guiaCaptada.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/guiaEstadistica/guiaCaptada.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usuario/changePaswsword.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usuario/changePaswsword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,38 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/reportes/universoGuia.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="19" column="59" lean-forward="true" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="75" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/reportes/señalamientosErrores.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="24" column="8" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="30" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/reportes/captacion.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/propios/js/funciones.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="1674" column="17" selection-start-line="1674" selection-start-column="17" selection-end-line="1674" selection-end-column="17" />
+            <state relative-caret-position="353">
+              <caret line="337" column="110" selection-start-line="337" selection-start-column="110" selection-end-line="337" selection-end-column="110" />
               <folding>
                 <element signature="e#191#284#0" />
                 <element signature="e#330#363#0" />
@@ -109,7 +78,7 @@
                 <element signature="e#6058#6161#0" />
                 <element signature="e#6218#6273#0" />
                 <element signature="e#6449#6506#0" />
-                <element signature="e#6476#6504#0" />
+                <element signature="e#6810#6930#0" />
                 <element signature="e#6547#6834#0" />
                 <element signature="e#6579#6620#0" />
                 <element signature="e#6625#6832#0" />
@@ -137,20 +106,12 @@
                 <element signature="e#10126#10162#0" />
                 <element signature="e#10226#10325#0" />
                 <element signature="e#10282#10318#0" />
-                <element signature="e#10372#13892#0" />
-                <element signature="e#11276#13887#0" />
-                <element signature="e#11620#11862#0" />
-                <element signature="e#11705#11825#0" />
-                <element signature="e#12018#12300#0" />
-                <element signature="e#12143#12263#0" />
-                <element signature="e#12361#12677#0" />
-                <element signature="e#12520#12640#0" />
-                <element signature="e#12738#13054#0" />
-                <element signature="e#12897#13017#0" />
-                <element signature="e#13115#13431#0" />
-                <element signature="e#13274#13394#0" />
-                <element signature="e#13494#13881#0" />
-                <element signature="e#13724#13844#0" />
+                <element signature="e#11563#11805#0" />
+                <element signature="e#11648#11768#0" />
+                <element signature="e#11961#12243#0" />
+                <element signature="e#12086#12206#0" />
+                <element signature="e#13437#13824#0" />
+                <element signature="e#13667#13787#0" />
                 <element signature="e#13936#17643#0" />
                 <element signature="e#16163#16218#0" />
                 <element signature="e#16268#16324#0" />
@@ -165,12 +126,8 @@
                 <element signature="e#17440#17515#0" />
                 <element signature="e#17565#17639#0" />
                 <element signature="e#17910#17935#0" />
-                <element signature="e#18217#19986#0" />
-                <element signature="e#18322#18364#0" />
                 <element signature="e#18405#19016#0" />
                 <element signature="e#18472#18683#0" />
-                <element signature="e#18541#18644#0" />
-                <element signature="e#18687#19010#0" />
                 <element signature="e#18762#19000#0" />
                 <element signature="e#18849#18952#0" />
                 <element signature="e#19154#19322#0" />
@@ -406,9 +363,6 @@
                 <element signature="e#48541#48690#0" />
                 <element signature="e#48708#52096#0" />
                 <element signature="e#48734#49125#0" />
-                <element signature="e#48815#49111#0" />
-                <element signature="e#48847#48928#0" />
-                <element signature="e#48955#49093#0" />
                 <element signature="e#49150#49553#0" />
                 <element signature="e#49233#49539#0" />
                 <element signature="e#49265#49349#0" />
@@ -432,7 +386,18 @@
                 <element signature="e#51439#51610#0" />
                 <element signature="e#51703#51964#0" />
                 <element signature="e#51744#51934#0" />
+                <element signature="e#52111#52502#0" />
+                <element signature="e#52396#56283#0" />
                 <element signature="e#52255#52333#0" />
+                <element signature="e#52510#52800#0" />
+                <element signature="e#52839#53774#0" />
+                <element signature="e#53935#54440#0" />
+                <element signature="e#54601#55117#0" />
+                <element signature="e#55281#55796#0" />
+                <element signature="e#55956#56473#0" />
+                <element signature="e#56659#57194#0" />
+                <element signature="e#57363#57883#0" />
+                <element signature="e#58037#58542#0" />
               </folding>
             </state>
           </provider>
@@ -441,9 +406,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="726" column="44" selection-start-line="726" selection-start-column="44" selection-end-line="726" selection-end-column="44" />
+            <state relative-caret-position="272">
+              <caret line="107" column="63" selection-start-line="107" selection-start-column="63" selection-end-line="107" selection-end-column="63" />
               <folding>
+                <element signature="e#0#11#0" expanded="true" />
                 <element signature="e#951#1228#0" />
                 <element signature="e#1114#1228#0" />
                 <element signature="e#1325#1824#0" />
@@ -453,14 +419,11 @@
                 <element signature="e#2142#2255#0" />
                 <element signature="e#2356#2636#0" />
                 <element signature="e#2405#2636#0" />
-                <element signature="e#2813#12823#0" />
                 <element signature="e#2958#3007#0" />
                 <element signature="e#3063#3810#0" />
                 <element signature="e#3121#3283#1" />
                 <element signature="e#3490#3698#0" />
                 <element signature="e#3558#3642#0" />
-                <element signature="e#3862#4535#0" />
-                <element signature="e#4047#4512#0" />
                 <element signature="e#4610#4835#0" />
                 <element signature="e#4627#4698#0" />
                 <element signature="e#4742#4835#0" />
@@ -480,25 +443,6 @@
                 <element signature="e#7018#7196#1" />
                 <element signature="e#7234#7445#0" />
                 <element signature="e#7324#7425#0" />
-                <element signature="e#7603#12823#0" />
-                <element signature="e#7668#7795#0" />
-                <element signature="e#7874#8074#0" />
-                <element signature="e#8170#8370#0" />
-                <element signature="e#8450#8650#0" />
-                <element signature="e#8747#8947#0" />
-                <element signature="e#9043#9243#0" />
-                <element signature="e#9342#9542#0" />
-                <element signature="e#9640#9840#0" />
-                <element signature="e#9941#10141#0" />
-                <element signature="e#10234#10434#0" />
-                <element signature="e#10530#10730#0" />
-                <element signature="e#10827#11027#0" />
-                <element signature="e#11122#11322#0" />
-                <element signature="e#11416#11616#0" />
-                <element signature="e#11712#11912#0" />
-                <element signature="e#12010#12210#0" />
-                <element signature="e#12305#12505#0" />
-                <element signature="e#12603#12803#0" />
                 <element signature="e#12926#13254#0" />
                 <element signature="e#13136#13254#0" />
                 <element signature="e#13363#13690#0" />
@@ -587,8 +531,20 @@
                 <element signature="e#30906#31140#0" />
                 <element signature="e#31010#31140#0" />
                 <element signature="e#31275#31510#0" />
-                <element signature="e#31645#31880#0" />
-                <element signature="e#31965#32178#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="59" selection-start-line="59" selection-end-line="59" />
+              <folding>
+                <element signature="e#0#52#0" expanded="true" />
+                <element signature="e#265#3344#0" />
+                <element signature="e#215#3204#0" />
               </folding>
             </state>
           </provider>
@@ -672,7 +628,6 @@
         <option value="$PROJECT_DIR$/templates/reportes/disciplinaInfoCentrosControlados.html" />
         <option value="$PROJECT_DIR$/templates/reportes/deficiencias.html" />
         <option value="$PROJECT_DIR$/templates/reportes/disciplinaInformativa.html" />
-        <option value="$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html" />
         <option value="$PROJECT_DIR$/templates/reportes/señalamientosErrores.html" />
         <option value="$PROJECT_DIR$/templates/reportes/domicilioSocial.html" />
         <option value="$PROJECT_DIR$/apps/indicadores/urls.py" />
@@ -698,12 +653,9 @@
         <option value="$PROJECT_DIR$/templates/usuario/login.html" />
         <option value="$PROJECT_DIR$/static/propios/js/utils.js" />
         <option value="$PROJECT_DIR$/apps/usuario/views.py" />
-        <option value="$PROJECT_DIR$/templates/comun/home.html" />
         <option value="$PROJECT_DIR$/templates/usuario/enviarEmail.html" />
         <option value="$PROJECT_DIR$/templates/usuario/resetearPassword.html" />
         <option value="$PROJECT_DIR$/templates/usuario/listarUsuario.html" />
-        <option value="$PROJECT_DIR$/utils.py" />
-        <option value="$PROJECT_DIR$/templates/usuario/changePaswsword.html" />
         <option value="$PROJECT_DIR$/templates/entidad/listarUniverso.html" />
         <option value="$PROJECT_DIR$/templates/guiaEstadistica/guiaCaptada.html" />
         <option value="$PROJECT_DIR$/templates/reportes/centrosInformantesCaptados.html" />
@@ -711,9 +663,13 @@
         <option value="$PROJECT_DIR$/templates/comun/menu.html" />
         <option value="$PROJECT_DIR$/templates/reportes/universoGuia.html" />
         <option value="$PROJECT_DIR$/templates/comun/listar.html" />
-        <option value="$PROJECT_DIR$/apps/guiaEstadistica/views.py" />
-        <option value="$PROJECT_DIR$/static/propios/js/funciones.js" />
         <option value="$PROJECT_DIR$/templates/reportes/captacion.html" />
+        <option value="$PROJECT_DIR$/templates/comun/home.html" />
+        <option value="$PROJECT_DIR$/templates/usuario/changePaswsword.html" />
+        <option value="$PROJECT_DIR$/utils.py" />
+        <option value="$PROJECT_DIR$/apps/guiaEstadistica/views.py" />
+        <option value="$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html" />
+        <option value="$PROJECT_DIR$/static/propios/js/funciones.js" />
       </list>
     </option>
   </component>
@@ -735,24 +691,6 @@
             <path>
               <item name="SCIEv1" type="b2602c69:ProjectViewProjectNode" />
               <item name="SCIEv1" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SCIEv1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SCIEv1" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SCIEv1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SCIEv1" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="propios" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SCIEv1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SCIEv1" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="propios" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -1042,7 +980,8 @@
       <workItem from="1621954559648" duration="1756000" />
       <workItem from="1622208795579" duration="1742000" />
       <workItem from="1622922974749" duration="4908000" />
-      <workItem from="1622946105328" duration="6394000" />
+      <workItem from="1622946105328" duration="7008000" />
+      <workItem from="1623095574553" duration="7652000" />
     </task>
     <task id="LOCAL-00001" summary="Agregue el reporte general, cambios en la vista guiaEstadistica">
       <created>1612994478574</created>
@@ -1163,22 +1102,29 @@
       <option name="project" value="LOCAL" />
       <updated>1622928486506</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Se agrego el reporte de universo de la guia y el de captacion(Centros Captados y no Captados), implemntandose respectivamente las clases correspondientes -&gt; Cambios en: las url y las vistas de guiaEstadistica(+ class reporteUniversoGuia, + class reporteCaptacion); se agrego la template(universoGuia y captacion) y se inicializo el datatable para la tbl Captado y la tblNoCaptado">
+      <created>1622953165609</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1622953165609</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1019925000" />
+    <option name="totallyTimeSpent" value="1028191000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23676248" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14372164" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32478634" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32478634" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5863248" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1270,7 +1216,8 @@
     <MESSAGE value="Se modifico y perfecciono el cierre de sesion por inactividad, ademas se corrigio el error en la edicion de usuario por un problema en la contraseña con la validacion de caracteres especiales y tambien se realizo el control de acceso a los widgets del Home." />
     <MESSAGE value="Se realizo el procedimiento del reseteo de contraseña por correo, creandose el archivo utils.js, las clases, los form y templates correspondientes en la app usuario y las variables vinculadas al envio de email creadas en el settings." />
     <MESSAGE value="Cambios realizados:&#10;tempalete changePassword ---- se realizo el redireccionamiento despues del reseteo (setTimeout)&#10;template home ----- se aumento el tiempo de cierre de session (55 min para el aviso y 1 hora para el cierre)&#10;template envioEmail ---- se removio la imagen y el boton de visitar nuestro sitio web&#10;vista guiaCaptada ---- se implmento la funcion getPermisoEstadistico&#10;template guiaCaptada ----- modificada la condicional (preguntadose ademas si no tiene el permiso de estadistico)&#10;se creo el permiso estadistico y se modifico las funcionalidades de un usuario segun su permiso ya sea administrador, estadistico, por provincia" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambios realizados:&#10;tempalete changePassword ---- se realizo el redireccionamiento despues del reseteo (setTimeout)&#10;template home ----- se aumento el tiempo de cierre de session (55 min para el aviso y 1 hora para el cierre)&#10;template envioEmail ---- se removio la imagen y el boton de visitar nuestro sitio web&#10;vista guiaCaptada ---- se implmento la funcion getPermisoEstadistico&#10;template guiaCaptada ----- modificada la condicional (preguntadose ademas si no tiene el permiso de estadistico)&#10;se creo el permiso estadistico y se modifico las funcionalidades de un usuario segun su permiso ya sea administrador, estadistico, por provincia" />
+    <MESSAGE value="Se agrego el reporte de universo de la guia y el de captacion(Centros Captados y no Captados), implemntandose respectivamente las clases correspondientes -&gt; Cambios en: las url y las vistas de guiaEstadistica(+ class reporteUniversoGuia, + class reporteCaptacion); se agrego la template(universoGuia y captacion) y se inicializo el datatable para la tbl Captado y la tblNoCaptado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se agrego el reporte de universo de la guia y el de captacion(Centros Captados y no Captados), implemntandose respectivamente las clases correspondientes -&gt; Cambios en: las url y las vistas de guiaEstadistica(+ class reporteUniversoGuia, + class reporteCaptacion); se agrego la template(universoGuia y captacion) y se inicializo el datatable para la tbl Captado y la tblNoCaptado" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
@@ -1301,13 +1248,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="33" column="70" selection-start-line="33" selection-start-column="70" selection-end-line="33" selection-end-column="100" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="332" column="89" selection-start-line="332" selection-start-column="89" selection-end-line="332" selection-end-column="110" />
         </state>
       </provider>
     </entry>
@@ -1487,16 +1427,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/usuario/form.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="70" column="22" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/usuario/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -1578,13 +1508,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/comun/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="282" column="22" selection-start-line="282" selection-start-column="22" selection-end-line="282" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/usuario/resetearPassword.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1596,23 +1519,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="83" selection-start-line="5" selection-start-column="83" selection-end-line="5" selection-end-column="83" />
-          <folding>
-            <element signature="e#0#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/usuario/changePaswsword.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="54" column="30" selection-start-line="54" selection-start-column="30" selection-end-line="54" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -1661,20 +1567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/reportes/señalamientosErrores.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="24" column="8" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="30" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/reportes/universoGuia.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="19" column="59" lean-forward="true" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
@@ -1687,11 +1579,57 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/reportes/captacion.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="15" column="72" selection-start-line="15" selection-start-column="72" selection-end-line="15" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/reportes/señalamientosErrores.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="24" column="8" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="30" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/reportes/universoGuia.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="19" column="59" lean-forward="true" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/comun/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="283" column="22" selection-start-line="283" selection-start-column="22" selection-end-line="283" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/usuario/form.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="70" column="22" selection-start-line="70" selection-start-column="22" selection-end-line="70" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/usuario/changePaswsword.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="54" selection-start-line="4" selection-start-column="54" selection-end-line="4" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="726" column="44" selection-start-line="726" selection-start-column="44" selection-end-line="726" selection-end-column="44" />
+        <state relative-caret-position="272">
+          <caret line="107" column="63" selection-start-line="107" selection-start-column="63" selection-end-line="107" selection-end-column="63" />
           <folding>
+            <element signature="e#0#11#0" expanded="true" />
             <element signature="e#951#1228#0" />
             <element signature="e#1114#1228#0" />
             <element signature="e#1325#1824#0" />
@@ -1701,14 +1639,11 @@
             <element signature="e#2142#2255#0" />
             <element signature="e#2356#2636#0" />
             <element signature="e#2405#2636#0" />
-            <element signature="e#2813#12823#0" />
             <element signature="e#2958#3007#0" />
             <element signature="e#3063#3810#0" />
             <element signature="e#3121#3283#1" />
             <element signature="e#3490#3698#0" />
             <element signature="e#3558#3642#0" />
-            <element signature="e#3862#4535#0" />
-            <element signature="e#4047#4512#0" />
             <element signature="e#4610#4835#0" />
             <element signature="e#4627#4698#0" />
             <element signature="e#4742#4835#0" />
@@ -1728,25 +1663,6 @@
             <element signature="e#7018#7196#1" />
             <element signature="e#7234#7445#0" />
             <element signature="e#7324#7425#0" />
-            <element signature="e#7603#12823#0" />
-            <element signature="e#7668#7795#0" />
-            <element signature="e#7874#8074#0" />
-            <element signature="e#8170#8370#0" />
-            <element signature="e#8450#8650#0" />
-            <element signature="e#8747#8947#0" />
-            <element signature="e#9043#9243#0" />
-            <element signature="e#9342#9542#0" />
-            <element signature="e#9640#9840#0" />
-            <element signature="e#9941#10141#0" />
-            <element signature="e#10234#10434#0" />
-            <element signature="e#10530#10730#0" />
-            <element signature="e#10827#11027#0" />
-            <element signature="e#11122#11322#0" />
-            <element signature="e#11416#11616#0" />
-            <element signature="e#11712#11912#0" />
-            <element signature="e#12010#12210#0" />
-            <element signature="e#12305#12505#0" />
-            <element signature="e#12603#12803#0" />
             <element signature="e#12926#13254#0" />
             <element signature="e#13136#13254#0" />
             <element signature="e#13363#13690#0" />
@@ -1835,16 +1751,33 @@
             <element signature="e#30906#31140#0" />
             <element signature="e#31010#31140#0" />
             <element signature="e#31275#31510#0" />
-            <element signature="e#31645#31880#0" />
-            <element signature="e#31965#32178#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="90" column="146" selection-start-line="90" selection-start-column="146" selection-end-line="90" selection-end-column="146" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+            <element signature="e#265#3344#0" />
+            <element signature="e#215#3204#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/propios/js/funciones.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="1674" column="17" selection-start-line="1674" selection-start-column="17" selection-end-line="1674" selection-end-column="17" />
+        <state relative-caret-position="353">
+          <caret line="337" column="110" selection-start-line="337" selection-start-column="110" selection-end-line="337" selection-end-column="110" />
           <folding>
             <element signature="e#191#284#0" />
             <element signature="e#330#363#0" />
@@ -1884,7 +1817,7 @@
             <element signature="e#6058#6161#0" />
             <element signature="e#6218#6273#0" />
             <element signature="e#6449#6506#0" />
-            <element signature="e#6476#6504#0" />
+            <element signature="e#6810#6930#0" />
             <element signature="e#6547#6834#0" />
             <element signature="e#6579#6620#0" />
             <element signature="e#6625#6832#0" />
@@ -1912,20 +1845,12 @@
             <element signature="e#10126#10162#0" />
             <element signature="e#10226#10325#0" />
             <element signature="e#10282#10318#0" />
-            <element signature="e#10372#13892#0" />
-            <element signature="e#11276#13887#0" />
-            <element signature="e#11620#11862#0" />
-            <element signature="e#11705#11825#0" />
-            <element signature="e#12018#12300#0" />
-            <element signature="e#12143#12263#0" />
-            <element signature="e#12361#12677#0" />
-            <element signature="e#12520#12640#0" />
-            <element signature="e#12738#13054#0" />
-            <element signature="e#12897#13017#0" />
-            <element signature="e#13115#13431#0" />
-            <element signature="e#13274#13394#0" />
-            <element signature="e#13494#13881#0" />
-            <element signature="e#13724#13844#0" />
+            <element signature="e#11563#11805#0" />
+            <element signature="e#11648#11768#0" />
+            <element signature="e#11961#12243#0" />
+            <element signature="e#12086#12206#0" />
+            <element signature="e#13437#13824#0" />
+            <element signature="e#13667#13787#0" />
             <element signature="e#13936#17643#0" />
             <element signature="e#16163#16218#0" />
             <element signature="e#16268#16324#0" />
@@ -1940,12 +1865,8 @@
             <element signature="e#17440#17515#0" />
             <element signature="e#17565#17639#0" />
             <element signature="e#17910#17935#0" />
-            <element signature="e#18217#19986#0" />
-            <element signature="e#18322#18364#0" />
             <element signature="e#18405#19016#0" />
             <element signature="e#18472#18683#0" />
-            <element signature="e#18541#18644#0" />
-            <element signature="e#18687#19010#0" />
             <element signature="e#18762#19000#0" />
             <element signature="e#18849#18952#0" />
             <element signature="e#19154#19322#0" />
@@ -2181,9 +2102,6 @@
             <element signature="e#48541#48690#0" />
             <element signature="e#48708#52096#0" />
             <element signature="e#48734#49125#0" />
-            <element signature="e#48815#49111#0" />
-            <element signature="e#48847#48928#0" />
-            <element signature="e#48955#49093#0" />
             <element signature="e#49150#49553#0" />
             <element signature="e#49233#49539#0" />
             <element signature="e#49265#49349#0" />
@@ -2207,15 +2125,19 @@
             <element signature="e#51439#51610#0" />
             <element signature="e#51703#51964#0" />
             <element signature="e#51744#51934#0" />
+            <element signature="e#52111#52502#0" />
+            <element signature="e#52396#56283#0" />
             <element signature="e#52255#52333#0" />
+            <element signature="e#52510#52800#0" />
+            <element signature="e#52839#53774#0" />
+            <element signature="e#53935#54440#0" />
+            <element signature="e#54601#55117#0" />
+            <element signature="e#55281#55796#0" />
+            <element signature="e#55956#56473#0" />
+            <element signature="e#56659#57194#0" />
+            <element signature="e#57363#57883#0" />
+            <element signature="e#58037#58542#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/reportes/captacion.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
         </state>
       </provider>
     </entry>

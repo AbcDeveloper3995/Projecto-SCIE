@@ -15,7 +15,7 @@ from apps.indicadores.forms import seccion, clasificadorIndicadores
 from apps.indicadores.models import Indicadores
 from apps.seccion.forms import nomencladorColumna, instanciaSeccion, instanciaForm, verificacionForm
 from apps.seccion.models import clasificadorPeriodo, verificacion
-from utils import getCuestionarios
+from utils import getCuestionarios, getUniverso
 
 # PROCEDIMIENTO PARA LISTAR LAS GUIAS.
 class listarGuiasView(LoginRequiredMixin, ListView):
@@ -105,8 +105,7 @@ class captarDatosView(LoginRequiredMixin, TemplateView):
             context['instancias'] = self.getInstancias()
             context['instanciaForm'] = instanciaForm
             context['datos'] = self.getDatos()
-            print(context['datos'])
-            context['universo'] = self.getUniverso()
+            context['universo'] = getUniverso(self.request.user)
             context['titulo'] = 'Informacion vinculada a la entidad:'
         return context
 
@@ -185,82 +184,6 @@ class captarDatosView(LoginRequiredMixin, TemplateView):
             data.copy()
         return data
 
-    # FUNCION PARA OBTENER EL UNIVERSO AL CUAL SE LE VA HA APLICAR LA GUIA, TENIENDO EN CUENTA LOS PERMISOS DE USUARIOS.
-    def getUniverso(self):
-        data = []
-        if self.request.user.is_superuser:
-            dataUniverso = universoEntidades.objects.all()
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.pinar'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=21)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_artemisa'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=22)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.habana'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=23)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_mayabeque'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=24)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_matanzas'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=25)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_villa_clara'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=26)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_cienfuegos'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=27)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_santi_spiritu'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=28)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_ciego'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=29)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_camaguey'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=30)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_las_tunas'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=31)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_holguin'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=32)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_granma'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=33)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_santiago'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=34)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_guantanamo'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=35)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_la_isla'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=40)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        elif self.request.user.has_perm('guiaEstadistica.ver_entidades_ZED_mariel'):
-            dataUniverso = universoEntidades.objects.filter(guia__activo=True).filter(entidad_codigo__ote_codigo__codigo__exact=41)
-            for i in dataUniverso:
-                data.append(i.entidad_codigo)
-        return data
 
 # PROCEDIMIENTO PARA CREAR EL UNIVERSO.
 class crearUniversoView(LoginRequiredMixin, CreateView):

@@ -2,7 +2,7 @@
 
 {% block titulo %}Cambio de contraseña{% endblock %}
 {% block content %}
-    <form action=".." method="post">
+    <form action=".." method="post" id="changePasswordForm">
         <input type="hidden" name="next" value="{{ next }}">
         {% csrf_token %}
         <div class="input-group mb-3">

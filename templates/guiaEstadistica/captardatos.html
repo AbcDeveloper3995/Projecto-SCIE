@@ -88,7 +88,7 @@
                                     <h4><span class="right badge bg-gradient-navy">Entidad a controlar</span></h4>
                                     <select class="form-control select2 " style="width: 100%;" name="Entidad" >
                                         {% for i in universo %}
-                                            <option value="{{ i.nombre_CI }}">{{ i.codigo_CI }}-{{ i.nombre_CI }}</option>
+                                            <option value="{{ i.entidad_codigo.nombre_CI }}">{{ i.entidad_codigo.codigo_CI }}-{{ i.entidad_codigo.nombre_CI }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

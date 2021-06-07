@@ -183,6 +183,17 @@ const verificarExistencia = (element) => {
     }
 }
 
+const verificacionDeMenorAlTotalAReportar = (componenteTotalAreportar, componenteAcomparar) => {
+    if (parseInt(componenteTotalAreportar.val()) <= parseInt(componenteAcomparar.val())) {
+            toastr.error("La cantidad de modelos " + componenteAcomparar.prop('name') + " debe ser menor el que " + componenteTotalAreportar.prop('name') + ".", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+            return false
+        }
+}
+
 const validacionChecked = (element) => {
     if(element.is(':checked')){
          console.log('chekeado')
@@ -298,65 +309,44 @@ const validate_component_entero = () => {
     let cod_pregunta_62 = $('.formCaptacion input[data-cod-pregunta="62"]');
     let cod_pregunta_63 = $('.formCaptacion input[data-cod-pregunta="63"]');
 
-    if (verificarExistencia(cod_pregunta_31) != false && verificarExistencia(cod_pregunta_32) != false && verificarExistencia(cod_pregunta_33) != false
-        && verificarExistencia(cod_pregunta_34) != false && verificarExistencia(cod_pregunta_42) != false && verificarExistencia(cod_pregunta_62) != false
-    && verificarExistencia(cod_pregunta_63) != false) {
+    let suma_modelos = parseInt(cod_pregunta_32.val()) + parseInt(cod_pregunta_33.val()) + parseInt(cod_pregunta_34.val())
 
-        let suma_modelos = parseInt(cod_pregunta_32.val()) + parseInt(cod_pregunta_33.val()) + parseInt(cod_pregunta_34.val())
+    let arrayElement = [cod_pregunta_31,cod_pregunta_32, cod_pregunta_33, cod_pregunta_34, cod_pregunta_42, cod_pregunta_62, cod_pregunta_63];
 
-        if (cod_pregunta_31.val() < 0 || cod_pregunta_32.val() < 0 || cod_pregunta_33.val() < 0 || cod_pregunta_34.val() < 0 || cod_pregunta_42.val() < 0 || cod_pregunta_62.val() < 0 || cod_pregunta_63.val() < 0) {
-            toastr.error("Verifique no haber entrado valores negativos.", 'Error', {
-                progressBar: true,
-                closeButton: true,
-                "timeOut": "5000",
-            });
-            return false
-        }
+    for (var i = 0; i < arrayElement.length; i++) {
+        let verificacion = verificarExistencia(arrayElement[i]);
+        if (verificacion != false) {
+            if (cod_pregunta_31.val() < 0 || cod_pregunta_32.val() < 0 || cod_pregunta_33.val() < 0 || cod_pregunta_34.val() < 0 || cod_pregunta_42.val() < 0 || cod_pregunta_62.val() < 0 || cod_pregunta_63.val() < 0) {
+                toastr.error("Verifique no haber entrado valores negativos.", 'Error', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "5000",
+                });
+                return false
+            }
 
-        if (cod_pregunta_31.val().length > 3 || cod_pregunta_32.val().length > 3 || cod_pregunta_33.val().length > 3 || cod_pregunta_34.val().length > 3) {
-            toastr.error("Los campos vinculados a los reportes de modelos deben contener como maximo 3 digitos.", 'Error', {
-                progressBar: true,
-                closeButton: true,
-                "timeOut": "5000",
-            });
-            return false
+            if (cod_pregunta_31.val().length > 3 || cod_pregunta_32.val().length > 3 || cod_pregunta_33.val().length > 3 || cod_pregunta_34.val().length > 3) {
+                toastr.error("Los campos vinculados a los reportes de modelos deben contener como maximo 3 digitos.", 'Error', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "5000",
+                });
+                return false
+            }
+            if (verificacionDeMenorAlTotalAReportar(cod_pregunta_31, cod_pregunta_32) == false){return false};
+            if (verificacionDeMenorAlTotalAReportar(cod_pregunta_31, cod_pregunta_33) == false){return false};
+            if (verificacionDeMenorAlTotalAReportar(cod_pregunta_31, cod_pregunta_34) == false){return false};
+            if (parseInt(cod_pregunta_31.val()) !== suma_modelos) {
+                toastr.error("El " + cod_pregunta_31.prop('name') + " no se corresponde con la suma entre: " + cod_pregunta_32.prop('name') + " " + cod_pregunta_33.prop('name') + " y " + cod_pregunta_34.prop('name') + ".", 'Error', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "5000",
+                });
+                return false
+            }
         }
-        if (cod_pregunta_31.val() <= cod_pregunta_32.val()) {
-            toastr.error("La cantidad de modelos " + cod_pregunta_32.prop('name') + " debe ser menor el que " + cod_pregunta_31.prop('name') + ".", 'Error', {
-                progressBar: true,
-                closeButton: true,
-                "timeOut": "5000",
-            });
-            return false
-        }
-        if (cod_pregunta_31.val() <= cod_pregunta_33.val()) {
-            toastr.error("La cantidad de modelos " + cod_pregunta_33.prop('name') + " debe ser menor el que " + cod_pregunta_31.prop('name') + ".", 'Error', {
-                progressBar: true,
-                closeButton: true,
-                "timeOut": "5000",
-            });
-            return false
-        }
-        if (cod_pregunta_31.val() <= cod_pregunta_34.val()) {
-            toastr.error("La cantidad de modelos " + cod_pregunta_34.prop('name') + " debe ser menor el que " + cod_pregunta_31.prop('name') + ".", 'Error', {
-                progressBar: true,
-                closeButton: true,
-                "timeOut": "5000",
-            });
-            return false
-        }
-        if (parseInt(cod_pregunta_31.val()) !== suma_modelos) {
-            toastr.error("El " + cod_pregunta_31.prop('name') + " no se corresponde con la suma entre: " + cod_pregunta_32.prop('name') + " " + cod_pregunta_33.prop('name') + " y " + cod_pregunta_34.prop('name') + ".", 'Error', {
-                progressBar: true,
-                closeButton: true,
-                "timeOut": "5000",
-            });
-            return false
-        }
-    };
-
-
-}
+    }
+};
 
 const validate_depedencias_campos = () => {
 
@@ -443,10 +433,6 @@ let texto = $('.formCaptacion input[data-component="texto"]:text' );
 $('form[class="formCaptacion"]').on('submit', function (e) {
     e.preventDefault();
     let  campos = new FormData(this);
-    campos.forEach(function (value, key) {
-        console.log(key+':'+value)
-    })
-
     for (var i=0; i<texto.length; i++){
         if(texto[i].dataset.type ==="1" && texto[i].value === ""){
              toastr.error(texto[i].name+" es requerido.", 'Error', {
@@ -456,7 +442,7 @@ $('form[class="formCaptacion"]').on('submit', function (e) {
     });
              return false;
         }else{
-            reg=/^[a-zA-Z]+$/;
+            reg=/^[a-zA-ZñÑáéíóú_ ]+$/;
             if(!reg.test(texto[i].value )){
                   toastr.error(texto[i].name+" debe contener solo letras.", 'Error', {
              progressBar: true,
@@ -1448,8 +1434,63 @@ $('#userForm').bootstrapValidator({
                     }
                 }
             },
+            groups: {
+                message: 'El nombre no es valido',
+                validators: {
+                    notEmpty: {
+                        message: 'Debe de seleccionar una opcion'
+                    },
+                }
+            },
         }
     });
+
+$('#changePasswordForm').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+        invalid: 'fa fa-times-circle',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'El campo contraseña es requerido.'
+                    },
+                    stringLength: {
+                        min: 8,
+                        message: 'La contraseña debe tener como minimo 8 caracteres'
+                    },
+                    callback: {
+                        callback: function(value, validator) {
+                            if (value === value.toLowerCase()) {
+                                return {
+                                    valid: false,
+                                    message: ' La contraseña debe contener mayusculas'
+                                }
+                            }
+                            if (value === value.toUpperCase()) {
+                                return {
+                                    valid: false,
+                                    message: 'La contraseña debe contener minusculas'
+                                }
+                            }
+                             if (value.search(/[.*,@_]/) < 0) {
+                                return {
+                                    valid: false,
+                                    message: 'La contraseña debe contener caracteres especiales (.*,@_)'
+                                }
+                            }
+                            return true;
+                        }
+                    }
+                }
+            },
+        }
+    });
+
+
 
 //------------------PORCEDIMIENTO PARA CREAR UNA GUIA CON LAS MISMAS CONFIGURACIONES DE OTRA YA DEFINIDA-----------------------//
  const url = () => {
