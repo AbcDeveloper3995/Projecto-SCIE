@@ -26,3 +26,16 @@
         <i class="fas fa-arrow-circle-left"></i> Cancelar
     </a>
 {% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+        {% if form.errors %}
+            <script type="text/javascript">
+                toastr.error('{{ form.errors }}', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "3000",
+                })
+            </script>
+    {% endif %}
+{% endblock %}

@@ -39,7 +39,6 @@ class usuarioProfileForm(ModelForm):
             'groups': SelectMultiple(attrs={'class':'form-control select2'}),
         }
 
-
 class resetearPasswordForm(forms.Form):
 
     username = CharField(widget=TextInput(attrs={

@@ -30,4 +30,11 @@ class universoForm(ModelForm):
         widgets = {
             'guia': Select(attrs={'class':'form-control select2'}),
             'entidad_codigo': Select(attrs={'class':'form-control select2'}),
- }
+        }
+
+    def clean(self):
+        cleaned = super().clean()
+        if universoEntidades.objects.filter(entidad_codigo=cleaned['entidad_codigo']).exists():
+             self._errors['error'] = self._errors.get('error', self.error_class())
+             self._errors['error'].append('Ese centro infomante ya forma parte del universo a evaluar.')
+        return cleaned

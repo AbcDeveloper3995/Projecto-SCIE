@@ -56,7 +56,7 @@ class clasificadorNAE(models.Model):
         return str(self.codigo)
 
 class Entidad(models.Model):
-    codigo_CI = models.CharField(verbose_name='Codigo Centro Informante', max_length=15, blank=False, null=False)
+    codigo_CI = models.CharField(verbose_name='Codigo Centro Informante', max_length=15, unique=True, blank=False, null=False)
     nombre_CI = models.CharField(verbose_name='Nombre Centro Informante', max_length=150, blank=False, null=False)
     ote_codigo = models.ForeignKey(clasificadorDPA, verbose_name='Provincia', blank=True, null=True, related_name='provincia', on_delete=models.CASCADE)
     ome_codigo = models.ForeignKey(clasificadorDPA, verbose_name='Municipio', blank=True, null=True, related_name='municipio', on_delete=models.CASCADE)
