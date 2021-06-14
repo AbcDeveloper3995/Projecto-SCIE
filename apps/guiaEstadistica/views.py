@@ -99,6 +99,7 @@ class captarDatosView(LoginRequiredMixin, TemplateView):
         if context['guia'] == None:
             redirect('usuario:home')
         else:
+            context['action'] = 'add'
             context['secciones'] = self.getSecciones()
             context['verificacionForm'] = verificacionForm
             context['columnas'] = self.getCol()
@@ -106,7 +107,6 @@ class captarDatosView(LoginRequiredMixin, TemplateView):
             context['instanciaForm'] = instanciaForm
             context['datos'] = self.getDatos()
             context['universo'] = getUniverso(self.request.user)
-            context['titulo'] = 'Informacion vinculada a la entidad:'
         return context
 
     # FUNCION PARA OBTENER LA GUIA ACTIVA
@@ -263,7 +263,6 @@ class dataUniversoView(LoginRequiredMixin, TemplateView):
 
 # PROCEDIMIENTO PARA CREAR LAS PREGUNTAS EVALUADAS Y LAS INSTANCIAS DE SECCION
 class dataCaptacion(captarDatosView):
-    template_name = 'guiaEstadistica/captarDatos.html'
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -419,36 +418,6 @@ class seccionCaptada(LoginRequiredMixin, TemplateView):
                         data.append(i.toJSON())
             else:
                 pass
-        except Exception as e:
-            data['error'] = str(e)
-        return JsonResponse(data, safe=False)
-
-# PROCEDIMIENTO PARA EDITAR LA INFOMACION DE LAS PREGUNTAS EVALUADAS A UN CUESTIONARIO
-class modificarPreguntasView(LoginRequiredMixin, TemplateView):
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        data = {}
-        action = request.POST['action']
-        campos = dict(request.POST)
-        print(campos)
-        try:
-            if action == 'cargarPreguntas':
-               data = []
-               query = PreguntasEvaluadas.objects.filter(captacion_id=request.POST['id'])
-               for i in query:
-                   data.append(i.toJSON())
-            if action == 'modificarPreguntas':
-                for clave, valor in campos.items():
-                    if clave != 'action' and clave != 'id':
-                        query = PreguntasEvaluadas.objects.filter(pregunta=clave).filter(captacion_id=campos['id'][0])
-                        pregunta = query[0]
-                        pregunta.respuesta = valor[0]
-                        pregunta.save()
-
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
@@ -638,13 +607,11 @@ class reporteDomicilioSocial(reporteDisciplinaInformativa):
 class reporteUniversoGuia(reporteDisciplinaInformativa):
     template_name = 'reportes/universoGuia.html'
 
-    def getUniverso(self):
-        return universoEntidades.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte del Universo de la Guia'
-        context['universo'] = self.getUniverso()
+        context['universo'] = getUniverso(self.request.user)
         return context
 
 # PROCEDIMIENTO PARA EL REPORTE DE CAPTACION
@@ -654,7 +621,7 @@ class reporteCaptacion(reporteDisciplinaInformativa):
     def getCINoCaptados(self, listaDeCaptados):
         idsAExcluir = []
         listaNoCaptados = []
-        universo = universoEntidades.objects.all()
+        universo = getUniverso(self.request.user)
         for i in listaDeCaptados:
             idsAExcluir.append(i.entidad_codigo)
         for j in universo.exclude(entidad_codigo__in=idsAExcluir):
@@ -667,3 +634,48 @@ class reporteCaptacion(reporteDisciplinaInformativa):
         context['noCaptados'] = self.getCINoCaptados(context['cuestionarios'])
 
         return context
+
+class modificarPreguntasView(captarDatosView):
+
+    template_name = 'guiaEstadistica/captardatos.html'
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        action = request.POST['action']
+        campos = dict(request.POST)
+        print(campos)
+        try:
+            if action == 'editarDataCaptacion':
+                for clave, valor in campos.items():
+                    if clave != 'action' and clave != 'idCuestionario':
+                        query = PreguntasEvaluadas.objects.filter(pregunta=clave).filter(
+                            captacion_id__id=campos['idCuestionario'][0])
+                        pregunta = query[0]
+                        pregunta.respuesta = valor[0]
+                        pregunta.save()
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
+
+    def getPreguntasEvaluadas(self):
+        data = {}
+        query = PreguntasEvaluadas.objects.filter(captacion_id__id=self.kwargs['pk'])
+        for i in query:
+            data[i.pregunta] = i.respuesta
+            data.copy()
+        return data
+
+    def getCuestionario(self):
+        return cuestionario.objects.get(id=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action'] = 'edit'
+        context['cuestionario'] = self.getCuestionario()
+        context['preguntas'] = self.getPreguntasEvaluadas()
+        return context
+

@@ -35,10 +35,6 @@
                         <span class="badge bg-gradient-danger" style="margin-bottom: 2px">{{ grupo }}</span>
                     {% endfor %}
                 </td>
-            {% else %}
-                <td>
-                    <span class="badge bg-gradient-danger">Este usuario no posee roles</span>
-                </td>
             {% endif %}
             {% if user.is_active == True %}
             <td><a href="#"  type="button" ><i class="fa fa-check-circle" style="color: #01ff70"></i></a></td>

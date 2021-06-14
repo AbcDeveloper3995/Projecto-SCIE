@@ -17,16 +17,16 @@
 
 {% block rows %}
     <tr>
-        <td class="text-center text-uppercase text-bold ">Total</td>
+        <td class=" text-uppercase text-bold ">Total</td>
         <td></td>
-        <td class="text-center"><span
+        <td ><span
                 class="badge badge-primary">{{ request.user|totalsenalamientos }}</span></td>
     </tr>
         {% for i in cuestionarios %}
             <tr>
-                <td class="text-center"><span class="badge badge-primary">{{ i.entidad_codigo.codigo_CI }}</span></td>
+                <td ><span class="badge badge-primary">{{ i.entidad_codigo.codigo_CI }}</span></td>
                 <td>{{ i.entidad_codigo.nombre_CI }}</td>
-                <td class="text-center"><span class="badge badge-primary">{{ i|senalamientos }}</span></td>
+                <td ><span class="badge badge-primary">{{ i|senalamientos }}</span></td>
             </tr>
         {% endfor %}
 {% endblock %}

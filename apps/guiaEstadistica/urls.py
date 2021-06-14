@@ -15,6 +15,7 @@ urlpatterns = [
     # MODIFICAR.
     path('modificarGuias/<int:pk>/', updateGuiaView.as_view(), name='updateGuias'),
     path('modificarUniverso/<int:pk>/', updateUniversoView.as_view(), name='modificarUniverso'),
+    path('modificarPreguntas/<int:pk>/', modificarPreguntasView.as_view(), name='modificarPreguntas'),
 
     # ELIMINAR.
     path('eliminarGuias/<int:pk>/', eliminarGuia.as_view(), name='eliminarGuias'),
@@ -28,7 +29,6 @@ urlpatterns = [
     path('informacionCaptada/', informacionCaptada.as_view(), name='informacionCaptada'),
     path('seccionCaptada/', seccionCaptada.as_view(), name='seccionCaptada'),
     path('universo/', dataUniversoView.as_view(), name='dataUniverso'),
-    path('modificarPreguntas/', modificarPreguntasView.as_view(), name='modificarPreguntas'),
     path('crearGuiaDefinida/', crearGuiaDefinida.as_view(), name='crearGuiaDefinidal'),
 
     # REPORTES.

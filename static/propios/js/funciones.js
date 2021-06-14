@@ -177,6 +177,7 @@ $('form[name="formVerificacion"]').on('submit', function (e) {
 });
 
 //-----------------------VALIDACIONES PARA LA SECCION IDENTIFICACION Y SOBRE ENTIDAD-----------------------------------------//
+
 const verificarExistencia = (element) => {
     if(element.length==0){
         return false
@@ -184,8 +185,9 @@ const verificarExistencia = (element) => {
 }
 
 const verificacionDeMenorAlTotalAReportar = (componenteTotalAreportar, componenteAcomparar) => {
-    if (parseInt(componenteTotalAreportar.val()) <= parseInt(componenteAcomparar.val())) {
-            toastr.error("La cantidad de modelos " + componenteAcomparar.prop('name') + " debe ser menor el que " + componenteTotalAreportar.prop('name') + ".", 'Error', {
+    if (parseInt(componenteTotalAreportar.val()) < parseInt(componenteAcomparar.val())) {
+        console.log(componenteTotalAreportar, componenteAcomparar)
+            toastr.error("La cantidad de modelos " + componenteAcomparar.prop('name') + " debe ser menor que el " + componenteTotalAreportar.prop('name') + ".", 'Error', {
                 progressBar: true,
                 closeButton: true,
                 "timeOut": "5000",
@@ -299,15 +301,16 @@ const validate_radios_no_empty = () => {
 
 }
 
-const validate_component_entero = () => {
+const validate_component_entero = (formulario) => {
+    let claseForm = formulario.prop('class');
 
-    let cod_pregunta_31 = $('.formCaptacion input[data-cod-pregunta="31"]');
-    let cod_pregunta_32 = $('.formCaptacion input[data-cod-pregunta="32"]');
-    let cod_pregunta_33 = $('.formCaptacion input[data-cod-pregunta="33"]');
-    let cod_pregunta_34 = $('.formCaptacion input[data-cod-pregunta="34"]');
-    let cod_pregunta_42 = $('.formCaptacion input[data-cod-pregunta="42"]');
-    let cod_pregunta_62 = $('.formCaptacion input[data-cod-pregunta="62"]');
-    let cod_pregunta_63 = $('.formCaptacion input[data-cod-pregunta="63"]');
+    let cod_pregunta_31 = $('.'+claseForm+' input[data-cod-pregunta="31"]');
+    let cod_pregunta_32 = $('.'+claseForm+' input[data-cod-pregunta="32"]');
+    let cod_pregunta_33 = $('.'+claseForm+' input[data-cod-pregunta="33"]');
+    let cod_pregunta_34 = $('.'+claseForm+' input[data-cod-pregunta="34"]');
+    let cod_pregunta_42 = $('.'+claseForm+' input[data-cod-pregunta="42"]');
+    let cod_pregunta_62 = $('.'+claseForm+' input[data-cod-pregunta="62"]');
+    let cod_pregunta_63 = $('.'+claseForm+' input[data-cod-pregunta="63"]');
 
     let suma_modelos = parseInt(cod_pregunta_32.val()) + parseInt(cod_pregunta_33.val()) + parseInt(cod_pregunta_34.val())
 
@@ -348,27 +351,27 @@ const validate_component_entero = () => {
     }
 };
 
-const validate_depedencias_campos = () => {
-
-    let cod_pregunta_41_No =  $('.formCaptacion input[data-cod-pregunta="41"]:input[value="No"] ' );
-    let cod_pregunta_41_Si =  $('.formCaptacion input[data-cod-pregunta="41"]:input[value="Si"] ' );
-    let cod_pregunta_42 =  $('.formCaptacion input[data-cod-pregunta="42"]' );
-    let cod_pregunta_61_No =  $('.formCaptacion input[data-cod-pregunta="61"]:input[value="No"] ' );
-    let cod_pregunta_61_Si =  $('.formCaptacion input[data-cod-pregunta="61"]:input[value="Si"] ' );
-    let cod_pregunta_62 =  $('.formCaptacion input[data-cod-pregunta="62"]' );
-    let cod_pregunta_63 =  $('.formCaptacion input[data-cod-pregunta="63"]' );
-    let cod_pregunta_71_No =  $('.formCaptacion input[data-cod-pregunta="71"]:input[value="No"] ' );
-    let cod_pregunta_71_Si =  $('.formCaptacion input[data-cod-pregunta="71"]:input[value="Si"] ' );
-    let cod_pregunta_711 =  $('.formCaptacion textarea[data-cod-pregunta="711"]' );
-    let cod_pregunta_72_No =  $('.formCaptacion input[data-cod-pregunta="72"]:input[value="No"] ' );
-    let cod_pregunta_72_Si =  $('.formCaptacion input[data-cod-pregunta="72"]:input[value="Si"] ' );
-    let cod_pregunta_721 =  $('.formCaptacion textarea[data-cod-pregunta="721"]' );
-    let cod_pregunta_73_No =  $('.formCaptacion input[data-cod-pregunta="73"]:input[value="No"] ' );
-    let cod_pregunta_73_Si =  $('.formCaptacion input[data-cod-pregunta="73"]:input[value="Si"] ' );
-    let cod_pregunta_731 =  $('.formCaptacion textarea[data-cod-pregunta="731"]' );
-    let cod_pregunta_74_No =  $('.formCaptacion input[data-cod-pregunta="74"]:input[value="No"] ' );
-    let cod_pregunta_74_Si =  $('.formCaptacion input[data-cod-pregunta="74"]:input[value="Si"] ' );
-    let cod_pregunta_741 =  $('.formCaptacion textarea[data-cod-pregunta="741"]' );
+const validate_depedencias_campos = (formulario) => {
+    let claseForm = formulario.prop('class');
+    let cod_pregunta_41_No =  $('.'+claseForm+' input[data-cod-pregunta="41"]:input[value="No"] ' );
+    let cod_pregunta_41_Si =  $('.'+claseForm+' input[data-cod-pregunta="41"]:input[value="Si"] ' );
+    let cod_pregunta_42 =  $('.'+claseForm+' input[data-cod-pregunta="42"]' );
+    let cod_pregunta_61_No =  $('.'+claseForm+' input[data-cod-pregunta="61"]:input[value="No"] ' );
+    let cod_pregunta_61_Si =  $('.'+claseForm+' input[data-cod-pregunta="61"]:input[value="Si"] ' );
+    let cod_pregunta_62 =  $('.'+claseForm+' input[data-cod-pregunta="62"]' );
+    let cod_pregunta_63 =  $('.'+claseForm+' input[data-cod-pregunta="63"]' );
+    let cod_pregunta_71_No =  $('.'+claseForm+' input[data-cod-pregunta="71"]:input[value="No"] ' );
+    let cod_pregunta_71_Si =  $('.'+claseForm+' input[data-cod-pregunta="71"]:input[value="Si"] ' );
+    let cod_pregunta_711 =  $('.'+claseForm+' textarea[data-cod-pregunta="711"]' );
+    let cod_pregunta_72_No =  $('.'+claseForm+' input[data-cod-pregunta="72"]:input[value="No"] ' );
+    let cod_pregunta_72_Si =  $('.'+claseForm+' input[data-cod-pregunta="72"]:input[value="Si"] ' );
+    let cod_pregunta_721 =  $('.'+claseForm+' textarea[data-cod-pregunta="721"]' );
+    let cod_pregunta_73_No =  $('.'+claseForm+' input[data-cod-pregunta="73"]:input[value="No"] ' );
+    let cod_pregunta_73_Si =  $('.'+claseForm+' input[data-cod-pregunta="73"]:input[value="Si"] ' );
+    let cod_pregunta_731 =  $('.'+claseForm+' textarea[data-cod-pregunta="731"]' );
+    let cod_pregunta_74_No =  $('.'+claseForm+' input[data-cod-pregunta="74"]:input[value="No"] ' );
+    let cod_pregunta_74_Si =  $('.'+claseForm+' input[data-cod-pregunta="74"]:input[value="Si"] ' );
+    let cod_pregunta_741 =  $('.'+claseForm+' textarea[data-cod-pregunta="741"]' );
     cod_pregunta_42.prop('readonly', true);
     cod_pregunta_62.prop('readonly', true);
     cod_pregunta_63.prop('readonly', true);
@@ -418,21 +421,9 @@ const validate_depedencias_campos = () => {
 
 }
 
-validate_depedencias_campos();
-//--------------------------------INICIALIZACION DE CAMPOS NUMERICOS EN SOBRE ENTIDAD--------------------------------------------//
-
-let entero = $('.formCaptacion input[data-component="entero"]' );
-for (var i=0; i<entero.length; i++){
-    entero[i].value=0
-}
-
-//-----------------------------------------PROCEDIMIENTO PARA GUARDAR LO CAPTADO EN SOBRE ENTIDAD--------------------------------------------------//
-
-let texto = $('.formCaptacion input[data-component="texto"]:text' );
-
-$('form[class="formCaptacion"]').on('submit', function (e) {
-    e.preventDefault();
-    let  campos = new FormData(this);
+const validateComponenteTexto = (formulario) => {
+    let claseForm = formulario.prop('class');
+    let texto = $('.'+claseForm+' input[data-component="texto"]:text' );
     for (var i=0; i<texto.length; i++){
         if(texto[i].dataset.type ==="1" && texto[i].value === ""){
              toastr.error(texto[i].name+" es requerido.", 'Error', {
@@ -453,8 +444,28 @@ $('form[class="formCaptacion"]').on('submit', function (e) {
             }
         }
     }
+}
+
+//--------------------------------INICIALIZACION DE CAMPOS NUMERICOS EN SOBRE ENTIDAD--------------------------------------------//
+
+let entero = $('.formCaptacion input[data-component="entero"]' );
+for (var i=0; i<entero.length; i++){
+    entero[i].value=0
+}
+
+//-----------------------------------------PROCEDIMIENTO PARA GUARDAR LO CAPTADO EN SOBRE ENTIDAD--------------------------------------------------//
+
+
+let formularioCaptacion = $('form[class="formCaptacion"]');
+
+validate_depedencias_campos(formularioCaptacion);
+formularioCaptacion.on('submit', function (e) {
+    e.preventDefault();
+    let  campos = new FormData(this);
+
+     if( validateComponenteTexto(formularioCaptacion) === false){return false};
      if( validate_radios_no_empty() === false){return false};
-     if( validate_component_entero() === false){return false};
+     if( validate_component_entero(formularioCaptacion) === false){return false};
 
     $.ajax({
         url: '/guia/dataCaptacion/',
@@ -817,28 +828,21 @@ $('#widgetUsuario').on('click', function () {
 //-----------1. PREGUNTAS---------------//
 
 $('a[name="modificarPreguntas"]').on('click', function () {
-    var id = $(this).data('id');
-    var form = $('#contenidoEdicionPreguntas');
-    var campos = '<input type="hidden" name="action" value="modificarPreguntas"><input type="hidden" name="id" value="'+id+'">';
-    $.ajax({
-        url: '/guia/modificarPreguntas/',
+    let id = $(this).data('id');
+    let form = $('#b');
+    let bloque = $('#bloque')
+     $.ajax({
+        url: '/guia/modificarPreguntas1/',
         type: 'POST',
         data: {
-            'action': 'cargarPreguntas',
+            'action': 'modificarPreguntas',
             'id': id
         },
         dataType: 'json',
     }).done(function (data) {
         $('#modificacionPreguntas').prop("hidden", false);
-        for (var i = 0; i < data.length; i++) {
-           if (data[i].pregunta === "Entidad"){
-               campos += '<div class="form-group"><label>'+data[i].pregunta+'</label><input class="form-control" type="text" name="'+data[i].pregunta+'" readonly value="'+data[i].respuesta+'"></div>'
-           }else {
-               campos += '<div class="form-group"><label>'+data[i].pregunta+'</label><input class="form-control" type="text" name="'+data[i].pregunta+'" value="'+data[i].respuesta+'"></div>'
-           }
-       }
-        campos+='<div class="form-actions"><div class="row"><div class="offset-md-10 col-2"><button type=submit class="btn btn-primary"><i class="fa fa-save "></i> Salvar</button></div></div></div>'
-        form.html(campos)
+        console.log(form)
+        bloque.prepend('asa'+form+'adsda')
     }).fail(function (jqXHR, textStatus,errorThrown) {
         alert(textStatus+' : '+errorThrown)
     })
@@ -951,7 +955,7 @@ $('.acordeon').on('click', function () {
 });
 
 
-//-------------------------------VALIDACIONS DENTRO DE LOS FORMULARIOS DENTRO DE LA SECCION ADMIN--------------------------//
+//-------------------------------VALIDACIONES DENTRO DE LOS FORMULARIOS DENTRO DE LA SECCION ADMIN--------------------------//
 
 $(' #guiaForm').bootstrapValidator({
     message: 'This value is not valid',
@@ -1492,7 +1496,7 @@ $('#changePasswordForm').bootstrapValidator({
 
 
 
-//------------------PORCEDIMIENTO PARA CREAR UNA GUIA CON LAS MISMAS CONFIGURACIONES DE OTRA YA DEFINIDA-----------------------//
+//------------------PROCEDIMIENTO PARA CREAR UNA GUIA CON LAS MISMAS CONFIGURACIONES DE OTRA YA DEFINIDA-----------------------//
  const url = () => {
            location.href='http://127.0.0.1:8000/guia/listarGuias/';
        }
@@ -1548,7 +1552,7 @@ $('#safe').on('click', function () {
 
 })
 
-//---------------------------------PORCEDIMIENTO PARA El REPORTE DE VERIFICACION--------------------------------------//
+//---------------------------------PROCEDIMIENTO PARA El REPORTE DE VERIFICACION--------------------------------------//
  $('#reporteVerificacion').DataTable({
      dom: "Bfrtip",
      buttons: {
@@ -1571,7 +1575,7 @@ $('#safe').on('click', function () {
      }
  });
 
-//--------------------------------------PORCEDIMIENTO PARA El REPORTE GENERAL---------------------------------------------//
+//--------------------------------------PROCEDIMIENTO PARA El REPORTE GENERAL---------------------------------------------//
  $('#reporteGeneral').DataTable({
      scrollX:true,
      dom: "Bfrtip",
@@ -1595,7 +1599,7 @@ $('#safe').on('click', function () {
      }
  });
 
- //--------------------------PORCEDIMIENTO PARA El REPORTE DE DISCIPLINA INFORMATIVA----------------------------------//
+ //--------------------------PROCEDIMIENTO PARA El REPORTE DE DISCIPLINA INFORMATIVA----------------------------------//
  $('#reporteDisciplinaInfo').DataTable({
      dom: "Bfrtip",
      buttons: {
@@ -1618,7 +1622,7 @@ $('#safe').on('click', function () {
      }
  });
 
- //---------------------------------PORCEDIMIENTO PARA El REPORTE DE SEÑALAMIENTO DE ERRORES-----------------------------//
+ //---------------------------------PROCEDIMIENTO PARA El REPORTE DE SEÑALAMIENTO DE ERRORES-----------------------------//
  $('#reporteErrores').DataTable({
      dom: "Bfrtip",
      buttons: {
@@ -1641,7 +1645,7 @@ $('#safe').on('click', function () {
      }
  });
 
- //---------------------------PORCEDIMIENTO PARA El REPORTE DE Displina info Centro Controlado-----------------------------//
+ //---------------------------PROCEDIMIENTO PARA El REPORTE DE Displina info Centro Controlado-----------------------------//
  $('#reporteDisciplinaInfoCentroControlados').DataTable({
      dom: "Bfrtip",
      buttons: {
@@ -1664,7 +1668,7 @@ $('#safe').on('click', function () {
      }
  });
 
- //------------------------------PORCEDIMIENTO PARA El REPORTE DE Domicilio Social Incorrecto-----------------------------//
+ //------------------------------PROCEDIMIENTO PARA El REPORTE DE Domicilio Social Incorrecto-----------------------------//
  $('#reporteDomicilioSocial').DataTable({
      dom: "Bfrtip",
      buttons: {
@@ -1687,7 +1691,7 @@ $('#safe').on('click', function () {
      }
  });
 
- //---------------------------------PORCEDIMIENTO PARA El REPORTE DE DEFICIENCIAS-----------------------------//
+ //---------------------------------PROCEDIMIENTO PARA El REPORTE DE DEFICIENCIAS-----------------------------//
  $('#reporteDeficiencias').DataTable({
      dom: "Bfrtip",
      buttons: {
@@ -1710,7 +1714,31 @@ $('#safe').on('click', function () {
      }
  });
 
- //---------------------------------PORCEDIMIENTO PARA El REPORTE DE CAPTACION-----------------------------//
+ //---------------------------------PROCEDIMIENTO PARA El REPORTE DE CAPTACION-----------------------------//
  $('#tblCaptado').DataTable({});
 
  $('#tblNoCaptado').DataTable({});
+
+ //------------------------------PROCEDIMIENTO PARA VALIDAR Y MODIFICAR UN CUESTIONARIO YA CAPTADO--------------------//
+
+let formularioEditarCaptacion = $('form[class="editFormCaptacion"]');
+const redirect = () => {
+           location.href='http://127.0.0.1:8000/guia/guiaCaptada/';
+       }
+validate_depedencias_campos(formularioEditarCaptacion);
+formularioEditarCaptacion.on('submit', function (e) {
+    e.preventDefault();
+    let  campos = new FormData(this);
+
+     if( validateComponenteTexto(formularioEditarCaptacion) === false){return false};
+     if( validate_component_entero(formularioEditarCaptacion) === false){return false};
+
+     envioConAjax(window.location.pathname, 'Notificación', '¿Estas seguro de realizar esta accion?', campos, function () {
+                 toastr.success('Se ha modificado el cuestionario correctamente', 'Exito', {
+                        "closeButton": true,
+                        "progressBar": true,
+                        "timeOut": "3000",
+                    });
+            });
+     setTimeout (redirect,4000);
+});
