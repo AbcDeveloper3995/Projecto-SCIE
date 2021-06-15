@@ -1575,6 +1575,29 @@ $('#safe').on('click', function () {
      }
  });
 
+ $('#tblVerificacion').DataTable({
+     scrollX:true,
+     dom: "Bfrtip",
+     buttons: {
+         dom: {
+             button: {
+                 className: 'btn fas fa-file-alt'
+             }
+         },
+         buttons: [
+             {
+                 extend: "excel",
+                 text: ' Exportar excel',
+                 title: 'Reporte de Verificacion',
+                 className: "btn btn-outline-primary",
+                 excelStyles: {
+                     template: "blue_medium",
+                 },
+             },
+         ]
+     }
+ });
+
 //--------------------------------------PROCEDIMIENTO PARA El REPORTE GENERAL---------------------------------------------//
  $('#reporteGeneral').DataTable({
      scrollX:true,

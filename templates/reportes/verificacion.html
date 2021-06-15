@@ -4,37 +4,105 @@
 
 {% block titulo %}
     {{ titulo }}
- {% endblock %}
-{% block idTable %}id="reporteVerificacion" {% endblock %}
-{% block columns %}
-    <tr>
-        <th scope="col">Concepto</th>
-        {% for clave, valor in secciones.items %}
-            <th scope="col">{{ clave|numeroSeccion }} - {{ clave }} </th>
-        {% endfor %}
-    </tr>
 {% endblock %}
 
-{% block rows %}
-    <tr>
-        <td>Indicadores verificados</td>
-        {% for clave,valor in secciones.items %}
-        <td><span class="badge badge-primary">{{ valor }}</span> </td>
-        {% endfor %}
-    </tr>
-    <tr>
-    <td> No coinciden</td>
-    {% for clave,valor in secciones.items %}
-        <td><span class="badge badge-primary">{{ clave|verificadosNoCoinciden }}</span> </td>
-        {% endfor %}
-    </tr>
-    <tr>
-    <td> Porciento que representa (%) </td>
-      {% for clave,valor in secciones.items %}
-        <td><span class="badge badge-primary">{{ clave|porciento }}%</span> </td>
-        {% endfor %}
-    </tr>
+{% block idTable %}{% if permiso == True %}id="reporteVerificacion" {% endif %}{% endblock %}
+{% block columns %}
+    {% if permiso == True %}
+        <tr>
+            <th scope="col">Concepto</th>
+            {% for clave, valor in secciones.items %}
+                <th scope="col">{{ clave|numeroSeccion }} - {{ clave }} </th>
+            {% endfor %}
+        </tr>
+    {% else %}
+        <div class="alert alert-danger alert-dismissible">
+            <h5><i class="icon fas fa-ban"></i> Denegado!</h5>
+            {{ request.user.first_name }} usted no cuenta con los permisos requeridos para acceder a esta infomacion.
+        </div>
+    {% endif %}
+
+
 {% endblock %}
+
+
+{% block rows %}
+    {% if permiso == True %}
+        <tr>
+            <td>Indicadores verificados</td>
+            {% for clave,valor in secciones.items %}
+                <td><span class="badge badge-primary">{{ valor }}</span></td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td> No coinciden</td>
+            {% for clave,valor in secciones.items %}
+                <td><span class="badge badge-primary">{{ clave|verificadosNoCoinciden }}</span></td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td> Porciento que representa (%)</td>
+            {% for clave,valor in secciones.items %}
+                <td><span class="badge badge-primary">{{ clave|porciento }}%</span></td>
+            {% endfor %}
+        </tr>
+    {% endif %}
+{% endblock %}
+
+
+
+{% block content_extra %}
+    <div class="card card-default">
+        <div class="card-header bg-gradient-navy">
+            <h3 class="card-title">
+                <i class="fas fa-table"></i>
+                Reporte Por Cuestionario Captado
+            </h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped" id="tblVerificacion">
+                <thead>
+                <tr>
+                    <th rowspan="2">Centro Informante</th>
+                    {% for clave, valor in secciones.items %}
+                        <th colspan="3" scope="col"><span
+                                class="badge badge-primary">{{ clave|numeroSeccion }} - {{ clave }}</span></th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for clave, valor in secciones.items %}
+                        <th style="width: 25px">Indicadores Verificados</th>
+                        <th style="width: 25px">No coinciden</th>
+                        <th style="width: 25px">(%)</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in cuestionarios %}
+                    <tr>
+                        <td><span class="badge badge-primary">{{ i.guia.nombre }}-{{ i.entidad_codigo }}</span></td>
+                        {% for j in seccionesGuias %}
+                            {% if  i.id|verificados:j.nombre == None %}
+                                <td><i class="miTippy fa fa-times-circle" title="No evaluados para esta seccion"
+                                       style="color: red"></i></td>
+                                <td><i class="miTippy fa fa-times-circle" title="Sin resultados"
+                                       style="color: red"></i></td>
+                                <td><i class="miTippy fa fa-times-circle" title="Sin resultados"
+                                       style="color: red"></i></td>
+                            {% else %}
+                                <td>{{ i.id|verificados:j.nombre }}</td>
+                                <td>{{ i.id|noCoinciden:j.nombre }}</td>
+                                <td>{{ i.id|porcientoVerificacion:j.nombre }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
 
 {% block button %}
 

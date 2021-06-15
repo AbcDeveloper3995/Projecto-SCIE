@@ -27,6 +27,10 @@ def numeroSeccion(Seccion):
         query = seccion.objects.get(nombre=Seccion)
         return query.numero
 
+'''REPORTE DE VERIFICACIONES'''
+
+'''Esta parte es para trabajar con las infomacion de las verificaciones de manera general'''
+
 # FILTRO PARA OBTENER EL TOTAL DE INDICADORES VERIFICADOS QUE NO COINCIDEN.
 @register.filter(name='verificadosNoCoinciden')
 def verificadosNoCoinciden(seccion):
@@ -54,6 +58,40 @@ def porciento(seccion):
         else:
            porciento = noCoinciden*100//verificados
            return porciento
+
+'''Esta otra parte es para trabajar con las infomacion de las verificaciones de cada cuestionario captado'''
+
+# FILTRO PARA OBTENER LA CANTIDAD INDICADORES VERIFICADOS DE UN CENTRO INFORMANTE.
+@register.filter(name='verificados')
+def getInfoVerificacion(cuestionarioId, seccion):
+    try:
+        query = verificacion.objects.get(cuestionario_fk__id=cuestionarioId, seccion_id__nombre=seccion)
+        return query.indicadoresVerificados
+    except:
+        return None
+
+# FILTRO PARA OBTENER LA CANTIDAD DE INDICADORES VERIFICADOS  DE UN CENTRO INFORMANTE QUE NO COINCIDEN.
+@register.filter(name='noCoinciden')
+def getInfoVerificacion(cuestionarioId, seccion):
+    try:
+        query = verificacion.objects.get(cuestionario_fk__id=cuestionarioId, seccion_id__nombre=seccion)
+        noCoinciden = query.indicadoresVerificados - query.indicadoresCoinciden
+        return noCoinciden
+    except:
+        return 'no existe'
+
+# FILTRO PARA OBTENER EL % QUE REPRESENTA LOS QUE NO COINCIDEN DE LOS VERIFICADOS.
+@register.filter(name='porcientoVerificacion')
+def getInfoVerificacion(cuestionarioId, seccion):
+    try:
+        query = verificacion.objects.get(cuestionario_fk__id=cuestionarioId, seccion_id__nombre=seccion)
+        noCoinciden = query.indicadoresVerificados - query.indicadoresCoinciden
+        porciento = noCoinciden*100/query.indicadoresVerificados
+        return porciento
+    except:
+        return None
+
+#**********************************************************************************************************
 
 # FILTRO PARA OBTENER EL LA CATIDAD DE PREGUNTAS DE UN GRUPO DE PREGUNTAS.
 @register.filter(name='cantDepreguntas')
