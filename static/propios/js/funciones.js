@@ -198,7 +198,7 @@ const verificacionDeMenorAlTotalAReportar = (componenteTotalAreportar, component
 
 const validacionChecked = (element) => {
     if(element.is(':checked')){
-         console.log('chekeado')
+        console.log('checkeado')
      }else {
          toastr.error(element.prop('name')+" es requerido.", 'Error', {
              progressBar: true,
@@ -347,31 +347,65 @@ const validate_component_entero = (formulario) => {
                 });
                 return false
             }
+            if(parseInt(cod_pregunta_63.val() )>parseInt(cod_pregunta_62.val())){
+                toastr.error("La cantidad de establecimientos con contabilidad propia no " +
+                    "puede ser mayor que la cantidad de establecimientos.", 'Error', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "5000",
+                });
+                return false
+            }
         }
     }
 };
 
 const validate_depedencias_campos = (formulario) => {
     let claseForm = formulario.prop('class');
+    let cod_pregunta_11_No =  $('.'+claseForm+' input[data-cod-pregunta="11"]:input[value="No"] ' );
+    let cod_pregunta_11_Si =  $('.'+claseForm+' input[data-cod-pregunta="11"]:input[value="Si"] ' );
+    let cod_pregunta_12 =     $('.'+claseForm+' input[data-cod-pregunta="12"]');
+    let cod_pregunta_13_No =  $('.'+claseForm+' input[data-cod-pregunta="13"]:input[value="No"] ' );
+    let cod_pregunta_13_Si =  $('.'+claseForm+' input[data-cod-pregunta="13"]:input[value="Si"] ' );
+    const cod_pregunta_14_No =  $('.'+claseForm+' input[data-cod-pregunta="14"]:input[value="Bueno"] ' );
+    let cod_pregunta_14_Si =  $('.'+claseForm+' input[data-cod-pregunta="14"]:input[value="Deteriorado"] ' );
+    let cod_pregunta_15_No =  $('.'+claseForm+' input[data-cod-pregunta="15"]:input[value="No"] ' );
+    let cod_pregunta_15_Si =  $('.'+claseForm+' input[data-cod-pregunta="15"]:input[value="Si"] ' );
     let cod_pregunta_41_No =  $('.'+claseForm+' input[data-cod-pregunta="41"]:input[value="No"] ' );
     let cod_pregunta_41_Si =  $('.'+claseForm+' input[data-cod-pregunta="41"]:input[value="Si"] ' );
-    let cod_pregunta_42 =  $('.'+claseForm+' input[data-cod-pregunta="42"]' );
+    let cod_pregunta_21_No =  $('.'+claseForm+' input[data-cod-pregunta="21"]:input[value="No"] ' );
+    let cod_pregunta_21_Si =  $('.'+claseForm+' input[data-cod-pregunta="21"]:input[value="Si"] ' );
+    let cod_pregunta_22_No =  $('.'+claseForm+' input[data-cod-pregunta="22"]:input[value="No"] ' );
+    let cod_pregunta_22_Si =  $('.'+claseForm+' input[data-cod-pregunta="22"]:input[value="Si"] ' );
+    let cod_pregunta_42 =     $('.'+claseForm+' input[data-cod-pregunta="42"]' );
     let cod_pregunta_61_No =  $('.'+claseForm+' input[data-cod-pregunta="61"]:input[value="No"] ' );
     let cod_pregunta_61_Si =  $('.'+claseForm+' input[data-cod-pregunta="61"]:input[value="Si"] ' );
-    let cod_pregunta_62 =  $('.'+claseForm+' input[data-cod-pregunta="62"]' );
-    let cod_pregunta_63 =  $('.'+claseForm+' input[data-cod-pregunta="63"]' );
+    let cod_pregunta_62 =     $('.'+claseForm+' input[data-cod-pregunta="62"]' );
+    let cod_pregunta_63 =     $('.'+claseForm+' input[data-cod-pregunta="63"]' );
     let cod_pregunta_71_No =  $('.'+claseForm+' input[data-cod-pregunta="71"]:input[value="No"] ' );
     let cod_pregunta_71_Si =  $('.'+claseForm+' input[data-cod-pregunta="71"]:input[value="Si"] ' );
-    let cod_pregunta_711 =  $('.'+claseForm+' textarea[data-cod-pregunta="711"]' );
+    let cod_pregunta_711 =    $('.'+claseForm+' textarea[data-cod-pregunta="711"]' );
     let cod_pregunta_72_No =  $('.'+claseForm+' input[data-cod-pregunta="72"]:input[value="No"] ' );
     let cod_pregunta_72_Si =  $('.'+claseForm+' input[data-cod-pregunta="72"]:input[value="Si"] ' );
-    let cod_pregunta_721 =  $('.'+claseForm+' textarea[data-cod-pregunta="721"]' );
+    let cod_pregunta_721 =    $('.'+claseForm+' textarea[data-cod-pregunta="721"]' );
     let cod_pregunta_73_No =  $('.'+claseForm+' input[data-cod-pregunta="73"]:input[value="No"] ' );
     let cod_pregunta_73_Si =  $('.'+claseForm+' input[data-cod-pregunta="73"]:input[value="Si"] ' );
-    let cod_pregunta_731 =  $('.'+claseForm+' textarea[data-cod-pregunta="731"]' );
+    let cod_pregunta_731 =    $('.'+claseForm+' textarea[data-cod-pregunta="731"]' );
     let cod_pregunta_74_No =  $('.'+claseForm+' input[data-cod-pregunta="74"]:input[value="No"] ' );
     let cod_pregunta_74_Si =  $('.'+claseForm+' input[data-cod-pregunta="74"]:input[value="Si"] ' );
     let cod_pregunta_741 =  $('.'+claseForm+' textarea[data-cod-pregunta="741"]' );
+    let id =14
+
+
+    cod_pregunta_12.prop('readonly', true);
+    cod_pregunta_13_No.prop('disabled', true).prop('checked', false);
+    cod_pregunta_13_Si.prop('disabled', true).prop('checked', false);
+    cod_pregunta_14_No.prop('disabled', true).prop('checked', false);
+    cod_pregunta_14_Si.prop('disabled', true).prop('checked', false);
+    cod_pregunta_15_No.prop('disabled', true).prop('checked', false);
+    cod_pregunta_15_Si.prop('disabled', true).prop('checked', false);
+    cod_pregunta_22_No.prop('disabled', true).prop('checked', false);
+    cod_pregunta_22_Si.prop('disabled', true).prop('checked', false);
     cod_pregunta_42.prop('readonly', true);
     cod_pregunta_62.prop('readonly', true);
     cod_pregunta_63.prop('readonly', true);
@@ -380,6 +414,35 @@ const validate_depedencias_campos = (formulario) => {
     cod_pregunta_731.prop('readonly', true).prop('value', "");
     cod_pregunta_741.prop('readonly', true).prop('value', "");
 
+    cod_pregunta_11_No.on('click', function () {
+        $('#'+id+'').prop('textContent', 'No')
+        cod_pregunta_12.prop('readonly', true);
+        cod_pregunta_13_No.prop('disabled', false).prop('checked', true);
+        cod_pregunta_13_Si.prop('disabled', true);
+        cod_pregunta_13_Si.prop('disabled', true);
+        cod_pregunta_14_No.prop('disabled', false).prop('checked', true).prop('value', "No");
+        cod_pregunta_14_Si.prop('disabled', true);
+        cod_pregunta_15_No.prop('disabled', false).prop('checked', true);
+        cod_pregunta_15_Si.prop('disabled', true);
+    });
+    cod_pregunta_11_Si.on('click', function () {
+        $('#'+id+'').prop('textContent', 'Bueno')
+        cod_pregunta_12.prop('readonly', false);
+        cod_pregunta_13_No.prop('disabled', false).prop('checked', false);
+        cod_pregunta_13_Si.prop('disabled', false);
+        cod_pregunta_14_No.prop('disabled', false).prop('checked', false);
+        cod_pregunta_14_Si.prop('disabled', false);
+        cod_pregunta_15_No.prop('disabled', false).prop('checked', false);
+        cod_pregunta_15_Si.prop('disabled', false);
+    });
+    cod_pregunta_21_No.on('click', function () {
+        cod_pregunta_22_No.prop('disabled', false).prop('checked', true);
+        cod_pregunta_22_Si.prop('disabled', true);
+    });
+    cod_pregunta_21_Si.on('click', function () {
+        cod_pregunta_22_No.prop('disabled', false).prop('checked', false);
+        cod_pregunta_22_Si.prop('disabled', false).prop('checked', false);
+    });
     cod_pregunta_41_No.on('click', function () {
         cod_pregunta_42.prop('readonly', true);
     });
@@ -467,6 +530,9 @@ formularioCaptacion.on('submit', function (e) {
      if( validate_radios_no_empty() === false){return false};
      if( validate_component_entero(formularioCaptacion) === false){return false};
 
+     campos.forEach(function (value, key) {
+         console.log(key+' : '+value)
+     });
     $.ajax({
         url: '/guia/dataCaptacion/',
         type: 'POST',
@@ -482,6 +548,7 @@ formularioCaptacion.on('submit', function (e) {
                 "timeOut": "5000",
             });
         } else {
+            formularioCaptacion.trigger("reset")
             $('.desabilitar').removeClass("desabilitar");
             $('#cantCuestionario').load(' #cantCuestionario');
             toastr.success(data.exito, 'Exito', {
@@ -944,9 +1011,8 @@ $('form[name="contenidoEdicionInstancias"]').on('submit', function (e) {
 
 $('.acordeon').on('click', function () {
     console.log($('.registro'))
-    $('.formVerificacion').prop('hidden', true)
-    var seccionAcordion=$(this).data('seccion')
-    console.log(seccionAcordion)
+    $('.formVerificacion').prop('hidden', true);
+    var seccionAcordion=$(this).data('seccion');
     for (var i=0;i,i<$('.registro').length; i++){
         if (seccionAcordion === $('.registro')[i].dataset.seccionRegistro && $('.registro')[i].textContent !== "") {
             $('.formVerificacion').prop('hidden', false)

@@ -64,7 +64,7 @@
                                                         <div class="input-group ">
                                                             <input type="text"
                                                                    class="form-control datetimepicker-input date" id="date"
-                                                                   placeholder="Seleccione una fecha" name="{{ i.nombre }}" style="width: 100%" data-type="5"
+                                                                   placeholder="Seleccione una fecha" name="{{ i.nombre }}"  style="width: 100%" data-type="5"
                                                                    data-component="date" data-target="#date"
                                                                  data-toggle="datetimepicker">
                                                             <div class="input-group-append">
@@ -319,8 +319,9 @@
                                             <div class="custom-control custom-radio">
                                                 <input class="custom-control-input" type="radio" id="{{ i }}{{ j }}"
                                                        name="{{ i.nombre }}" value="{{ j.nombre }}"  data-cod-pregunta="{{ i.cod_indicador }}" data-component="radio">
-                                                <label for="{{ i }}{{ j }}"
+                                                <label for="{{ i }}{{ j }}" id="{{ i.cod_indicador }}"
                                                        class="custom-control-label">{{ j.nombre }}</label>
+
                                             </div>
                                         {% elif j.tipo_dato == '2' %}
                                             <div class="row">
@@ -347,7 +348,7 @@
                                                         <div class="input-group ">
                                                             <input type="text"
                                                                    class="form-control  datetimepicker-input date" id="date2"
-                                                                   placeholder="Seleccione una fecha" name="{{ i.nombre }}" style="width: 100%" data-type="5"
+                                                                   placeholder="Seleccione una fecha" name="{{ i.nombre }}" data-cod-pregunta="{{ i.cod_indicador }}" style="width: 100%" data-type="5"
                                                                    data-component="date" data-target="#date2"
                                                                  data-toggle="datetimepicker">
                                                             <div class="input-group-append">
