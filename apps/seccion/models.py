@@ -85,8 +85,6 @@ class seccion(models.Model):
         item = model_to_dict(self)
         return item
 
-
-
 class nomencladorCodigo(models.Model):
     codigo = models.CharField(verbose_name='Codigo a controlar',max_length=5, unique=True, blank=True, null=True)
     descripcion = models.CharField(verbose_name='Descripcion', max_length=150)

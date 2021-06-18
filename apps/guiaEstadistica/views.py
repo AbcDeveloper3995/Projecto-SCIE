@@ -328,7 +328,6 @@ class dataCaptacion(captarDatosView):
     def createCuestionario(self, entidad):
         try:
             query = Entidad.objects.get(nombre_CI__exact=entidad[0])
-            print(query)
             objCuestionario = cuestionario(
                     guia=self.getGuia(),
                     entidad_codigo=query
@@ -567,6 +566,8 @@ class reporteVerificacionIndicadores(LoginRequiredMixin, TemplateView):
                     for j in query:
                         verificados += j.indicadoresVerificados
                     data[i.nombre] = verificados
+                else:
+                    data[i.nombre] = 'Error'
         return data
 
     # Esta otra funcion es para trabajar con las infomacion de las verificaciones de cada cuestionario captado
@@ -666,7 +667,6 @@ class modificarPreguntasView(captarDatosView):
         data = {}
         action = request.POST['action']
         campos = dict(request.POST)
-        print(campos)
         try:
             if action == 'editarDataCaptacion':
                 for clave, valor in campos.items():

@@ -35,6 +35,8 @@ urlpatterns = [
     path('getCodigos/', getCodigos.as_view(), name='getCodigos'),
     path('comprobacionInd/<int:pk>/', comprobarIndicadoresEvaluados.as_view(), name='comprobacionInd'),
     path('modificarInstancias/', modificarInstanciasView.as_view(), name='modificarInstancias'),
+    path('valorIndVerificado/', valorIndicadoresVerificados.as_view(), name='valorIndVerificado'),
+    path('indicadoresCoinciden/', indicadoresCoinciden.as_view(), name='indicadoresCoinciden'),
 
 
 

@@ -6,7 +6,7 @@
     {{ titulo }}
 {% endblock %}
 
-{% block idTable %}{% if permiso == True %}id="reporteVerificacion" {% endif %}{% endblock %}
+{% block idTable %}{% if permiso == True %}id="reporteVerificacionGeneral" {% endif %}{% endblock %}
 {% block columns %}
     {% if permiso == True %}
         <tr>
@@ -31,19 +31,32 @@
         <tr>
             <td>Indicadores verificados</td>
             {% for clave,valor in secciones.items %}
+                {% if valor != "Error" %}
                 <td><span class="badge badge-primary">{{ valor }}</span></td>
+                {% else %}
+                <td><i class="miTippy fa fa-times-circle" title="No existen verificaciones realizadas a esta seccion"
+                                       style="color: red"></i></td>
+                {% endif %}
             {% endfor %}
         </tr>
         <tr>
             <td> No coinciden</td>
             {% for clave,valor in secciones.items %}
+                {% if valor != "Error" %}
                 <td><span class="badge badge-primary">{{ clave|verificadosNoCoinciden }}</span></td>
+                {% else %}
+                <td><span class="badge badge-danger">0</span></td>
+                {% endif %}
             {% endfor %}
         </tr>
         <tr>
             <td> Porciento que representa (%)</td>
             {% for clave,valor in secciones.items %}
+                {% if valor != "Error" %}
                 <td><span class="badge badge-primary">{{ clave|porciento }}%</span></td>
+                {% else %}
+                <td><span class="badge badge-danger">0%</span></td>
+                {% endif %}
             {% endfor %}
         </tr>
     {% endif %}
@@ -60,12 +73,12 @@
             </h3>
         </div>
         <div class="card-body">
-            <table class="table table-bordered table-striped" id="tblVerificacion">
+            <table class="table table-bordered table-striped" id="tblVerificacionPorProvincia">
                 <thead>
                 <tr>
                     <th rowspan="2">Centro Informante</th>
                     {% for clave, valor in secciones.items %}
-                        <th colspan="3" scope="col"><span
+                        <th colspan="3" ><span
                                 class="badge badge-primary">{{ clave|numeroSeccion }} - {{ clave }}</span></th>
                     {% endfor %}
                 </tr>

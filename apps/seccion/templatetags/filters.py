@@ -1,6 +1,6 @@
-from django import template
-
 import utils
+
+from django import template
 
 from apps.guiaEstadistica.models import cuestionario, PreguntasEvaluadas
 from apps.indicadores.models import Indicadores

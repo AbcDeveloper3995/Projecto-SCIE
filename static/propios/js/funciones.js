@@ -17,17 +17,17 @@ new tippy('.miTippy', {
 //-------------------------------------PROCEDIMIENTO PARA ACTUALIZAR EN TIEMPO REAL LOS DATOS EN LAS TABLAS--------------------//
 
 const tabla = (nombreSeccion, idSeccion) => {
-     let nombre_seccion = "table"+nombreSeccion;
-     let form_verificacion = $('.formVerificacion')
-    let datatable = $('.'+nombre_seccion).DataTable({
+    let nombre_seccion = "table" + nombreSeccion;
+    let form_verificacion = $('.formVerificacion');
+    let datatable = $('.' + nombre_seccion).DataTable({
         deferRender: true,
-        destroy:true,
+        destroy: true,
         ajax: {
             url: window.location.pathname,
             type: 'POST',
             data: {
                 'action': 'mostrarInstancias',
-                'id_seccion':idSeccion,
+                'id_seccion': idSeccion,
             },
             dataSrc: ""
         },
@@ -49,15 +49,43 @@ const tabla = (nombreSeccion, idSeccion) => {
         }
     });
     if (datatable.flatten().Length === 0) {
-        alert('Empty table1');
+        alert('Tabla vacia');
     } else {
-        for(var i=0; i<form_verificacion.length; i++){
-            if(idSeccion === parseInt(form_verificacion[i].dataset.id)){
+        for (var i = 0; i < form_verificacion.length; i++) {
+            if (idSeccion === parseInt(form_verificacion[i].dataset.id)) {
                 form_verificacion.prop('hidden', false);
+                // AJAX PARA OBTENER LA CANTIDAD DE INDICADORES VERIFICADOS DE CADA SECCION EVALUADA
+                $.ajax({
+                    url: '/seccion/valorIndVerificado/',
+                    type: 'POST',
+                    data: {
+                        'action': 'getValorIndVerificados',
+                        'id': idSeccion,
+                    },
+                    dataType: 'json',
+                }).done(function (data) {
+                    $('input[name=indicadoresVerificados]:input[data-seccion='+nombreSeccion+']').prop('value',data.cantidad)
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ' : ' + errorThrown)
+                });
+                $.ajax({
+                    url: '/seccion/indicadoresCoinciden/',
+                    type: 'POST',
+                    data: {
+                        'action': 'indicadoresCoinciden',
+                        'id': idSeccion,
+                    },
+                    dataType: 'json',
+                }).done(function (data) {
+                    $('input[name=indicadoresCoinciden]:input[data-seccion='+nombreSeccion+']').prop('value',data.cantidad)
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(textStatus + ' : ' + errorThrown)
+                });
                 return false;
             }
         }
     }
+
 
 };
 
@@ -102,39 +130,6 @@ const validate_indicadores_no_empty = (seccion_form_verificacion, campo) => {
         }
     }
 }
-
-const validate_indicadores_positivos = (seccion_form_verificacion, campo) => {
-    for (var i=0;i,i<campo.length; i++){
-        if (seccion_form_verificacion === campo[i].dataset.seccion && campo[i].value < 0) {
-              toastr.error("No se admiten valores negativos.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-              return false
-        }
-    }
-}
-
-const validate_dependencia_indicadore = (seccion_form_verificacion, listaIndVerificados, listaIndCoinciden) => {
-    for (var i=0; i<listaIndVerificados.length; i++){
-        if (seccion_form_verificacion === listaIndVerificados[i].dataset.seccion) {
-              for (var j=0; j<listaIndCoinciden.length; j++){
-        if (seccion_form_verificacion === listaIndCoinciden[j].dataset.seccion && parseInt(listaIndVerificados[i].value) < parseInt(listaIndCoinciden[j].value )) {
-              toastr.error("La cantidad de indicadores que coinciden no puede ser mayor que la cantidad de verificados.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-              return false
-        }
-    }
-
-        }
-    }
-}
-
-
 
 //-------------------------PROCEDIMIENTO PARA GUARDAR LO VERIFICADO-------------------------------------//
 
@@ -327,7 +322,6 @@ const validate_component_entero = (formulario) => {
                 });
                 return false
             }
-
             if (cod_pregunta_31.val().length > 3 || cod_pregunta_32.val().length > 3 || cod_pregunta_33.val().length > 3 || cod_pregunta_34.val().length > 3) {
                 toastr.error("Los campos vinculados a los reportes de modelos deben contener como maximo 3 digitos.", 'Error', {
                     progressBar: true,
@@ -367,7 +361,7 @@ const validate_depedencias_campos = (formulario) => {
     let cod_pregunta_12 =     $('.'+claseForm+' input[data-cod-pregunta="12"]');
     let cod_pregunta_13_No =  $('.'+claseForm+' input[data-cod-pregunta="13"]:input[value="No"] ' );
     let cod_pregunta_13_Si =  $('.'+claseForm+' input[data-cod-pregunta="13"]:input[value="Si"] ' );
-    const cod_pregunta_14_No =  $('.'+claseForm+' input[data-cod-pregunta="14"]:input[value="Bueno"] ' );
+    let cod_pregunta_14_No =  $('.'+claseForm+' input[data-cod-pregunta="14"]:input[value="Bueno"] ' );
     let cod_pregunta_14_Si =  $('.'+claseForm+' input[data-cod-pregunta="14"]:input[value="Deteriorado"] ' );
     let cod_pregunta_15_No =  $('.'+claseForm+' input[data-cod-pregunta="15"]:input[value="No"] ' );
     let cod_pregunta_15_Si =  $('.'+claseForm+' input[data-cod-pregunta="15"]:input[value="Si"] ' );
@@ -589,7 +583,6 @@ $('form[name="instanciaForm"]').on('submit', function (e) {
        let modal = $('.instanciaModal');
         modal.modal('hide');
         $('button[name="actualizar"]').prop('disabled', false);
-         tabla(actualizarTabla)
     }).fail(function (jqXHR, textStatus, errorThrown) {
         alert(textStatus + ' : ' + errorThrown)
     })
@@ -1012,7 +1005,7 @@ $('form[name="contenidoEdicionInstancias"]').on('submit', function (e) {
 $('.acordeon').on('click', function () {
     console.log($('.registro'))
     $('.formVerificacion').prop('hidden', true);
-    var seccionAcordion=$(this).data('seccion');
+    let seccionAcordion=$(this).data('seccion');
     for (var i=0;i,i<$('.registro').length; i++){
         if (seccionAcordion === $('.registro')[i].dataset.seccionRegistro && $('.registro')[i].textContent !== "") {
             $('.formVerificacion').prop('hidden', false)
@@ -1619,7 +1612,7 @@ $('#safe').on('click', function () {
 })
 
 //---------------------------------PROCEDIMIENTO PARA El REPORTE DE VERIFICACION--------------------------------------//
- $('#reporteVerificacion').DataTable({
+ $('#reporteVerificacionGeneral').DataTable({
      dom: "Bfrtip",
      buttons: {
          dom: {
@@ -1641,7 +1634,7 @@ $('#safe').on('click', function () {
      }
  });
 
- $('#tblVerificacion').DataTable({
+ $('#tblVerificacionPorProvincia').DataTable({
      scrollX:true,
      dom: "Bfrtip",
      buttons: {

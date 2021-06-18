@@ -119,3 +119,6 @@ def getCuestionarios(user):
 def getPregunta(codPregunta):
     query = Indicadores.objects.get(cod_indicador=codPregunta)
     return query.nombre
+
+def getLastCuestionario():
+    return cuestionario.objects.last()

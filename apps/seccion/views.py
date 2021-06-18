@@ -7,6 +7,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, TemplateView, UpdateView
 
+from utils import getLastCuestionario
 from apps.seccion.forms import *
 from apps.seccion.models import *
 
@@ -347,3 +348,61 @@ class modificarInstanciasView(LoginRequiredMixin, TemplateView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
+
+class valorIndicadoresVerificados(TemplateView):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        action = request.POST['action']
+        id = request.POST['id']
+        cant = 0
+        lastcuestionario = getLastCuestionario()
+        try:
+            query = instanciaSeccion.objects.filter(seccion_id__id=id, cuestionario_fk=lastcuestionario)
+            if action == 'getValorIndVerificados' and query.count() != 0:
+                for i in query:
+                    if i.registro_1 != 0:
+                         cant += 1
+                    if i.registro_2 != 0:
+                        cant += 1
+                    if i.registro_3 != 0:
+                        cant += 1
+                data['cantidad'] = int(cant)
+            else:
+                data['error'] = 'Ha ocurrido un error'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
+
+class indicadoresCoinciden(TemplateView):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        action = request.POST['action']
+        id = request.POST['id']
+        cant = 0
+        lastcuestionario = getLastCuestionario()
+        try:
+            query = instanciaSeccion.objects.filter(seccion_id__id=id, cuestionario_fk=lastcuestionario)
+            if action == 'indicadoresCoinciden' and query.count() != 0:
+                for i in query:
+                    if i.get_diferencia_1() == 0:
+                        cant += 1
+                    if i.get_diferencia_2() == 0:
+                        cant += 1
+                    if i.get_diferencia_3() == 0:
+                        cant += 1
+                data['cantidad'] = int(cant)
+            else:
+                data['error'] = 'Ha ocurrido un error'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
