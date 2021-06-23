@@ -714,7 +714,6 @@ class continuarCaptacionView(captarDatosView):
 
     def post(self, request, *args, **kwargs):
         data = {}
-        print(request.POST)
         action = request.POST['action']
         campos = dict(request.POST)
         try:
