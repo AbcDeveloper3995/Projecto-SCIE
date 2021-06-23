@@ -78,17 +78,25 @@ class captarDatosView(LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         data = {}
         action = request.POST['action']
+        idCuestionario = int(request.POST['id_cuestionario'])
         '''OBTENER EL ULTIMO CUESTIONARIO CREADO, EL CUAL ES CREADO AUTOMATICAMENTE CUANDO SE SALVA LO CAPTADO 
            EN LA SECCION IDENTIFICACION Y SOBRE ENTIDAD'''
         lastCuestionario = cuestionario.objects.last()
-        query = instanciaSeccion.objects.filter(seccion_id=request.POST['id_seccion'], cuestionario_fk_id=lastCuestionario.id)
         try:
-           if action == 'mostrarInstancias' and query.exists():
-               data = []
-               for i in query:
+            '''LAS CONDICION == 0 ES PARA CUANDO SE ESTA CAPTANDO INSTANCIAS NUEVAS DESDE UN INICIO 
+            DE LAS SECCIONES Y LA OTRA ES PARA CONTINUAR CON LA CAPTACION DE INSTANCIA DE UN CUESTIONARIO DE 
+            UN CI YA CAPTADO'''
+            if idCuestionario == 0:
+                 query = instanciaSeccion.objects.filter(seccion_id=request.POST['id_seccion'], cuestionario_fk_id=lastCuestionario.id)
+            else:
+                query = instanciaSeccion.objects.filter(seccion_id=request.POST['id_seccion'],
+                                                        cuestionario_fk_id=idCuestionario)
+            if action == 'mostrarInstancias' and query.exists():
+                data = []
+                for i in query:
                     data.append(i.toJSON())
-           else:
-               data['error'] = 'error'
+            else:
+                data['error'] = 'error'
         except Exception as e:
             data['error'] =str(e)
         return JsonResponse(data, safe= False)
@@ -549,7 +557,6 @@ class reporteGeneralExcel(LoginRequiredMixin, TemplateView):
             data[i.id] = i.nombre
         return data
 
-
 # PROCEDIMIENTO PARA EL REPORTE EXCEL DE VERIFICACION DE LOS INDICADORES
 class reporteVerificacionIndicadores(LoginRequiredMixin, TemplateView):
     template_name = 'reportes/verificacion.html'
@@ -592,8 +599,6 @@ class reporteVerificacionIndicadores(LoginRequiredMixin, TemplateView):
         context['permiso'] = self.getPermiso()
         return context
 
-
-
 # PROCEDIMIENTO PARA EL REPORTE EXCEL DE DISCIPLINA INFORMATIVA
 class reporteDisciplinaInformativa(LoginRequiredMixin, TemplateView):
     template_name = 'reportes/disciplinaInformativa.html'
@@ -603,7 +608,6 @@ class reporteDisciplinaInformativa(LoginRequiredMixin, TemplateView):
         context['titulo'] = 'Reporte de Disciplina Informativa'
         context['cuestionarios'] = getCuestionarios(self.request.user)
         return context
-
 
 # PROCEDIMIENTO PARA EL REPORTE EXCEL DE SENALAMIENTOS DE ERRORES
 class reporteSeñalamientosErrores(reporteDisciplinaInformativa):
@@ -693,8 +697,78 @@ class modificarPreguntasView(captarDatosView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['action'] = 'edit'
+        context['action'] = 'editPreguntas'
+        context['titulo'] = 'Modificar las siguientes secciones del cuestionario captado a:'
         context['cuestionario'] = self.getCuestionario()
         context['preguntas'] = self.getPreguntasEvaluadas()
+        return context
+
+
+class continuarCaptacionView(captarDatosView):
+
+    template_name = 'guiaEstadistica/captardatos.html'
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        print(request.POST)
+        action = request.POST['action']
+        campos = dict(request.POST)
+        try:
+            if action == 'editarDataCaptacion':
+                for clave, valor in campos.items():
+                    if clave != 'action' and clave != 'idCuestionario':
+                        query = PreguntasEvaluadas.objects.filter(pregunta=clave).filter(
+                            captacion_id__id=campos['idCuestionario'][0])
+                        pregunta = query[0]
+                        pregunta.respuesta = valor[0]
+                        pregunta.save()
+            elif action == 'continuarCaptacion':
+                objSeccion = seccion.objects.get(id=request.POST['seccion_id'])
+                quey_cuestionario = cuestionario.objects.get(id=request.POST['cuestionario'])
+                if objSeccion.periodo_id.tipo == "Anual":
+                    instancia = instanciaSeccion(
+                        seccion_id_id=request.POST['seccion_id'],
+                        cuestionario_fk=quey_cuestionario,
+                        codigo_id_id=request.POST['codigo_id'],
+                        columna_id_id=request.POST['columna_id'],
+                        registro_1=request.POST['registro_1'],
+                        registro_2=None,
+                        registro_3=None,
+                        modelo_1=request.POST['modelo_1'],
+                        modelo_2=None,
+                        modelo_3=None,
+                    )
+                    instancia.save()
+                else:
+                    instancia = instanciaSeccion(
+                        seccion_id_id=request.POST['seccion_id'],
+                        cuestionario_fk=quey_cuestionario,
+                        codigo_id_id=request.POST['codigo_id'],
+                        columna_id_id=request.POST['columna_id'],
+                        registro_1=request.POST['registro_1'],
+                        registro_2=request.POST['registro_2'],
+                        registro_3=request.POST['registro_3'],
+                        modelo_1=request.POST['modelo_1'],
+                        modelo_2=request.POST['modelo_2'],
+                        modelo_3=request.POST['modelo_3'],
+                    )
+                    instancia.save()
+                    data['sms'] = 'Instancia creada correctamente.'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
+
+    def getCuestionario(self):
+        return cuestionario.objects.get(id=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action'] = 'continuarCaptacion'
+        context['titulo'] = 'Continuar la captacion de infomacion a:'
+        context['cuestionario'] = self.getCuestionario()
         return context
 

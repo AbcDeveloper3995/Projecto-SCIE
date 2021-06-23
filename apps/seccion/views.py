@@ -307,47 +307,18 @@ class modificarInstanciasView(LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         data = {}
         action = request.POST['action']
-        campos = dict(request.POST)
         try:
             if action == 'cargarInstancias':
                 data = []
                 query = instanciaSeccion.objects.filter(cuestionario_fk=request.POST['id'])
-                for i in query:
-                    data.append(i.toJSON())
-            if action == 'modificarInstancias':
-                id, modelo_1, modelo_2, modelo_3, registro_1, registro_2, registro_3 = [],[],[],[],[],[],[]
-                for clave, valor in campos.items():
-                    if clave == 'id':
-                        id = valor
-                    elif clave == 'modelo_1':
-                        modelo_1 = valor
-                    elif clave == 'modelo_2':
-                        modelo_2 = valor
-                    elif clave == 'modelo_3':
-                        modelo_3 = valor
-                    elif clave == 'registro_1':
-                        registro_1 = valor
-                    elif clave == 'registro_2':
-                        registro_2 = valor
-                    elif clave == 'registro_3':
-                        registro_3 = valor
-
-                i = 0
-                while i < len(id):
-                    aux = id[i], modelo_1[i], registro_1[i], modelo_2[i], registro_2[i], modelo_3[i], registro_3[i]
-                    query =instanciaSeccion.objects.get(id=(aux[0]))
-                    query.modelo_1=aux[1]
-                    query.modelo_2=aux[3]
-                    query.modelo_3=aux[5]
-                    query.registro_1=aux[2]
-                    query.registro_2=aux[4]
-                    query.registro_3=aux[6]
-                    query.save()
-                    i += 1
+                if query.count() > 0:
+                    for i in query:
+                        data.append(i.toJSON())
+                else:
+                    data.append('Error')
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
-
 
 class valorIndicadoresVerificados(TemplateView):
 
@@ -406,3 +377,50 @@ class indicadoresCoinciden(TemplateView):
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
+
+class updateInstanciaView(UpdateView):
+        model = instanciaSeccion
+        form_class = instanciaForm
+        template_name = 'seccion/crear/instancia.html'
+
+        def dispatch(self, request, *args, **kwargs):
+            self.object = self.get_object()
+            return super().dispatch(request, *args, **kwargs)
+
+        def post(self, request, *args, **kwargs):
+            data = {}
+            try:
+                action = request.POST['action']
+                if action == 'modificarInstancia':
+                        query = instanciaSeccion.objects.get(id=request.POST['idInstancia'])
+                        query.registro_1 = float(request.POST['registro_1'])
+                        query.registro_2 = float(request.POST['registro_2'])
+                        query.registro_3 = float(request.POST['registro_3'])
+                        query.modelo_1 = float(request.POST['modelo_1'])
+                        query.modelo_2 = float(request.POST['modelo_2'])
+                        query.modelo_3 = float(request.POST['modelo_3'])
+                        query.save()
+                else:
+                    data['error'] = 'No ha ingresado a ninguna opción'
+            except Exception as e:
+                data['error'] = str(e)
+            return JsonResponse(data)
+
+
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['title'] = 'Edición una Instancia'
+            context['idInstancia'] = self.kwargs['pk']
+            context['action'] = 'edit'
+            return context
+
+
+class eliminarInstanciaView(TemplateView):
+
+    def get(self, request, *args, **kwargs):
+        query = get_object_or_404(instanciaSeccion, id=self.kwargs['pk'])
+        query.delete()
+        messages.success(self.request, "La instancia ha sido eliminada correctamente.")
+        return redirect('guia:guiaCaptada')
+
+

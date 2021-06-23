@@ -21,10 +21,10 @@
             <td>{{ cuestionario.guia.nombre }}</td>
             <td><span class="badge bg-gradient-navy">{{ cuestionario.entidad_codigo }}</span></td>
             <td>
-                <a href="#" class="miTippy" type="button" name="detalles" data-id="{{ cuestionario.id }}" title="Ver informacion captada"><i class="fa fa-info-circle"></i></a>
+                <a href="#" class="miTippy"  type="button" name="detalles" data-id="{{ cuestionario.id }}" title="Ver informacion captada"><i class="fa fa-info-circle"></i></a>
                 {% if cuestionario.guia.activo == True and not permisoEstadistico%}
                 <a href="{% url 'guia:modificarPreguntas' cuestionario.id %}" class="miTippy" type="button"  name="modificarPreguntas1" data-id="{{ cuestionario.id }}" title="Modificar Seccion I"><i class="fa fa-edit"></i></a>
-                <a href="#" class="miTippy" type="button"  name="modificarInstancias" data-id="{{ cuestionario.id }}" title="Modificar otras Secciones"><i class="fa fa-pencil-ruler"></i></a>
+                <a href="{% url 'guia:continuarCaptacion' cuestionario.id %}" class="miTippy" type="button" title="Modificar otras Secciones"><i class="fa fa-pencil-ruler"></i></a>
                  <a class="miTippy" href="#id{{ cuestionario.id }}" data-toggle="modal" type="button"  title="Eliminar"><i
                         class="fa fa-trash"></i></a>
                 {% endif %}

@@ -16,12 +16,11 @@ const message_error = (obj) => {
     });
 }
 
-
  const envioConAjax = (url, title, content, parameters, callback) => {
      $.confirm({
-        theme: 'material',
+        theme: 'suvervan',
         title: title,
-        icon: 'fa fa-info',
+        icon: 'fa fa-spinner fa-spin',
         content: content,
         columnClass: 'small',
         typeAnimated: true,
@@ -31,7 +30,7 @@ const message_error = (obj) => {
         buttons: {
             info: {
                 text: "Si",
-                btnClass: 'btn-primary',
+                btnClass: 'btn-blue',
                 action: function () {
                     $.ajax({
                         url: url, //window.location.pathname

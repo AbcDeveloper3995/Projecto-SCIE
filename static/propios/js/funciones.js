@@ -14,20 +14,21 @@ new tippy('.miTippy', {
     animation: 'perspective',
 });
 
-//-------------------------------------PROCEDIMIENTO PARA ACTUALIZAR EN TIEMPO REAL LOS DATOS EN LAS TABLAS--------------------//
+//---------------------------PROCEDIMIENTO PARA ACTUALIZAR EN TIEMPO REAL LOS DATOS EN LAS TABLAS--------------------//
 
-const tabla = (nombreSeccion, idSeccion) => {
+const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
     let nombre_seccion = "table" + nombreSeccion;
     let form_verificacion = $('.formVerificacion');
     let datatable = $('.' + nombre_seccion).DataTable({
         deferRender: true,
         destroy: true,
         ajax: {
-            url: window.location.pathname,
+            url: '/guia/captarDatos/',
             type: 'POST',
             data: {
                 'action': 'mostrarInstancias',
                 'id_seccion': idSeccion,
+                'id_cuestionario': idCuestionario,
             },
             dataSrc: ""
         },
@@ -38,14 +39,27 @@ const tabla = (nombreSeccion, idSeccion) => {
             {"data": "registro_1"},
             {"data": "diferencia_1"},
             {"data": "modelo_2"},
-            {"data": "registro_1"},
+            {"data": "registro_2"},
             {"data": "diferencia_2"},
             {"data": "modelo_3"},
             {"data": "registro_3"},
             {"data": "diferencia_3"},
+            {"data": "id"},
+        ],
+        columnDefs: [
+            {
+                targets: [-1],
+                class: 'text-center',
+                orderable: false,
+                render: function (data, type, row) {
+                       let buttons = '<a href="/seccion/editarInstancia/' + row.id + '/" type="button"><i  class="fa fa-edit"></i></a>';
+                           buttons += '<a href="/seccion/eliminarInstancia/' + row.id + '/" type="button"><i class="fa fa-trash"></i></a>';
+
+                    return buttons;
+                }
+            },
         ],
         initComplete: function (settings, json) {
-
         }
     });
     if (datatable.flatten().Length === 0) {
@@ -136,17 +150,10 @@ const validate_indicadores_no_empty = (seccion_form_verificacion, campo) => {
 $('form[name="formVerificacion"]').on('submit', function (e) {
     e.preventDefault();
     let seccion_form_verificacion = $(this).data('seccion');
-    let listaIndVerificados = $('input[name="indicadoresVerificados"]');
-    let listaIndCoinciden = $('input[name="indicadoresCoinciden"]');
     let listaIndIncluidos = $('select[name="indicadoresIncluidos"]');
     let id_seccion = $(this).data('id');
 
-    if(validate_indicadores_no_empty(seccion_form_verificacion, listaIndVerificados) === false){return false};
-    if(validate_indicadores_no_empty(seccion_form_verificacion, listaIndCoinciden) === false){return false};
     if(validate_indicadores_no_empty(seccion_form_verificacion, listaIndIncluidos) === false){return false};
-    if(validate_indicadores_positivos(seccion_form_verificacion, listaIndVerificados) === false){return false};
-    if(validate_indicadores_positivos(seccion_form_verificacion, listaIndCoinciden) === false){return false};
-    if(validate_dependencia_indicadore(seccion_form_verificacion, listaIndVerificados, listaIndCoinciden) === false){return false};
 
     let  campos = new FormData(this);
 
@@ -588,6 +595,41 @@ $('form[name="instanciaForm"]').on('submit', function (e) {
     })
 });
 
+$('form[name="instanciaFormContuniarCaptacion"]').on('submit', function (e) {
+    e.preventDefault();
+    let instancia_from_seccion = $(this).data('seccion');
+    let id = $(this).data('cuestionario');
+    if(validate_no_empty_instancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false){return false};
+    if(validate_no_empty_instancias(instancia_from_seccion, $('select[name="columna_id"]')) === false){return false};
+    if(validate_no_empty_instancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false){return false};
+    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false){return false};
+    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="registro_1"]')) === false){return false};
+    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false){return false};
+    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="registro_2"]')) === false){return false};
+    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false){return false};
+    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="registro_3"]')) === false){return false};
+    let  campos = new FormData(this);
+    $.ajax({
+        url: '/guia/continuarCaptacion/'+id+'/',
+        type: 'POST',
+        data: campos,
+        dataType: 'json',
+        processData: false,
+        contentType: false
+    }).done(function (data) {
+        toastr.success(data.sms, 'Exito', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+       let modal = $('.continuarCaptacionModal');
+        modal.modal('hide');
+        $('button[name="actualizar"]').prop('disabled', false);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ' : ' + errorThrown)
+    })
+});
+
 
  //-------------------------------------------SELECT ENCADENADOS---------------------------------------------------------------
 
@@ -930,73 +972,29 @@ $('form[name="contenidoEdicionPreguntas"]').on('submit', function (e) {
     })
 });
 
-//-----------1. INSTANCIAS---------------//
-
-$('a[name="modificarInstancias"]').on('click', function () {
-    var id = $(this).data('id');
-    var form = $('#contenidoEdicionInstancias');
-    var campos = '<input type="hidden" name="action" value="modificarInstancias">' +
-        '<table class="table table-bordered table-striped" >' +
-        '<thead class="bg-gradient-primary text-bold"><tr><td>No.Instancia</td>' +
-        '<td>Seccion</td>' +
-        '<td>Codigo</td>' +
-        '<td>No.Col</td>' +
-        '<td>Modelo</td>' +
-        '<td>Registro</td>' +
-        '<td>Modelo</td>' +
-        '<td>Registro</td>' +
-        '<td>Modelo</td>' +
-        '<td>Registro</td>' +
-        '</tr></thead><tbody>';
-    $.ajax({
-        url: '/seccion/modificarInstancias/',
-        type: 'POST',
-        data: {
-            'action': 'cargarInstancias',
-            'id': id
-        },
-        dataType: 'json',
-    }).done(function (data) {
-        console.log(data);
-        $('#modificarInstancias').prop("hidden", false);
-        for (var i = 0; i < data.length; i++) {
-           campos+= '<tr><td><input type="number" class="form-control" name="id" readonly value="'+ data[i].id +'"></td>' +
-                    '<td><input type="text" class="form-control" name="seccion" readonly value="'+ data[i].seccion_id +'"></td>' +
-                    '<td><input type="number" class="form-control" name="codigo" readonly value="'+ data[i].codigo_id +'"></td>' +
-                    '<td><input type="number" class="form-control" name="columna" readonly value="'+ data[i].columna_id +'"></td>' +
-                    '<td><input type="number" class="form-control" name="modelo_1" value="'+ data[i].modelo_1 +'"></td>' +
-                    '<td><input type="number" class="form-control" name="registro_1" value="'+ data[i].registro_1 +'"></td>' +
-                    '<td><input type="number" class="form-control" name="modelo_2" value="'+ data[i].modelo_2 +'"></td>' +
-                    '<td><input type="number" class="form-control" name="registro_2" value="'+ data[i].registro_2 +'"></td>' +
-                    '<td><input type="number" class="form-control" name="modelo_3" value="'+ data[i].modelo_3 +'"></td>' +
-                    '<td><input type="number" class="form-control" name="registro_3" value="'+ data[i].registro_3 +'"></td></tr>'
-       }
-        campos+='</tbody></table><div class="form-actions"><div class="row"><div class="offset-md-10 col-2"><button type=submit class="btn btn-primary"><i class="fa fa-save "></i> Salvar</button></div></div></div>'
-        form.html(campos)
-    }).fail(function (jqXHR, textStatus,errorThrown) {
-        alert(textStatus+' : '+errorThrown)
-    })
-});
-
-
-$('form[name="contenidoEdicionInstancias"]').on('submit', function (e) {
+//-----------2. INSTANCIAS---------------//
+const redirect_url = () => {
+           location.href='http://127.0.0.1:8000/guia/guiaCaptada/';
+       };
+$('#editInstanciaForm').on('submit', function (e) {
     e.preventDefault();
-    var  campos = new FormData(this);
+    let idInstancia = $('input[name=idInstancia]').val()
+    let campos = new FormData(this);
     $.ajax({
-        url: '/seccion/modificarInstancias/',
+        url: '/seccion/editarInstancia/'+idInstancia+'/',
         type: 'POST',
         data: campos,
         dataType: 'json',
         processData: false,
         contentType:false
     }).done(function (data) {
-        alert(data);
         $('#modificarInstancias').prop("hidden", true);
         toastr.success("Las instancias del cuestionario han sido modificadas correctamente.", 'Exito',{
         progressBar: true,
         closeButton: true,
         "timeOut": "3000",
     });
+        setTimeout (redirect_url,3000);
     }).fail(function (jqXHR, textStatus,errorThrown) {
         alert(textStatus+' : '+errorThrown)
     })

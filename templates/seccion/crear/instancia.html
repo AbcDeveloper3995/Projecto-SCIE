@@ -1,0 +1,58 @@
+{% extends 'comun/crear.html' %}
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block id %} id=editInstanciaForm{% endblock %}
+
+{% block formulario %}
+    <input type="hidden" name="action" value="modificarInstancia">
+    <input type="hidden" name="idInstancia" value="{{ idInstancia }}">
+    <div class="form-group " hidden>
+        <label>Seccion</label>
+        {{ form.seccion_id }}
+    </div>
+
+  <div class="form-group ">
+        <label>{{ form.registro_1.label }}</label>
+        {{ form.registro_1 }}
+    </div>
+
+    <div class="form-group">
+         <label>{{ form.modelo_1.label }}</label>
+        {{ form.modelo_1 }}
+    </div>
+
+    <div class="form-group ">
+        <label>{{ form.registro_2.label }}</label>
+        {{ form.registro_2 }}
+    </div>
+
+    <div class="form-group">
+         <label>{{ form.modelo_2.label }}</label>
+        {{ form.modelo_2 }}
+    </div>
+
+    <div class="form-group ">
+        <label>{{ form.registro_3.label }}</label>
+        {{ form.registro_3 }}
+    </div>
+
+    <div class="form-group">
+         <label>{{ form.modelo_3.label }}</label>
+        {{ form.modelo_3 }}
+    </div>
+
+{% endblock %}
+
+{% block form_buttons %}
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i> Salvar
+    </button>
+
+    <a type="button" href="{% url 'guia:guiaCaptada' %}" class="btn btn-danger">
+        <i class="fas fa-arrow-circle-left"></i> Atras
+    </a>
+{% endblock %}

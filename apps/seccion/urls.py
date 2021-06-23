@@ -22,12 +22,14 @@ urlpatterns = [
     path('modificarPeriodo/<int:pk>/', updatePeriodoView.as_view(), name='updatePeriodo'),
     path('modificarCodigo/<int:pk>/', updateCodigoView.as_view(), name='updateCodigo'),
     path('modificarColumna/<int:pk>/', updateColumnaView.as_view(), name='updateColumna'),
+    path('editarInstancia/<int:pk>/', updateInstanciaView.as_view(), name='updateColumna'),
 
     # ELIMINAR
     path('eliminarSeccion/<int:pk>/', eliminarSeccion.as_view(), name='eliminarSeccion'),
     path('eliminarPeriodo/<int:pk>/', eliminarPeriodo.as_view(), name='eliminarPeriodo'),
     path('eliminarCodigo/<int:pk>/', eliminarCodigo.as_view(), name='eliminarCodigo'),
     path('eliminarColumna/<int:pk>/', eliminarColumna.as_view(), name='eliminarColumna'),
+    path('eliminarInstancia/<int:pk>/', eliminarInstanciaView.as_view(), name='eliminarColumna'),
 
     # PETICIONES AJAX
     path('crearInstancia/', crearInstanciaView.as_view(), name='crearInstancia'),

@@ -30,6 +30,7 @@ urlpatterns = [
     path('seccionCaptada/', seccionCaptada.as_view(), name='seccionCaptada'),
     path('universo/', dataUniversoView.as_view(), name='dataUniverso'),
     path('crearGuiaDefinida/', crearGuiaDefinida.as_view(), name='crearGuiaDefinidal'),
+    path('continuarCaptacion/<int:pk>/', continuarCaptacionView.as_view(), name='continuarCaptacion'),
 
     # REPORTES.
     path('reporteGeneral/', reporteGeneralExcel.as_view(), name='reporteGeneral'),

@@ -86,7 +86,7 @@ def getInfoVerificacion(cuestionarioId, seccion):
     try:
         query = verificacion.objects.get(cuestionario_fk__id=cuestionarioId, seccion_id__nombre=seccion)
         noCoinciden = query.indicadoresVerificados - query.indicadoresCoinciden
-        porciento = noCoinciden*100/query.indicadoresVerificados
+        porciento = int(noCoinciden*100/query.indicadoresVerificados)
         return porciento
     except:
         return None
