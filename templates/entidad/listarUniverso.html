@@ -58,9 +58,7 @@
 {% endblock %}
 
 {% block button %}
-    <div class="row">
-    <div class="col-sm-2">
-        <a href="{% url 'guia:crearUniverso' %}" type="button" class="btn btn-block bg-gradient-primary"><i class="fa fa-plus-circle"></i> Agregar al universo</a>
-    </div>
+    <div class="botones">
+        <a href="{% url 'guia:crearUniverso' %}" type="button" class="cancelar boton-listar btn3"><i class="fa fa-plus-circle"></i> Agregar al universo</a>
     </div>
 {% endblock %}

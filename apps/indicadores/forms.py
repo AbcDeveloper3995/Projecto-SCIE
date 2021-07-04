@@ -16,7 +16,8 @@ class clasificadorIndicadorForm(ModelForm):
         fields = '__all__'
         widgets = {
             'seccion_id': Select(attrs={'class':'form-control select2'}),
-            'nombre': TextInput(attrs={'class':'form-control'}),
+            'nombre': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese el nombre del grupo de preguntas'}),
             'activo': CheckboxInput(attrs={'class':'custom-control-input', 'type': 'checkbox', 'id':'clasificadorIndActiva' })
         }
 
@@ -30,8 +31,10 @@ class indicadorForm(ModelForm):
         model = Indicadores
         fields = '__all__'
         widgets = {
-            'nombre': TextInput(attrs={'class':'form-control'}),
-            'cod_indicador': NumberInput(attrs={'class':'form-control'}),
+            'nombre': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese el nombre de la pregunta'}),
+            'cod_indicador': NumberInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese un codigo para la pregunta'}),
             'respuestas_id': SelectMultiple(attrs={'class':'form-control select2'}),
             'clasificadorIndicadores_id': Select(attrs={'class':'form-control select2'}),
             'activo': CheckboxInput(attrs={'class':'custom-control-input', 'type': 'checkbox', 'id':'indicadorActiva' })
@@ -50,7 +53,8 @@ class posiblesRespuestasForm(ModelForm):
                      'activo': 'es_Activo'
                  },
         widgets = {
-            'nombre': TextInput(attrs={'class':'form-control'}),
+            'nombre': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese el nombre de la posible respuesta'}),
             'tipo_dato': Select(attrs={'class':'form-control select2'}),
             'activo': CheckboxInput(attrs={'class':'custom-control-input', 'type': 'checkbox', 'id':'prActiva' })
         }

@@ -1,7 +1,6 @@
 {% extends 'comun/listar.html' %}
 {% load static %}
 
-
 {% block titulo %}
      {{ titulo }}
  {% endblock %}
@@ -67,7 +66,7 @@
 {% block button %}
     <div class="row">
     <div class="col-sm-2">
-         <a href="{% url 'guia:crearGuias' %}" type="button" class="btn btn-block bg-gradient-primary">
+         <a href="{% url 'guia:crearGuias' %}" type="button" class="cancelar boton-listar btn3">
         <i class="fa fa-plus-circle"></i> Nueva guia</a>
     </div>
     </div>

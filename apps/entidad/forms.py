@@ -17,8 +17,8 @@ class entidadForm(ModelForm):
         model = Entidad
         fields = '__all__'
         widgets = {
-            'codigo_CI': TextInput(attrs={'class': 'form-control'}),
-            'nombre_CI': TextInput(attrs={'class':'form-control'}),
+            'codigo_CI': TextInput(attrs={'class': 'form-control styleInput', 'placeholder':'Ingrese el codigo del centro informante'}),
+            'nombre_CI': TextInput(attrs={'class':'form-control styleInput', 'placeholder':'Ingrese el nombre del centro informante'}),
             'ote_codigo': Select(attrs={'class':'form-control select2'}),
             'ome_codigo': Select(attrs={'class':'form-control select2'}),
             'codigo_NAE': Select(attrs={'class':'form-control select2'}),

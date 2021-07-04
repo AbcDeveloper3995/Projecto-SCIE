@@ -13,11 +13,16 @@ class usuarioForm(ModelForm):
         fields = ['first_name', 'last_name', 'username', 'password', 'email', 'image', 'groups']
         exclude = [ 'user_permission', 'last_login', 'date_joined', 'is_staff', 'is_superuser']
         widgets = {
-            'first_name': TextInput(attrs={'class':'form-control'}),
-            'last_name': TextInput(attrs={'class':'form-control'}),
-            'username': TextInput(attrs={'class':'form-control'}),
-            'password': PasswordInput(render_value=True, attrs={'class':'form-control'}),
-            'email': EmailInput(attrs={'class':'form-control'}),
+            'first_name': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese un nombre'}),
+            'last_name': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese los apellidos'}),
+            'username': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese un nombre de usuario '}),
+            'password': PasswordInput(render_value=True, attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese una contraseña'}),
+            'email': EmailInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese una direcion de correo'}),
             'groups': SelectMultiple(attrs={'class':'form-control select2'}),
         }
 
@@ -31,11 +36,16 @@ class usuarioProfileForm(ModelForm):
         fields = ['first_name', 'last_name', 'username', 'password', 'email', 'image']
         exclude = [ 'user_permission', 'last_login', 'date_joined', 'is_staff', 'is_superuser', 'groups']
         widgets = {
-            'first_name': TextInput(attrs={'class':'form-control'}),
-            'last_name': TextInput(attrs={'class':'form-control'}),
-            'username': TextInput(attrs={'class':'form-control'}),
-            'password': PasswordInput(render_value=True, attrs={'class':'form-control'}),
-            'email': EmailInput(attrs={'class':'form-control'}),
+            'first_name': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese su nombre'}),
+            'last_name': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese sus apellidos'}),
+            'username': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese un nombre de usuario'}),
+            'password': PasswordInput(render_value=True, attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese su contraseña'}),
+            'email': EmailInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese su direccion de correo'}),
             'groups': SelectMultiple(attrs={'class':'form-control select2'}),
         }
 
@@ -43,7 +53,7 @@ class resetearPasswordForm(forms.Form):
 
     username = CharField(widget=TextInput(attrs={
         'placeholder':'Ingrese un usuario',
-        'class':'form-control',
+        'class':'form-control styleInput',
         'autocomplete': 'off'
     }))
 
@@ -63,13 +73,13 @@ class changePasswordForm(forms.Form):
 
     password = CharField(widget=PasswordInput(attrs={
         'placeholder':'Ingrese una contraseña',
-        'class':'form-control',
+        'class':'form-control styleInput',
         'autocomplete': 'off'
     }))
 
     confirmPassword = CharField(widget=PasswordInput(attrs={
         'placeholder': 'Repita su contraseña',
-        'class': 'form-control',
+        'class': 'form-control styleInput',
         'autocomplete': 'off'
     }))
 

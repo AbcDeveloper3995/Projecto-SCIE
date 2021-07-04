@@ -84,14 +84,10 @@ id="entidadTable"
 {% endblock %}
 
 {% block button %}
-    <div class="row">
-    <div class="col-sm-2">
-      <a href="{% url 'entidad:crearEntidad' %}" type="button" class="btn btn-block bg-gradient-primary">
+    <div class="botones">
+      <a href="{% url 'entidad:crearEntidad' %}" type="button" class="cancelar boton-listar btn3">
         <i class="fa fa-plus-circle"></i> Nueva entidad</a>
-    </div>
-    <div class="col-sm-2">
-         <button  id="universo" class="btn btn-block bg-gradient-primary">
+         <button  id="universo" class="boton-salvar btn1">
         <i class="fa fa-business-time"></i> Establecer universo</button>
-    </div>
     </div>
 {% endblock %}

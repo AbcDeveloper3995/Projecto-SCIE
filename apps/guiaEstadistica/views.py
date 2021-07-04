@@ -690,6 +690,7 @@ class modificarPreguntasView(captarDatosView):
         for i in query:
             data[i.pregunta] = i.respuesta
             data.copy()
+        print(data)
         return data
 
     def getCuestionario(self):
@@ -715,17 +716,8 @@ class continuarCaptacionView(captarDatosView):
     def post(self, request, *args, **kwargs):
         data = {}
         action = request.POST['action']
-        campos = dict(request.POST)
         try:
-            if action == 'editarDataCaptacion':
-                for clave, valor in campos.items():
-                    if clave != 'action' and clave != 'idCuestionario':
-                        query = PreguntasEvaluadas.objects.filter(pregunta=clave).filter(
-                            captacion_id__id=campos['idCuestionario'][0])
-                        pregunta = query[0]
-                        pregunta.respuesta = valor[0]
-                        pregunta.save()
-            elif action == 'continuarCaptacion':
+            if action == 'continuarCaptacion':
                 objSeccion = seccion.objects.get(id=request.POST['seccion_id'])
                 quey_cuestionario = cuestionario.objects.get(id=request.POST['cuestionario'])
                 if objSeccion.periodo_id.tipo == "Anual":

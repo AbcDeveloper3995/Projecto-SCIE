@@ -39,12 +39,12 @@ CHOICES_MESES = (
     ('Diciembre', 'Diciembre')
 )
 class clasificadorPeriodo(models.Model):
-    tipo = models.CharField('Tipo:', max_length=50, choices=CHOICES_PERIODO)
-    mes_1 = models.CharField('Mes 1:', max_length=50, choices=CHOICES_MESES)
-    mes_2 = models.CharField('Mes 2:', max_length=50, choices=CHOICES_MESES, blank=True, null=True)
-    mes_3 = models.CharField('Mes 3:', max_length=50, choices=CHOICES_MESES, blank=True, null=True)
-    ano_1 = models.IntegerField('Año:', choices=CHOICES_ANO)
-    ano_2 = models.IntegerField('Año_2:', choices=CHOICES_ANO, blank=True, null=True, help_text=('Solo para el caso que el periodo sea trimestral y comience por un año y termine en otro.'))
+    tipo = models.CharField('Tipo', max_length=50, choices=CHOICES_PERIODO)
+    mes_1 = models.CharField('Mes 1', max_length=50, choices=CHOICES_MESES)
+    mes_2 = models.CharField('Mes 2', max_length=50, choices=CHOICES_MESES, blank=True, null=True)
+    mes_3 = models.CharField('Mes 3', max_length=50, choices=CHOICES_MESES, blank=True, null=True)
+    ano_1 = models.IntegerField('Año', choices=CHOICES_ANO)
+    ano_2 = models.IntegerField('Año_2', choices=CHOICES_ANO, blank=True, null=True, help_text=('Solo para el caso que el periodo sea trimestral y comience por un año y termine en otro.'))
 
     class Meta:
         db_table = 'Periodo'

@@ -53,7 +53,7 @@ class Login(LoginView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Inicio de sesion'
+        context['title'] = 'SCIE'
         return context
 
 # PROCEDIMIENTO PARA LISTAR USUARIOS.

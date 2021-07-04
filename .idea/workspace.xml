@@ -1,9 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c9dd07d-359a-4682-a50c-d144b1c61bf1" name="Default Changelist" comment="">
+    <list default="true" id="9c9dd07d-359a-4682-a50c-d144b1c61bf1" name="Default Changelist" comment="Cambios realizados: 1- Modificacion en el metodo post de la clase comprobarIndicadoresEvaluados, dividiendose su funcionamiento en dependencia de la action que resiva. 2- Cambios en el style propio para los estilos de los campos en el form y los botones.">
+      <change afterPath="$PROJECT_DIR$/SCIEv1/configuraciones/local.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SCIEv1/configuraciones/produccion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SCIEv1/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/SCIEv1/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/entidad/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/entidad/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/guiaEstadistica/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/guiaEstadistica/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/guiaEstadistica/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/guiaEstadistica/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/indicadores/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/indicadores/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/seccion/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/seccion/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/seccion/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/seccion/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/seccion/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/seccion/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/usuario/form.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/usuario/form.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/usuario/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/usuario/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/propios/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/propios/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/propios/img/avatar (1).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/propios/img/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/propios/img/user.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/propios/js/funciones.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/propios/js/funciones.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/propios/js/utils.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/propios/js/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/comun/crear.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/comun/crear.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/comun/listar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/comun/listar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/entidad/crearEntidad.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entidad/crearEntidad.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/entidad/crearUniverso.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entidad/crearUniverso.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/entidad/listarEntidad.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entidad/listarEntidad.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/entidad/listarUniverso.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/entidad/listarUniverso.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/guiaEstadistica/crearGuia.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/guiaEstadistica/crearGuia.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/guiaEstadistica/listarGuia.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/guiaEstadistica/listarGuia.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/indicadores/crear/grupoPreguntas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/indicadores/crear/grupoPreguntas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/indicadores/crear/posiblesResp.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/indicadores/crear/posiblesResp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/indicadores/crear/preguntas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/indicadores/crear/preguntas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/indicadores/listar/grupoPreguntas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/indicadores/listar/grupoPreguntas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/indicadores/listar/posiblesResp.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/indicadores/listar/posiblesResp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/indicadores/listar/preguntas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/indicadores/listar/preguntas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/seccion/crear/codigo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/seccion/crear/codigo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/seccion/crear/columna.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/seccion/crear/columna.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/seccion/crear/instancia.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/seccion/crear/instancia.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/seccion/crear/periodo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/seccion/crear/periodo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/seccion/crear/seccion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/seccion/crear/seccion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/seccion/listar/codigo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/seccion/listar/codigo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/seccion/listar/columna.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/seccion/listar/columna.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/seccion/listar/periodo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/seccion/listar/periodo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/seccion/listar/seccion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/seccion/listar/seccion.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usuario/changePaswsword.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usuario/changePaswsword.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usuario/crearUsuario.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usuario/crearUsuario.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usuario/listarUsuario.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usuario/listarUsuario.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usuario/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usuario/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/usuario/resetearPassword.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usuario/resetearPassword.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,24 +76,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/propios/js/funciones.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SCIEv1/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12498">
-              <caret line="927" column="31" selection-start-line="927" selection-start-column="31" selection-end-line="927" selection-end-column="90" />
+            <state relative-caret-position="286">
+              <caret line="149" selection-start-line="149" selection-end-line="149" />
               <folding>
-                <element signature="e#191#284#0" />
-                <element signature="e#330#363#0" />
-                <element signature="e#558#3879#0" />
-                <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#h6#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#td#8;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#td#11;n#tr#0;n#!!top" expanded="true" />
-                <element signature="e#45680#45902#0" />
-                <element signature="e#45753#45892#0" />
-                <element signature="e#45781#45876#0" />
+                <element signature="e#308#317#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -56,20 +91,100 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="119" selection-start-line="119" selection-end-line="119" />
-              <folding>
-                <element signature="e#26611#26645#0#DjangoTemplate" />
-              </folding>
+            <state relative-caret-position="6783">
+              <caret line="399" column="52" selection-start-line="399" selection-start-column="35" selection-end-line="399" selection-end-column="52" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/guiaCaptada.html">
+        <entry file="file://$PROJECT_DIR$/static/propios/js/funciones.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="28" column="52" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="52" />
+            <state relative-caret-position="26163">
+              <caret line="1851" column="64" selection-start-line="1851" selection-start-column="47" selection-end-line="1851" selection-end-column="64" />
+              <folding>
+                <element signature="e#330#363#0" />
+                <element signature="e#548#4330#0" />
+                <element signature="e#706#2416#0" />
+                <element signature="e#772#1046#0" />
+                <element signature="e#857#1011#0" />
+                <element signature="e#1065#1499#0" />
+                <element signature="e#1521#2349#0" />
+                <element signature="e#1535#2338#0" />
+                <element signature="e#1691#2324#0" />
+                <element signature="e#2080#2264#0" />
+                <element signature="e#2399#2410#0" />
+                <element signature="e#2452#2489#0" />
+                <element signature="e#2495#4326#0" />
+                <element signature="e#2556#4320#0" />
+                <element signature="e#2631#4310#0" />
+                <element signature="e#2814#3179#0" />
+                <element signature="e#2933#3122#0" />
+                <element signature="e#3202#3347#0" />
+                <element signature="e#3396#3475#0" />
+                <element signature="e#3605#3970#0" />
+                <element signature="e#3726#3913#0" />
+                <element signature="e#3993#4136#0" />
+                <element signature="e#4185#4264#0" />
+                <element signature="e#4494#4643#0" />
+                <element signature="e#4831#5602#0" />
+                <element signature="e#4874#5600#0" />
+                <element signature="e#5013#5233#0" />
+                <element signature="e#5091#5194#0" />
+                <element signature="e#5378#5594#0" />
+                <element signature="e#5452#5555#0" />
+                <element signature="e#5786#6150#0" />
+                <element signature="e#5827#6148#0" />
+                <element signature="e#5922#6142#0" />
+                <element signature="e#6000#6103#0" />
+                <element signature="e#6712#6758#0" />
+                <element signature="e#6984#7143#0" />
+                <element signature="e#7032#7135#0" />
+                <element signature="e#7192#7247#0" />
+                <element signature="e#7424#7481#0" />
+                <element signature="e#7451#7479#0" />
+                <element signature="e#7578#8066#0" />
+                <element signature="e#7668#8064#0" />
+                <element signature="e#7907#8027#0" />
+                <element signature="e#8107#8394#0" />
+                <element signature="e#8139#8180#0" />
+                <element signature="e#8185#8392#0" />
+                <element signature="e#8257#8360#0" />
+                <element signature="e#8435#11890#0" />
+                <element signature="e#10222#10321#0" />
+                <element signature="e#10278#10314#0" />
+                <element signature="e#10379#10478#0" />
+                <element signature="e#10435#10471#0" />
+                <element signature="e#10536#10635#0" />
+                <element signature="e#10592#10628#0" />
+                <element signature="e#10693#10792#0" />
+                <element signature="e#10749#10785#0" />
+                <element signature="e#10850#10949#0" />
+                <element signature="e#10906#10942#0" />
+                <element signature="e#11006#11105#0" />
+                <element signature="e#11062#11098#0" />
+                <element signature="e#11162#11261#0" />
+                <element signature="e#11218#11254#0" />
+                <element signature="e#11318#11417#0" />
+                <element signature="e#11374#11410#0" />
+                <element signature="e#11474#11573#0" />
+                <element signature="e#11530#11566#0" />
+                <element signature="e#11630#11729#0" />
+                <element signature="e#11686#11722#0" />
+                <element signature="e#11786#11885#0" />
+                <element signature="e#11842#11878#0" />
+                <element signature="e#11942#15184#0" />
+                <element signature="e#12849#15182#0" />
+                <element signature="e#12951#15176#0" />
+                <element signature="e#13170#13440#0" />
+                <element signature="e#13259#13395#0" />
+                <element signature="e#13599#13909#0" />
+                <element signature="e#13728#13864#0" />
+                <element signature="e#14309#14724#0" />
+                <element signature="e#14543#14679#0" />
+                <element signature="e#14805#15166#0" />
+                <element signature="e#14985#15121#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -77,8 +192,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/seccion/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="573">
-              <caret line="380" column="6" selection-start-line="380" selection-start-column="6" selection-end-line="380" selection-end-column="6" />
+            <state relative-caret-position="316">
+              <caret line="299" column="113" selection-start-line="299" selection-start-column="113" selection-end-line="299" selection-end-column="113" />
               <folding>
                 <element signature="e#616#889#0" />
                 <element signature="e#771#889#0" />
@@ -128,54 +243,17 @@
                 <element signature="e#10153#10478#0" />
                 <element signature="e#10196#10478#0" />
                 <element signature="e#10379#10478#0" />
-                <element signature="e#10749#11801#0" />
                 <element signature="e#10894#10943#0" />
-                <element signature="e#10999#11801#0" />
-                <element signature="e#11034#11689#0" />
-                <element signature="e#12046#12095#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/seccion/crear/instancia.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="893">
-              <caret line="54" column="51" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="715" column="17" selection-start-line="715" selection-start-column="17" selection-end-line="715" selection-end-column="17" />
-              <folding>
-                <element signature="e#964#1241#0" />
-                <element signature="e#1127#1241#0" />
-                <element signature="e#1338#1837#0" />
-                <element signature="e#1554#1745#0" />
-                <element signature="e#1779#1837#0" />
-                <element signature="e#1939#2268#0" />
-                <element signature="e#2155#2268#0" />
-                <element signature="e#2369#2649#0" />
-                <element signature="e#2418#2649#0" />
-                <element signature="e#2971#3020#0" />
-              </folding>
+            <state relative-caret-position="1268">
+              <caret line="676" column="71" selection-start-line="676" selection-start-column="71" selection-end-line="676" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -186,44 +264,44 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
+        <option value="HTML File" />
         <option value="Python Script" />
         <option value="JavaScript File" />
-        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>regis</find>
-      <find>modelo_1</find>
-      <find>comple</find>
-      <find>datata</find>
-      <find>entidad</find>
-      <find>42</find>
-      <find>messa</find>
-      <find>p</find>
-      <find>acce</find>
-      <find>admin</find>
-      <find>seccion</find>
-      <find>registro</find>
-      <find>cod-</find>
-      <find>es re</find>
-      <find>veri</find>
-      <find>insta</find>
-      <find>print</find>
       <find>load</find>
       <find>actualizarT</find>
       <find>name</find>
       <find>actu</find>
       <find>actualizar</find>
-      <find>modificar</find>
       <find>proper</find>
       <find>modifica</find>
-      <find>tabla</find>
       <find>mostrar</find>
       <find>mostrarI</find>
       <find>campos</find>
       <find>forea</find>
+      <find>instanciaFormContuniarCaptacion</find>
+      <find>continuarCaptacion</find>
+      <find>tabla</find>
+      <find>momen</find>
+      <find>checke</find>
+      <find>actuali</find>
+      <find>men</find>
+      <find>message_</find>
+      <find>message</find>
+      <find>messa</find>
+      <find>verificacio</find>
+      <find>disab</find>
+      <find>disabled</find>
+      <find>disable</find>
+      <find>disa</find>
+      <find>guias</find>
+      <find>salvar</find>
+      <find>modificar</find>
+      <find>editFormCaptacion</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -263,57 +341,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/apps/entidad/views.py" />
-        <option value="$PROJECT_DIR$/apps/indicadores/views.py" />
-        <option value="$PROJECT_DIR$/apps/entidad/apps.py" />
-        <option value="$PROJECT_DIR$/apps/guiaEstadistica/apps.py" />
-        <option value="$PROJECT_DIR$/apps/indicadores/apps.py" />
-        <option value="$PROJECT_DIR$/apps/seccion/apps.py" />
-        <option value="$PROJECT_DIR$/apps/usuario/apps.py" />
-        <option value="$PROJECT_DIR$/static/plugins/sessionTimeout-custom.js" />
-        <option value="$PROJECT_DIR$/SCIEv1/settings.py" />
-        <option value="$PROJECT_DIR$/apps/usuario/models.py" />
-        <option value="$PROJECT_DIR$/apps/usuario/urls.py" />
-        <option value="$PROJECT_DIR$/templates/usuario/login.html" />
-        <option value="$PROJECT_DIR$/templates/usuario/enviarEmail.html" />
-        <option value="$PROJECT_DIR$/templates/usuario/resetearPassword.html" />
-        <option value="$PROJECT_DIR$/templates/entidad/listarUniverso.html" />
-        <option value="$PROJECT_DIR$/templates/reportes/centrosInformantesCaptados.html" />
-        <option value="$PROJECT_DIR$/templates/comun/menu.html" />
-        <option value="$PROJECT_DIR$/templates/usuario/changePaswsword.html" />
+        <option value="$PROJECT_DIR$/apps/seccion/admin.py" />
+        <option value="$PROJECT_DIR$/templates/usuario/prueba.html" />
         <option value="$PROJECT_DIR$/apps/usuario/views.py" />
-        <option value="$PROJECT_DIR$/templates/comun/crear.html" />
-        <option value="$PROJECT_DIR$/templates/usuario/crearUsuario.html" />
+        <option value="$PROJECT_DIR$/SCIEv1/configuraciones/local.py" />
+        <option value="$PROJECT_DIR$/apps/seccion/views.py" />
+        <option value="$PROJECT_DIR$/templates/comun/home.html" />
+        <option value="$PROJECT_DIR$/static/styles.css" />
+        <option value="$PROJECT_DIR$/static/propios/styles.css" />
+        <option value="$PROJECT_DIR$/templates/usuario/changePaswsword.html" />
+        <option value="$PROJECT_DIR$/templates/usuario/resetearPassword.html" />
+        <option value="$PROJECT_DIR$/apps/indicadores/forms.py" />
+        <option value="$PROJECT_DIR$/apps/seccion/forms.py" />
         <option value="$PROJECT_DIR$/apps/usuario/form.py" />
         <option value="$PROJECT_DIR$/apps/guiaEstadistica/forms.py" />
-        <option value="$PROJECT_DIR$/templates/entidad/crearUniverso.html" />
-        <option value="$PROJECT_DIR$/apps/entidad/models.py" />
-        <option value="$PROJECT_DIR$/templates/entidad/crearEntidad.html" />
-        <option value="$PROJECT_DIR$/apps/guiaEstadistica/admin.py" />
-        <option value="$PROJECT_DIR$/templates/comun/home.html" />
-        <option value="$PROJECT_DIR$/templates/usuario/listarUsuario.html" />
-        <option value="$PROJECT_DIR$/templates/reportes/señalamientosErrores.html" />
-        <option value="$PROJECT_DIR$/templates/reportes/domicilioSocial.html" />
-        <option value="$PROJECT_DIR$/apps/seccion/admin.py" />
-        <option value="$PROJECT_DIR$/templates/comun/listar.html" />
-        <option value="$PROJECT_DIR$/templates/reportes/general.html" />
-        <option value="$PROJECT_DIR$/templates/reportes/captacion.html" />
-        <option value="$PROJECT_DIR$/templates/reportes/universoGuia.html" />
-        <option value="$PROJECT_DIR$/templates/indicadores/crear/preguntas.html" />
+        <option value="$PROJECT_DIR$/apps/entidad/forms.py" />
         <option value="$PROJECT_DIR$/apps/seccion/models.py" />
-        <option value="$PROJECT_DIR$/utils.py" />
-        <option value="$PROJECT_DIR$/templates/reportes/verificacion.html" />
-        <option value="$PROJECT_DIR$/apps/guiaEstadistica/urls.py" />
-        <option value="$PROJECT_DIR$/apps/seccion/templatetags/filters.py" />
-        <option value="$PROJECT_DIR$/apps/seccion/forms.py" />
-        <option value="$PROJECT_DIR$/apps/seccion/urls.py" />
+        <option value="$PROJECT_DIR$/templates/comun/crear.html" />
+        <option value="$PROJECT_DIR$/static/propios/js/login.js" />
         <option value="$PROJECT_DIR$/static/propios/js/utils.js" />
-        <option value="$PROJECT_DIR$/templates/guiaEstadistica/guiaCaptada.html" />
-        <option value="$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html" />
-        <option value="$PROJECT_DIR$/apps/seccion/views.py" />
+        <option value="$PROJECT_DIR$/templates/usuario/login.html" />
+        <option value="$PROJECT_DIR$/templates/guiaEstadistica/crearGuia.html" />
+        <option value="$PROJECT_DIR$/templates/guiaEstadistica/listarGuia.html" />
+        <option value="$PROJECT_DIR$/templates/seccion/listar/seccion.html" />
+        <option value="$PROJECT_DIR$/templates/seccion/listar/periodo.html" />
+        <option value="$PROJECT_DIR$/templates/seccion/listar/columna.html" />
+        <option value="$PROJECT_DIR$/templates/seccion/listar/codigo.html" />
+        <option value="$PROJECT_DIR$/templates/indicadores/listar/preguntas.html" />
+        <option value="$PROJECT_DIR$/templates/indicadores/listar/posiblesResp.html" />
+        <option value="$PROJECT_DIR$/templates/indicadores/listar/grupoPreguntas.html" />
+        <option value="$PROJECT_DIR$/templates/usuario/listarUsuario.html" />
+        <option value="$PROJECT_DIR$/templates/usuario/crearUsuario.html" />
+        <option value="$PROJECT_DIR$/templates/indicadores/crear/preguntas.html" />
+        <option value="$PROJECT_DIR$/templates/indicadores/crear/posiblesResp.html" />
+        <option value="$PROJECT_DIR$/templates/indicadores/crear/grupoPreguntas.html" />
+        <option value="$PROJECT_DIR$/templates/seccion/crear/seccion.html" />
+        <option value="$PROJECT_DIR$/templates/seccion/crear/periodo.html" />
         <option value="$PROJECT_DIR$/templates/seccion/crear/instancia.html" />
+        <option value="$PROJECT_DIR$/templates/seccion/crear/columna.html" />
+        <option value="$PROJECT_DIR$/templates/seccion/crear/codigo.html" />
+        <option value="$PROJECT_DIR$/templates/entidad/listarUniverso.html" />
+        <option value="$PROJECT_DIR$/templates/entidad/crearUniverso.html" />
+        <option value="$PROJECT_DIR$/templates/entidad/listarEntidad.html" />
+        <option value="$PROJECT_DIR$/templates/entidad/crearEntidad.html" />
+        <option value="$PROJECT_DIR$/templates/reportes/verificacion.html" />
+        <option value="$PROJECT_DIR$/templates/comun/listar.html" />
+        <option value="$PROJECT_DIR$/static/propios/css/styles.css" />
         <option value="$PROJECT_DIR$/static/propios/js/funciones.js" />
+        <option value="$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html" />
+        <option value="$PROJECT_DIR$/SCIEv1/configuraciones/produccion.py" />
         <option value="$PROJECT_DIR$/apps/guiaEstadistica/views.py" />
+        <option value="$PROJECT_DIR$/SCIEv1/settings.py" />
       </list>
     </option>
   </component>
@@ -329,6 +407,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -336,29 +415,17 @@
               <item name="SCIEv1" type="b2602c69:ProjectViewProjectNode" />
               <item name="SCIEv1" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="SCIEv1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SCIEv1" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SCIEv1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SCIEv1" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="seccion" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Blogger" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/static" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -366,19 +433,19 @@
     <property name="settings.editor.selected.configurable" value="web.server" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\indicadores\listar" />
-      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\indicadores\crear" />
-      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion\crear" />
-      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion\listar" />
-      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\static" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\static" />
       <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\util" />
       <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\apps\seccion\templatetags" />
       <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\indicadores\listar" />
       <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion\listar" />
-      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\static\propios" />
+      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\indicadores\listar" />
+      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\indicadores\crear" />
+      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion\crear" />
+      <recent name="F:\PROGRAMAMCION\Proyectos\SCIEv1\templates\seccion\listar" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -661,7 +728,25 @@
       <workItem from="1624372746531" duration="6305000" />
       <workItem from="1624391698250" duration="3666000" />
       <workItem from="1624395543389" duration="3749000" />
-      <workItem from="1624466846132" duration="5224000" />
+      <workItem from="1624466846132" duration="5367000" />
+      <workItem from="1624478522497" duration="9173000" />
+      <workItem from="1624490756836" duration="4360000" />
+      <workItem from="1624569193605" duration="9930000" />
+      <workItem from="1624643421033" duration="675000" />
+      <workItem from="1624731795851" duration="2660000" />
+      <workItem from="1624742974801" duration="7383000" />
+      <workItem from="1624817708286" duration="2931000" />
+      <workItem from="1624845232260" duration="3924000" />
+      <workItem from="1624920214459" duration="4831000" />
+      <workItem from="1624993590916" duration="11041000" />
+      <workItem from="1625011105916" duration="1172000" />
+      <workItem from="1625019616160" duration="4923000" />
+      <workItem from="1625086762883" duration="2127000" />
+      <workItem from="1625166244128" duration="13000" />
+      <workItem from="1625190802240" duration="584000" />
+      <workItem from="1625191499457" duration="3632000" />
+      <workItem from="1625238283361" duration="7852000" />
+      <workItem from="1625369144198" duration="881000" />
     </task>
     <task id="LOCAL-00001" summary="Agregue el reporte general, cambios en la vista guiaEstadistica">
       <created>1612994478574</created>
@@ -838,33 +923,48 @@
       <option name="project" value="LOCAL" />
       <updated>1624471993288</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Cambios reaizado para continuar con la captacion de un cuestionario: 1- Se agrego la class continuarCaptacionView en el archivo view de la app guia. 2- Se agrego la logica en la template captardatos para la accion continuarCaptacion. 3- Como parte de lo anterior en la propiedad onclick de boton actualizar se agrego un parametro (idcuestionario), para la&#10;accion add idCuestionario = 0 y para la accion continuarCaptacion idCuestionario = al que le desde la view. 4- Se adiciono el idCuestionario a los parametros pasado por el ajax en la const tabla. 5- Modificacion en la class caparDatosView, creandose un condicion en dependencia de idCuestionario que llegue sea 0 o no.">
+      <created>1624472214281</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1624472214281</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1176231000" />
+    <option name="totallyTimeSpent" value="1254466000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2065053" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15279879" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.2940171" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2974359" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5863248" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32991454" />
       <window_info anchor="bottom" id="manage.py@SCIEv1" order="7" weight="0.35555556" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.35897437" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="12" weight="0.32820514" />
-      <window_info anchor="bottom" id="Python Console" order="13" weight="0.3289689" />
+      <window_info anchor="bottom" id="Python Console" order="13" weight="0.32820514" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -872,12 +972,12 @@
       <window_info anchor="right" id="Database" order="4" weight="0.32980332" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15733737" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23524962" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32820514" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.43418804" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.5863248" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -952,8 +1052,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Agregue el reporte general, cambios en la vista guiaEstadistica" />
-    <MESSAGE value="Se modifico las validaciones para Sobre entidad, validacion verificarExistencia agregada, se agrego el campo validacion en el modelo Indicadores" />
     <MESSAGE value="Hice parte del procedimiento para crear una guia con las misma configuraciones de otra; agregando la clase creaGuiaDefinida, modificando la template de crearGuia y el archivo funciones para este proceso; Ademas modifique los if en la template de listar seccion, comparando por tipo" />
     <MESSAGE value="Cambios en la clase del reporte general, tanto el diseño, como en el pintado de los datos; Concluido el proceso de diseñar una guia a partir de otra ya definida creando la clase crearGuiaDefinida; modificado el template de crear guia para dicho proceso anterior" />
     <MESSAGE value="En la funcion validate_radios_no_empty de mi funciones.js agregue la validaciones que faltaban para los cod_pregunta del 22 en adelante." />
@@ -977,7 +1075,9 @@
     <MESSAGE value="1- Se modifico el archivo funciones.js en la funcion validate_dependencias_campos, al agregarse las validaciones correspondientes para los grupos de preguntas 1 y 2; 2- se modifico la funcion validate_component_entero al agregarse la validacion para los codigo 62 y 63." />
     <MESSAGE value="Cambios realizados: 1- Se modifico la class reporteVerificaionIndicadores, especificamente la funcion getDiccionarioSecciones() -&gt; +data[i.nombre] = 'Error'; 2- Se agrego en el views.py de secciones las clases valorIndicadoresVerificados y indicadoresCoinciden; 3- En el funciones.py se modifico la funcion tabla, agregandos 2 peticiones ajax y dentro del PROCEDIMIENTO PARA GUARDAR LO VERIFICADO se dejo solo la validacion de no campos vacios." />
     <MESSAGE value="Cambios realizados vinculados al editar la captacion: 1- Modificacion de la conts tabla, agregando las dos acciones en el datatable (editar y eliminar). 2- Se agrego la class updateInstanciaView en el archivo view de la app seccion. 3- Creacion de la template crear instancia. 3- Modificacion del apartado ---MODIFICACIONES DE LAS COSAS CAPTADAS DEL CUESTIONARIO---&#10;en el archivo funciones.js, especificamente en ---INSTANCIA--. 4- Se agrego en el archivo view de la app seccion la class eliminarInstanciaView." />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambios realizados vinculados al editar la captacion: 1- Modificacion de la conts tabla, agregando las dos acciones en el datatable (editar y eliminar). 2- Se agrego la class updateInstanciaView en el archivo view de la app seccion. 3- Creacion de la template crear instancia. 3- Modificacion del apartado ---MODIFICACIONES DE LAS COSAS CAPTADAS DEL CUESTIONARIO---&#10;en el archivo funciones.js, especificamente en ---INSTANCIA--. 4- Se agrego en el archivo view de la app seccion la class eliminarInstanciaView." />
+    <MESSAGE value="Cambios reaizado para continuar con la captacion de un cuestionario: 1- Se agrego la class continuarCaptacionView en el archivo view de la app guia. 2- Se agrego la logica en la template captardatos para la accion continuarCaptacion. 3- Como parte de lo anterior en la propiedad onclick de boton actualizar se agrego un parametro (idcuestionario), para la&#10;accion add idCuestionario = 0 y para la accion continuarCaptacion idCuestionario = al que le desde la view. 4- Se adiciono el idCuestionario a los parametros pasado por el ajax en la const tabla. 5- Modificacion en la class caparDatosView, creandose un condicion en dependencia de idCuestionario que llegue sea 0 o no." />
+    <MESSAGE value="Cambios realizados: 1- Modificacion en el metodo post de la clase comprobarIndicadoresEvaluados, dividiendose su funcionamiento en dependencia de la action que resiva. 2- Cambios en el style propio para los estilos de los campos en el form y los botones." />
+    <option name="LAST_COMMIT_MESSAGE" value="Cambios realizados: 1- Modificacion en el metodo post de la clase comprobarIndicadoresEvaluados, dividiendose su funcionamiento en dependencia de la action que resiva. 2- Cambios en el style propio para los estilos de los campos en el form y los botones." />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
@@ -989,380 +1089,54 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/SCIEv1/settings.py">
+    <entry file="file://$PROJECT_DIR$/templates/usuario/resetearPassword.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="158" column="11" selection-start-line="158" selection-start-column="11" selection-end-line="158" selection-end-column="11" />
+        <state relative-caret-position="360">
+          <caret line="23" column="61" lean-forward="true" selection-start-line="23" selection-start-column="61" selection-end-line="23" selection-end-column="61" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/usuario/enviarEmail.html">
+    <entry file="file://$PROJECT_DIR$/templates/comun/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="309" column="35" selection-start-line="309" selection-start-column="35" selection-end-line="309" selection-end-column="35" />
+        <state relative-caret-position="210">
+          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="76" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/entidad/listarUniverso.html">
+    <entry file="file://$PROJECT_DIR$/apps/indicadores/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="19" column="134" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="134" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/comun/menu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="56" column="65" selection-start-line="56" selection-start-column="65" selection-end-line="56" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../Entornos virtuales/Django3.0/Lib/site-packages/django/contrib/auth/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="315" column="6" selection-start-line="315" selection-start-column="6" selection-end-line="315" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/usuario/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="7" column="24" lean-forward="true" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+        <state relative-caret-position="374">
+          <caret line="56" column="95" selection-start-line="56" selection-start-column="95" selection-end-line="56" selection-end-column="95" />
           <folding>
-            <element signature="e#0#51#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/comun/crear.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/usuario/form.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="119">
+          <caret line="30" column="41" lean-forward="true" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
           <folding>
-            <element signature="e#98#944#0" />
-            <element signature="e#143#243#0" />
-            <element signature="e#269#944#0" />
-            <element signature="e#496#944#0" />
-            <element signature="e#987#1833#0" />
-            <element signature="e#1032#1132#0" />
-            <element signature="e#1158#1833#0" />
-            <element signature="e#1385#1833#0" />
-            <element signature="e#1881#2476#0" />
-            <element signature="e#1925#2038#0" />
-            <element signature="e#2072#2345#0" />
-            <element signature="e#2188#2322#0" />
-            <element signature="e#2378#2476#0" />
-            <element signature="e#2521#3234#0" />
-            <element signature="e#2569#2686#0" />
-            <element signature="e#2749#2866#0" />
-            <element signature="e#2899#3234#0" />
-            <element signature="e#3069#3211#0" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/entidad/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="306">
+          <caret line="20" column="97" selection-start-line="20" selection-start-column="97" selection-end-line="20" selection-end-column="97" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/entidad/crearUniverso.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="33" column="44" selection-start-line="33" selection-start-column="44" selection-end-line="33" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/usuario/crearUsuario.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="51" selection-start-line="51" selection-end-line="62" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/entidad/crearEntidad.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="55" column="47" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="38" column="102" selection-start-line="38" selection-start-column="102" selection-end-line="38" selection-end-column="102" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="e#114#629#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/entidad/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="33" column="50" lean-forward="true" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/entidad/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="58" column="101" selection-start-line="58" selection-start-column="101" selection-end-line="58" selection-end-column="101" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/usuario/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="128" column="37" selection-start-line="128" selection-start-column="37" selection-end-line="128" selection-end-column="37" />
-          <folding>
-            <element signature="e#1133#1618#0" />
-            <element signature="e#1264#1313#0" />
-            <element signature="e#1365#1618#0" />
-            <element signature="e#1679#2088#0" />
-            <element signature="e#1775#1922#0" />
-            <element signature="e#1975#2088#0" />
-            <element signature="e#2188#2458#0" />
-            <element signature="e#2341#2458#0" />
-            <element signature="e#2557#2874#0" />
-            <element signature="e#2757#2874#0" />
-            <element signature="e#2978#3444#0" />
-            <element signature="e#3186#3275#0" />
-            <element signature="e#3328#3444#0" />
-            <element signature="e#3548#3836#0" />
-            <element signature="e#3597#3836#0" />
-            <element signature="e#3964#4503#0" />
-            <element signature="e#4172#4261#0" />
-            <element signature="e#4312#4336#0" />
-            <element signature="e#4388#4503#0" />
-            <element signature="e#4601#6496#0" />
-            <element signature="e#4840#4889#0" />
-            <element signature="e#4946#5310#0" />
-            <element signature="e#5071#5136#0" />
-            <element signature="e#5351#6496#0" />
-            <element signature="e#6072#6276#0" />
-            <element signature="e#6618#7955#0" />
-            <element signature="e#6854#6903#0" />
-            <element signature="e#6958#7141#0" />
-            <element signature="e#7197#7736#0" />
-            <element signature="e#7232#7624#0" />
-            <element signature="e#7320#7562#0" />
-            <element signature="e#7788#7955#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/usuario/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/usuario/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="4" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/comun/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="29" column="106" selection-start-line="29" selection-start-column="106" selection-end-line="29" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/usuario/changePaswsword.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="54" column="12" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="41" column="33" selection-start-line="41" selection-start-column="33" selection-end-line="41" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-            <element signature="e#211#870#0" />
-            <element signature="e#915#1401#0" />
-            <element signature="e#1441#1967#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/usuario/listarUsuario.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="36" column="221" lean-forward="true" selection-start-line="36" selection-start-column="221" selection-end-line="36" selection-end-column="221" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/reportes/señalamientosErrores.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/reportes/domicilioSocial.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/seccion/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/reportes/disciplinaInformativa.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-357" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/comun/listar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/listarGuia.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="26" column="93" lean-forward="true" selection-start-line="26" selection-start-column="93" selection-end-line="26" selection-end-column="110" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/reportes/general.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/reportes/captacion.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="43" column="60" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/reportes/universoGuia.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="52" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/indicadores/listar/preguntas.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-255" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/indicadores/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-258">
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/indicadores/crear/preguntas.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="123" column="38" selection-start-line="123" selection-start-column="38" selection-end-line="123" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#71#0" expanded="true" />
-            <element signature="e#265#3344#0" />
-            <element signature="e#3459#6448#0" />
-            <element signature="e#6533#6615#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/reportes/verificacion.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="57" column="55" selection-start-line="57" selection-start-column="55" selection-end-line="57" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/usuario/resetearPassword.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/seccion/templatetags/filters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="88" column="69" selection-start-line="88" selection-start-column="69" selection-end-line="88" selection-end-column="69" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/seccion/crear/codigo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="36" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/seccion/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="103" column="23" selection-start-line="103" selection-start-column="13" selection-end-line="103" selection-end-column="23" />
+        <state relative-caret-position="2125">
+          <caret line="125" column="96" selection-start-line="125" selection-start-column="96" selection-end-line="125" selection-end-column="96" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -1371,8 +1145,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/seccion/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="124" column="22" selection-start-line="124" selection-start-column="6" selection-end-line="124" selection-end-column="22" />
+        <state relative-caret-position="272">
+          <caret line="40" column="40" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
           <folding>
             <element signature="e#255#307#0" />
             <element signature="e#332#447#0" />
@@ -1389,87 +1163,397 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/plugins/adminLTE/css/adminlte.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="2609" column="41" selection-start-line="2609" selection-start-column="33" selection-end-line="2609" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/plugins/adminLTE/js/demo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="192" column="139" selection-start-line="192" selection-start-column="132" selection-end-line="192" selection-end-column="139" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/plugins/adminLTE/js/adminlte.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/plugins/adminLTE/css/alt/adminlte.components.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="4828" column="15" lean-forward="true" selection-start-line="4828" selection-start-column="15" selection-end-line="4830" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/comun/crear.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/propios/js/login.js" />
+    <entry file="file://$PROJECT_DIR$/static/plugins/particles/particles.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="115" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="42" lean-forward="true" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/propios/js/utils.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="63" column="2" selection-start-line="63" selection-start-column="2" selection-end-line="63" selection-end-column="2" />
+        <state relative-caret-position="68">
+          <caret line="65" column="27" selection-start-line="65" selection-start-column="27" selection-end-line="65" selection-end-column="27" />
           <folding>
             <element signature="e#31#457#0" />
             <element signature="n#style#0;n#ul#0;n#!!top" expanded="true" />
-            <element signature="e#528#1948#0" />
+            <element signature="e#528#1944#0" />
+            <element signature="e#1973#3847#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/seccion/urls.py">
+    <entry file="file://$PROJECT_DIR$/templates/usuario/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="24" column="45" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="279">
+          <caret line="53" column="53" selection-start-line="53" selection-start-column="53" selection-end-line="53" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/guiaCaptada.html">
+    <entry file="file://$PROJECT_DIR$/templates/seccion/listar/periodo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="28" column="52" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="52" />
+        <state relative-caret-position="204">
+          <caret line="69" column="17" lean-forward="true" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html">
+    <entry file="file://$PROJECT_DIR$/templates/seccion/listar/seccion.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="119" selection-start-line="119" selection-end-line="119" />
-          <folding>
-            <element signature="e#26611#26645#0#DjangoTemplate" />
-          </folding>
+        <state relative-caret-position="142">
+          <caret line="79" column="13" lean-forward="true" selection-start-line="79" selection-start-column="13" selection-end-line="79" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/urls.py">
+    <entry file="file://$PROJECT_DIR$/templates/seccion/listar/columna.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="255">
+          <caret line="83" column="14" lean-forward="true" selection-start-line="83" selection-start-column="14" selection-end-line="83" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/propios/js/funciones.js">
+    <entry file="file://$PROJECT_DIR$/templates/seccion/listar/codigo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12498">
-          <caret line="927" column="31" selection-start-line="927" selection-start-column="31" selection-end-line="927" selection-end-column="90" />
-          <folding>
-            <element signature="e#191#284#0" />
-            <element signature="e#330#363#0" />
-            <element signature="e#558#3879#0" />
-            <element signature="n#style#0;n#input#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#h6#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#td#5;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#td#8;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#td#11;n#tr#0;n#!!top" expanded="true" />
-            <element signature="e#45680#45902#0" />
-            <element signature="e#45753#45892#0" />
-            <element signature="e#45781#45876#0" />
-          </folding>
+        <state relative-caret-position="340">
+          <caret line="69" column="58" selection-start-line="69" selection-start-column="58" selection-end-line="69" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/indicadores/listar/preguntas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="74" column="16" lean-forward="true" selection-start-line="74" selection-start-column="16" selection-end-line="74" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/indicadores/listar/posiblesResp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="68" column="103" selection-start-line="68" selection-start-column="103" selection-end-line="68" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/indicadores/listar/grupoPreguntas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="61" column="22" lean-forward="true" selection-start-line="61" selection-start-column="22" selection-end-line="61" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/usuario/listarUsuario.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="86" column="59" selection-start-line="86" selection-start-column="59" selection-end-line="86" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/crearGuia.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="51" column="62" lean-forward="true" selection-start-line="51" selection-start-column="62" selection-end-line="51" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/usuario/crearUsuario.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="56" column="14" lean-forward="true" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/indicadores/crear/preguntas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="57" column="17" selection-start-line="57" selection-start-column="17" selection-end-line="57" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/indicadores/crear/posiblesResp.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="34" column="25" lean-forward="true" selection-start-line="34" selection-start-column="25" selection-end-line="34" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/indicadores/crear/grupoPreguntas.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="34" column="52" lean-forward="true" selection-start-line="34" selection-start-column="52" selection-end-line="35" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/seccion/crear/seccion.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="66" column="25" lean-forward="true" selection-start-line="66" selection-start-column="25" selection-end-line="66" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/seccion/crear/periodo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="44" column="18" lean-forward="true" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/seccion/crear/instancia.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="893">
-          <caret line="54" column="51" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
+        <state relative-caret-position="286">
+          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/seccion/crear/columna.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="52" column="92" selection-start-line="52" selection-start-column="92" selection-end-line="52" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/seccion/crear/codigo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="35" column="25" lean-forward="true" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/entidad/listarUniverso.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="56" column="16" lean-forward="true" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/entidad/crearUniverso.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/entidad/listarEntidad.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="79" column="22" lean-forward="true" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/entidad/crearEntidad.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="44" column="18" lean-forward="true" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/listarGuia.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1156">
+          <caret line="68" column="68" lean-forward="true" selection-start-line="68" selection-start-column="68" selection-end-line="68" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/comun/listar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="77">
+          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/propios/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="188" selection-start-line="188" selection-end-line="188" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/guiaEstadistica/captardatos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6783">
+          <caret line="399" column="52" selection-start-line="399" selection-start-column="35" selection-end-line="399" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SCIEv1/configuraciones/produccion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="17" column="52" selection-start-line="17" selection-start-column="52" selection-end-line="17" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/seccion/templatetags/filters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/reportes/verificacion.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="74" column="29" selection-start-line="74" selection-start-column="29" selection-end-line="74" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1268">
+          <caret line="676" column="71" selection-start-line="676" selection-start-column="71" selection-end-line="676" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/propios/js/funciones.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26163">
+          <caret line="1851" column="64" selection-start-line="1851" selection-start-column="47" selection-end-line="1851" selection-end-column="64" />
+          <folding>
+            <element signature="e#330#363#0" />
+            <element signature="e#548#4330#0" />
+            <element signature="e#706#2416#0" />
+            <element signature="e#772#1046#0" />
+            <element signature="e#857#1011#0" />
+            <element signature="e#1065#1499#0" />
+            <element signature="e#1521#2349#0" />
+            <element signature="e#1535#2338#0" />
+            <element signature="e#1691#2324#0" />
+            <element signature="e#2080#2264#0" />
+            <element signature="e#2399#2410#0" />
+            <element signature="e#2452#2489#0" />
+            <element signature="e#2495#4326#0" />
+            <element signature="e#2556#4320#0" />
+            <element signature="e#2631#4310#0" />
+            <element signature="e#2814#3179#0" />
+            <element signature="e#2933#3122#0" />
+            <element signature="e#3202#3347#0" />
+            <element signature="e#3396#3475#0" />
+            <element signature="e#3605#3970#0" />
+            <element signature="e#3726#3913#0" />
+            <element signature="e#3993#4136#0" />
+            <element signature="e#4185#4264#0" />
+            <element signature="e#4494#4643#0" />
+            <element signature="e#4831#5602#0" />
+            <element signature="e#4874#5600#0" />
+            <element signature="e#5013#5233#0" />
+            <element signature="e#5091#5194#0" />
+            <element signature="e#5378#5594#0" />
+            <element signature="e#5452#5555#0" />
+            <element signature="e#5786#6150#0" />
+            <element signature="e#5827#6148#0" />
+            <element signature="e#5922#6142#0" />
+            <element signature="e#6000#6103#0" />
+            <element signature="e#6712#6758#0" />
+            <element signature="e#6984#7143#0" />
+            <element signature="e#7032#7135#0" />
+            <element signature="e#7192#7247#0" />
+            <element signature="e#7424#7481#0" />
+            <element signature="e#7451#7479#0" />
+            <element signature="e#7578#8066#0" />
+            <element signature="e#7668#8064#0" />
+            <element signature="e#7907#8027#0" />
+            <element signature="e#8107#8394#0" />
+            <element signature="e#8139#8180#0" />
+            <element signature="e#8185#8392#0" />
+            <element signature="e#8257#8360#0" />
+            <element signature="e#8435#11890#0" />
+            <element signature="e#10222#10321#0" />
+            <element signature="e#10278#10314#0" />
+            <element signature="e#10379#10478#0" />
+            <element signature="e#10435#10471#0" />
+            <element signature="e#10536#10635#0" />
+            <element signature="e#10592#10628#0" />
+            <element signature="e#10693#10792#0" />
+            <element signature="e#10749#10785#0" />
+            <element signature="e#10850#10949#0" />
+            <element signature="e#10906#10942#0" />
+            <element signature="e#11006#11105#0" />
+            <element signature="e#11062#11098#0" />
+            <element signature="e#11162#11261#0" />
+            <element signature="e#11218#11254#0" />
+            <element signature="e#11318#11417#0" />
+            <element signature="e#11374#11410#0" />
+            <element signature="e#11474#11573#0" />
+            <element signature="e#11530#11566#0" />
+            <element signature="e#11630#11729#0" />
+            <element signature="e#11686#11722#0" />
+            <element signature="e#11786#11885#0" />
+            <element signature="e#11842#11878#0" />
+            <element signature="e#11942#15184#0" />
+            <element signature="e#12849#15182#0" />
+            <element signature="e#12951#15176#0" />
+            <element signature="e#13170#13440#0" />
+            <element signature="e#13259#13395#0" />
+            <element signature="e#13599#13909#0" />
+            <element signature="e#13728#13864#0" />
+            <element signature="e#14309#14724#0" />
+            <element signature="e#14543#14679#0" />
+            <element signature="e#14805#15166#0" />
+            <element signature="e#14985#15121#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/seccion/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="380" column="6" selection-start-line="380" selection-start-column="6" selection-end-line="380" selection-end-column="6" />
+        <state relative-caret-position="316">
+          <caret line="299" column="113" selection-start-line="299" selection-start-column="113" selection-end-line="299" selection-end-column="113" />
           <folding>
             <element signature="e#616#889#0" />
             <element signature="e#771#889#0" />
@@ -1519,30 +1603,17 @@
             <element signature="e#10153#10478#0" />
             <element signature="e#10196#10478#0" />
             <element signature="e#10379#10478#0" />
-            <element signature="e#10749#11801#0" />
             <element signature="e#10894#10943#0" />
-            <element signature="e#10999#11801#0" />
-            <element signature="e#11034#11689#0" />
-            <element signature="e#12046#12095#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/guiaEstadistica/views.py">
+    <entry file="file://$PROJECT_DIR$/SCIEv1/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="715" column="17" selection-start-line="715" selection-start-column="17" selection-end-line="715" selection-end-column="17" />
+        <state relative-caret-position="286">
+          <caret line="149" selection-start-line="149" selection-end-line="149" />
           <folding>
-            <element signature="e#964#1241#0" />
-            <element signature="e#1127#1241#0" />
-            <element signature="e#1338#1837#0" />
-            <element signature="e#1554#1745#0" />
-            <element signature="e#1779#1837#0" />
-            <element signature="e#1939#2268#0" />
-            <element signature="e#2155#2268#0" />
-            <element signature="e#2369#2649#0" />
-            <element signature="e#2418#2649#0" />
-            <element signature="e#2971#3020#0" />
+            <element signature="e#308#317#0" expanded="true" />
           </folding>
         </state>
       </provider>

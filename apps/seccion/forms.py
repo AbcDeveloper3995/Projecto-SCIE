@@ -19,12 +19,16 @@ class seccionForm(ModelForm):
         model = seccion
         fields = '__all__'
         widgets = {
-            'nombre': TextInput(attrs={'class':'form-control'}),
+            'nombre': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese el nombre de la seccion'}),
             'guia_id': Select(attrs={'class':'form-control select2'}),
             'periodo_id': Select(attrs={'class':'form-control select2'}),
-            'numero': TextInput(attrs={'class':'form-control'}),
-            'subNumero': TextInput(attrs={'class':'form-control'}),
-            'orden': NumberInput(attrs={'class':'form-control '}),
+            'numero': NumberInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese el numero de la seccion'}),
+            'subNumero': NumberInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese el sub-numero de la seccion'}),
+            'orden': NumberInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese el orden de la seccion'}),
             'tipo': Select(attrs={'class':'form-control select2'}),
             'activo': CheckboxInput(attrs={'class':'custom-control-input', 'type': 'checkbox', 'id':'seccionActiva' })
         }
@@ -67,8 +71,10 @@ class codigoForm(ModelForm):
                      'seccion_id': 'Seccion al que pertenece'
                  },
         widgets = {
-            'codigo': TextInput(attrs={'class':'form-control'}),
-            'descripcion': TextInput(attrs={'class':'form-control '}),
+            'codigo': NumberInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese un codigo'}),
+            'descripcion': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese una descripcion del codigo'}),
             'activo': CheckboxInput(attrs={'class':'custom-control-input', 'type': 'checkbox','id':'codigoActiva' }),
             'seccion_id': Select(attrs={'class':'form-control select2'})
         }
@@ -84,8 +90,10 @@ class columnaForm(ModelForm):
         fields = '__all__'
         widgets = {
             'seccion_id': Select(attrs={'class':'form-control select2', 'style':'width:100%'}),
-            'columna': TextInput(attrs={'class':'form-control '}),
-            'descripcion': TextInput(attrs={'class':'form-control'}),
+            'columna': NumberInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese numero de columna'}),
+            'descripcion': TextInput(attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese una descripcion de la columna'}),
             'activo': CheckboxInput(attrs={'class':'custom-control-input', 'type': 'checkbox', 'id':'columnaActiva'}),
             'codigo_id': SelectMultiple(attrs={'class':'form-control select2', 'style':'width:100%'})
         }
@@ -104,21 +112,27 @@ class instanciaForm(ModelForm):
             'seccion_id': Select(attrs={'class':'form-control col-12 select2', 'name':'seccion_id'}),
             'codigo_id': Select(attrs={'class':'form-control col-12', 'name':'codigo_id'}),
             'columna_id': Select(attrs={'class':'form-control col-12','name':'columna_id'}),
-            'registro_1':  NumberInput(attrs={'class':'form-control col-12'}),
-            'modelo_1':  NumberInput(attrs={'class':'form-control col-12'}),
-            'registro_2':  NumberInput(attrs={'class':'form-control col-12'}),
-            'modelo_2': NumberInput(attrs={'class':'form-control col-12'}),
-            'registro_3':  NumberInput(attrs={'class':'form-control col-12'}),
-            'modelo_3':  NumberInput(attrs={'class':'form-control col-12'}),
+            'registro_1':  NumberInput(attrs={'class':'form-control col-12 styleInput',
+                                       'placeholder':'Ingrese un registro'}),
+            'modelo_1':  NumberInput(attrs={'class':'form-control col-12 styleInput',
+                                       'placeholder':'Ingrese un lo establecido segun el modelo'}),
+            'registro_2':  NumberInput(attrs={'class':'form-control col-12 styleInput',
+                                       'placeholder':'Ingrese un registro'}),
+            'modelo_2': NumberInput(attrs={'class':'form-control col-12 styleInput',
+                                       'placeholder':'Ingrese un lo establecido segun el modelo'}),
+            'registro_3':  NumberInput(attrs={'class':'form-control col-12 styleInput',
+                                       'placeholder':'Ingrese un registro'}),
+            'modelo_3':  NumberInput(attrs={'class':'form-control col-12 styleInput',
+                                       'placeholder':'Ingrese un lo establecido segun el modelo'}),
         }
 
 class verificacionForm(Form):
     indicadoresVerificados = CharField(label='Cantidad de indicadores verificados', widget=NumberInput(attrs={
-        'class': 'form-control ',
+        'class': 'form-control styleInput',
         'placeholder': 'Ingrese un numero'
     }))
     indicadoresCoinciden = CharField(label='Cantidad de indicadores coincides', widget=NumberInput(attrs={
-        'class': 'form-control ',
+        'class': 'form-controlstyleInput',
         'placeholder': 'Ingrese un numero'
     }))
     indicadoresIncluidos = ChoiceField(label='Estan incluidos en la informacion todos los establecimientos ?',

@@ -24,7 +24,7 @@
         {% if clave|obtenerTipo == 1 %}
             <form method="post" class="formCaptacion">
                 <input type="hidden" name="action" value="dataCaptacion">
-                <div class="card card-primary ">
+                <div class="card card-primary" >
                     <div class="card-header">
                         <h4 class="card-title">
                             <a data-toggle="collapse" href="#{{ clave }}"
@@ -44,11 +44,11 @@
                                                 <div class="col-12">
                                                     <div class="form-group">
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control"
+                                                            <input type="text" class="form-control styleInput"
                                                            placeholder="Ingrese un nombre"
                                                            name="{{ i.nombre }}" style="width: 100%" data-type="1" data-component="texto">
                                                             <div class="input-group-append">
-                                                                <div class="input-group-text"><i
+                                                                <div class="input-group-text styleInput"><i
                                                                         class="fa fa-font"></i>
                                                                 </div>
                                                             </div>
@@ -63,12 +63,12 @@
                                                     <div class="form-group">
                                                         <div class="input-group ">
                                                             <input type="text"
-                                                                   class="form-control datetimepicker-input date" id="date"
+                                                                   class="form-control datetimepicker-input date styleInput" id="date"
                                                                    placeholder="Seleccione una fecha" name="{{ i.nombre }}"  style="width: 100%" data-type="5"
                                                                    data-component="date" data-target="#date"
                                                                  data-toggle="datetimepicker">
                                                             <div class="input-group-append">
-                                                                <div class="input-group-text"><i
+                                                                <div class="input-group-text styleInput"><i
                                                                         class="fa fa-calendar-alt"></i>
                                                                 </div>
                                                             </div>
@@ -175,8 +175,10 @@
                                         {% endfor %}
                                     </table>
                                     <hr>
-                                    <form method="post" name="formVerificacion" class="form-horizontal formVerificacion" data-id="{{ i.id }}" data-seccion="{{ i.nombre }}">
+                                    <form method="post" name="formVerificacion" class="form-horizontal formVerificacion" data-id="{{ i.id }}" data-seccion="{{ i.nombre }}" >
                                         <input type="hidden" name="seccion" value="{{ i.id }}">
+                                        <input type="hidden" name="cuestionario" value="0">
+                                        <input type="hidden" name="action" value="verificacionInicial">
                                         <div class="m-2">
                                             <div class="form-group">
                                                 <h5 class="text-bold">{{ verificacionForm.indicadoresVerificados.label }}</h5>
@@ -198,7 +200,7 @@
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="offset-md-10 col-2">
-                                                    <button type="submit" class="btn btn-primary m-3"><i
+                                                    <button type="submit" class="boton-salvar btn1 m-3"><i
                                                             class="fa fa-save "></i> Salvar
                                                     </button>
                                                 </div>
@@ -284,7 +286,7 @@
                                                 <div class="form-actions">
                                                     <div class="row">
                                                         <div class="offset-md-10 col-2">
-                                                            <button type=submit class="btn btn-primary" ><i
+                                                            <button type=submit class="boton-salvar btn1" ><i
                                                                     class="fa fa-save "></i> Salvar
                                                             </button>
                                                         </div>
@@ -303,7 +305,7 @@
             </div>
         {% else %}
             <form method="post" class="formCaptacion">
-                <div class="card card-primary ">
+                <div class="card card-primary">
                     <div class="card-header">
                         <h4 class="card-title">
                             <a data-toggle="collapse" href="#{{ clave }}"
@@ -322,23 +324,23 @@
                                             <div class="custom-control custom-radio">
                                                 <input class="custom-control-input" type="radio" id="{{ i }}{{ j }}"
                                                        name="{{ i.nombre }}" value="{{ j.nombre }}"  data-cod-pregunta="{{ i.cod_indicador }}" data-component="radio">
-                                                <label for="{{ i }}{{ j }}" id="{{ i.cod_indicador }}"
-                                                       class="custom-control-label">{{ j.nombre }}</label>
+                                                <label for="{{ i }}{{ j }}" id="{{ i.cod_indicador }}{{ j.nombre }}"
+                                                       class="custom-control-label ">{{ j.nombre }}</label>
 
                                             </div>
                                         {% elif j.tipo_dato == '2' %}
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <textarea type="text" class="form-control"
+                                                    <textarea type="text" class="form-control styleInput"
                                                            placeholder="Ingrese una descripcion"
-                                                           name="Argumentacion - Si/No - {{ i.cod_indicador }}" data-type="2"
+                                                           name="Argumentacion_{{ i.cod_indicador }}" data-type="2"
                                                                    data-cod-pregunta="{{ i.cod_indicador }}" data-component="texto_largo"></textarea>
                                                 </div>
                                             </div>
                                         {% elif j.tipo_dato == '3' %}
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <input type="number" class="form-control"
+                                                    <input type="number" class="form-control styleInput"
                                                            placeholder="Ingrese un numero"
                                                            id="{{ i }}" name="{{ i.nombre }}" data-cod-pregunta="{{ i.cod_indicador }}"
                                                                    data-component="entero">
@@ -350,12 +352,12 @@
                                                     <div class="form-group">
                                                         <div class="input-group ">
                                                             <input type="text"
-                                                                   class="form-control  datetimepicker-input date" id="date2"
+                                                                   class="form-control  datetimepicker-input date styleInput" id="date2"
                                                                    placeholder="Seleccione una fecha" name="{{ i.nombre }}" data-cod-pregunta="{{ i.cod_indicador }}" style="width: 100%" data-type="5"
                                                                    data-component="date" data-target="#date2"
                                                                  data-toggle="datetimepicker">
                                                             <div class="input-group-append">
-                                                                <div class="input-group-text"><i
+                                                                <div class="input-group-text styleInput"><i
                                                                         class="fa fa-calendar-alt"></i>
                                                                 </div>
                                                             </div>
@@ -370,7 +372,7 @@
                             <div class="form-actions">
                                 <div class="row">
                                     <div class="offset-md-10 col-2">
-                                        <button type=submit class="btn btn-primary" style="margin-top: 10px;"><i
+                                        <button type=submit class="boton-salvar btn1" style="margin-top: 10px;"><i
                                                 class="fa fa-save "></i> Salvar
                                         </button>
                                     </div>
@@ -493,7 +495,7 @@
                                                                data-component="radio" {% else %} value="{{ j.nombre }}"
                                                                data-cod-pregunta="{{ i.cod_indicador }}"
                                                                data-component="radio" {% endif %}>
-                                                        <label for="{{ i }}{{ j }}"
+                                                        <label for="{{ i }}{{ j }}" id="{{ i.cod_indicador }}{{ j.nombre }}"
                                                                class="custom-control-label">{{ j.nombre }}</label>
                                                     </div>
                                                 {% elif j.tipo_dato == '2' %}
@@ -501,7 +503,7 @@
                                                         <div class="col-12">
                                                     <textarea type="text" class="form-control"
                                                               placeholder="Ingrese una descripcion"
-                                                              name="Argumentacion - Si/No - {{ i.cod_indicador }}"
+                                                              name="Argumentacion_{{ i.cod_indicador }}"
                                                               data-type="2"
                                                               data-cod-pregunta="{{ i.cod_indicador }}"
                                                               data-component="texto_largo"></textarea>
@@ -529,6 +531,7 @@
                                                                            placeholder="Seleccione una fecha"
                                                                            name="{{ i.nombre }}" style="width: 100%"
                                                                            data-type="5"
+                                                                           data-cod-pregunta="{{ i.cod_indicador }}"
                                                                            data-component="date" data-target="#date2"
                                                                            data-toggle="datetimepicker">
                                                                     <div class="input-group-append">
@@ -548,7 +551,7 @@
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="offset-md-10 col-2">
-                                            <button type=submit class="btn btn-primary" style="margin-top: 10px;"><i
+                                            <button type=submit class="boton-salvar btn1" style="margin-top: 10px;"><i
                                                     class="fa fa-save "></i> Salvar
                                             </button>
                                         </div>
@@ -663,8 +666,10 @@
                                         <hr>
                                         <form method="post" name="formVerificacion"
                                               class="form-horizontal formVerificacion" data-id="{{ i.id }}"
-                                              data-seccion="{{ i.nombre }}">
+                                              data-seccion="{{ i.nombre }}" data-cuestionario="{{ cuestionario.id }}">
                                             <input type="hidden" name="seccion" value="{{ i.id }}">
+                                            <input type="hidden" name="cuestionario" value={{ cuestionario.id }}>
+                                            <input type="hidden" name="action" value="actualizarVerificacion">
                                             <div class="m-2">
                                                 <div class="form-group">
                                                     <h5 class="text-bold">{{ verificacionForm.indicadoresVerificados.label }}</h5>
@@ -689,7 +694,7 @@
                                             <div class="form-actions">
                                                 <div class="row">
                                                     <div class="offset-md-10 col-2">
-                                                        <button type="submit" class="btn btn-primary m-3"><i
+                                                        <button type="submit" class="boton-salvar btn1 m-3"><i
                                                                 class="fa fa-save "></i> Salvar
                                                         </button>
                                                     </div>
@@ -702,7 +707,7 @@
                                          aria-labelledby="myModalLabel2"
                                          aria-hidden="true">
                                         <form method="post" class="form-horizontal instanciaFormContuniarCaptacion" name="instanciaFormContuniarCaptacion"
-                                              data-seccion="{{ i.id }}" data-cuestionario="{{ cuestionario.id }}">
+                                              data-seccion="{{ i.nombre }}" data-cuestionario="{{ cuestionario.id }}">
                                             <div class="modal-dialog modal-xl">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -797,7 +802,7 @@
                                                         <div class="form-actions">
                                                             <div class="row">
                                                                 <div class="offset-md-10 col-2">
-                                                                    <button type=submit class="btn btn-primary"><i
+                                                                    <button type=submit class="boton-salvar btn1"><i
                                                                             class="fa fa-save "></i> Salvar
                                                                     </button>
                                                                 </div>

@@ -281,18 +281,38 @@ class comprobarIndicadoresEvaluados(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         data = {}
+        action = request.POST['action']
+        idCuestionario = int(request.POST['cuestionario'])
+        querySeccion = seccion.objects.get(id=request.POST['seccion'])
         try:
-            obj_seccion = seccion.objects.get(id=request.POST['seccion'])
-            obj_cuestionario = cuestionario.objects.last()
-            obj_verificacion = verificacion(
-                seccion_id=obj_seccion,
-                cuestionario_fk=obj_cuestionario,
-                indicadoresVerificados=request.POST['indicadoresVerificados'],
-                indicadoresCoinciden=request.POST['indicadoresCoinciden'],
-                indicadoresIncluidos=request.POST['indicadoresIncluidos'],
-            )
-            obj_verificacion.save()
-            data['exito'] = 'Control y verificacion de la seccion ' + obj_seccion.nombre + ' realizadas conrrectamente.'
+            if action == 'verificacionInicial':
+                queyCuestionario = cuestionario.objects.last()
+                obj_verificacion = verificacion(
+                    seccion_id=querySeccion,
+                    cuestionario_fk=queyCuestionario,
+                    indicadoresVerificados=request.POST['indicadoresVerificados'],
+                    indicadoresCoinciden=request.POST['indicadoresCoinciden'],
+                    indicadoresIncluidos=request.POST['indicadoresIncluidos'],
+                )
+                obj_verificacion.save()
+            elif action == 'actualizarVerificacion':
+                try:
+                    query = verificacion.objects.get(seccion_id=querySeccion, cuestionario_fk__id=idCuestionario)
+                    query.indicadoresVerificados = request.POST['indicadoresVerificados']
+                    query.indicadoresCoinciden = request.POST['indicadoresCoinciden']
+                    query.indicadoresIncluidos = request.POST['indicadoresIncluidos']
+                    query.save()
+                except:
+                    queyCuestionario = cuestionario.objects.get(id=idCuestionario)
+                    obj_verificacion = verificacion(
+                        seccion_id=querySeccion,
+                        cuestionario_fk=queyCuestionario,
+                        indicadoresVerificados=request.POST['indicadoresVerificados'],
+                        indicadoresCoinciden=request.POST['indicadoresCoinciden'],
+                        indicadoresIncluidos=request.POST['indicadoresIncluidos'],
+                    )
+                    obj_verificacion.save()
+            data['exito'] = 'Control y verificacion de la seccion ' + querySeccion.nombre + ' realizadas conrrectamente.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
@@ -329,11 +349,20 @@ class valorIndicadoresVerificados(TemplateView):
     def post(self, request, *args, **kwargs):
         data = {}
         action = request.POST['action']
-        id = request.POST['id']
+        idSeccion = request.POST['idSeccion']
+        idCuestionario = int(request.POST['idCuestionario'])
         cant = 0
-        lastcuestionario = getLastCuestionario()
+        lastCuestionario = cuestionario.objects.last()
         try:
-            query = instanciaSeccion.objects.filter(seccion_id__id=id, cuestionario_fk=lastcuestionario)
+            '''LAS CONDICION == 0 ES PARA CUANDO SE ESTA CAPTANDO INSTANCIAS NUEVAS DESDE UN INICIO 
+            DE LAS SECCIONES Y LA OTRA ES PARA CONTINUAR CON LA CAPTACION DE INSTANCIA DE UN CUESTIONARIO DE 
+            UN CI YA CAPTADO'''
+            if idCuestionario == 0:
+                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion,
+                                                        cuestionario_fk_id=lastCuestionario.id)
+            else:
+                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion,
+                                                        cuestionario_fk_id=idCuestionario)
             if action == 'getValorIndVerificados' and query.count() != 0:
                 for i in query:
                     if i.registro_1 != 0:
@@ -358,11 +387,20 @@ class indicadoresCoinciden(TemplateView):
     def post(self, request, *args, **kwargs):
         data = {}
         action = request.POST['action']
-        id = request.POST['id']
+        idSeccion = request.POST['idSeccion']
+        idCuestionario = int(request.POST['idCuestionario'])
         cant = 0
-        lastcuestionario = getLastCuestionario()
+        lastCuestionario = cuestionario.objects.last()
         try:
-            query = instanciaSeccion.objects.filter(seccion_id__id=id, cuestionario_fk=lastcuestionario)
+            '''LAS CONDICION == 0 ES PARA CUANDO SE ESTA CAPTANDO INSTANCIAS NUEVAS DESDE UN INICIO 
+            DE LAS SECCIONES Y LA OTRA ES PARA CONTINUAR CON LA CAPTACION DE INSTANCIA DE UN CUESTIONARIO DE 
+            UN CI YA CAPTADO'''
+            if idCuestionario == 0:
+                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion,
+                                                        cuestionario_fk_id=lastCuestionario.id)
+            else:
+                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion,
+                                                        cuestionario_fk_id=idCuestionario)
             if action == 'indicadoresCoinciden' and query.count() != 0:
                 for i in query:
                     if i.get_diferencia_1() == 0:
@@ -419,8 +457,8 @@ class eliminarInstanciaView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         query = get_object_or_404(instanciaSeccion, id=self.kwargs['pk'])
+        messages.success(self.request, "Una instancia de la seccion "+query.seccion_id.nombre+" ha sido eliminada correctamente.")
         query.delete()
-        messages.success(self.request, "La instancia ha sido eliminada correctamente.")
         return redirect('guia:guiaCaptada')
 
 

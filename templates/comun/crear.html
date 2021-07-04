@@ -1,5 +1,5 @@
 {% extends 'comun/home.html' %}
-
+{% load static %}
 
 {% block content %}
     <form method="post" {% block id %}{% endblock %} enctype="multipart/form-data" >
@@ -14,9 +14,8 @@
             <div class="card-body">
                 {% block formulario %}
                 {% endblock %}
-            </div>
-                <div class="card-footer">
-                    {% block form_buttons %}
+                <hr>
+                {% block form_buttons %}
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> Salvar
                         </button>
@@ -25,6 +24,9 @@
                             <i class="fas fa-arrow-circle-left"></i> Cancelar
                         </a>
                     {% endblock %}
+            </div>
+                <div class="card-footer">
+
                 </div>
         </div>
     </form>

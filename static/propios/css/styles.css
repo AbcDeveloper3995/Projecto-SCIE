@@ -1,5 +1,188 @@
+.login-body{
+  background: #1d2b64;
+  background: linear-gradient(to right, rgba(36, 59, 85, 0.603), rgba(20, 30, 48, 0.603)),url("../img/fondo.jpg") no-repeat center top;
+  background-size: cover;
+  height: 100vh;
+  background-attachment: fixed !important;
+}
+
+#particles-js{
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+}
 
 .desabilitar{
     cursor: default;
     pointer-events: none;
 }
+
+.styleInput{
+    border: none;
+    border-bottom: 1px solid;
+    border-bottom-color: dodgerblue;
+}
+
+.form-control::placeholder {
+    -webkit-transition: 1s all ease;
+    -moz-transition: 1s all ease;
+    transition: 1s all ease;
+}
+
+.form-control:focus::placeholder {
+  opacity: 0;
+  font-size: 50px; }
+
+.boton-salvar {
+    border: 1px solid #3498db;
+    border-radius: 5px;
+    background: none;
+    padding: 3px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 10px;
+    position: relative;
+    overflow: hidden;
+    -webkit-box-shadow: 27px 12px 31px -9px rgba(0, 0, 0, 0.48);
+    -moz-box-shadow: 27px 12px 31px -9px rgba(0, 0, 0, 0.48);
+    box-shadow: 27px 12px 31px -9px rgba(0, 0, 0, 0.48);
+    z-index: 1;
+    transition: .8s;
+}
+
+.boton-salvar:disabled {
+    cursor: not-allowed;
+}
+
+.btn1 {
+    color: #3498db;
+}
+
+.btn1:hover {
+    color: #ffffff;
+}
+
+.boton-salvar::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: #3498db;
+    z-index: -1;
+    transition: .8s;
+}
+
+.btn1::before {
+    bottom: 0;
+    border-radius: 50% 50% 0 0;
+}
+
+.btn1:hover::before {
+    height: 180%;
+}
+
+.botones {
+    display: flex;
+}
+
+.cancelar {
+    display: block;
+}
+
+.boton-cancelar {
+    border: 1px solid red;
+    border-radius: 5px;
+    background: none;
+    padding: 3px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 10px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    -webkit-box-shadow: 27px 12px 31px -9px rgba(0, 0, 0, 0.48);
+    -moz-box-shadow: 27px 12px 31px -9px rgba(0, 0, 0, 0.48);
+    box-shadow: 27px 12px 31px -9px rgba(0, 0, 0, 0.48);
+    transition: .8s;
+}
+
+.boton-cancelar:disabled {
+  cursor: not-allowed;
+}
+
+.btn2{
+    color: red;
+}
+.btn2:hover{
+    color: #ffffff;
+}
+
+.boton-cancelar::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: red;
+    z-index: -1;
+    transition: .8s;
+}
+
+.btn2::before{
+    bottom: 0;
+    border-radius:50% 50%  0 0 ;
+}
+.btn2:hover::before{
+    height: 180%;
+}
+
+/*----------------------------*/
+.boton-listar {
+    border: 1px solid dodgerblue;
+    border-radius: 5px;
+    background: none;
+    padding: 3px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 10px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    -webkit-box-shadow: 27px 12px 31px -9px rgba(0, 0, 0, 0.48);
+    -moz-box-shadow: 27px 12px 31px -9px rgba(0, 0, 0, 0.48);
+    box-shadow: 27px 12px 31px -9px rgba(0, 0, 0, 0.48);
+    transition: .8s;
+}
+
+.boton-listar:disabled {
+  cursor: not-allowed;
+}
+
+.btn3{
+    color: dodgerblue;
+}
+.btn3:hover{
+    color: #ffffff;
+}
+
+.boton-listar::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: dodgerblue;
+    z-index: -1;
+    transition: .8s;
+}
+
+.btn3::before{
+    bottom: 0;
+    border-radius:50% 50%  0 0 ;
+}
+.btn3:hover::before{
+    height: 180%;
+}
+

@@ -4,46 +4,46 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ title }}</title>
+  <title>{{ title }} | Inicio sesion</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
-  <!-- Theme style -->
+  <link href="{% static 'propios/img/avatar (2).jpg' %}" rel="icon">
   <link rel="stylesheet" href="{% static 'plugins/adminLTE/css/adminlte.min.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/jquery-confirm-v3.3.4/jquery-confirm.min.css' %}">
+    <link rel="stylesheet" href="{% static 'propios/css/styles.css' %}">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page login-body">
+<div id="particles-js"></div>
 <div class="login-box">
   <div class="login-logo">
     <img src="{% static 'propios/img/avatar (2).jpg' %}"
-             alt="AdminLTE Logo"
              class="brand-image  elevation-3"
-             style="opacity: .8;width: 125px; border-radius: 10px">
+             style="width: 125px; border-radius: 10px">
   </div>
   <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
+  <div class="card" style="border-radius: 20px; z-index: 1; position: relative">
+    <div class="card-body login-card-body"  style="border-radius: 20px;">
       <h5 class="login-box-msg text-uppercase text-bold">{% block titulo %}Inicio de Sesion{% endblock %}</h5>
+    <hr>
 
      {% block content %}
       <form  method="post">
           {% csrf_token %}
           <input type="hidden" name="next" value="{{ next }}">
         <div class="input-group mb-3">
-          {{ form.username|add_class:'form-control'|attr:'placeholder:Ingrese su usuario' }}
+          {{ form.username|add_class:'form-control styleInput'|attr:'placeholder:Ingrese su usuario'|attr:'autofocus:off' }}
           <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
+            <div class="input-group-text styleInput">
+              <span class="fas fa-user " ></span>
             </div>
           </div>
         </div>
         <div class="input-group mb-3">
-          {{ form.password|add_class:'form-control'|attr:'placeholder:Ingrese su contraseña'}}
+          {{ form.password|add_class:'form-control styleInput'|attr:'placeholder:Ingrese su contraseña'}}
           <div class="input-group-append">
-            <div class="input-group-text">
+            <div class="input-group-text styleInput">
               <span class="fas fa-lock"></span>
             </div>
           </div>
@@ -51,11 +51,12 @@
         <div class="row">
           <!-- /.col -->
           <div class="col-12">
-            <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in-alt"></i> Aceptar</button>
+            <button type="submit" class="boton-salvar btn1" style="width: 95%"><i class="fa fa-sign-in-alt"></i> Aceptar</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
+         <hr>
          <p class="text-center mt-2" style="font-size: 13px;">
                         Si no recuerdas tu contraseña puedes resetearla dando click <a href="{% url 'usuario:resetear_password' %}">aqui </a>
                     </p>
@@ -74,6 +75,7 @@
 <script src="{% static 'plugins/adminLTE/js/adminlte.min.js' %}"></script>
  <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
  <script src="{% static 'plugins/jquery-confirm-v3.3.4/jquery-confirm.min.js' %}"></script>
+ <script src="{% static 'plugins/particles/particles.min.js' %}"></script>
  <script src="{% static 'propios/js/utils.js' %}"></script>
 
  <script type="text/javascript">

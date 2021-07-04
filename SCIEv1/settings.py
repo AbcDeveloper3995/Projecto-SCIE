@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from SCIEv1.configuraciones import local, produccion
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'eda@fynn&ktss37sebm=2%gm5$2aqm%w^*04*hw+8lf_r*uz)o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = local.DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = local.ALLOWED_HOSTS
 
 
 # Application definition
@@ -80,16 +81,7 @@ WSGI_APPLICATION = 'SCIEv1.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'SCIEv1',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+DATABASES = local.DATABASES
 
 
 # Password validation
@@ -114,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'es-es'
+LANGUAGE_CODE = local.LANGUAGE_CODE
 
 TIME_ZONE = 'UTC'
 
@@ -146,14 +138,13 @@ AUTH_USER_MODEL = 'usuario.Usuario'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-# Email
 
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = local.MAIL_HOST
 
-EMAIL_PORT = 587
+EMAIL_PORT = local.EMAIL_PORT
 
-EMAIL_HOST_USER = 'abcdevelopper@gmail.com'
+EMAIL_HOST_USER = local.EMAIL_HOST_USER
 
-EMAIL_HOST_PASSWORD = 'DjangoDeveloper.3995.'
+EMAIL_HOST_PASSWORD = local.EMAIL_HOST_PASSWORD
 
-DOMAIN = ''
+DOMAIN = local.DOMAIN

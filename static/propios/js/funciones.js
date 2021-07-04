@@ -52,17 +52,21 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
                 class: 'text-center',
                 orderable: false,
                 render: function (data, type, row) {
-                       let buttons = '<a href="/seccion/editarInstancia/' + row.id + '/" type="button"><i  class="fa fa-edit"></i></a>';
-                           buttons += '<a href="/seccion/eliminarInstancia/' + row.id + '/" type="button"><i class="fa fa-trash"></i></a>';
-
-                    return buttons;
+                       let buttons = '<a href="/seccion/editarInstancia/' + row.id + '/"  type="button"><i  class="fa fa-edit"></i></a>';
+                           buttons += '<a href="/seccion/eliminarInstancia/' + row.id + '/" id="remove" type="button"><i class="fa fa-trash"></i></a>';
+                    $('.' + nombre_seccion + ' tbody').on('click', 'a[id="remove"]', function () {
+                        let tr = datatable.cell($(this).closest('td, li')).index();
+                        datatable.row(':eq(' + tr.row + ')').remove().draw()
+                    });
+                        return buttons;
                 }
             },
         ],
         initComplete: function (settings, json) {
         }
     });
-    if (datatable.flatten().Length === 0) {
+
+    if (datatable.data().any()) {
         alert('Tabla vacia');
     } else {
         for (var i = 0; i < form_verificacion.length; i++) {
@@ -74,7 +78,8 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
                     type: 'POST',
                     data: {
                         'action': 'getValorIndVerificados',
-                        'id': idSeccion,
+                        'idSeccion': idSeccion,
+                        'idCuestionario': idCuestionario,
                     },
                     dataType: 'json',
                 }).done(function (data) {
@@ -82,12 +87,14 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus + ' : ' + errorThrown)
                 });
+                // AJAX PARA OBTENER LA CANTIDAD DE INDICADORES qQUE COINCIDEN DE CADA SECCION EVALUADA
                 $.ajax({
                     url: '/seccion/indicadoresCoinciden/',
                     type: 'POST',
                     data: {
                         'action': 'indicadoresCoinciden',
-                        'id': idSeccion,
+                        'idSeccion': idSeccion,
+                        'idCuestionario': idCuestionario,
                     },
                     dataType: 'json',
                 }).done(function (data) {
@@ -117,10 +124,20 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
 
 //--------------------------------------VALIDACIONES PARA EL FORM INSTANCIAS---------------------------------------------//
 
-const validate_no_empty_instancias = (seccionForm, seccionCampo) => {
-for (var i=0;i,i<seccionCampo.length; i++){
+const validateInstancias = (seccionForm, seccionCampo) => {
+for (var i=0; i<seccionCampo.length; i++){
+    // Validar que no hayan campos vacios//
         if (seccionForm === seccionCampo[i].dataset.seccion && seccionCampo[i].value === "") {
               toastr.error("Asegurese de no dejar campos vacios.", 'Error', {
+             progressBar: true,
+             closeButton: true,
+             "timeOut": "5000",
+    });
+              return false
+        }
+        //Validar que no se entre valore negativos //
+        if (seccionForm === seccionCampo[i].dataset.seccion && seccionCampo[i].value < 0) {
+              toastr.error("No se admiten valores negativos.", 'Error', {
              progressBar: true,
              closeButton: true,
              "timeOut": "5000",
@@ -370,6 +387,7 @@ const validate_depedencias_campos = (formulario) => {
     let cod_pregunta_13_Si =  $('.'+claseForm+' input[data-cod-pregunta="13"]:input[value="Si"] ' );
     let cod_pregunta_14_No =  $('.'+claseForm+' input[data-cod-pregunta="14"]:input[value="Bueno"] ' );
     let cod_pregunta_14_Si =  $('.'+claseForm+' input[data-cod-pregunta="14"]:input[value="Deteriorado"] ' );
+    let cod_pregunta_14_nuevo =  $('.'+claseForm+' input[data-cod-pregunta="14"]:input[value="No"] ' );
     let cod_pregunta_15_No =  $('.'+claseForm+' input[data-cod-pregunta="15"]:input[value="No"] ' );
     let cod_pregunta_15_Si =  $('.'+claseForm+' input[data-cod-pregunta="15"]:input[value="Si"] ' );
     let cod_pregunta_41_No =  $('.'+claseForm+' input[data-cod-pregunta="41"]:input[value="No"] ' );
@@ -395,42 +413,71 @@ const validate_depedencias_campos = (formulario) => {
     let cod_pregunta_74_No =  $('.'+claseForm+' input[data-cod-pregunta="74"]:input[value="No"] ' );
     let cod_pregunta_74_Si =  $('.'+claseForm+' input[data-cod-pregunta="74"]:input[value="Si"] ' );
     let cod_pregunta_741 =  $('.'+claseForm+' textarea[data-cod-pregunta="741"]' );
-    let id =14
 
+    //--------DEPENDENCIAS PARA CUANDO SE CAPTA AL INICIO-----///
+    if (claseForm == 'formCaptacion') {
 
-    cod_pregunta_12.prop('readonly', true);
-    cod_pregunta_13_No.prop('disabled', true).prop('checked', false);
-    cod_pregunta_13_Si.prop('disabled', true).prop('checked', false);
-    cod_pregunta_14_No.prop('disabled', true).prop('checked', false);
-    cod_pregunta_14_Si.prop('disabled', true).prop('checked', false);
-    cod_pregunta_15_No.prop('disabled', true).prop('checked', false);
-    cod_pregunta_15_Si.prop('disabled', true).prop('checked', false);
-    cod_pregunta_22_No.prop('disabled', true).prop('checked', false);
-    cod_pregunta_22_Si.prop('disabled', true).prop('checked', false);
-    cod_pregunta_42.prop('readonly', true);
-    cod_pregunta_62.prop('readonly', true);
-    cod_pregunta_63.prop('readonly', true);
-    cod_pregunta_711.prop('readonly', true).prop('value', "Ninguno");
-    cod_pregunta_721.prop('readonly', true).prop('value', "");
-    cod_pregunta_731.prop('readonly', true).prop('value', "");
-    cod_pregunta_741.prop('readonly', true).prop('value', "");
-
-    cod_pregunta_11_No.on('click', function () {
-        $('#'+id+'').prop('textContent', 'No')
+        $('#14No').prop('hidden', true);
         cod_pregunta_12.prop('readonly', true);
+        cod_pregunta_13_No.prop('disabled', true).prop('checked', false);
+        cod_pregunta_13_Si.prop('disabled', true).prop('checked', false);
+        cod_pregunta_14_No.prop('disabled', true).prop('checked', false);
+        cod_pregunta_14_Si.prop('disabled', true).prop('checked', false);
+        cod_pregunta_15_No.prop('disabled', true).prop('checked', false);
+        cod_pregunta_15_Si.prop('disabled', true).prop('checked', false);
+        cod_pregunta_22_No.prop('disabled', true).prop('checked', false);
+        cod_pregunta_22_Si.prop('disabled', true).prop('checked', false);
+        cod_pregunta_42.prop('readonly', true);
+        cod_pregunta_62.prop('readonly', true);
+        cod_pregunta_63.prop('readonly', true);
+        cod_pregunta_711.prop('readonly', true).prop('value', "Ninguno");
+        cod_pregunta_721.prop('readonly', true).prop('value', "");
+        cod_pregunta_731.prop('readonly', true).prop('value', "");
+        cod_pregunta_741.prop('readonly', true).prop('value', "");
+    }else {
+        //--------DEPENDENCIA PARA CUANDO SE EDITA LO CAPTADO-------//
+        if (cod_pregunta_11_No.is(':checked') === true) {
+            cod_pregunta_12.prop('readonly', true).prop('value', "No disponible");
+            cod_pregunta_13_Si.prop('disabled', true);
+            $('#14No').prop('hidden', false);
+            cod_pregunta_14_nuevo.prop('disabled', false).prop('checked', true);
+            cod_pregunta_14_No.prop('disabled', true);
+            cod_pregunta_14_Si.prop('disabled', true);
+            cod_pregunta_15_Si.prop('disabled', true);
+        }
+        if (cod_pregunta_21_No.is(':checked') === true) {
+            cod_pregunta_22_No.prop('disabled', false).prop('checked', true);
+            cod_pregunta_22_Si.prop('disabled', true);
+        }
+        if (cod_pregunta_41_No.is(':checked') === true) {
+            cod_pregunta_42.prop('readonly', true).prop('value', 0);
+        }
+        if (cod_pregunta_61_No.is(':checked') === true) {
+            cod_pregunta_62.prop('readonly', true).prop('value', 0);
+            cod_pregunta_63.prop('readonly', true).prop('value', 0);
+        }
+
+
+    }
+
+      //DEPENDENCIA PARA AMBAS PARTE TANTO AL INICIO COMO AL EDITAR------//
+    cod_pregunta_11_No.on('click', function () {
+        cod_pregunta_12.prop('readonly', true).prop('value', "No disponible");
         cod_pregunta_13_No.prop('disabled', false).prop('checked', true);
         cod_pregunta_13_Si.prop('disabled', true);
-        cod_pregunta_13_Si.prop('disabled', true);
-        cod_pregunta_14_No.prop('disabled', false).prop('checked', true).prop('value', "No");
+        $('#14No').prop('hidden', false);
+        cod_pregunta_14_nuevo.prop('disabled', false).prop('checked', true);
+        cod_pregunta_14_No.prop('disabled', true);
         cod_pregunta_14_Si.prop('disabled', true);
         cod_pregunta_15_No.prop('disabled', false).prop('checked', true);
         cod_pregunta_15_Si.prop('disabled', true);
     });
     cod_pregunta_11_Si.on('click', function () {
-        $('#'+id+'').prop('textContent', 'Bueno')
         cod_pregunta_12.prop('readonly', false);
         cod_pregunta_13_No.prop('disabled', false).prop('checked', false);
         cod_pregunta_13_Si.prop('disabled', false);
+        $('#14No').prop('hidden', true);
+        cod_pregunta_14_nuevo.prop('disabled', false).prop('checked', false);
         cod_pregunta_14_No.prop('disabled', false).prop('checked', false);
         cod_pregunta_14_Si.prop('disabled', false);
         cod_pregunta_15_No.prop('disabled', false).prop('checked', false);
@@ -445,38 +492,39 @@ const validate_depedencias_campos = (formulario) => {
         cod_pregunta_22_Si.prop('disabled', false).prop('checked', false);
     });
     cod_pregunta_41_No.on('click', function () {
-        cod_pregunta_42.prop('readonly', true);
+        cod_pregunta_42.prop('readonly', true).prop('value', 0);
     });
     cod_pregunta_41_Si.on('click', function () {
         cod_pregunta_42.prop('readonly', false);
     });
     cod_pregunta_61_No.on('click', function () {
-        cod_pregunta_62.prop('readonly', true);
-        cod_pregunta_63.prop('readonly', true);
+        cod_pregunta_62.prop('readonly', true).prop('value', 0);
+        cod_pregunta_63.prop('readonly', true).prop('value', 0);
     });
     cod_pregunta_61_Si.on('click', function () {
         cod_pregunta_62.prop('readonly', false);
         cod_pregunta_63.prop('readonly', false);
     });
     cod_pregunta_71_No.on('click', function () {
-        cod_pregunta_711.prop('readonly', true).prop('value', "Ninguno");;
+        cod_pregunta_711.prop('readonly', true).prop('value', "Ninguno");
+        ;
     });
     cod_pregunta_71_Si.on('click', function () {
         cod_pregunta_711.prop('readonly', false).prop('value', "");
     });
-     cod_pregunta_72_No.on('click', function () {
+    cod_pregunta_72_No.on('click', function () {
         cod_pregunta_721.prop('readonly', false).prop('value', "");
     });
     cod_pregunta_72_Si.on('click', function () {
         cod_pregunta_721.prop('readonly', true).prop('value', "");
     });
-     cod_pregunta_73_No.on('click', function () {
+    cod_pregunta_73_No.on('click', function () {
         cod_pregunta_731.prop('readonly', false).prop('value', "");
     });
     cod_pregunta_73_Si.on('click', function () {
         cod_pregunta_731.prop('readonly', true).prop('value', "");
     });
-     cod_pregunta_74_No.on('click', function () {
+    cod_pregunta_74_No.on('click', function () {
         cod_pregunta_741.prop('readonly', false).prop('value', "");
     });
     cod_pregunta_74_Si.on('click', function () {
@@ -569,15 +617,15 @@ formularioCaptacion.on('submit', function (e) {
 $('form[name="instanciaForm"]').on('submit', function (e) {
     e.preventDefault();
     let instancia_from_seccion = $(this).data('seccion');
-    if(validate_no_empty_instancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('select[name="columna_id"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="registro_1"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="registro_2"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="registro_3"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('select[name="columna_id"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="registro_1"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="registro_2"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="registro_3"]')) === false){return false};
     let  campos = new FormData(this);
     $.ajax({
         url: '/guia/dataCaptacion/',
@@ -599,15 +647,15 @@ $('form[name="instanciaFormContuniarCaptacion"]').on('submit', function (e) {
     e.preventDefault();
     let instancia_from_seccion = $(this).data('seccion');
     let id = $(this).data('cuestionario');
-    if(validate_no_empty_instancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('select[name="columna_id"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="registro_1"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="registro_2"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false){return false};
-    if(validate_no_empty_instancias(instancia_from_seccion, $('input[name="registro_3"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('select[name="columna_id"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="registro_1"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="registro_2"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false){return false};
+    if(validateInstancias(instancia_from_seccion, $('input[name="registro_3"]')) === false){return false};
     let  campos = new FormData(this);
     $.ajax({
         url: '/guia/continuarCaptacion/'+id+'/',
@@ -989,7 +1037,7 @@ $('#editInstanciaForm').on('submit', function (e) {
         contentType:false
     }).done(function (data) {
         $('#modificarInstancias').prop("hidden", true);
-        toastr.success("Las instancias del cuestionario han sido modificadas correctamente.", 'Exito',{
+        toastr.success("La instancia del cuestionario ha sido modificada correctamente.", 'Exito',{
         progressBar: true,
         closeButton: true,
         "timeOut": "3000",
@@ -1615,7 +1663,7 @@ $('#safe').on('click', function () {
      buttons: {
          dom: {
              button: {
-                 className: 'btn fas fa-file-alt'
+                 className: 'boton-salvar btn1'
              }
          },
          buttons: [
@@ -1638,7 +1686,7 @@ $('#safe').on('click', function () {
      buttons: {
          dom: {
              button: {
-                 className: 'btn fas fa-file-alt'
+                 className: 'boton-salvar btn1'
              }
          },
          buttons: [
@@ -1662,7 +1710,7 @@ $('#safe').on('click', function () {
      buttons: {
          dom: {
              button: {
-                 className: 'btn fas fa-file-alt'
+                 className: 'boton-salvar btn1'
              }
          },
          buttons: [
@@ -1685,7 +1733,7 @@ $('#safe').on('click', function () {
      buttons: {
          dom: {
              button: {
-                 className: 'btn fas fa-file-alt'
+                 className: 'boton-salvar btn1'
              }
          },
          buttons: [
@@ -1708,7 +1756,7 @@ $('#safe').on('click', function () {
      buttons: {
          dom: {
              button: {
-                 className: 'btn fas fa-file-alt'
+                 className: 'boton-salvar btn1'
              }
          },
          buttons: [
@@ -1731,7 +1779,7 @@ $('#safe').on('click', function () {
      buttons: {
          dom: {
              button: {
-                 className: 'btn fas fa-file-alt'
+                 className: 'boton-salvar btn1'
              }
          },
          buttons: [
@@ -1754,7 +1802,7 @@ $('#safe').on('click', function () {
      buttons: {
          dom: {
              button: {
-                 className: 'btn fas fa-file-alt'
+                 className: 'boton-salvar btn1'
              }
          },
          buttons: [
@@ -1777,7 +1825,7 @@ $('#safe').on('click', function () {
      buttons: {
          dom: {
              button: {
-                 className: 'btn fas fa-file-alt'
+                 className: 'boton-salvar btn1'
              }
          },
          buttons: [
@@ -1802,9 +1850,7 @@ $('#safe').on('click', function () {
  //------------------------------PROCEDIMIENTO PARA VALIDAR Y MODIFICAR UN CUESTIONARIO YA CAPTADO--------------------//
 
 let formularioEditarCaptacion = $('form[class="editFormCaptacion"]');
-const redirect = () => {
-           location.href='http://127.0.0.1:8000/guia/guiaCaptada/';
-       }
+
 validate_depedencias_campos(formularioEditarCaptacion);
 formularioEditarCaptacion.on('submit', function (e) {
     e.preventDefault();
@@ -1813,12 +1859,9 @@ formularioEditarCaptacion.on('submit', function (e) {
      if( validateComponenteTexto(formularioEditarCaptacion) === false){return false};
      if( validate_component_entero(formularioEditarCaptacion) === false){return false};
 
-     envioConAjax(window.location.pathname, 'Notificación', '¿Estas seguro de realizar esta accion?', campos, function () {
-                 toastr.success('Se ha modificado el cuestionario correctamente', 'Exito', {
-                        "closeButton": true,
-                        "progressBar": true,
-                        "timeOut": "3000",
-                    });
-            });
-     setTimeout (redirect,4000);
+    envioConAjax(window.location.pathname, 'Notificación', '¿Estas seguro de realizar esta accion?', campos, function () {
+        let url = 'http://127.0.0.1:8000/guia/guiaCaptada/';
+        location.href = url
+    });
+
 });

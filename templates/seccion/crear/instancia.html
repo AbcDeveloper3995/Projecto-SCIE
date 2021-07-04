@@ -14,45 +14,57 @@
         <label>Seccion</label>
         {{ form.seccion_id }}
     </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label>{{ form.modelo_1.label }}</label>
+                {{ form.modelo_1 }}
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group ">
+                <label>{{ form.registro_1.label }}</label>
+                {{ form.registro_1 }}
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label>{{ form.modelo_2.label }}</label>
+                {{ form.modelo_2 }}
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group ">
+                <label>{{ form.registro_2.label }}</label>
+                {{ form.registro_2 }}
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label>{{ form.modelo_3.label }}</label>
+                {{ form.modelo_3 }}
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group ">
+                <label>{{ form.registro_3.label }}</label>
+                {{ form.registro_3 }}
+            </div>
+        </div>
 
-  <div class="form-group ">
-        <label>{{ form.registro_1.label }}</label>
-        {{ form.registro_1 }}
-    </div>
-
-    <div class="form-group">
-         <label>{{ form.modelo_1.label }}</label>
-        {{ form.modelo_1 }}
-    </div>
-
-    <div class="form-group ">
-        <label>{{ form.registro_2.label }}</label>
-        {{ form.registro_2 }}
-    </div>
-
-    <div class="form-group">
-         <label>{{ form.modelo_2.label }}</label>
-        {{ form.modelo_2 }}
-    </div>
-
-    <div class="form-group ">
-        <label>{{ form.registro_3.label }}</label>
-        {{ form.registro_3 }}
-    </div>
-
-    <div class="form-group">
-         <label>{{ form.modelo_3.label }}</label>
-        {{ form.modelo_3 }}
     </div>
 
 {% endblock %}
 
 {% block form_buttons %}
-    <button type="submit" class="btn btn-primary">
-        <i class="fas fa-save"></i> Salvar
-    </button>
+    <div class="botones">
+        <button type="submit" class="boton-salvar btn1">
+            <i class="fas fa-save"></i> Salvar
+        </button>
 
-    <a type="button" href="{% url 'guia:guiaCaptada' %}" class="btn btn-danger">
-        <i class="fas fa-arrow-circle-left"></i> Atras
-    </a>
+        <a type="button" href="{% url 'guia:guiaCaptada' %}" class="cancelar boton-cancelar btn2">
+            <i class="fas fa-arrow-circle-left"></i> Atras
+        </a>
+    </div>
+
 {% endblock %}

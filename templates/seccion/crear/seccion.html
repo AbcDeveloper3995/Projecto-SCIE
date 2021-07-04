@@ -7,36 +7,56 @@
 
 {% block id %} id=seccionForm{% endblock %}
 {% block formulario %}
-<div class="form-group">
-         <label>{{ form.nombre.label }}</label>
-        {{ form.nombre }}
+    <div class="row">
+        <div class="col-4">
+            <div class="form-group">
+                <label>{{ form.nombre.label }}</label>
+                {{ form.nombre }}
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label>{{ form.guia_id.label }}</label>
+                {{ form.guia_id }}
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label>{{ form.periodo_id.label }}</label>
+                {{ form.periodo_id }}
+            </div>
+        </div>
     </div>
+    <br>
+    <div class="row">
+        <div class="col-3">
+            <div class="form-group">
+                <label>{{ form.numero.label }}</label>
+                {{ form.numero }}
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label>{{ form.subNumero.label }}</label>
+                {{ form.subNumero }}
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label>{{ form.orden.label }}</label>
+                {{ form.orden }}
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label>{{ form.tipo.label }}</label>
+                {{ form.tipo }}
+            </div>
+        </div>
+    </div>
+    <br>
     <div class="form-group">
-         <label>{{ form.guia_id.label }}</label>
-        {{ form.guia_id }}
-    </div>
-    <div class="form-group">
-         <label>{{ form.periodo_id.label }}</label>
-        {{ form.periodo_id }}
-    </div>
-    <div class="form-group">
-         <label>{{ form.numero.label }}</label>
-        {{ form.numero }}
-    </div>
-    <div class="form-group">
-         <label>{{ form.subNumero.label }}</label>
-        {{ form.subNumero }}
-    </div>
-    <div class="form-group">
-         <label>{{ form.orden.label }}</label>
-        {{ form.orden }}
-    </div>
-     <div class="form-group">
-         <label>{{ form.tipo.label }}</label>
-        {{ form.tipo }}
-    </div>
-    <div class="form-group">
-           <div class="custom-control custom-checkbox">
+        <div class="custom-control custom-checkbox">
             {{ form.activo }}
             <label for="seccionActiva" class="custom-control-label">{{ form.activo.label }}</label>
         </div>
@@ -44,22 +64,25 @@
 {% endblock %}
 
 {% block form_buttons %}
-    <button type="submit" class="btn btn-primary">
-        <i class="fas fa-save"></i> Salvar
-    </button>
+    <div class="botones">
+        <button type="submit" class="boton-salvar btn1">
+            <i class="fas fa-save"></i> Salvar
+        </button>
 
-    <a type="button" href="{% url 'seccion:listarSeccion' %}" class="btn btn-danger">
-        <i class="fas fa-arrow-circle-left"></i> Cancelar
-    </a>
+        <a type="button" href="{% url 'seccion:listarSeccion' %}" class="cancelar boton-cancelar btn2">
+            <i class="fas fa-arrow-circle-left"></i> Cancelar
+        </a>
+    </div>
+
 {% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
     <script type="text/javascript">
-    toastr.info("Si el nombre de la seccion a crear contiene mas de una palabra debe poner guion bajo ( _ ) entre una y la otra ", 'ATENCION',{
-        progressBar: true,
-        closeButton: true,
-        "timeOut": "5000",
-    });
+        toastr.info("Si el nombre de la seccion a crear contiene mas de una palabra debe poner guion bajo ( _ ) entre una y la otra ", 'ATENCION', {
+            progressBar: true,
+            closeButton: true,
+            "timeOut": "5000",
+        });
     </script>
 {% endblock %}
