@@ -18,7 +18,7 @@ const message_error = (obj) => {
 
  const envioConAjax = (url, title, content, parameters, callback) => {
      $.confirm({
-        theme: 'supervan',
+        theme: 'material',
         title: title,
         icon: 'fa fa-info-circle',
         content: content,

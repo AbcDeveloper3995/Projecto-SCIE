@@ -12,379 +12,513 @@
 
     {% if action == 'add' %}
         <div class="row">
-        <div class="col-12">
-            <h3 class="text-bold text-center">
+            <div class="col-12">
+                <h3 class="text-bold text-center">
             <span class="right badge bg-gradient-navy p-2" style="width: 100%;"><i
                     class="fas fa-building"></i> {{ guia.nombre }}</span>
 
-            </h3>
+                </h3>
+            </div>
         </div>
-    </div>
-    {% for clave, valor in datos.items %}
-        {% if clave|obtenerTipo == 1 %}
-            <form method="post" class="formCaptacion">
-                <input type="hidden" name="action" value="dataCaptacion">
-                <div class="card card-primary" >
-                    <div class="card-header">
-                        <h4 class="card-title">
-                            <a data-toggle="collapse" href="#{{ clave }}"
-                               class="collapsed text-bold text-uppercase" aria-expanded="false">
-                                {{ clave }}
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="{{ clave }}" class="panel-collapse in collapse" style="">
-                        <div class="card-body">
-                            {% for i in valor %}
-                                <h4><span class="right badge bg-gradient-navy">{{ i.nombre }}</span></h4>
-                                {% if i.respuestas_id.all %}
-                                    {% for j in i.respuestas_id.all %}
-                                        {% if j.tipo_dato == "1" %}
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control styleInput"
-                                                           placeholder="Ingrese un nombre"
-                                                           name="{{ i.nombre }}" style="width: 100%" data-type="1" data-component="texto">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text styleInput"><i
-                                                                        class="fa fa-font"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                </div>
-                                            </div>
-                                        {% elif j.tipo_dato == '5' %}
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <div class="input-group ">
-                                                            <input type="text"
-                                                                   class="form-control datetimepicker-input date styleInput" id="date"
-                                                                   placeholder="Seleccione una fecha" name="{{ i.nombre }}"  style="width: 100%" data-type="5"
-                                                                   data-component="date" data-target="#date"
-                                                                 data-toggle="datetimepicker">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text styleInput"><i
-                                                                        class="fa fa-calendar-alt"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            {% endfor %}
-                            <div class="row">
-                                <div class="col-12">
-                                    <h4><span class="right badge bg-gradient-navy">Entidad a controlar</span></h4>
-                                    <select class="form-control select2 " style="width: 100%;" name="Entidad" >
-                                        {% for i in universo %}
-                                            <option value="{{ i.entidad_codigo.nombre_CI }}">{{ i.entidad_codigo.codigo_CI }}-{{ i.entidad_codigo.nombre_CI }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-
+        {% for clave, valor in datos.items %}
+            {% if clave|obtenerTipo == 1 %}
+                <form method="post" class="formCaptacion">
+                    <input type="hidden" name="action" value="dataCaptacion">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <a data-toggle="collapse" href="#{{ clave }}"
+                                   class="collapsed text-bold text-uppercase" aria-expanded="false">
+                                    {{ clave }}
+                                </a>
+                            </h4>
                         </div>
-                    </div>
-                </div>
-
-        {% elif clave|obtenerTipo == 3 %}
-            <div class="card card-primary">
-                <div class="card-header">
-                    <h4 class="card-title">
-                        <a data-toggle="collapse" href="#{{ clave }}"
-                           class="collapsed text-bold text-uppercase  acordeon "  aria-expanded="false"  data-seccion="{{ clave }}">
-                            {{ clave }}
-                        </a>
-                    </h4>
-                </div>
-                <div id="{{ clave }}" class="panel-collapse in collapse" style="">
-                    <div class="card-body ">
-                        {% for i in valor %}
-                            <div class="card">
-                                <div class="card-header bg-gradient-navy">
-                                    <h3 class="card-title text-bold text-uppercase"><i class="fa fa-table"></i>
-                                        Formulario {{ i.numero }}-{{ i.subNumero }}</h3>
-                                    <div class="card-tools">
-                                        <div class="input-group-append">
-                                            <a type="button" class="btn btn-block btn-outline-light desabilitar"
-                                               data-toggle="modal" href="#id{{ i.id }}" name="valor" data-id="{{ i.id }}" data-nombre="{{ i.nombre }}"><i
-                                                    class="fas fa-plus-circle"></i> Nuevo Control </a>
-                                             <button class="btn  btn-outline-light miTippy" disabled name="actualizar" onclick="tabla({{ i.nombre }}.attributes.id.nodeValue, {{ i.id }}, 0)" title="Actualizar" data-id="{{ i.id }}" data-nombre="{{ i.nombre }}" ><i class="fas fa-sync"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table class="table table{{ i.nombre }}"  >
-                                        {% for seccion in valor %}
-                                            {% if seccion.periodo_id.tipo == "Anual" %}
-                                                <thead>
-                                                <tr>
-                                                    <th rowspan="2">Codigo</th>
-                                                    <th rowspan="2">No.columna</th>
-                                                    <th class="text-center"
-                                                        colspan="3">{{ i.periodo.mes_1 }} {{ i.periodo.ano }}</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>Registro</th>
-                                                    <th>{{ i.numero }}</th>
-                                                    <th>Dif.</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            {% elif seccion.periodo_id.tipo == "Trimestral" %}
-                                                <thead>
-                                                <tr>
-                                                    <th rowspan="2">Codigo</th>
-                                                    <th rowspan="2">No.columna</th>
-                                                    <th class="text-center"
-                                                        colspan="3">{{ i.periodo_id.mes_1 }} {{ i.periodo_id.ano }}</th>
-                                                    <th class="text-center"
-                                                        colspan="3">{{ i.periodo_id.mes_2 }} {{ i.periodo_id.ano }}</th>
-                                                    <th class="text-center"
-                                                        colspan="3">{{ i.periodo_id.mes_3 }} {{ i.periodo_id.ano }}</th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Registro</th>
-                                                        <th>{{ i.numero }}</th>
-                                                        <th>Dif.</th>
-                                                        <th>Registro</th>
-                                                        <th>{{ i.numero }}</th>
-                                                        <th>Dif.</th>
-                                                        <th>Registro</th>
-                                                        <th>{{ i.numero }}</th>
-                                                        <th>Dif.</th>
-                                                        <th>Acciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
+                        <div id="{{ clave }}" class="panel-collapse in collapse" style="">
+                            <div class="card-body">
+                                {% for i in valor %}
+                                    <h4><span class="right badge bg-gradient-navy">{{ i.nombre }}</span></h4>
+                                    {% if i.respuestas_id.all %}
+                                        {% for j in i.respuestas_id.all %}
+                                            {% if j.tipo_dato == "1" %}
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control styleInput"
+                                                                       placeholder="Ingrese un nombre"
+                                                                       name="{{ i.nombre }}" style="width: 100%"
+                                                                       data-type="1" data-component="texto">
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text styleInput"><i
+                                                                            class="fa fa-font"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                            {% elif j.tipo_dato == '5' %}
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <div class="input-group ">
+                                                                <input type="text"
+                                                                       class="form-control datetimepicker-input date styleInput"
+                                                                       id="date"
+                                                                       placeholder="Seleccione una fecha"
+                                                                       name="{{ i.nombre }}" style="width: 100%"
+                                                                       data-type="5"
+                                                                       data-component="date" data-target="#date"
+                                                                       data-toggle="datetimepicker">
+                                                                <div class="input-group-append">
+                                                                    <div class="input-group-text styleInput"><i
+                                                                            class="fa fa-calendar-alt"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             {% endif %}
                                         {% endfor %}
-                                    </table>
-                                    <hr>
-                                    <form method="post" name="formVerificacion" class="form-horizontal formVerificacion" data-id="{{ i.id }}" data-seccion="{{ i.nombre }}" >
-                                        <input type="hidden" name="seccion" value="{{ i.id }}">
-                                        <input type="hidden" name="cuestionario" value="0">
-                                        <input type="hidden" name="action" value="verificacionInicial">
-                                        <div class="m-2">
-                                            <div class="form-group">
-                                                <h5 class="text-bold">{{ verificacionForm.indicadoresVerificados.label }}</h5>
-                                                <input class="form-control"  readonly  name="indicadoresVerificados" type="number" data-seccion="{{ i.nombre }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <h5 class="text-bold">{{ verificacionForm.indicadoresCoinciden.label }}</h5>
-                                               <input class="form-control" readonly name="indicadoresCoinciden" type="number" data-seccion="{{ i.nombre }}">
-                                            </div>
-                                            <div class="form-group">
-                                                <h5 class="text-bold">{{ verificacionForm.indicadoresIncluidos.label }}</h5>
-                                                <select class="form-control" name="indicadoresIncluidos" type="number" data-seccion="{{ i.nombre }}">
-                                                    <option value="">---------</option>
-                                                    <option value="Si">Si</option>
-                                                    <option value="No">No</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-actions">
-                                            <div class="row">
-                                                <div class="offset-md-10 col-2">
-                                                    <button type="submit" class="boton-salvar btn1 m-3"><i
-                                                            class="fa fa-save "></i> Salvar
+                                    {% endif %}
+                                {% endfor %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4><span class="right badge bg-gradient-navy">Entidad a controlar</span></h4>
+                                        <select class="form-control select2 " style="width: 100%;" name="Entidad">
+                                            {% for i in universo %}
+                                                <option value="{{ i.entidad_codigo.nombre_CI }}">{{ i.entidad_codigo.codigo_CI }}-{{ i.entidad_codigo.nombre_CI }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    {% elif clave|obtenerTipo == 3 %}
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4 class="card-title">
+                                <a data-toggle="collapse" href="#{{ clave }}"
+                                   class="collapsed text-bold text-uppercase  acordeon " aria-expanded="false"
+                                   data-seccion="{{ clave }}">
+                                    {{ clave }}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="{{ clave }}" class="panel-collapse in collapse" style="">
+                            <div class="card-body ">
+                                {% for i in valor %}
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-navy">
+                                            <h3 class="card-title text-bold text-uppercase"><i class="fa fa-table"></i>
+                                                Formulario {{ i.numero }}-{{ i.subNumero }}</h3>
+                                            <div class="card-tools">
+                                                <div class="input-group-append">
+                                                    <a type="button" class="btn btn-block btn-outline-light desabilitar"
+                                                       data-toggle="modal" href="#id{{ i.id }}" name="valor"
+                                                       data-id="{{ i.id }}" data-nombre="{{ i.nombre }}"><i
+                                                            class="fas fa-plus-circle"></i> Nuevo Control </a>
+                                                    <button class="btn  btn-outline-light miTippy" disabled
+                                                            name="actualizar"
+                                                            onclick="tabla({{ i.nombre }}.attributes.id.nodeValue, {{ i.id }}, 0)"
+                                                            title="Actualizar" data-id="{{ i.id }}"
+                                                            data-nombre="{{ i.nombre }}"><i class="fas fa-sync"></i>
                                                     </button>
                                                 </div>
                                             </div>
-                                    </form>
-                                </div>
-                               <div id="id{{ i.id }}" class="modal fade instanciaModal" data-model-name="modal" tabindex="-1" role="dialog"
-                                 aria-labelledby="myModalLabel2"
-                                 aria-hidden="true">
-                                   <form method="post" class="form-horizontal instanciaForm" name="instanciaForm" data-seccion="{{ i.nombre }}">
-                                       <input type="hidden" name="seccion" data-id="{{ i.id }}" >
-                                       <div class="modal-dialog modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title text-bold">Veracidad de la informacion:
-                                                    Formulario
-                                                    <span class="badge badge-danger">{{ i.numero }}-{{ i.subNumero }}</span>
-                                                </h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="action" value="crearInstancia">
-                                                <table class="table table-striped text-center table-hover">
-                                                    {% if i.periodo_id.tipo == "Anual" %}
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <table class="table table{{ i.nombre }}">
+                                                {% for seccion in valor %}
+                                                    {% if seccion.periodo_id.tipo == "Anual" %}
                                                         <thead>
                                                         <tr>
-                                                            <th>Seccion</th>
-                                                            <th>Columna</th>
-                                                            <th>Codigo</th>
-                                                            <th>{{ i.numero }}</th>
+                                                            <th rowspan="2">Codigo</th>
+                                                            <th rowspan="2">No.columna</th>
+                                                            <th class="text-center"
+                                                                colspan="3">{{ i.periodo.mes_1 }} {{ i.periodo.ano }}</th>
+                                                        </tr>
+                                                        <tr>
                                                             <th>Registro</th>
+                                                            <th>{{ i.numero }}</th>
+                                                            <th>Dif.</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
 
-                                                        <tr>
-                                                            <td>{{ instanciaForm.seccion }}</td>
-                                                            <td>{{ instanciaForm.columna }}</td>
-                                                            <td>{{ instanciaForm.codigo }}</td>
-                                                            <td>{{ instanciaForm.modelo_1 }}</td>
-                                                            <td><span class="">{{ instanciaForm.registro_1 }}</span>
-                                                            </td>
-                                                        </tr>
-
                                                         </tbody>
-                                                    {% elif i.periodo_id.tipo == "Trimestral" %}
+                                                    {% elif seccion.periodo_id.tipo == "Trimestral" %}
                                                         <thead>
                                                         <tr>
-
-                                                            <th>Seccion</th>
-                                                            <th>Columna</th>
-                                                            <th>Codigo</th>
-                                                            <th>{{ i.numero }}</th>
+                                                            <th rowspan="2">Codigo</th>
+                                                            <th rowspan="2">No.columna</th>
+                                                            <th class="text-center"
+                                                                colspan="3">{{ i.periodo_id.mes_1 }} {{ i.periodo_id.ano }}</th>
+                                                            <th class="text-center"
+                                                                colspan="3">{{ i.periodo_id.mes_2 }} {{ i.periodo_id.ano }}</th>
+                                                            <th class="text-center"
+                                                                colspan="3">{{ i.periodo_id.mes_3 }} {{ i.periodo_id.ano }}</th>
+                                                        </tr>
+                                                        <tr>
                                                             <th>Registro</th>
                                                             <th>{{ i.numero }}</th>
+                                                            <th>Dif.</th>
                                                             <th>Registro</th>
                                                             <th>{{ i.numero }}</th>
+                                                            <th>Dif.</th>
                                                             <th>Registro</th>
+                                                            <th>{{ i.numero }}</th>
+                                                            <th>Dif.</th>
+                                                            <th>Acciones</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
 
-                                                        <tr>
-                                                            <td><select class="form-control select2" name="seccion_id"  data-seccion="{{ i.nombre }}"></select></td>
-                                                            <td><select class="form-control" name="columna_id" data-seccion="{{ i.nombre }}"></select></td>
-                                                            <td><select class="form-control" name="codigo_id"  data-seccion="{{ i.nombre }}"></select></td>
-                                                            <td><input class="form-control" name="modelo_1" type="number" data-seccion="{{ i.nombre }}"></td>
-                                                            <td><input class="form-control" name="registro_1" type="number" data-seccion="{{ i.nombre }}"> </td>
-                                                            <td><input class="form-control" name="modelo_2" type="number" data-seccion="{{ i.nombre }}"></td>
-                                                            <td><input class="form-control" name="registro_2" type="number" data-seccion="{{ i.nombre }}"></td>
-                                                            <td><input class="form-control" name="modelo_3" type="number" data-seccion="{{ i.nombre }}"></td>
-                                                            <td><input class="form-control" name="registro_3" type="number" data-seccion="{{ i.nombre }}"></td>
-                                                        </tr>
-
                                                         </tbody>
                                                     {% endif %}
-                                                </table>
+                                                {% endfor %}
+                                            </table>
+                                            <hr>
+                                            <form method="post" name="formVerificacion"
+                                                  class="form-horizontal formVerificacion" data-id="{{ i.id }}"
+                                                  data-seccion="{{ i.nombre }}">
+                                                <input type="hidden" name="seccion" value="{{ i.id }}">
+                                                <input type="hidden" name="cuestionario" value="0">
+                                                <input type="hidden" name="action" value="verificacionInicial">
+                                                <div class="m-2">
+                                                    <div class="form-group">
+                                                        <h5 class="text-bold">{{ verificacionForm.indicadoresVerificados.label }}</h5>
+                                                        <input class="form-control" readonly
+                                                               name="indicadoresVerificados" type="number"
+                                                               data-seccion="{{ i.nombre }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h5 class="text-bold">{{ verificacionForm.indicadoresCoinciden.label }}</h5>
+                                                        <input class="form-control" readonly name="indicadoresCoinciden"
+                                                               type="number" data-seccion="{{ i.nombre }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <h5 class="text-bold">{{ verificacionForm.indicadoresIncluidos.label }}</h5>
+                                                        <select class="form-control" name="indicadoresIncluidos"
+                                                                type="number" data-seccion="{{ i.nombre }}">
+                                                            <option value="">---------</option>
+                                                            <option value="Si">Si</option>
+                                                            <option value="No">No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <div class="form-actions">
                                                     <div class="row">
                                                         <div class="offset-md-10 col-2">
-                                                            <button type=submit class="boton-salvar btn1" ><i
+                                                            <button type="submit" class="boton-salvar btn1 m-3"><i
                                                                     class="fa fa-save "></i> Salvar
                                                             </button>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
+                                            </form>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
-                            </div>
-                            </div>
-                        {% endfor %}
-                </div>
-            </div>
-            </div>
-        {% else %}
-            <form method="post" class="formCaptacion">
-                <div class="card card-primary">
-                    <div class="card-header">
-                        <h4 class="card-title">
-                            <a data-toggle="collapse" href="#{{ clave }}"
-                               class="collapsed text-bold text-uppercase" aria-expanded="false">
-                                {{ clave }}
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="{{ clave }}" class="panel-collapse in collapse " style="">
-                        <div class="card-body">
-                            {% for i in valor %}
-                                <h4><span class="right badge bg-gradient-navy p-2 m-1 ">{{ i.nombre }}</span></h4>
-                                {% if i.respuestas_id.all %}
-                                    {% for j in i.respuestas_id.all %}
-                                        {% if  j.tipo_dato == '1' %}
-                                            <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" id="{{ i }}{{ j }}"
-                                                       name="{{ i.nombre }}" value="{{ j.nombre }}"  data-cod-pregunta="{{ i.cod_indicador }}" data-component="radio">
-                                                <label for="{{ i }}{{ j }}" id="{{ i.cod_indicador }}{{ j.nombre }}"
-                                                       class="custom-control-label ">{{ j.nombre }}</label>
+                                        <div id="id{{ i.id }}" class="modal fade instanciaModal" data-model-name="modal"
+                                             tabindex="-1" role="dialog"
+                                             aria-labelledby="myModalLabel2"
+                                             aria-hidden="true">
+                                            <form method="post" class="form-horizontal instanciaForm"
+                                                  name="instanciaForm" data-seccion="{{ i.nombre }}">
+                                                <input type="hidden" name="seccion" data-id="{{ i.id }}">
+                                                <div class="modal-dialog modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title text-bold">Veracidad de la
+                                                                informacion:
+                                                                Formulario
+                                                                <span class="badge badge-danger">{{ i.numero }}-{{ i.subNumero }}</span>
+                                                            </h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="action" value="crearInstancia">
+                                                            <table class="table table-striped text-center table-hover">
+                                                                {% if i.periodo_id.tipo == "Anual" %}
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>Seccion</th>
+                                                                        <th>Columna</th>
+                                                                        <th>Codigo</th>
+                                                                        <th>{{ i.numero }}</th>
+                                                                        <th>Registro</th>
+                                                                        <th>Acciones</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
 
-                                            </div>
-                                        {% elif j.tipo_dato == '2' %}
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <textarea type="text" class="form-control styleInput"
-                                                           placeholder="Ingrese una descripcion"
-                                                           name="Argumentacion_{{ i.cod_indicador }}" data-type="2"
-                                                                   data-cod-pregunta="{{ i.cod_indicador }}" data-component="texto_largo"></textarea>
-                                                </div>
-                                            </div>
-                                        {% elif j.tipo_dato == '3' %}
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <input type="number" class="form-control styleInput"
-                                                           placeholder="Ingrese un numero"
-                                                           id="{{ i }}" name="{{ i.nombre }}" data-cod-pregunta="{{ i.cod_indicador }}"
-                                                                   data-component="entero">
-                                                </div>
-                                            </div>
-                                         {% elif j.tipo_dato == '5' %}
-                                           <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-group">
-                                                        <div class="input-group ">
-                                                            <input type="text"
-                                                                   class="form-control  datetimepicker-input date styleInput" id="date2"
-                                                                   placeholder="Seleccione una fecha" name="{{ i.nombre }}" data-cod-pregunta="{{ i.cod_indicador }}" style="width: 100%" data-type="5"
-                                                                   data-component="date" data-target="#date2"
-                                                                 data-toggle="datetimepicker">
-                                                            <div class="input-group-append">
-                                                                <div class="input-group-text styleInput"><i
-                                                                        class="fa fa-calendar-alt"></i>
+                                                                    <tr>
+                                                                        <td>{{ instanciaForm.seccion }}</td>
+                                                                        <td>{{ instanciaForm.columna }}</td>
+                                                                        <td>{{ instanciaForm.codigo }}</td>
+                                                                        <td>{{ instanciaForm.modelo_1 }}</td>
+                                                                        <td><span
+                                                                                class="">{{ instanciaForm.registro_1 }}</span>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    </tbody>
+                                                                {% elif i.periodo_id.tipo == "Trimestral" %}
+                                                                    <thead>
+                                                                    <tr>
+
+                                                                        <th>Seccion</th>
+                                                                        <th>Columna</th>
+                                                                        <th>Codigo</th>
+                                                                        <th>{{ i.numero }}</th>
+                                                                        <th>Registro</th>
+                                                                        <th>{{ i.numero }}</th>
+                                                                        <th>Registro</th>
+                                                                        <th>{{ i.numero }}</th>
+                                                                        <th>Registro</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+
+                                                                    <tr>
+                                                                        <td><select class="form-control select2"
+                                                                                    name="seccion_id"
+                                                                                    data-seccion="{{ i.nombre }}"></select>
+                                                                        </td>
+                                                                        <td><select class="form-control"
+                                                                                    name="columna_id"
+                                                                                    data-seccion="{{ i.nombre }}"></select>
+                                                                        </td>
+                                                                        <td><select class="form-control"
+                                                                                    name="codigo_id"
+                                                                                    data-seccion="{{ i.nombre }}"></select>
+                                                                        </td>
+                                                                        <td><input class="form-control" name="modelo_1"
+                                                                                   type="number"
+                                                                                   data-seccion="{{ i.nombre }}"></td>
+                                                                        <td><input class="form-control"
+                                                                                   name="registro_1" type="number"
+                                                                                   data-seccion="{{ i.nombre }}"></td>
+                                                                        <td><input class="form-control" name="modelo_2"
+                                                                                   type="number"
+                                                                                   data-seccion="{{ i.nombre }}"></td>
+                                                                        <td><input class="form-control"
+                                                                                   name="registro_2" type="number"
+                                                                                   data-seccion="{{ i.nombre }}"></td>
+                                                                        <td><input class="form-control" name="modelo_3"
+                                                                                   type="number"
+                                                                                   data-seccion="{{ i.nombre }}"></td>
+                                                                        <td><input class="form-control"
+                                                                                   name="registro_3" type="number"
+                                                                                   data-seccion="{{ i.nombre }}"></td>
+                                                                    </tr>
+
+                                                                    </tbody>
+                                                                {% endif %}
+                                                            </table>
+                                                            <div class="form-actions">
+                                                                <div class="row">
+                                                                    <div class="offset-md-10 col-2">
+                                                                        <button type=submit class="boton-salvar btn1"><i
+                                                                                class="fa fa-save "></i> Salvar
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </form>
+                                        </div>
+                                        <div id="modalEditarInstancia{{ i.nombre }}" class="modal fade modalEditarInstancia " data-model-name="modal"
+                                         tabindex="-1" role="dialog"
+                                         aria-labelledby="myModalLabel2"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title title-editar text-bold">
+                                                        <span class="badge bg-gradient-navy"></span>
+                                                    </h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" class="form-horizontal"
+                                                          name="editarInstanciaForm" data-seccion="{{ i.nombre }}">
+                                                        <input type="hidden" name="action" value="modificarInstancia">
+                                                        <input type="hidden" name="idInstancia">
+                                                        <div class="row">
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label>Registro</label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="1_registro" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label id="labelModelo1"></label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="1_modelo" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label>Registro</label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="2_registro" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label id="labelModelo2"></label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="2_modelo" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label>Registro</label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="3_registro" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label id="labelModelo3"></label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="3_modelo" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="form-actions">
+                                                            <div class="row">
+                                                                <div class="offset-md-10 col-2">
+                                                                    <button type=submit class="boton-salvar btn1"><i
+                                                                            class="fa fa-save "></i> Salvar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                {% endfor %}
+                        </div>
+                    </div>
+                    </div>
+                    {% else %}
+                    <form method="post" class="formCaptacion">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                    <a data-toggle="collapse" href="#{{ clave }}"
+                                       class="collapsed text-bold text-uppercase" aria-expanded="false">
+                                        {{ clave }}
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="{{ clave }}" class="panel-collapse in collapse " style="">
+                                <div class="card-body">
+                                    {% for i in valor %}
+                                        <h4><span class="right badge bg-gradient-navy p-2 m-1 ">{{ i.nombre }}</span>
+                                        </h4>
+                                        {% if i.respuestas_id.all %}
+                                            {% for j in i.respuestas_id.all %}
+                                                {% if  j.tipo_dato == '1' %}
+                                                    <div class="custom-control custom-radio">
+                                                        <input class="custom-control-input" type="radio"
+                                                               id="{{ i }}{{ j }}"
+                                                               name="{{ i.nombre }}" value="{{ j.nombre }}"
+                                                               data-cod-pregunta="{{ i.cod_indicador }}"
+                                                               data-component="radio">
+                                                        <label for="{{ i }}{{ j }}"
+                                                               id="{{ i.cod_indicador }}{{ j.nombre }}"
+                                                               class="custom-control-label ">{{ j.nombre }}</label>
+
+                                                    </div>
+                                                {% elif j.tipo_dato == '2' %}
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                    <textarea type="text" class="form-control styleInput"
+                                                              placeholder="Ingrese una descripcion"
+                                                              name="Argumentacion_{{ i.cod_indicador }}" data-type="2"
+                                                              data-cod-pregunta="{{ i.cod_indicador }}"
+                                                              data-component="texto_largo"></textarea>
+                                                        </div>
+                                                    </div>
+                                                {% elif j.tipo_dato == '3' %}
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <input type="number" class="form-control styleInput"
+                                                                   placeholder="Ingrese un numero"
+                                                                   id="{{ i }}" name="{{ i.nombre }}"
+                                                                   data-cod-pregunta="{{ i.cod_indicador }}"
+                                                                   data-component="entero">
+                                                        </div>
+                                                    </div>
+                                                {% elif j.tipo_dato == '5' %}
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <div class="input-group ">
+                                                                    <input type="text"
+                                                                           class="form-control  datetimepicker-input date styleInput"
+                                                                           id="date2"
+                                                                           placeholder="Seleccione una fecha"
+                                                                           name="{{ i.nombre }}"
+                                                                           data-cod-pregunta="{{ i.cod_indicador }}"
+                                                                           style="width: 100%" data-type="5"
+                                                                           data-component="date" data-target="#date2"
+                                                                           data-toggle="datetimepicker">
+                                                                    <div class="input-group-append">
+                                                                        <div class="input-group-text styleInput"><i
+                                                                                class="fa fa-calendar-alt"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
                                         {% endif %}
                                     {% endfor %}
-                                {% endif %}
-                            {% endfor %}
-                            <div class="form-actions">
-                                <div class="row">
-                                    <div class="offset-md-10 col-2">
-                                        <button type=submit class="boton-salvar btn1" style="margin-top: 10px;"><i
-                                                class="fa fa-save "></i> Salvar
-                                        </button>
+                                <hr>
+                                    <div class="form-actions">
+                                        <div class="row">
+                                            <div class="offset-md-10 col-2">
+                                                <button type=submit class="boton-salvar btn1" style="margin-top: 10px;">
+                                                    <i
+                                                            class="fa fa-save "></i> Salvar
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </form>
-            </form>
-        {% endif %}
-    {% endfor %}
+                    </form>
+                </form>
+            {% endif %}
+        {% endfor %}
     {% endif %}
 
     {% if action == 'editPreguntas' %}
@@ -495,7 +629,8 @@
                                                                data-component="radio" {% else %} value="{{ j.nombre }}"
                                                                data-cod-pregunta="{{ i.cod_indicador }}"
                                                                data-component="radio" {% endif %}>
-                                                        <label for="{{ i }}{{ j }}" id="{{ i.cod_indicador }}{{ j.nombre }}"
+                                                        <label for="{{ i }}{{ j }}"
+                                                               id="{{ i.cod_indicador }}{{ j.nombre }}"
                                                                class="custom-control-label">{{ j.nombre }}</label>
                                                     </div>
                                                 {% elif j.tipo_dato == '2' %}
@@ -548,6 +683,7 @@
                                         {% endif %}
                                     {% endfor %}
                                 {% endfor %}
+                            <hr>
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="offset-md-10 col-2">
@@ -599,7 +735,8 @@
                                         <div class="card-tools">
                                             <div class="input-group-append">
                                                 <a type="button" class="btn btn-block btn-outline-light"
-                                                   data-toggle="modal" href="#continuarCaptacionModal{{ i.id }}" name="valor"
+                                                   data-toggle="modal" href="#continuarCaptacionModal{{ i.id }}"
+                                                   name="valor"
                                                    data-id="{{ i.id }}" data-nombre="{{ i.nombre }}"><i
                                                         class="fas fa-plus-circle"></i> Nuevo Control </a>
                                                 <button class="btn  btn-outline-light miTippy"
@@ -702,11 +839,13 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <div id="continuarCaptacionModal{{ i.id }}" class="modal fade continuarCaptacionModal" data-model-name="modal"
+                                    <div id="continuarCaptacionModal{{ i.id }}"
+                                         class="modal fade continuarCaptacionModal" data-model-name="modal"
                                          tabindex="-1" role="dialog"
                                          aria-labelledby="myModalLabel2"
                                          aria-hidden="true">
-                                        <form method="post" class="form-horizontal instanciaFormContuniarCaptacion" name="instanciaFormContuniarCaptacion"
+                                        <form method="post" class="form-horizontal instanciaFormContuniarCaptacion"
+                                              name="instanciaFormContuniarCaptacion"
                                               data-seccion="{{ i.nombre }}" data-cuestionario="{{ cuestionario.id }}">
                                             <div class="modal-dialog modal-xl">
                                                 <div class="modal-content">
@@ -722,8 +861,9 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         {% csrf_token %}
-                                                         <input type="hidden" name="action" value="continuarCaptacion">
-                                                         <input type="hidden" name="cuestionario" value="{{ cuestionario.id }}">
+                                                        <input type="hidden" name="action" value="continuarCaptacion">
+                                                        <input type="hidden" name="cuestionario"
+                                                               value="{{ cuestionario.id }}">
                                                         <table class="table table-striped text-center table-hover">
                                                             {% if i.periodo_id.tipo == "Anual" %}
                                                                 <thead>
@@ -770,28 +910,36 @@
                                                                                 name="seccion_id"
                                                                                 data-seccion="{{ i.nombre }}"></select>
                                                                     </td>
-                                                                    <td><select class="form-control" name="columna_id"
+                                                                    <td><select class="form-control styleInput"
+                                                                                name="columna_id"
                                                                                 data-seccion="{{ i.nombre }}"></select>
                                                                     </td>
-                                                                    <td><select class="form-control" name="codigo_id"
+                                                                    <td><select class="form-control styleInput"
+                                                                                name="codigo_id"
                                                                                 data-seccion="{{ i.nombre }}"></select>
                                                                     </td>
-                                                                    <td><input class="form-control" name="modelo_1"
+                                                                    <td><input class="form-control styleInput"
+                                                                               name="modelo_1"
                                                                                type="number"
                                                                                data-seccion="{{ i.nombre }}"></td>
-                                                                    <td><input class="form-control" name="registro_1"
+                                                                    <td><input class="form-control styleInput"
+                                                                               name="registro_1"
                                                                                type="number"
                                                                                data-seccion="{{ i.nombre }}"></td>
-                                                                    <td><input class="form-control" name="modelo_2"
+                                                                    <td><input class="form-control styleInput"
+                                                                               name="modelo_2"
                                                                                type="number"
                                                                                data-seccion="{{ i.nombre }}"></td>
-                                                                    <td><input class="form-control" name="registro_2"
+                                                                    <td><input class="form-control styleInput"
+                                                                               name="registro_2"
                                                                                type="number"
                                                                                data-seccion="{{ i.nombre }}"></td>
-                                                                    <td><input class="form-control" name="modelo_3"
+                                                                    <td><input class="form-control styleInput"
+                                                                               name="modelo_3"
                                                                                type="number"
                                                                                data-seccion="{{ i.nombre }}"></td>
-                                                                    <td><input class="form-control" name="registro_3"
+                                                                    <td><input class="form-control styleInput"
+                                                                               name="registro_3"
                                                                                type="number"
                                                                                data-seccion="{{ i.nombre }}"></td>
                                                                 </tr>
@@ -799,6 +947,7 @@
                                                                 </tbody>
                                                             {% endif %}
                                                         </table>
+                                                    <hr>
                                                         <div class="form-actions">
                                                             <div class="row">
                                                                 <div class="offset-md-10 col-2">
@@ -812,6 +961,85 @@
                                                 </div>
                                             </div>
                                         </form>
+                                    </div>
+                                    <div id="modalEditarInstancia{{ i.nombre }}" class="modal fade" data-model-name="modal"
+                                         tabindex="-1" role="dialog"
+                                         aria-labelledby="myModalLabel2"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title title-editar text-bold">
+                                                        <span class="badge bg-gradient-navy"></span>
+                                                    </h4>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post" class="form-horizontal"
+                                                          name="editarInstanciaForm" data-seccion="{{ i.nombre }}">
+                                                        <input type="hidden" name="action" value="modificarInstancia">
+                                                        <input type="hidden" name="idInstancia">
+                                                        <div class="row">
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label>Registro</label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="1_registro" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label id="labelModelo1">M</label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="1_modelo" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label>Registro</label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="2_registro" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label id="labelModelo2">M</label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="2_modelo" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label>Registro</label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="3_registro" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <div class="form-group">
+                                                                    <label id="labelModelo3">M</label>
+                                                                    <input class="form-control styleInput" type="number"
+                                                                           name="3_modelo" data-seccion="{{ i.nombre }}">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="form-actions">
+                                                            <div class="row">
+                                                                <div class="offset-md-10 col-2">
+                                                                    <button type=submit class="boton-salvar btn1"><i
+                                                                            class="fa fa-save "></i> Salvar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 </div>

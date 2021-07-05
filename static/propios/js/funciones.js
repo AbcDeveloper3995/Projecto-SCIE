@@ -1,11 +1,11 @@
 //--------------------------------------------------------INICIALIZACIONES----------------------------------------------------------//
- $('#dataTable').dataTable({});
+$('#dataTable').dataTable({});
 
- $('.select2').select2({
-     theme: 'bootstrap4',
-     language: 'es',
-     placeholder: 'Seleccione una opcion'
- });
+$('.select2').select2({
+    theme: 'bootstrap4',
+    language: 'es',
+    placeholder: 'Seleccione una opcion'
+});
 
 new WOW().init();
 
@@ -35,14 +35,14 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
         columns: [
             {"data": "codigo_id"},
             {"data": "columna_id"},
-            {"data": "modelo_1"},
             {"data": "registro_1"},
+            {"data": "modelo_1"},
             {"data": "diferencia_1"},
-            {"data": "modelo_2"},
             {"data": "registro_2"},
+            {"data": "modelo_2"},
             {"data": "diferencia_2"},
-            {"data": "modelo_3"},
             {"data": "registro_3"},
+            {"data": "modelo_3"},
             {"data": "diferencia_3"},
             {"data": "id"},
         ],
@@ -52,18 +52,35 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
                 class: 'text-center',
                 orderable: false,
                 render: function (data, type, row) {
-                       let buttons = '<a href="/seccion/editarInstancia/' + row.id + '/"  type="button"><i  class="fa fa-edit"></i></a>';
-                           buttons += '<a href="/seccion/eliminarInstancia/' + row.id + '/" id="remove" type="button"><i class="fa fa-trash"></i></a>';
-                    $('.' + nombre_seccion + ' tbody').on('click', 'a[id="remove"]', function () {
-                        let tr = datatable.cell($(this).closest('td, li')).index();
-                        datatable.row(':eq(' + tr.row + ')').remove().draw()
-                    });
-                        return buttons;
+
+                    let buttons = '<a href="#"  rel="edit" type="button" ><i  class="fa fa-edit"></i></a>';
+                    buttons += '<a href="/seccion/eliminarInstancia/' + row.id + '/" rel="remove" type="button"><i class="fa fa-trash"></i></a>';
+                    return buttons;
                 }
             },
         ],
         initComplete: function (settings, json) {
         }
+    });
+    let modalTitle = $('.title-editar');
+    $('.' + nombre_seccion + ' tbody').on('click', 'a[rel="remove"]', function () {
+        let tr = datatable.cell($(this).closest('td, li')).index();
+        datatable.row(':eq(' + tr.row + ')').remove().draw()
+    }).on('click', 'a[rel="edit"]', function () {
+        let tr = datatable.cell($(this).closest('td, li')).index();
+        let data = datatable.row(':eq(' + tr.row + ')').data();
+        modalTitle.html('<i  class="fa fa-edit"></i> Edición de un instancia de la sección ' + data.seccion_id + ' <span class="badge badge-danger"> ' + data.numero + '</span>');
+        $('label[id="labelModelo1"]').html('' + data.numero + '');
+        $('label[id="labelModelo2"]').html('' + data.numero + '');
+        $('label[id="labelModelo3"]').html('' + data.numero + '');
+        $('input[name="idInstancia"]').val(data.id);
+        $('input[name="1_registro"]').val(data.registro_1);
+        $('input[name="1_modelo"]').val(data.modelo_1);
+        $('input[name="2_registro"]').val(data.registro_2);
+        $('input[name="2_modelo"]').val(data.modelo_2);
+        $('input[name="3_registro"]').val(data.registro_3);
+        $('input[name="3_modelo"]').val(data.modelo_3);
+        $('#modalEditarInstancia'+data.seccion_id+'').modal('show');
     });
 
     if (datatable.data().any()) {
@@ -83,7 +100,7 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
                     },
                     dataType: 'json',
                 }).done(function (data) {
-                    $('input[name=indicadoresVerificados]:input[data-seccion='+nombreSeccion+']').prop('value',data.cantidad)
+                    $('input[name=indicadoresVerificados]:input[data-seccion=' + nombreSeccion + ']').prop('value', data.cantidad)
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus + ' : ' + errorThrown)
                 });
@@ -98,7 +115,7 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
                     },
                     dataType: 'json',
                 }).done(function (data) {
-                    $('input[name=indicadoresCoinciden]:input[data-seccion='+nombreSeccion+']').prop('value',data.cantidad)
+                    $('input[name=indicadoresCoinciden]:input[data-seccion=' + nombreSeccion + ']').prop('value', data.cantidad)
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus + ' : ' + errorThrown)
                 });
@@ -111,38 +128,37 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
 };
 
 
-
 //--------------------------------------------------------VALIDACIONES DE FECHAS------------------------------------------------//
 
- $('.date').datetimepicker({
-        format: 'DD/MM/YYYY',
-        date:moment().format("YYYY-MM-DD"),
-        locale:'es',
-        maxDate:moment().format("YYYY-MM-DD"),
-    });
+$('.date').datetimepicker({
+    format: 'DD/MM/YYYY',
+    date: moment().format("YYYY-MM-DD"),
+    locale: 'es',
+    maxDate: moment().format("YYYY-MM-DD"),
+});
 
 
 //--------------------------------------VALIDACIONES PARA EL FORM INSTANCIAS---------------------------------------------//
 
 const validateInstancias = (seccionForm, seccionCampo) => {
-for (var i=0; i<seccionCampo.length; i++){
-    // Validar que no hayan campos vacios//
+    for (var i = 0; i < seccionCampo.length; i++) {
+        // Validar que no hayan campos vacios//
         if (seccionForm === seccionCampo[i].dataset.seccion && seccionCampo[i].value === "") {
-              toastr.error("Asegurese de no dejar campos vacios.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-              return false
+            toastr.error("Asegurese de no dejar campos vacios.", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+            return false
         }
         //Validar que no se entre valore negativos //
         if (seccionForm === seccionCampo[i].dataset.seccion && seccionCampo[i].value < 0) {
-              toastr.error("No se admiten valores negativos.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-              return false
+            toastr.error("No se admiten valores negativos.", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+            return false
         }
     }
 }
@@ -150,14 +166,14 @@ for (var i=0; i<seccionCampo.length; i++){
 //-----------------------VALIDACIONES DEL FORM VERIFICACION-------------------------------------------//
 
 const validate_indicadores_no_empty = (seccion_form_verificacion, campo) => {
-    for (var i=0;i,i<campo.length; i++){
+    for (var i = 0; i, i < campo.length; i++) {
         if (seccion_form_verificacion === campo[i].dataset.seccion && campo[i].value === "") {
-              toastr.error("Asegurese de no dejar campos vacios.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-              return false
+            toastr.error("Asegurese de no dejar campos vacios.", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+            return false
         }
     }
 }
@@ -170,26 +186,29 @@ $('form[name="formVerificacion"]').on('submit', function (e) {
     let listaIndIncluidos = $('select[name="indicadoresIncluidos"]');
     let id_seccion = $(this).data('id');
 
-    if(validate_indicadores_no_empty(seccion_form_verificacion, listaIndIncluidos) === false){return false};
+    if (validate_indicadores_no_empty(seccion_form_verificacion, listaIndIncluidos) === false) {
+        return false
+    }
+    ;
 
-    let  campos = new FormData(this);
+    let campos = new FormData(this);
 
-      campos.forEach(function (value, key) {
-         console.log(key+' : '+value)
-     });
+    campos.forEach(function (value, key) {
+        console.log(key + ' : ' + value)
+    });
     $.ajax({
-        url: '/seccion/comprobacionInd/'+id_seccion+'/',
+        url: '/seccion/comprobacionInd/' + id_seccion + '/',
         type: 'POST',
         data: campos,
         dataType: 'json',
         processData: false,
         contentType: false
     }).done(function (data) {
-          toastr.success(data.exito, 'Exito', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
+        toastr.success(data.exito, 'Exito', {
+            progressBar: true,
+            closeButton: true,
+            "timeOut": "5000",
+        });
     }).fail(function (jqXHR, textStatus, errorThrown) {
         alert(textStatus + ' : ' + errorThrown)
     })
@@ -198,7 +217,7 @@ $('form[name="formVerificacion"]').on('submit', function (e) {
 //-----------------------VALIDACIONES PARA LA SECCION IDENTIFICACION Y SOBRE ENTIDAD-----------------------------------------//
 
 const verificarExistencia = (element) => {
-    if(element.length==0){
+    if (element.length == 0) {
         return false
     }
 }
@@ -206,116 +225,162 @@ const verificarExistencia = (element) => {
 const verificacionDeMenorAlTotalAReportar = (componenteTotalAreportar, componenteAcomparar) => {
     if (parseInt(componenteTotalAreportar.val()) < parseInt(componenteAcomparar.val())) {
         console.log(componenteTotalAreportar, componenteAcomparar)
-            toastr.error("La cantidad de modelos " + componenteAcomparar.prop('name') + " debe ser menor que el " + componenteTotalAreportar.prop('name') + ".", 'Error', {
-                progressBar: true,
-                closeButton: true,
-                "timeOut": "5000",
-            });
-            return false
-        }
+        toastr.error("La cantidad de modelos " + componenteAcomparar.prop('name') + " debe ser menor que el " + componenteTotalAreportar.prop('name') + ".", 'Error', {
+            progressBar: true,
+            closeButton: true,
+            "timeOut": "5000",
+        });
+        return false
+    }
 }
 
 const validacionChecked = (element) => {
-    if(element.is(':checked')){
+    if (element.is(':checked')) {
         console.log('checkeado')
-     }else {
-         toastr.error(element.prop('name')+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-         return false;
-     }
+    } else {
+        toastr.error(element.prop('name') + " es requerido.", 'Error', {
+            progressBar: true,
+            closeButton: true,
+            "timeOut": "5000",
+        });
+        return false;
+    }
 }
 
 const validate_radios_no_empty = () => {
-    let cod_pregunta_11 =  $('.formCaptacion input[data-cod-pregunta="11"]' );
-    let cod_pregunta_13 =  $('.formCaptacion input[data-cod-pregunta="13"]' );
-    let cod_pregunta_14 =  $('.formCaptacion input[data-cod-pregunta="14"]' );
-    let cod_pregunta_15 =  $('.formCaptacion input[data-cod-pregunta="15"]' );
-    let cod_pregunta_21 =  $('.formCaptacion input[data-cod-pregunta="21"]' );
-    let cod_pregunta_22 =  $('.formCaptacion input[data-cod-pregunta="22"]' );
-    let cod_pregunta_41 =  $('.formCaptacion input[data-cod-pregunta="41"]' );
-    let cod_pregunta_51 =  $('.formCaptacion input[data-cod-pregunta="51"]' );
-    let cod_pregunta_52 =  $('.formCaptacion input[data-cod-pregunta="52"]' );
-    let cod_pregunta_53 =  $('.formCaptacion input[data-cod-pregunta="53"]' );
-    let cod_pregunta_61 =  $('.formCaptacion input[data-cod-pregunta="61"]' );
-    let cod_pregunta_71 =  $('.formCaptacion input[data-cod-pregunta="71"]' );
-    let cod_pregunta_72 =  $('.formCaptacion input[data-cod-pregunta="72"]' );
-    let cod_pregunta_73 =  $('.formCaptacion input[data-cod-pregunta="73"]' );
-    let cod_pregunta_74 =  $('.formCaptacion input[data-cod-pregunta="74"]' );
+    let cod_pregunta_11 = $('.formCaptacion input[data-cod-pregunta="11"]');
+    let cod_pregunta_13 = $('.formCaptacion input[data-cod-pregunta="13"]');
+    let cod_pregunta_14 = $('.formCaptacion input[data-cod-pregunta="14"]');
+    let cod_pregunta_15 = $('.formCaptacion input[data-cod-pregunta="15"]');
+    let cod_pregunta_21 = $('.formCaptacion input[data-cod-pregunta="21"]');
+    let cod_pregunta_22 = $('.formCaptacion input[data-cod-pregunta="22"]');
+    let cod_pregunta_41 = $('.formCaptacion input[data-cod-pregunta="41"]');
+    let cod_pregunta_51 = $('.formCaptacion input[data-cod-pregunta="51"]');
+    let cod_pregunta_52 = $('.formCaptacion input[data-cod-pregunta="52"]');
+    let cod_pregunta_53 = $('.formCaptacion input[data-cod-pregunta="53"]');
+    let cod_pregunta_61 = $('.formCaptacion input[data-cod-pregunta="61"]');
+    let cod_pregunta_71 = $('.formCaptacion input[data-cod-pregunta="71"]');
+    let cod_pregunta_72 = $('.formCaptacion input[data-cod-pregunta="72"]');
+    let cod_pregunta_73 = $('.formCaptacion input[data-cod-pregunta="73"]');
+    let cod_pregunta_74 = $('.formCaptacion input[data-cod-pregunta="74"]');
 
-    if (verificarExistencia(cod_pregunta_11)==false) {return false};
-    if(validacionChecked(cod_pregunta_11)== false){return false};
+    if (verificarExistencia(cod_pregunta_11) == false) {
+        return false
+    }
+    ;
+    if (validacionChecked(cod_pregunta_11) == false) {
+        return false
+    }
+    ;
 
-    if (verificarExistencia(cod_pregunta_13)==false) {return false};
-    if(validacionChecked(cod_pregunta_13)== false){return false};
+    if (verificarExistencia(cod_pregunta_13) == false) {
+        return false
+    }
+    ;
+    if (validacionChecked(cod_pregunta_13) == false) {
+        return false
+    }
+    ;
 
-    if (verificarExistencia(cod_pregunta_14)==false) {return false};
-    if(validacionChecked(cod_pregunta_14)== false){return false};
+    if (verificarExistencia(cod_pregunta_14) == false) {
+        return false
+    }
+    ;
+    if (validacionChecked(cod_pregunta_14) == false) {
+        return false
+    }
+    ;
 
-    if (verificarExistencia(cod_pregunta_15)==false) {return false};
-    if(validacionChecked(cod_pregunta_15)== false){return false};
+    if (verificarExistencia(cod_pregunta_15) == false) {
+        return false
+    }
+    ;
+    if (validacionChecked(cod_pregunta_15) == false) {
+        return false
+    }
+    ;
 
     if (verificarExistencia(cod_pregunta_21) != false) {
-        if(validacionChecked(cod_pregunta_21)== false){
+        if (validacionChecked(cod_pregunta_21) == false) {
             return false
-        };
-    };
+        }
+        ;
+    }
+    ;
 
     if (verificarExistencia(cod_pregunta_22) != false) {
-        if(validacionChecked(cod_pregunta_22)== false){
+        if (validacionChecked(cod_pregunta_22) == false) {
             return false
-        };
-    };
+        }
+        ;
+    }
+    ;
 
     if (verificarExistencia(cod_pregunta_41) != false) {
-        if(validacionChecked(cod_pregunta_41)== false){
+        if (validacionChecked(cod_pregunta_41) == false) {
             return false
-        };
-    };
+        }
+        ;
+    }
+    ;
 
     if (verificarExistencia(cod_pregunta_51) != false) {
-        if(validacionChecked(cod_pregunta_51)== false){
+        if (validacionChecked(cod_pregunta_51) == false) {
             return false
-        };
-    };
+        }
+        ;
+    }
+    ;
 
     if (verificarExistencia(cod_pregunta_52) != false) {
-        if(validacionChecked(cod_pregunta_52)== false){
+        if (validacionChecked(cod_pregunta_52) == false) {
             return false
-        };
-    };
+        }
+        ;
+    }
+    ;
     if (verificarExistencia(cod_pregunta_53) != false) {
-        if(validacionChecked(cod_pregunta_53)== false){
+        if (validacionChecked(cod_pregunta_53) == false) {
             return false
-        };
-    };
+        }
+        ;
+    }
+    ;
     if (verificarExistencia(cod_pregunta_61) != false) {
-        if(validacionChecked(cod_pregunta_61)== false){
+        if (validacionChecked(cod_pregunta_61) == false) {
             return false
-        };
-    };
+        }
+        ;
+    }
+    ;
     if (verificarExistencia(cod_pregunta_71) != false) {
-        if(validacionChecked(cod_pregunta_71)== false){
+        if (validacionChecked(cod_pregunta_71) == false) {
             return false
-        };
-    };
+        }
+        ;
+    }
+    ;
     if (verificarExistencia(cod_pregunta_72) != false) {
-        if(validacionChecked(cod_pregunta_72)== false){
+        if (validacionChecked(cod_pregunta_72) == false) {
             return false
-        };
-    };
+        }
+        ;
+    }
+    ;
     if (verificarExistencia(cod_pregunta_73) != false) {
-        if(validacionChecked(cod_pregunta_73)== false){
+        if (validacionChecked(cod_pregunta_73) == false) {
             return false
-        };
-    };
+        }
+        ;
+    }
+    ;
     if (verificarExistencia(cod_pregunta_74) != false) {
-        if(validacionChecked(cod_pregunta_74)== false){
+        if (validacionChecked(cod_pregunta_74) == false) {
             return false
-        };
-    };
+        }
+        ;
+    }
+    ;
 
 
 }
@@ -323,17 +388,17 @@ const validate_radios_no_empty = () => {
 const validate_component_entero = (formulario) => {
     let claseForm = formulario.prop('class');
 
-    let cod_pregunta_31 = $('.'+claseForm+' input[data-cod-pregunta="31"]');
-    let cod_pregunta_32 = $('.'+claseForm+' input[data-cod-pregunta="32"]');
-    let cod_pregunta_33 = $('.'+claseForm+' input[data-cod-pregunta="33"]');
-    let cod_pregunta_34 = $('.'+claseForm+' input[data-cod-pregunta="34"]');
-    let cod_pregunta_42 = $('.'+claseForm+' input[data-cod-pregunta="42"]');
-    let cod_pregunta_62 = $('.'+claseForm+' input[data-cod-pregunta="62"]');
-    let cod_pregunta_63 = $('.'+claseForm+' input[data-cod-pregunta="63"]');
+    let cod_pregunta_31 = $('.' + claseForm + ' input[data-cod-pregunta="31"]');
+    let cod_pregunta_32 = $('.' + claseForm + ' input[data-cod-pregunta="32"]');
+    let cod_pregunta_33 = $('.' + claseForm + ' input[data-cod-pregunta="33"]');
+    let cod_pregunta_34 = $('.' + claseForm + ' input[data-cod-pregunta="34"]');
+    let cod_pregunta_42 = $('.' + claseForm + ' input[data-cod-pregunta="42"]');
+    let cod_pregunta_62 = $('.' + claseForm + ' input[data-cod-pregunta="62"]');
+    let cod_pregunta_63 = $('.' + claseForm + ' input[data-cod-pregunta="63"]');
 
     let suma_modelos = parseInt(cod_pregunta_32.val()) + parseInt(cod_pregunta_33.val()) + parseInt(cod_pregunta_34.val())
 
-    let arrayElement = [cod_pregunta_31,cod_pregunta_32, cod_pregunta_33, cod_pregunta_34, cod_pregunta_42, cod_pregunta_62, cod_pregunta_63];
+    let arrayElement = [cod_pregunta_31, cod_pregunta_32, cod_pregunta_33, cod_pregunta_34, cod_pregunta_42, cod_pregunta_62, cod_pregunta_63];
 
     for (var i = 0; i < arrayElement.length; i++) {
         let verificacion = verificarExistencia(arrayElement[i]);
@@ -354,9 +419,18 @@ const validate_component_entero = (formulario) => {
                 });
                 return false
             }
-            if (verificacionDeMenorAlTotalAReportar(cod_pregunta_31, cod_pregunta_32) == false){return false};
-            if (verificacionDeMenorAlTotalAReportar(cod_pregunta_31, cod_pregunta_33) == false){return false};
-            if (verificacionDeMenorAlTotalAReportar(cod_pregunta_31, cod_pregunta_34) == false){return false};
+            if (verificacionDeMenorAlTotalAReportar(cod_pregunta_31, cod_pregunta_32) == false) {
+                return false
+            }
+            ;
+            if (verificacionDeMenorAlTotalAReportar(cod_pregunta_31, cod_pregunta_33) == false) {
+                return false
+            }
+            ;
+            if (verificacionDeMenorAlTotalAReportar(cod_pregunta_31, cod_pregunta_34) == false) {
+                return false
+            }
+            ;
             if (parseInt(cod_pregunta_31.val()) !== suma_modelos) {
                 toastr.error("El " + cod_pregunta_31.prop('name') + " no se corresponde con la suma entre: " + cod_pregunta_32.prop('name') + " " + cod_pregunta_33.prop('name') + " y " + cod_pregunta_34.prop('name') + ".", 'Error', {
                     progressBar: true,
@@ -365,7 +439,7 @@ const validate_component_entero = (formulario) => {
                 });
                 return false
             }
-            if(parseInt(cod_pregunta_63.val() )>parseInt(cod_pregunta_62.val())){
+            if (parseInt(cod_pregunta_63.val()) > parseInt(cod_pregunta_62.val())) {
                 toastr.error("La cantidad de establecimientos con contabilidad propia no " +
                     "puede ser mayor que la cantidad de establecimientos.", 'Error', {
                     progressBar: true,
@@ -380,39 +454,39 @@ const validate_component_entero = (formulario) => {
 
 const validate_depedencias_campos = (formulario) => {
     let claseForm = formulario.prop('class');
-    let cod_pregunta_11_No =  $('.'+claseForm+' input[data-cod-pregunta="11"]:input[value="No"] ' );
-    let cod_pregunta_11_Si =  $('.'+claseForm+' input[data-cod-pregunta="11"]:input[value="Si"] ' );
-    let cod_pregunta_12 =     $('.'+claseForm+' input[data-cod-pregunta="12"]');
-    let cod_pregunta_13_No =  $('.'+claseForm+' input[data-cod-pregunta="13"]:input[value="No"] ' );
-    let cod_pregunta_13_Si =  $('.'+claseForm+' input[data-cod-pregunta="13"]:input[value="Si"] ' );
-    let cod_pregunta_14_No =  $('.'+claseForm+' input[data-cod-pregunta="14"]:input[value="Bueno"] ' );
-    let cod_pregunta_14_Si =  $('.'+claseForm+' input[data-cod-pregunta="14"]:input[value="Deteriorado"] ' );
-    let cod_pregunta_14_nuevo =  $('.'+claseForm+' input[data-cod-pregunta="14"]:input[value="No"] ' );
-    let cod_pregunta_15_No =  $('.'+claseForm+' input[data-cod-pregunta="15"]:input[value="No"] ' );
-    let cod_pregunta_15_Si =  $('.'+claseForm+' input[data-cod-pregunta="15"]:input[value="Si"] ' );
-    let cod_pregunta_41_No =  $('.'+claseForm+' input[data-cod-pregunta="41"]:input[value="No"] ' );
-    let cod_pregunta_41_Si =  $('.'+claseForm+' input[data-cod-pregunta="41"]:input[value="Si"] ' );
-    let cod_pregunta_21_No =  $('.'+claseForm+' input[data-cod-pregunta="21"]:input[value="No"] ' );
-    let cod_pregunta_21_Si =  $('.'+claseForm+' input[data-cod-pregunta="21"]:input[value="Si"] ' );
-    let cod_pregunta_22_No =  $('.'+claseForm+' input[data-cod-pregunta="22"]:input[value="No"] ' );
-    let cod_pregunta_22_Si =  $('.'+claseForm+' input[data-cod-pregunta="22"]:input[value="Si"] ' );
-    let cod_pregunta_42 =     $('.'+claseForm+' input[data-cod-pregunta="42"]' );
-    let cod_pregunta_61_No =  $('.'+claseForm+' input[data-cod-pregunta="61"]:input[value="No"] ' );
-    let cod_pregunta_61_Si =  $('.'+claseForm+' input[data-cod-pregunta="61"]:input[value="Si"] ' );
-    let cod_pregunta_62 =     $('.'+claseForm+' input[data-cod-pregunta="62"]' );
-    let cod_pregunta_63 =     $('.'+claseForm+' input[data-cod-pregunta="63"]' );
-    let cod_pregunta_71_No =  $('.'+claseForm+' input[data-cod-pregunta="71"]:input[value="No"] ' );
-    let cod_pregunta_71_Si =  $('.'+claseForm+' input[data-cod-pregunta="71"]:input[value="Si"] ' );
-    let cod_pregunta_711 =    $('.'+claseForm+' textarea[data-cod-pregunta="711"]' );
-    let cod_pregunta_72_No =  $('.'+claseForm+' input[data-cod-pregunta="72"]:input[value="No"] ' );
-    let cod_pregunta_72_Si =  $('.'+claseForm+' input[data-cod-pregunta="72"]:input[value="Si"] ' );
-    let cod_pregunta_721 =    $('.'+claseForm+' textarea[data-cod-pregunta="721"]' );
-    let cod_pregunta_73_No =  $('.'+claseForm+' input[data-cod-pregunta="73"]:input[value="No"] ' );
-    let cod_pregunta_73_Si =  $('.'+claseForm+' input[data-cod-pregunta="73"]:input[value="Si"] ' );
-    let cod_pregunta_731 =    $('.'+claseForm+' textarea[data-cod-pregunta="731"]' );
-    let cod_pregunta_74_No =  $('.'+claseForm+' input[data-cod-pregunta="74"]:input[value="No"] ' );
-    let cod_pregunta_74_Si =  $('.'+claseForm+' input[data-cod-pregunta="74"]:input[value="Si"] ' );
-    let cod_pregunta_741 =  $('.'+claseForm+' textarea[data-cod-pregunta="741"]' );
+    let cod_pregunta_11_No = $('.' + claseForm + ' input[data-cod-pregunta="11"]:input[value="No"] ');
+    let cod_pregunta_11_Si = $('.' + claseForm + ' input[data-cod-pregunta="11"]:input[value="Si"] ');
+    let cod_pregunta_12 = $('.' + claseForm + ' input[data-cod-pregunta="12"]');
+    let cod_pregunta_13_No = $('.' + claseForm + ' input[data-cod-pregunta="13"]:input[value="No"] ');
+    let cod_pregunta_13_Si = $('.' + claseForm + ' input[data-cod-pregunta="13"]:input[value="Si"] ');
+    let cod_pregunta_14_No = $('.' + claseForm + ' input[data-cod-pregunta="14"]:input[value="Bueno"] ');
+    let cod_pregunta_14_Si = $('.' + claseForm + ' input[data-cod-pregunta="14"]:input[value="Deteriorado"] ');
+    let cod_pregunta_14_nuevo = $('.' + claseForm + ' input[data-cod-pregunta="14"]:input[value="No"] ');
+    let cod_pregunta_15_No = $('.' + claseForm + ' input[data-cod-pregunta="15"]:input[value="No"] ');
+    let cod_pregunta_15_Si = $('.' + claseForm + ' input[data-cod-pregunta="15"]:input[value="Si"] ');
+    let cod_pregunta_41_No = $('.' + claseForm + ' input[data-cod-pregunta="41"]:input[value="No"] ');
+    let cod_pregunta_41_Si = $('.' + claseForm + ' input[data-cod-pregunta="41"]:input[value="Si"] ');
+    let cod_pregunta_21_No = $('.' + claseForm + ' input[data-cod-pregunta="21"]:input[value="No"] ');
+    let cod_pregunta_21_Si = $('.' + claseForm + ' input[data-cod-pregunta="21"]:input[value="Si"] ');
+    let cod_pregunta_22_No = $('.' + claseForm + ' input[data-cod-pregunta="22"]:input[value="No"] ');
+    let cod_pregunta_22_Si = $('.' + claseForm + ' input[data-cod-pregunta="22"]:input[value="Si"] ');
+    let cod_pregunta_42 = $('.' + claseForm + ' input[data-cod-pregunta="42"]');
+    let cod_pregunta_61_No = $('.' + claseForm + ' input[data-cod-pregunta="61"]:input[value="No"] ');
+    let cod_pregunta_61_Si = $('.' + claseForm + ' input[data-cod-pregunta="61"]:input[value="Si"] ');
+    let cod_pregunta_62 = $('.' + claseForm + ' input[data-cod-pregunta="62"]');
+    let cod_pregunta_63 = $('.' + claseForm + ' input[data-cod-pregunta="63"]');
+    let cod_pregunta_71_No = $('.' + claseForm + ' input[data-cod-pregunta="71"]:input[value="No"] ');
+    let cod_pregunta_71_Si = $('.' + claseForm + ' input[data-cod-pregunta="71"]:input[value="Si"] ');
+    let cod_pregunta_711 = $('.' + claseForm + ' textarea[data-cod-pregunta="711"]');
+    let cod_pregunta_72_No = $('.' + claseForm + ' input[data-cod-pregunta="72"]:input[value="No"] ');
+    let cod_pregunta_72_Si = $('.' + claseForm + ' input[data-cod-pregunta="72"]:input[value="Si"] ');
+    let cod_pregunta_721 = $('.' + claseForm + ' textarea[data-cod-pregunta="721"]');
+    let cod_pregunta_73_No = $('.' + claseForm + ' input[data-cod-pregunta="73"]:input[value="No"] ');
+    let cod_pregunta_73_Si = $('.' + claseForm + ' input[data-cod-pregunta="73"]:input[value="Si"] ');
+    let cod_pregunta_731 = $('.' + claseForm + ' textarea[data-cod-pregunta="731"]');
+    let cod_pregunta_74_No = $('.' + claseForm + ' input[data-cod-pregunta="74"]:input[value="No"] ');
+    let cod_pregunta_74_Si = $('.' + claseForm + ' input[data-cod-pregunta="74"]:input[value="Si"] ');
+    let cod_pregunta_741 = $('.' + claseForm + ' textarea[data-cod-pregunta="741"]');
 
     //--------DEPENDENCIAS PARA CUANDO SE CAPTA AL INICIO-----///
     if (claseForm == 'formCaptacion') {
@@ -434,7 +508,7 @@ const validate_depedencias_campos = (formulario) => {
         cod_pregunta_721.prop('readonly', true).prop('value', "");
         cod_pregunta_731.prop('readonly', true).prop('value', "");
         cod_pregunta_741.prop('readonly', true).prop('value', "");
-    }else {
+    } else {
         //--------DEPENDENCIA PARA CUANDO SE EDITA LO CAPTADO-------//
         if (cod_pregunta_11_No.is(':checked') === true) {
             cod_pregunta_12.prop('readonly', true).prop('value', "No disponible");
@@ -460,7 +534,7 @@ const validate_depedencias_campos = (formulario) => {
 
     }
 
-      //DEPENDENCIA PARA AMBAS PARTE TANTO AL INICIO COMO AL EDITAR------//
+    //DEPENDENCIA PARA AMBAS PARTE TANTO AL INICIO COMO AL EDITAR------//
     cod_pregunta_11_No.on('click', function () {
         cod_pregunta_12.prop('readonly', true).prop('value', "No disponible");
         cod_pregunta_13_No.prop('disabled', false).prop('checked', true);
@@ -535,24 +609,24 @@ const validate_depedencias_campos = (formulario) => {
 
 const validateComponenteTexto = (formulario) => {
     let claseForm = formulario.prop('class');
-    let texto = $('.'+claseForm+' input[data-component="texto"]:text' );
-    for (var i=0; i<texto.length; i++){
-        if(texto[i].dataset.type ==="1" && texto[i].value === ""){
-             toastr.error(texto[i].name+" es requerido.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-             return false;
-        }else{
-            reg=/^[a-zA-ZñÑáéíóú_ ]+$/;
-            if(!reg.test(texto[i].value )){
-                  toastr.error(texto[i].name+" debe contener solo letras.", 'Error', {
-             progressBar: true,
-             closeButton: true,
-             "timeOut": "5000",
-    });
-                  return false;
+    let texto = $('.' + claseForm + ' input[data-component="texto"]:text');
+    for (var i = 0; i < texto.length; i++) {
+        if (texto[i].dataset.type === "1" && texto[i].value === "") {
+            toastr.error(texto[i].name + " es requerido.", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "5000",
+            });
+            return false;
+        } else {
+            reg = /^[a-zA-ZñÑáéíóú_ ]+$/;
+            if (!reg.test(texto[i].value)) {
+                toastr.error(texto[i].name + " debe contener solo letras.", 'Error', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "5000",
+                });
+                return false;
             }
         }
     }
@@ -560,9 +634,9 @@ const validateComponenteTexto = (formulario) => {
 
 //--------------------------------INICIALIZACION DE CAMPOS NUMERICOS EN SOBRE ENTIDAD--------------------------------------------//
 
-let entero = $('.formCaptacion input[data-component="entero"]' );
-for (var i=0; i<entero.length; i++){
-    entero[i].value=0
+let entero = $('.formCaptacion input[data-component="entero"]');
+for (var i = 0; i < entero.length; i++) {
+    entero[i].value = 0
 }
 
 //-----------------------------------------PROCEDIMIENTO PARA GUARDAR LO CAPTADO EN SOBRE ENTIDAD--------------------------------------------------//
@@ -573,22 +647,31 @@ let formularioCaptacion = $('form[class="formCaptacion"]');
 validate_depedencias_campos(formularioCaptacion);
 formularioCaptacion.on('submit', function (e) {
     e.preventDefault();
-    let  campos = new FormData(this);
+    let campos = new FormData(this);
 
-     if( validateComponenteTexto(formularioCaptacion) === false){return false};
-     if( validate_radios_no_empty() === false){return false};
-     if( validate_component_entero(formularioCaptacion) === false){return false};
+    if (validateComponenteTexto(formularioCaptacion) === false) {
+        return false
+    }
+    ;
+    if (validate_radios_no_empty() === false) {
+        return false
+    }
+    ;
+    if (validate_component_entero(formularioCaptacion) === false) {
+        return false
+    }
+    ;
 
-     campos.forEach(function (value, key) {
-         console.log(key+' : '+value)
-     });
+    campos.forEach(function (value, key) {
+        console.log(key + ' : ' + value)
+    });
     $.ajax({
         url: '/guia/dataCaptacion/',
         type: 'POST',
         data: campos,
         dataType: 'json',
         processData: false,
-        contentType:false
+        contentType: false
     }).done(function (data) {
         if (data.hasOwnProperty('error')) {
             toastr.error(data.error, 'Error', {
@@ -606,8 +689,8 @@ formularioCaptacion.on('submit', function (e) {
                 "timeOut": "2000",
             });
         }
-    }).fail(function (jqXHR, textStatus,errorThrown) {
-        alert(textStatus+' : '+errorThrown)
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ' : ' + errorThrown)
     })
 });
 
@@ -617,16 +700,34 @@ formularioCaptacion.on('submit', function (e) {
 $('form[name="instanciaForm"]').on('submit', function (e) {
     e.preventDefault();
     let instancia_from_seccion = $(this).data('seccion');
-    if(validateInstancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('select[name="columna_id"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="registro_1"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="registro_2"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="registro_3"]')) === false){return false};
-    let  campos = new FormData(this);
+    if (validateInstancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instancia_from_seccion, $('select[name="columna_id"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instancia_from_seccion, $('input[name="registro_1"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instancia_from_seccion, $('input[name="registro_2"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instancia_from_seccion, $('input[name="registro_3"]')) === false) {
+        return false
+    };
+    let campos = new FormData(this);
     $.ajax({
         url: '/guia/dataCaptacion/',
         type: 'POST',
@@ -635,7 +736,7 @@ $('form[name="instanciaForm"]').on('submit', function (e) {
         processData: false,
         contentType: false
     }).done(function (data) {
-       let modal = $('.instanciaModal');
+        let modal = $('.instanciaModal');
         modal.modal('hide');
         $('button[name="actualizar"]').prop('disabled', false);
     }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -647,18 +748,45 @@ $('form[name="instanciaFormContuniarCaptacion"]').on('submit', function (e) {
     e.preventDefault();
     let instancia_from_seccion = $(this).data('seccion');
     let id = $(this).data('cuestionario');
-    if(validateInstancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('select[name="columna_id"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="registro_1"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="registro_2"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false){return false};
-    if(validateInstancias(instancia_from_seccion, $('input[name="registro_3"]')) === false){return false};
-    let  campos = new FormData(this);
+    if (validateInstancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instancia_from_seccion, $('select[name="columna_id"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instancia_from_seccion, $('input[name="registro_1"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instancia_from_seccion, $('input[name="registro_2"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instancia_from_seccion, $('input[name="registro_3"]')) === false) {
+        return false
+    }
+    ;
+    let campos = new FormData(this);
     $.ajax({
-        url: '/guia/continuarCaptacion/'+id+'/',
+        url: '/guia/continuarCaptacion/' + id + '/',
         type: 'POST',
         data: campos,
         dataType: 'json',
@@ -666,11 +794,11 @@ $('form[name="instanciaFormContuniarCaptacion"]').on('submit', function (e) {
         contentType: false
     }).done(function (data) {
         toastr.success(data.sms, 'Exito', {
-                progressBar: true,
-                closeButton: true,
-                "timeOut": "5000",
-            });
-       let modal = $('.continuarCaptacionModal');
+            progressBar: true,
+            closeButton: true,
+            "timeOut": "5000",
+        });
+        let modal = $('.continuarCaptacionModal');
         modal.modal('hide');
         $('button[name="actualizar"]').prop('disabled', false);
     }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -679,30 +807,30 @@ $('form[name="instanciaFormContuniarCaptacion"]').on('submit', function (e) {
 });
 
 
- //-------------------------------------------SELECT ENCADENADOS---------------------------------------------------------------
+//-------------------------------------------SELECT ENCADENADOS---------------------------------------------------------------
 
 let select = $('select[name="seccion_id"]');
 $('a[name="valor"]').on('click', function (e) {
-        let id = $(this).data('id');
-        let nombre = $(this).data('nombre');
-        let options = '<option value="">--------</option>';
-        options+='<option value="'+id+'">'+nombre+'</option>';
-        select.html(options)
-    });
+    let id = $(this).data('id');
+    let nombre = $(this).data('nombre');
+    let options = '<option value="">--------</option>';
+    options += '<option value="' + id + '">' + nombre + '</option>';
+    select.html(options)
+});
 
- let selectCol = $('select[name="columna_id"]');
- $('select[name="seccion_id"]').on('change', function () {
-     let id = $(this).val();
-     $.ajax({
+let selectCol = $('select[name="columna_id"]');
+$('select[name="seccion_id"]').on('change', function () {
+    let id = $(this).val();
+    $.ajax({
         url: '/seccion/getColumnas/',
         type: 'POST',
         data: {
-            'action':'getColumnas',
+            'action': 'getColumnas',
             'id': id
         },
         dataType: 'json'
     }).done(function (data) {
-        if(!data.hasOwnProperty('error')){
+        if (!data.hasOwnProperty('error')) {
             selectCol.html('').select2({
                 theme: "bootstrap4",
                 language: 'es',
@@ -710,28 +838,28 @@ $('a[name="valor"]').on('click', function (e) {
             });
             return false
         }
-    }).fail(function (jqXHR, textStatus,errorThrown) {
-        alert(textStatus+' : '+errorThrown)
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ' : ' + errorThrown)
     });
- });
+});
 
- let selectCod = $('select[name="codigo_id"]');
- $('select[name="columna_id"]').on('change', function () {
-     let columna_id=$(this).val();
-     let options = '<option value="">---------</option>';
-     if (columna_id===''){
-         selectCol.html(options)
-     }
-     $.ajax({
+let selectCod = $('select[name="codigo_id"]');
+$('select[name="columna_id"]').on('change', function () {
+    let columna_id = $(this).val();
+    let options = '<option value="">---------</option>';
+    if (columna_id === '') {
+        selectCol.html(options)
+    }
+    $.ajax({
         url: '/seccion/getCodigos/',
         type: 'POST',
         data: {
-            'action':'getCodigos',
+            'action': 'getCodigos',
             'id': columna_id
         },
         dataType: 'json'
     }).done(function (data) {
-        if(!data.hasOwnProperty('error')){
+        if (!data.hasOwnProperty('error')) {
             selectCod.html('').select2({
                 theme: "bootstrap4",
                 language: 'es',
@@ -739,12 +867,12 @@ $('a[name="valor"]').on('click', function (e) {
             });
             return false
         }
-    }).fail(function (jqXHR, textStatus,errorThrown) {
-        alert(textStatus+' : '+errorThrown)
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ' : ' + errorThrown)
     });
- });
+});
 
- //----------------------------------------------PERSONALIZACION DE LA TABLA ENTIDAD------------------------------------------------------------------
+//----------------------------------------------PERSONALIZACION DE LA TABLA ENTIDAD------------------------------------------------------------------
 $(document).ready(function () {
 
     let table = $('#entidadTable').DataTable({
@@ -752,41 +880,41 @@ $(document).ready(function () {
             orderable: false,
             className: 'select-checkbox',
             targets: 0
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 1
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 2
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 3
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 4
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 5
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 6
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 7
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 8
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 9
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 10
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 11
-        },{
-           orderable: false,
+        }, {
+            orderable: false,
             targets: 12
         }],
         select: {
@@ -808,65 +936,65 @@ $(document).ready(function () {
 
     // -----------------------------------------------CREACION DE FILTROS POR CADA COLUMNA-----------------------------------------
 
-  $('#entidadTable thead tr').clone(true).appendTo('#entidadTable thead');
+    $('#entidadTable thead tr').clone(true).appendTo('#entidadTable thead');
 
-  $('#entidadTable thead tr:eq(1) th').each(function (i) {
-      var title = $(this).text();
-       $(this).html( '<input type="text" id="'+title+'1" placeholder="'+title+'" style="border-color: blue;border-top:0px;border-left:0px;border-right: 0px; width: 100%"/>' );
+    $('#entidadTable thead tr:eq(1) th').each(function (i) {
+        var title = $(this).text();
+        $(this).html('<input type="text" id="' + title + '1" placeholder="' + title + '" style="border-color: blue;border-top:0px;border-left:0px;border-right: 0px; width: 100%"/>');
 
-       $( 'input', this).on( 'keyup change ', function () {
-                    if ( table.column(i ).search() !== this.value) {
-                        table
-                            .column(i)
-                            .search(this.value)
-                            .draw();
-                    }
+        $('input', this).on('keyup change ', function () {
+            if (table.column(i).search() !== this.value) {
+                table
+                    .column(i)
+                    .search(this.value)
+                    .draw();
+            }
+        });
+    });
+    $('#1').prop("hidden", true);
+    $('#Acciones1').prop("hidden", true);
+
+    //------------------------------------------------CREAR UNIVERSO DE LA GUIA--------------------------------------------------------------//
+
+    $('#universo').on('click', function () {
+        let selector = $('.selected');
+        let array = [];
+        for (var i = 0; i < selector.length; i++) {
+            array.push(table.rows('.selected').data()[i][1]);
+        }
+        if (array.length === 0) {
+            toastr.error("Seleccione al menos una opcion para conformar el universo.", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "3000",
+            });
+            return false
+        } else {
+            let valorJson = JSON.stringify(array);
+            console.log(valorJson);
+            $.ajax({
+                url: '/guia/universo/',
+                type: 'POST',
+                data: {
+                    'action': 'universo',
+                    'data': valorJson
+                },
+                dataType: 'json'
+            }).done(function (data) {
+                toastr.success(data.exito, 'Exito', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "3000",
                 });
-  });
-  $('#1').prop("hidden", true);
-  $('#Acciones1').prop("hidden", true);
-
-  //------------------------------------------------CREAR UNIVERSO DE LA GUIA--------------------------------------------------------------//
-
-  $('#universo').on('click', function () {
-    let selector = $('.selected');
-    let array = [];
-    for (var i=0; i < selector.length; i++){
-        array.push(table.rows('.selected').data()[i][1]);
-       }
-    if(array.length === 0){
-        toastr.error("Seleccione al menos una opcion para conformar el universo.", 'Error',{
-        progressBar: true,
-        closeButton: true,
-        "timeOut": "3000",
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                toastr.error(textStatus + ' : ' + errorThrown, 'Error', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "3000",
+                })
+            });
+        }
     });
-        return false
-    }else {
-    let valorJson = JSON.stringify(array);
-        console.log(valorJson);
-    $.ajax({
-        url: '/guia/universo/',
-        type: 'POST',
-        data: {
-            'action':'universo',
-            'data': valorJson
-        },
-        dataType: 'json'
-    }).done(function (data) {
-        toastr.success(data.exito, 'Exito',{
-        progressBar: true,
-        closeButton: true,
-        "timeOut": "3000",
-    });
-    }).fail(function (jqXHR, textStatus,errorThrown) {
-        toastr.error(textStatus+' : '+errorThrown, 'Error',{
-        progressBar: true,
-        closeButton: true,
-        "timeOut": "3000",
-    })
-    });
-    }
-});
 });
 
 
@@ -875,7 +1003,7 @@ $('div[data-model-name="modal"]').on('shown.bs.modal', function () {
 });
 
 //-----------------------------------------------------------PARTE PARA MOSTRAR LO CAPTADO---------------------------------------
-             //------------------------PREGUNTAS EVALUADAS Y SECCIONES----------------------//
+//------------------------PREGUNTAS EVALUADAS Y SECCIONES----------------------//
 
 $('#detalles_preguntasEvaluadas').prop("hidden", true);
 $('#modificacionPreguntas').prop("hidden", true);
@@ -902,43 +1030,43 @@ $('a[name="detalles"]').on('click', function () {
         var contenido = $('#contenido');
         var informacion = '<h1></h1>';
         for (var i = 0; i < data.length; i++) {
-            if (data[i].pregunta != null){
-             informacion += '<h6 class="text-bold text-uppercase">'+ '<span class="badge bg-gradient-primary" style="width: 100%; padding: 10px">'+ data[i].pregunta + '</span>'+'</h6>'+'<h6 class="text-bold text-center text-uppercase" >'+ data[i].respuesta + '</h6>' +'<hr>'
+            if (data[i].pregunta != null) {
+                informacion += '<h6 class="text-bold text-uppercase">' + '<span class="badge bg-gradient-primary" style="width: 100%; padding: 10px">' + data[i].pregunta + '</span>' + '</h6>' + '<h6 class="text-bold text-center text-uppercase" >' + data[i].respuesta + '</h6>' + '<hr>'
 
             }
         }
-         var table = '<table class="table table-bordered table-striped" >' +
-             '<thead class="bg-gradient-primary text-bold"><tr><td>Seccion</td>' +
-             '<td>Codigo</td>' +
-             '<td>No.Col</td>' +
-             '<td>Modelo</td>' +
-             '<td>Registro</td>' +
-             '<td>Dif.</td>' +
-             '<td>Modelo</td>' +
-             '<td>Registro</td>' +
-             '<td>Dif.</td>' +
-             '<td>Modelo</td>' +
-             '<td>Registro</td>' +
-             '<td>Dif.</td>' +
-             '</tr></thead><tbody>';
-             for (var i = 0; i < data.length; i++) {
-                 if (data[i].seccion_id != null) {
-                     table += '<tr><td>' + '<span class="badge bg-gradient-navy" style="padding: 3px">'+ data[i].seccion_id + '</span>' + '</td>' +
-                         '<td>' + data[i].codigo_id + '</td>' +
-                         '<td>' + data[i].columna_id + '</td>' +
-                         '<td>' + data[i].modelo_1 + '</td>' +
-                         '<td>' + data[i].registro_1 + '</td>' +
-                         '<td>' + '<span class="badge bg-danger" style="padding: 3px">'+ data[i].diferencia_1 + '</span>' + '</td>' +
-                         '<td>' + data[i].modelo_2 + '</td>' +
-                         '<td>' + data[i].registro_2 + '</td>' +
-                         '<td>' + '<span class="badge bg-danger" style="padding: 3px">'+ data[i].diferencia_2 + '</span>'+ '</td>' +
-                         '<td>' + data[i].modelo_3 + '</td>' +
-                         '<td>' + data[i].registro_3 + '</td>' +
-                         '<td>' + '<span class="badge bg-danger" style="padding: 3px">'+ data[i].diferencia_3 + '</span></td></tr>'
-                 }
-             }
-             table += '</tbody></table>'
-         contenido.html(informacion + table);
+        var table = '<table class="table table-bordered table-striped" >' +
+            '<thead class="bg-gradient-primary text-bold"><tr><td>Seccion</td>' +
+            '<td>Codigo</td>' +
+            '<td>No.Col</td>' +
+            '<td>Modelo</td>' +
+            '<td>Registro</td>' +
+            '<td>Dif.</td>' +
+            '<td>Modelo</td>' +
+            '<td>Registro</td>' +
+            '<td>Dif.</td>' +
+            '<td>Modelo</td>' +
+            '<td>Registro</td>' +
+            '<td>Dif.</td>' +
+            '</tr></thead><tbody>';
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].seccion_id != null) {
+                table += '<tr><td>' + '<span class="badge bg-gradient-navy" style="padding: 3px">' + data[i].seccion_id + '</span>' + '</td>' +
+                    '<td>' + data[i].codigo_id + '</td>' +
+                    '<td>' + data[i].columna_id + '</td>' +
+                    '<td>' + data[i].modelo_1 + '</td>' +
+                    '<td>' + data[i].registro_1 + '</td>' +
+                    '<td>' + '<span class="badge bg-danger" style="padding: 3px">' + data[i].diferencia_1 + '</span>' + '</td>' +
+                    '<td>' + data[i].modelo_2 + '</td>' +
+                    '<td>' + data[i].registro_2 + '</td>' +
+                    '<td>' + '<span class="badge bg-danger" style="padding: 3px">' + data[i].diferencia_2 + '</span>' + '</td>' +
+                    '<td>' + data[i].modelo_3 + '</td>' +
+                    '<td>' + data[i].registro_3 + '</td>' +
+                    '<td>' + '<span class="badge bg-danger" style="padding: 3px">' + data[i].diferencia_3 + '</span></td></tr>'
+            }
+        }
+        table += '</tbody></table>'
+        contenido.html(informacion + table);
     }).fail(function (jqXHR, textStatus, errorThrown) {
         alert(textStatus + ' : ' + errorThrown)
     });
@@ -947,8 +1075,8 @@ $('a[name="detalles"]').on('click', function () {
 //-----------------------------------CONTROL DE ACCESOS-------------------------------------------//
 
 $('#widgetGuia').on('click', function () {
-     $('#widgetGuia').prop("disabled", true);
-         toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado',{
+    $('#widgetGuia').prop("disabled", true);
+    toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado', {
         progressBar: true,
         closeButton: true,
         "timeOut": "3000",
@@ -956,8 +1084,8 @@ $('#widgetGuia').on('click', function () {
 });
 
 $('#widgetEntidad').on('click', function () {
-     $('#widgetEntidad').prop("disabled", true);
-         toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado',{
+    $('#widgetEntidad').prop("disabled", true);
+    toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado', {
         progressBar: true,
         closeButton: true,
         "timeOut": "3000",
@@ -965,8 +1093,8 @@ $('#widgetEntidad').on('click', function () {
 });
 
 $('#widgetUsuario').on('click', function () {
-     $('#widgetUsuario').prop("disabled", true);
-         toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado',{
+    $('#widgetUsuario').prop("disabled", true);
+    toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado', {
         progressBar: true,
         closeButton: true,
         "timeOut": "3000",
@@ -981,7 +1109,7 @@ $('a[name="modificarPreguntas"]').on('click', function () {
     let id = $(this).data('id');
     let form = $('#b');
     let bloque = $('#bloque')
-     $.ajax({
+    $.ajax({
         url: '/guia/modificarPreguntas1/',
         type: 'POST',
         data: {
@@ -992,67 +1120,85 @@ $('a[name="modificarPreguntas"]').on('click', function () {
     }).done(function (data) {
         $('#modificacionPreguntas').prop("hidden", false);
         console.log(form)
-        bloque.prepend('asa'+form+'adsda')
-    }).fail(function (jqXHR, textStatus,errorThrown) {
-        alert(textStatus+' : '+errorThrown)
+        bloque.prepend('asa' + form + 'adsda')
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ' : ' + errorThrown)
     })
 });
 
 $('form[name="contenidoEdicionPreguntas"]').on('submit', function (e) {
     e.preventDefault();
-    var  campos = new FormData(this);
+    var campos = new FormData(this);
     $.ajax({
         url: '/guia/modificarPreguntas/',
         type: 'POST',
         data: campos,
         dataType: 'json',
         processData: false,
-        contentType:false
+        contentType: false
     }).done(function (data) {
         $('#modificacionPreguntas').prop("hidden", true);
-        toastr.success("Las preguntas del cuestionario han sido modificadas correctamente.", 'Exito',{
-        progressBar: true,
-        closeButton: true,
-        "timeOut": "3000",
-    });
-    }).fail(function (jqXHR, textStatus,errorThrown) {
-        alert(textStatus+' : '+errorThrown)
+        toastr.success("Las preguntas del cuestionario han sido modificadas correctamente.", 'Exito', {
+            progressBar: true,
+            closeButton: true,
+            "timeOut": "3000",
+        });
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ' : ' + errorThrown)
     })
 });
 
 //-----------2. INSTANCIAS---------------//
 const redirect_url = () => {
-           location.href='http://127.0.0.1:8000/guia/guiaCaptada/';
-       };
-$('#editInstanciaForm').on('submit', function (e) {
+    location.href = 'http://127.0.0.1:8000/guia/guiaCaptada/';
+};
+$('form[name="editarInstanciaForm"]').on('submit', function (e) {
     e.preventDefault();
-    let idInstancia = $('input[name=idInstancia]').val()
+    let instanciaSeccion = $(this).data('seccion');
+    if (validateInstancias(instanciaSeccion, $('input[name="1_modelo"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instanciaSeccion, $('input[name="1_registro"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instanciaSeccion, $('input[name="2_modelo"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instanciaSeccion, $('input[name="2_registro"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instanciaSeccion, $('input[name="3_modelo"]')) === false) {
+        return false
+    };
+    if (validateInstancias(instanciaSeccion, $('input[name="3_registro"]')) === false) {
+        return false
+    };
     let campos = new FormData(this);
     $.ajax({
-        url: '/seccion/editarInstancia/'+idInstancia+'/',
+        url: '/seccion/editarInstancia/',
         type: 'POST',
         data: campos,
         dataType: 'json',
         processData: false,
-        contentType:false
+        contentType: false
     }).done(function (data) {
         $('#modificarInstancias').prop("hidden", true);
-        toastr.success("La instancia del cuestionario ha sido modificada correctamente.", 'Exito',{
-        progressBar: true,
-        closeButton: true,
-        "timeOut": "3000",
-    });
-        setTimeout (redirect_url,3000);
-    }).fail(function (jqXHR, textStatus,errorThrown) {
-        alert(textStatus+' : '+errorThrown)
+        toastr.success("La instancia del cuestionario ha sido modificada correctamente.", 'Exito', {
+            progressBar: true,
+            closeButton: true,
+            "timeOut": "3000",
+        });
+        setTimeout(redirect_url, 3000);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ' : ' + errorThrown)
     })
 });
 
 $('.acordeon').on('click', function () {
     console.log($('.registro'))
     $('.formVerificacion').prop('hidden', true);
-    let seccionAcordion=$(this).data('seccion');
-    for (var i=0;i,i<$('.registro').length; i++){
+    let seccionAcordion = $(this).data('seccion');
+    for (var i = 0; i, i < $('.registro').length; i++) {
         if (seccionAcordion === $('.registro')[i].dataset.seccionRegistro && $('.registro')[i].textContent !== "") {
             $('.formVerificacion').prop('hidden', false)
         }
@@ -1101,10 +1247,10 @@ $(' #entidadForm').bootstrapValidator({
                     message: 'El codigo es requerido.'
                 },
                 stringLength: {
-                        min: 6,
-                        max: 6,
-                        message: 'El codigo debe ser de 6 digitos'
-                    },
+                    min: 6,
+                    max: 6,
+                    message: 'El codigo debe ser de 6 digitos'
+                },
                 regexp: {
                     regexp: /^[0-9]+$/,
                     message: 'Solo se admiten digitos.'
@@ -1452,412 +1598,417 @@ $(' #respuestasForm').bootstrapValidator({
 });
 
 $('#userForm').bootstrapValidator({
-        message: 'This value is not valid',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
+    message: 'This value is not valid',
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
         invalid: 'fa fa-times-circle',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            first_name: {
-                message: 'El nombre no es valido',
-                validators: {
-                    notEmpty: {
-                        message: 'El nombre es requerido'
-                    },
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+        first_name: {
+            message: 'El nombre no es valido',
+            validators: {
+                notEmpty: {
+                    message: 'El nombre es requerido'
+                },
 
                 regexp: {
                     regexp: /^[a-zA-ZñÑáéíóú_ ]+$/,
                     message: 'El nombre debe contener solo letras'
                 }
-                }
-            },
-            last_name: {
-                message: 'El apellido no es valido',
-                validators: {
-                    notEmpty: {
-                        message: 'El apellido es requeridoo'
-                    },
-                    regexp: {
+            }
+        },
+        last_name: {
+            message: 'El apellido no es valido',
+            validators: {
+                notEmpty: {
+                    message: 'El apellido es requeridoo'
+                },
+                regexp: {
                     regexp: /^[a-zA-ZñÑáéíóú_ ]+$/,
                     message: 'Los apellidos debe contener solo letras'
                 }
+            }
+        },
+        username: {
+            message: 'El usuario no es valido',
+            validators: {
+                notEmpty: {
+                    message: 'El usuario es obligatorio'
+                },
+                stringLength: {
+                    min: 3,
+                    max: 30,
+                    message: 'El usuario debe tener un minimo de 3 caracteres y un maximo de 30'
+                },
+                regexp: {
+                    regexp: /^[a-zA-Z0-9]+$/,
+                    message: 'EL usuario solo debe contener letras y numeros'
+                },
+                different: {
+                    field: 'password1',
+                    message: 'El usuario debe ser diferente a la contraseña'
                 }
-            },
-            username: {
-                message: 'El usuario no es valido',
-                validators: {
-                    notEmpty: {
-                        message: 'El usuario es obligatorio'
-                    },
-                    stringLength: {
-                        min: 3,
-                        max: 30,
-                        message: 'El usuario debe tener un minimo de 3 caracteres y un maximo de 30'
-                    },
-                    regexp: {
-                        regexp: /^[a-zA-Z0-9]+$/,
-                        message: 'EL usuario solo debe contener letras y numeros'
-                    },
-                    different: {
-                        field: 'password1',
-                        message: 'El usuario debe ser diferente a la contraseña'
-                    }
-                }
-            },
-            password: {
-                validators: {
-                    notEmpty: {
-                        message: 'El campo contraseña es requerido.'
-                    },
-                    different: {
-                        field: 'username',
-                        message: 'La contraseña debe ser diferente del usuario'
-                    },
-                    stringLength: {
-                        min: 8,
-                        message: 'La contraseña debe tener como minimo 8 caracteres'
-                    },
-                    callback: {
-                        callback: function(value, validator) {
-                            if (value === value.toLowerCase()) {
-                                return {
-                                    valid: false,
-                                    message: ' La contraseña debe contener mayusculas'
-                                }
+            }
+        },
+        password: {
+            validators: {
+                notEmpty: {
+                    message: 'El campo contraseña es requerido.'
+                },
+                different: {
+                    field: 'username',
+                    message: 'La contraseña debe ser diferente del usuario'
+                },
+                stringLength: {
+                    min: 8,
+                    message: 'La contraseña debe tener como minimo 8 caracteres'
+                },
+                callback: {
+                    callback: function (value, validator) {
+                        if (value === value.toLowerCase()) {
+                            return {
+                                valid: false,
+                                message: ' La contraseña debe contener mayusculas'
                             }
-                            if (value === value.toUpperCase()) {
-                                return {
-                                    valid: false,
-                                    message: 'La contraseña debe contener minusculas'
-                                }
-                            }
-                             if (value.search(/[.*,@_]/) < 0) {
-                                return {
-                                    valid: false,
-                                    message: 'La contraseña debe contener caracteres especiales (.*,@_)'
-                                }
-                            }
-                            return true;
                         }
+                        if (value === value.toUpperCase()) {
+                            return {
+                                valid: false,
+                                message: 'La contraseña debe contener minusculas'
+                            }
+                        }
+                        if (value.search(/[.*,@_]/) < 0) {
+                            return {
+                                valid: false,
+                                message: 'La contraseña debe contener caracteres especiales (.*,@_)'
+                            }
+                        }
+                        return true;
                     }
                 }
-            },
-            groups: {
-                message: 'El nombre no es valido',
-                validators: {
-                    notEmpty: {
-                        message: 'Debe de seleccionar una opcion'
-                    },
-                }
-            },
-        }
-    });
+            }
+        },
+        groups: {
+            message: 'El nombre no es valido',
+            validators: {
+                notEmpty: {
+                    message: 'Debe de seleccionar una opcion'
+                },
+            }
+        },
+    }
+});
 
 $('#changePasswordForm').bootstrapValidator({
-        message: 'This value is not valid',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
+    message: 'This value is not valid',
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
         invalid: 'fa fa-times-circle',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            password: {
-                validators: {
-                    notEmpty: {
-                        message: 'El campo contraseña es requerido.'
-                    },
-                    stringLength: {
-                        min: 8,
-                        message: 'La contraseña debe tener como minimo 8 caracteres'
-                    },
-                    callback: {
-                        callback: function(value, validator) {
-                            if (value === value.toLowerCase()) {
-                                return {
-                                    valid: false,
-                                    message: ' La contraseña debe contener mayusculas'
-                                }
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+        password: {
+            validators: {
+                notEmpty: {
+                    message: 'El campo contraseña es requerido.'
+                },
+                stringLength: {
+                    min: 8,
+                    message: 'La contraseña debe tener como minimo 8 caracteres'
+                },
+                callback: {
+                    callback: function (value, validator) {
+                        if (value === value.toLowerCase()) {
+                            return {
+                                valid: false,
+                                message: ' La contraseña debe contener mayusculas'
                             }
-                            if (value === value.toUpperCase()) {
-                                return {
-                                    valid: false,
-                                    message: 'La contraseña debe contener minusculas'
-                                }
-                            }
-                             if (value.search(/[.*,@_]/) < 0) {
-                                return {
-                                    valid: false,
-                                    message: 'La contraseña debe contener caracteres especiales (.*,@_)'
-                                }
-                            }
-                            return true;
                         }
+                        if (value === value.toUpperCase()) {
+                            return {
+                                valid: false,
+                                message: 'La contraseña debe contener minusculas'
+                            }
+                        }
+                        if (value.search(/[.*,@_]/) < 0) {
+                            return {
+                                valid: false,
+                                message: 'La contraseña debe contener caracteres especiales (.*,@_)'
+                            }
+                        }
+                        return true;
                     }
                 }
-            },
-        }
-    });
-
+            }
+        },
+    }
+});
 
 
 //------------------PROCEDIMIENTO PARA CREAR UNA GUIA CON LAS MISMAS CONFIGURACIONES DE OTRA YA DEFINIDA-----------------------//
- const url = () => {
-           location.href='http://127.0.0.1:8000/guia/listarGuias/';
-       }
+const url = () => {
+    location.href = 'http://127.0.0.1:8000/guia/listarGuias/';
+}
 guias = $('#listadoGuiasDefinidas');
 buttonSafe = $('#safe');
 checkboxGuias = $('#guiasDefinidas');
 salvadoNormal = $('#salvadoNormal');
 
 checkboxGuias.on('click', function () {
-    if(checkboxGuias.is(':checked')==true){
-   guias.prop('disabled', false);
-   buttonSafe.prop('disabled', false);
-   salvadoNormal.prop('disabled', true)
+    if (checkboxGuias.is(':checked') == true) {
+        guias.prop('disabled', false);
+        buttonSafe.prop('disabled', false);
+        salvadoNormal.prop('disabled', true)
 
-}else {
-     guias.prop('disabled', true);
-   buttonSafe.prop('disabled', true);
+    } else {
+        guias.prop('disabled', true);
+        buttonSafe.prop('disabled', true);
         salvadoNormal.prop('disabled', false)
-}
+    }
 });
 
 $('#safe').on('click', function () {
     guiaNombre = $('#guiaNombre');
     guiaActiva = $('#guiaActiva');
-    if(guias.val()===guiaNombre.val()){
-        toastr.error("El nombre de la guia a crear ya existe.", 'Error',{
-        progressBar: true,
-        closeButton: true,
-        "timeOut": "3000",
-    });
+    if (guias.val() === guiaNombre.val()) {
+        toastr.error("El nombre de la guia a crear ya existe.", 'Error', {
+            progressBar: true,
+            closeButton: true,
+            "timeOut": "3000",
+        });
         return false
     }
     $.ajax({
         url: '/guia/crearGuiaDefinida/',
         type: 'POST',
         data: {
-            'action':'creacionDeGuia',
+            'action': 'creacionDeGuia',
             'guiaNueva': guiaNombre.val(),
             'guiaYaDefinida': guias.val(),
-            'activo':guiaActiva[0].checked
+            'activo': guiaActiva[0].checked
         },
         dataType: 'json',
     }).done(function (data) {
         toastr.success(data.exito, 'Exito', {
-                progressBar: true,
-                closeButton: true,
-                "timeOut": "1500",
-            });
-        setTimeout (url,1500);
-    }).fail(function (jqXHR, textStatus,errorThrown) {
-        alert(textStatus+' : '+errorThrown)
+            progressBar: true,
+            closeButton: true,
+            "timeOut": "1500",
+        });
+        setTimeout(url, 1500);
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        alert(textStatus + ' : ' + errorThrown)
     })
 
 })
 
 //---------------------------------PROCEDIMIENTO PARA El REPORTE DE VERIFICACION--------------------------------------//
- $('#reporteVerificacionGeneral').DataTable({
-     dom: "Bfrtip",
-     buttons: {
-         dom: {
-             button: {
-                 className: 'boton-salvar btn1'
-             }
-         },
-         buttons: [
-             {
-                 extend: "excel",
-                 text: ' Exportar excel',
-                 title: 'Reporte de Verificacion',
-                 className: "btn btn-outline-primary",
-                 excelStyles: {
-                     template: "blue_medium",
-                 },
-             },
-         ]
-     }
- });
+$('#reporteVerificacionGeneral').DataTable({
+    dom: "Bfrtip",
+    buttons: {
+        dom: {
+            button: {
+                className: 'boton-salvar btn1'
+            }
+        },
+        buttons: [
+            {
+                extend: "excel",
+                text: ' Exportar excel',
+                title: 'Reporte de Verificacion',
+                className: "btn btn-outline-primary",
+                excelStyles: {
+                    template: "blue_medium",
+                },
+            },
+        ]
+    }
+});
 
- $('#tblVerificacionPorProvincia').DataTable({
-     scrollX:true,
-     dom: "Bfrtip",
-     buttons: {
-         dom: {
-             button: {
-                 className: 'boton-salvar btn1'
-             }
-         },
-         buttons: [
-             {
-                 extend: "excel",
-                 text: ' Exportar excel',
-                 title: 'Reporte de Verificacion',
-                 className: "btn btn-outline-primary",
-                 excelStyles: {
-                     template: "blue_medium",
-                 },
-             },
-         ]
-     }
- });
+$('#tblVerificacionPorProvincia').DataTable({
+    scrollX: true,
+    dom: "Bfrtip",
+    buttons: {
+        dom: {
+            button: {
+                className: 'boton-salvar btn1'
+            }
+        },
+        buttons: [
+            {
+                extend: "excel",
+                text: ' Exportar excel',
+                title: 'Reporte de Verificacion',
+                className: "btn btn-outline-primary",
+                excelStyles: {
+                    template: "blue_medium",
+                },
+            },
+        ]
+    }
+});
 
 //--------------------------------------PROCEDIMIENTO PARA El REPORTE GENERAL---------------------------------------------//
- $('#reporteGeneral').DataTable({
-     scrollX:true,
-     dom: "Bfrtip",
-     buttons: {
-         dom: {
-             button: {
-                 className: 'boton-salvar btn1'
-             }
-         },
-         buttons: [
-             {
-                 extend: "excel",
-                 text: ' Exportar excel',
-                 title: 'Reporte General',
-                 className: "btn btn-outline-primary",
-                 excelStyles: {
-                     template: "blue_medium",
-                 },
-             },
-         ]
-     }
- });
+$('#reporteGeneral').DataTable({
+    scrollX: true,
+    dom: "Bfrtip",
+    buttons: {
+        dom: {
+            button: {
+                className: 'boton-salvar btn1'
+            }
+        },
+        buttons: [
+            {
+                extend: "excel",
+                text: ' Exportar excel',
+                title: 'Reporte General',
+                className: "btn btn-outline-primary",
+                excelStyles: {
+                    template: "blue_medium",
+                },
+            },
+        ]
+    }
+});
 
- //--------------------------PROCEDIMIENTO PARA El REPORTE DE DISCIPLINA INFORMATIVA----------------------------------//
- $('#reporteDisciplinaInfo').DataTable({
-     dom: "Bfrtip",
-     buttons: {
-         dom: {
-             button: {
-                 className: 'boton-salvar btn1'
-             }
-         },
-         buttons: [
-             {
-                 extend: "excel",
-                 text: ' Exportar excel',
-                 title: 'Reporte de Disciplina Informativa',
-                 className: "btn btn-outline-primary",
-                 excelStyles: {
-                     template: "blue_medium",
-                 },
-             },
-         ]
-     }
- });
+//--------------------------PROCEDIMIENTO PARA El REPORTE DE DISCIPLINA INFORMATIVA----------------------------------//
+$('#reporteDisciplinaInfo').DataTable({
+    dom: "Bfrtip",
+    buttons: {
+        dom: {
+            button: {
+                className: 'boton-salvar btn1'
+            }
+        },
+        buttons: [
+            {
+                extend: "excel",
+                text: ' Exportar excel',
+                title: 'Reporte de Disciplina Informativa',
+                className: "btn btn-outline-primary",
+                excelStyles: {
+                    template: "blue_medium",
+                },
+            },
+        ]
+    }
+});
 
- //---------------------------------PROCEDIMIENTO PARA El REPORTE DE SEÑALAMIENTO DE ERRORES-----------------------------//
- $('#reporteErrores').DataTable({
-     dom: "Bfrtip",
-     buttons: {
-         dom: {
-             button: {
-                 className: 'boton-salvar btn1'
-             }
-         },
-         buttons: [
-             {
-                 extend: "excel",
-                 text: ' Exportar excel',
-                 title: 'Reporte de Señalamientos de Errores',
-                 className: "btn btn-outline-primary",
-                 excelStyles: {
-                     template: "blue_medium",
-                 },
-             },
-         ]
-     }
- });
+//---------------------------------PROCEDIMIENTO PARA El REPORTE DE SEÑALAMIENTO DE ERRORES-----------------------------//
+$('#reporteErrores').DataTable({
+    dom: "Bfrtip",
+    buttons: {
+        dom: {
+            button: {
+                className: 'boton-salvar btn1'
+            }
+        },
+        buttons: [
+            {
+                extend: "excel",
+                text: ' Exportar excel',
+                title: 'Reporte de Señalamientos de Errores',
+                className: "btn btn-outline-primary",
+                excelStyles: {
+                    template: "blue_medium",
+                },
+            },
+        ]
+    }
+});
 
- //---------------------------PROCEDIMIENTO PARA El REPORTE DE Displina info Centro Controlado-----------------------------//
- $('#reporteDisciplinaInfoCentroControlados').DataTable({
-     dom: "Bfrtip",
-     buttons: {
-         dom: {
-             button: {
-                 className: 'boton-salvar btn1'
-             }
-         },
-         buttons: [
-             {
-                 extend: "excel",
-                 text: ' Exportar excel',
-                 title: 'Reporte de Disciplina Informativa Centros Controlados',
-                 className: "btn btn-outline-primary",
-                 excelStyles: {
-                     template: "blue_medium",
-                 },
-             },
-         ]
-     }
- });
+//---------------------------PROCEDIMIENTO PARA El REPORTE DE Displina info Centro Controlado-----------------------------//
+$('#reporteDisciplinaInfoCentroControlados').DataTable({
+    dom: "Bfrtip",
+    buttons: {
+        dom: {
+            button: {
+                className: 'boton-salvar btn1'
+            }
+        },
+        buttons: [
+            {
+                extend: "excel",
+                text: ' Exportar excel',
+                title: 'Reporte de Disciplina Informativa Centros Controlados',
+                className: "btn btn-outline-primary",
+                excelStyles: {
+                    template: "blue_medium",
+                },
+            },
+        ]
+    }
+});
 
- //------------------------------PROCEDIMIENTO PARA El REPORTE DE Domicilio Social Incorrecto-----------------------------//
- $('#reporteDomicilioSocial').DataTable({
-     dom: "Bfrtip",
-     buttons: {
-         dom: {
-             button: {
-                 className: 'boton-salvar btn1'
-             }
-         },
-         buttons: [
-             {
-                 extend: "excel",
-                 text: ' Exportar excel',
-                 title: 'Reporte de Domicilio Social Incorrecto',
-                 className: "btn btn-outline-primary",
-                 excelStyles: {
-                     template: "blue_medium",
-                 },
-             },
-         ]
-     }
- });
+//------------------------------PROCEDIMIENTO PARA El REPORTE DE Domicilio Social Incorrecto-----------------------------//
+$('#reporteDomicilioSocial').DataTable({
+    dom: "Bfrtip",
+    buttons: {
+        dom: {
+            button: {
+                className: 'boton-salvar btn1'
+            }
+        },
+        buttons: [
+            {
+                extend: "excel",
+                text: ' Exportar excel',
+                title: 'Reporte de Domicilio Social Incorrecto',
+                className: "btn btn-outline-primary",
+                excelStyles: {
+                    template: "blue_medium",
+                },
+            },
+        ]
+    }
+});
 
- //---------------------------------PROCEDIMIENTO PARA El REPORTE DE DEFICIENCIAS-----------------------------//
- $('#reporteDeficiencias').DataTable({
-     dom: "Bfrtip",
-     buttons: {
-         dom: {
-             button: {
-                 className: 'boton-salvar btn1'
-             }
-         },
-         buttons: [
-             {
-                 extend: "excel",
-                 text: ' Exportar excel',
-                 title: 'Reporte de Deficiencias',
-                 className: "btn btn-outline-primary",
-                 excelStyles: {
-                     template: "blue_medium",
-                 },
-             },
-         ]
-     }
- });
+//---------------------------------PROCEDIMIENTO PARA El REPORTE DE DEFICIENCIAS-----------------------------//
+$('#reporteDeficiencias').DataTable({
+    dom: "Bfrtip",
+    buttons: {
+        dom: {
+            button: {
+                className: 'boton-salvar btn1'
+            }
+        },
+        buttons: [
+            {
+                extend: "excel",
+                text: ' Exportar excel',
+                title: 'Reporte de Deficiencias',
+                className: "btn btn-outline-primary",
+                excelStyles: {
+                    template: "blue_medium",
+                },
+            },
+        ]
+    }
+});
 
- //---------------------------------PROCEDIMIENTO PARA El REPORTE DE CAPTACION-----------------------------//
- $('#tblCaptado').DataTable({});
+//---------------------------------PROCEDIMIENTO PARA El REPORTE DE CAPTACION-----------------------------//
+$('#tblCaptado').DataTable({});
 
- $('#tblNoCaptado').DataTable({});
+$('#tblNoCaptado').DataTable({});
 
- //------------------------------PROCEDIMIENTO PARA VALIDAR Y MODIFICAR UN CUESTIONARIO YA CAPTADO--------------------//
+//------------------------------PROCEDIMIENTO PARA VALIDAR Y MODIFICAR UN CUESTIONARIO YA CAPTADO--------------------//
 
 let formularioEditarCaptacion = $('form[class="editFormCaptacion"]');
 
 validate_depedencias_campos(formularioEditarCaptacion);
 formularioEditarCaptacion.on('submit', function (e) {
     e.preventDefault();
-    let  campos = new FormData(this);
+    let campos = new FormData(this);
 
-     if( validateComponenteTexto(formularioEditarCaptacion) === false){return false};
-     if( validate_component_entero(formularioEditarCaptacion) === false){return false};
+    if (validateComponenteTexto(formularioEditarCaptacion) === false) {
+        return false
+    }
+    ;
+    if (validate_component_entero(formularioEditarCaptacion) === false) {
+        return false
+    }
+    ;
 
     envioConAjax(window.location.pathname, 'Notificación', '¿Estas seguro de realizar esta accion?', campos, function () {
         let url = 'http://127.0.0.1:8000/guia/guiaCaptada/';

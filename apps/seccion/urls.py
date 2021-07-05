@@ -22,7 +22,7 @@ urlpatterns = [
     path('modificarPeriodo/<int:pk>/', updatePeriodoView.as_view(), name='updatePeriodo'),
     path('modificarCodigo/<int:pk>/', updateCodigoView.as_view(), name='updateCodigo'),
     path('modificarColumna/<int:pk>/', updateColumnaView.as_view(), name='updateColumna'),
-    path('editarInstancia/<int:pk>/', updateInstanciaView.as_view(), name='updateColumna'),
+    path('editarInstancia/', updateInstanciaView.as_view(), name='updateColumna'),
 
     # ELIMINAR
     path('eliminarSeccion/<int:pk>/', eliminarSeccion.as_view(), name='eliminarSeccion'),

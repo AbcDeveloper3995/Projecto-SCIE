@@ -416,13 +416,10 @@ class indicadoresCoinciden(TemplateView):
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
 
-class updateInstanciaView(UpdateView):
-        model = instanciaSeccion
-        form_class = instanciaForm
-        template_name = 'seccion/crear/instancia.html'
+class updateInstanciaView(TemplateView):
 
+        @method_decorator(csrf_exempt)
         def dispatch(self, request, *args, **kwargs):
-            self.object = self.get_object()
             return super().dispatch(request, *args, **kwargs)
 
         def post(self, request, *args, **kwargs):
@@ -431,12 +428,12 @@ class updateInstanciaView(UpdateView):
                 action = request.POST['action']
                 if action == 'modificarInstancia':
                         query = instanciaSeccion.objects.get(id=request.POST['idInstancia'])
-                        query.registro_1 = float(request.POST['registro_1'])
-                        query.registro_2 = float(request.POST['registro_2'])
-                        query.registro_3 = float(request.POST['registro_3'])
-                        query.modelo_1 = float(request.POST['modelo_1'])
-                        query.modelo_2 = float(request.POST['modelo_2'])
-                        query.modelo_3 = float(request.POST['modelo_3'])
+                        query.registro_1 = float(request.POST['1_registro'])
+                        query.registro_2 = float(request.POST['2_registro'])
+                        query.registro_3 = float(request.POST['3_registro'])
+                        query.modelo_1 = float(request.POST['1_modelo'])
+                        query.modelo_2 = float(request.POST['2_modelo'])
+                        query.modelo_3 = float(request.POST['3_modelo'])
                         query.save()
                 else:
                     data['error'] = 'No ha ingresado a ninguna opción'
@@ -444,13 +441,6 @@ class updateInstanciaView(UpdateView):
                 data['error'] = str(e)
             return JsonResponse(data)
 
-
-        def get_context_data(self, **kwargs):
-            context = super().get_context_data(**kwargs)
-            context['title'] = 'Edición una Instancia'
-            context['idInstancia'] = self.kwargs['pk']
-            context['action'] = 'edit'
-            return context
 
 
 class eliminarInstanciaView(TemplateView):
