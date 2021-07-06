@@ -673,16 +673,19 @@ class modificarPreguntasView(captarDatosView):
         campos = dict(request.POST)
         try:
             if action == 'editarDataCaptacion':
+                query = PreguntasEvaluadas.objects.filter(captacion_id__id=campos['idCuestionario'][0])
                 for clave, valor in campos.items():
                     if clave != 'action' and clave != 'idCuestionario':
-                        query = PreguntasEvaluadas.objects.filter(pregunta=clave).filter(
-                            captacion_id__id=campos['idCuestionario'][0])
-                        pregunta = query[0]
-                        pregunta.respuesta = valor[0]
-                        pregunta.save()
+                        self.editarRespuesta(query, clave, valor[0])
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
+
+    def editarRespuesta(self, listaPreguntas, clave, valor):
+        for i in listaPreguntas:
+            if i.pregunta == clave:
+                i.respuesta = valor
+                i.save()
 
     def getPreguntasEvaluadas(self):
         data = {}
@@ -690,7 +693,6 @@ class modificarPreguntasView(captarDatosView):
         for i in query:
             data[i.pregunta] = i.respuesta
             data.copy()
-        print(data)
         return data
 
     def getCuestionario(self):

@@ -1103,76 +1103,38 @@ $('#widgetUsuario').on('click', function () {
 
 //--------------------------------MODIFICACIONES DE LAS COSAS CAPTADAS DEL CUESTIONARIO---------------------------------------------//
 
-//-----------1. PREGUNTAS---------------//
 
-$('a[name="modificarPreguntas"]').on('click', function () {
-    let id = $(this).data('id');
-    let form = $('#b');
-    let bloque = $('#bloque')
-    $.ajax({
-        url: '/guia/modificarPreguntas1/',
-        type: 'POST',
-        data: {
-            'action': 'modificarPreguntas',
-            'id': id
-        },
-        dataType: 'json',
-    }).done(function (data) {
-        $('#modificacionPreguntas').prop("hidden", false);
-        console.log(form)
-        bloque.prepend('asa' + form + 'adsda')
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        alert(textStatus + ' : ' + errorThrown)
-    })
-});
+//----------PROCEDIMIENTO PARA VALIDAR Y MODIFICAR LAS PREGUNTAS ---------//
 
-$('form[name="contenidoEdicionPreguntas"]').on('submit', function (e) {
+let formularioEditarCaptacion = $('form[class="editFormCaptacion"]');
+
+validate_depedencias_campos(formularioEditarCaptacion);
+formularioEditarCaptacion.on('submit', function (e) {
     e.preventDefault();
-    var campos = new FormData(this);
-    $.ajax({
-        url: '/guia/modificarPreguntas/',
-        type: 'POST',
-        data: campos,
-        dataType: 'json',
-        processData: false,
-        contentType: false
-    }).done(function (data) {
-        $('#modificacionPreguntas').prop("hidden", true);
-        toastr.success("Las preguntas del cuestionario han sido modificadas correctamente.", 'Exito', {
-            progressBar: true,
-            closeButton: true,
-            "timeOut": "3000",
-        });
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        alert(textStatus + ' : ' + errorThrown)
-    })
+    let campos = new FormData(this);
+    if (validateComponenteTexto(formularioEditarCaptacion) === false) {return false};
+    if (validate_component_entero(formularioEditarCaptacion) === false) {return false};
+
+    envioConAjax(window.location.pathname, 'Notificación', '¿Estás seguro de realizar esta acción?', campos, function () {
+        let url = 'http://127.0.0.1:8000/guia/guiaCaptada/';
+        location.href = url
+    });
+
 });
 
-//-----------2. INSTANCIAS---------------//
+//-----------PROCEDIMIENTO PARA VALIDAR Y MODIFICAR LAS INSTANCIAS---------------//
 const redirect_url = () => {
     location.href = 'http://127.0.0.1:8000/guia/guiaCaptada/';
 };
 $('form[name="editarInstanciaForm"]').on('submit', function (e) {
     e.preventDefault();
     let instanciaSeccion = $(this).data('seccion');
-    if (validateInstancias(instanciaSeccion, $('input[name="1_modelo"]')) === false) {
-        return false
-    };
-    if (validateInstancias(instanciaSeccion, $('input[name="1_registro"]')) === false) {
-        return false
-    };
-    if (validateInstancias(instanciaSeccion, $('input[name="2_modelo"]')) === false) {
-        return false
-    };
-    if (validateInstancias(instanciaSeccion, $('input[name="2_registro"]')) === false) {
-        return false
-    };
-    if (validateInstancias(instanciaSeccion, $('input[name="3_modelo"]')) === false) {
-        return false
-    };
-    if (validateInstancias(instanciaSeccion, $('input[name="3_registro"]')) === false) {
-        return false
-    };
+    if (validateInstancias(instanciaSeccion, $('input[name="1_modelo"]')) === false) {return false};
+    if (validateInstancias(instanciaSeccion, $('input[name="1_registro"]')) === false) {return false};
+    if (validateInstancias(instanciaSeccion, $('input[name="2_modelo"]')) === false) {return false};
+    if (validateInstancias(instanciaSeccion, $('input[name="2_registro"]')) === false) {return false};
+    if (validateInstancias(instanciaSeccion, $('input[name="3_modelo"]')) === false) {return false};
+    if (validateInstancias(instanciaSeccion, $('input[name="3_registro"]')) === false) {return false};
     let campos = new FormData(this);
     $.ajax({
         url: '/seccion/editarInstancia/',
@@ -1991,28 +1953,3 @@ $('#reporteDeficiencias').DataTable({
 $('#tblCaptado').DataTable({});
 
 $('#tblNoCaptado').DataTable({});
-
-//------------------------------PROCEDIMIENTO PARA VALIDAR Y MODIFICAR UN CUESTIONARIO YA CAPTADO--------------------//
-
-let formularioEditarCaptacion = $('form[class="editFormCaptacion"]');
-
-validate_depedencias_campos(formularioEditarCaptacion);
-formularioEditarCaptacion.on('submit', function (e) {
-    e.preventDefault();
-    let campos = new FormData(this);
-
-    if (validateComponenteTexto(formularioEditarCaptacion) === false) {
-        return false
-    }
-    ;
-    if (validate_component_entero(formularioEditarCaptacion) === false) {
-        return false
-    }
-    ;
-
-    envioConAjax(window.location.pathname, 'Notificación', '¿Estas seguro de realizar esta accion?', campos, function () {
-        let url = 'http://127.0.0.1:8000/guia/guiaCaptada/';
-        location.href = url
-    });
-
-});
