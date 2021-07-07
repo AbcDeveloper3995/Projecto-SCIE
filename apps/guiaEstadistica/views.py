@@ -564,39 +564,24 @@ class reporteVerificacionIndicadores(LoginRequiredMixin, TemplateView):
      #Esta funcion es para trabajar con las infomacion de las verificaciones de manera general
     def getDiccionarioSecciones(self):
         data = {}
+        verificados = 0
         secciones = seccion.objects.filter(guia_id__activo=True)
-        for i in secciones:
-            verificados = 0
-            if i.numero != None:
-                query = verificacion.objects.filter(seccion_id__id=i.id)
-                if query.count() != 0:
-                    for j in query:
-                        verificados += j.indicadoresVerificados
-                    data[i.nombre] = verificados
-                else:
-                    data[i.nombre] = 'Error'
+        for j in secciones:
+            if j.numero != None:
+                data[j.nombre] = j.numero
         return data
 
     # Esta otra funcion es para trabajar con las infomacion de las verificaciones de cada cuestionario captado
     def getSeccionesGuia(self):
         return seccion.objects.filter(guia_id__activo=True)[2:]
 
-    def getPermiso(self):
-        permiso = False
-        if self.request.user.has_perm('usuario.administrador') or self.request.user.has_perm('usuario.estadistico'):
-            permiso = True
-            return permiso
-        else:
-            return permiso
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['titulo'] = 'Reporte de General de Verificacion de Indicadores'
+        context['titulo'] = 'Reporte Total'
         context['secciones'] = self.getDiccionarioSecciones()
         context['seccionesGuias'] = self.getSeccionesGuia()
         context['cuestionarios'] = getCuestionarios(self.request.user)
-        context['permiso'] = self.getPermiso()
         return context
 
 # PROCEDIMIENTO PARA EL REPORTE EXCEL DE DISCIPLINA INFORMATIVA

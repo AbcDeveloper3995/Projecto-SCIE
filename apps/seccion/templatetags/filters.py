@@ -32,32 +32,44 @@ def numeroSeccion(Seccion):
 '''Esta parte es para trabajar con las infomacion de las verificaciones de manera general'''
 
 # FILTRO PARA OBTENER EL TOTAL DE INDICADORES VERIFICADOS QUE NO COINCIDEN.
-@register.filter(name='verificadosNoCoinciden')
-def verificadosNoCoinciden(seccion):
+
+@register.filter(name='totalVerificados')
+def totalVerificados(user, nombreSeccion):
         verificados = 0
+        cuestionarios = utils.getCuestionarios(user)
+        for i in cuestionarios:
+            query = verificacion.objects.filter(seccion_id__nombre=nombreSeccion, cuestionario_fk=i)
+            if query.count() != 0:
+                for j in query:
+                    verificados += j.indicadoresVerificados
+            else:
+                verificados += 0
+        return verificados
+
+
+@register.filter(name='totalVerificadosNoCoinciden')
+def totalVerificadosNoCoinciden(user, nombreSeccion):
+        verificados = totalVerificados(user,nombreSeccion)
         coinciden = 0
-        query = verificacion.objects.filter(seccion_id__nombre=seccion)
-        for j in query:
-           verificados += j.indicadoresVerificados
-           coinciden +=j.indicadoresCoinciden
-        noCoinciden = verificados-coinciden
+        cuestionarios = utils.getCuestionarios(user)
+        for i in cuestionarios:
+            query = verificacion.objects.filter(seccion_id__nombre=nombreSeccion, cuestionario_fk=i)
+            if query.count() != 0:
+                for j in query:
+                    coinciden +=j.indicadoresCoinciden
+            else:
+                coinciden += 0
+        noCoinciden = verificados - coinciden
         return noCoinciden
 
 # FILTRO PARA OBTENER EL PORCIENTO QUE REPRESENTA LOS QUE NO COINCIDEN DEL TOTAL.
-@register.filter(name='porciento')
-def porciento(seccion):
-        verificados = 0
-        coinciden = 0
-        query = verificacion.objects.filter(seccion_id__nombre=seccion)
-        for j in query:
-           verificados += j.indicadoresVerificados
-           coinciden +=j.indicadoresCoinciden
-        noCoinciden = verificados-coinciden
-        if noCoinciden == 0:
-           return 0
-        else:
-           porciento = noCoinciden*100//verificados
-           return porciento
+@register.filter(name='totalPorciento')
+def totalPorciento(user, nombreSeccion):
+        verificados = totalVerificados(user,nombreSeccion)
+        noCoinciden = totalVerificadosNoCoinciden(user, nombreSeccion)
+        if noCoinciden == 0:return 0
+        porciento = noCoinciden*100//verificados
+        return porciento
 
 '''Esta otra parte es para trabajar con las infomacion de las verificaciones de cada cuestionario captado'''
 

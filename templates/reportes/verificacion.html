@@ -6,60 +6,36 @@
     {{ titulo }}
 {% endblock %}
 
-{% block idTable %}{% if permiso == True %}id="reporteVerificacionGeneral" {% endif %}{% endblock %}
+{% block idTable %}id="reporteVerificacionGeneral" {% endblock %}
 {% block columns %}
-    {% if permiso == True %}
         <tr>
             <th scope="col">Concepto</th>
             {% for clave, valor in secciones.items %}
                 <th scope="col">{{ clave|numeroSeccion }} - {{ clave }} </th>
             {% endfor %}
         </tr>
-    {% else %}
-        <div class="alert alert-danger alert-dismissible">
-            <h5><i class="icon fas fa-ban"></i> Denegado!</h5>
-            {{ request.user.first_name }} usted no cuenta con los permisos requeridos para acceder a esta infomacion.
-        </div>
-    {% endif %}
-
-
 {% endblock %}
 
 
 {% block rows %}
-    {% if permiso == True %}
         <tr>
             <td>Indicadores verificados</td>
             {% for clave,valor in secciones.items %}
-                {% if valor != "Error" %}
-                <td><span class="badge badge-primary">{{ valor }}</span></td>
-                {% else %}
-                <td><i class="miTippy fa fa-times-circle" title="No existen verificaciones realizadas a esta seccion"
-                                       style="color: red"></i></td>
-                {% endif %}
+                <td><span class="badge badge-primary">{{ request.user|totalVerificados:clave }}</span></td>
             {% endfor %}
         </tr>
         <tr>
             <td> No coinciden</td>
             {% for clave,valor in secciones.items %}
-                {% if valor != "Error" %}
-                <td><span class="badge badge-primary">{{ clave|verificadosNoCoinciden }}</span></td>
-                {% else %}
-                <td><span class="badge badge-danger">0</span></td>
-                {% endif %}
+                <td><span class="badge badge-primary">{{ request.user|totalVerificadosNoCoinciden:clave }}</span></td>
             {% endfor %}
         </tr>
         <tr>
             <td> Porciento que representa (%)</td>
             {% for clave,valor in secciones.items %}
-                {% if valor != "Error" %}
-                <td><span class="badge badge-primary">{{ clave|porciento }}%</span></td>
-                {% else %}
-                <td><span class="badge badge-danger">0%</span></td>
-                {% endif %}
+                <td><span class="badge badge-primary">{{ request.user|totalPorciento:clave }}%</span></td>
             {% endfor %}
         </tr>
-    {% endif %}
 {% endblock %}
 
 
