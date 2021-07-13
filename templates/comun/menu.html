@@ -2,11 +2,11 @@
 {% load filters %}
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <a href="{% url 'usuario:home' %}" class="brand-link">
-        <img src="{% static 'propios/img/avatar (2).jpg' %}"
+
+        <span class="brand-text font-weight-light badge "><img src="{% static 'propios/img/avatar (2).jpg' %}"
              alt="AdminLTE Logo"
              class="brand-image  elevation-3"
-             style="opacity: .8;width: 125px; border-radius: 10px">
-        <span class="brand-text font-weight-light badge bg-primary">SCIEv1.0</span>
+             style="opacity: .8;width: 135px; border-radius: 10px"></span>
     </a>
     <div class="sidebar">
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -15,7 +15,7 @@
                      alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block"><span class="badge badge-danger text-uppercase"
+                <a href="#" class="d-block"><span class="badge bg-gradient-primary text-uppercase"
                                                   style="margin-top: 8px"> {{ request.user }}</span></a>
             </div>
         </div>
@@ -92,7 +92,7 @@
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
-                    {% if perms.usuario.usuario_admin %}
+                    {% if perms.usuario.administrador %}
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-cogs"></i>
                             <p>

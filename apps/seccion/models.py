@@ -148,7 +148,6 @@ class instanciaSeccion(models.Model):
 
     def clean(self):
         if self.modelo_1 == -1:
-            print('error')
             raise ValidationError('error')
 
     def __str__(self):

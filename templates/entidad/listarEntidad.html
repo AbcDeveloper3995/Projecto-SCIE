@@ -11,7 +11,6 @@ id="entidadTable"
 
 {% block columns %}
     <tr>
-        <th ></th>
         <th scope="col">Cod.CI</th>
         <th scope="col">Descripcion</th>
         <th scope="col">Cod.Prov</th>
@@ -19,7 +18,7 @@ id="entidadTable"
         <th scope="col">Cod.Mun</th>
         <th scope="col">Descripcion</th>
         <th scope="col">Cod.NAE</th>
-        <th scope="col">Descricion</th>
+        <th scope="col">Descripcion</th>
         <th scope="col">Cod.OSDE</th>
         <th scope="col">Descripcion</th>
         <th scope="col">Cod.Org</th>
@@ -29,58 +28,7 @@ id="entidadTable"
 {% endblock %}
 
 {% block rows %}
-    {% for entidad in entidades %}
-        <tr>
-            <td></td>
-            <td>{{ entidad.codigo_CI }}</td>
-            <td><span class="badge bg-primary">{{ entidad.nombre_CI }}</span></td>
-            <td>{{ entidad.ome_codigo.codigo }}</td>
-            <td><span class="badge bg-primary">{{ entidad.ome_codigo.descripcion }}</span></td>
-            <td>{{ entidad.ote_codigo.codigo }}</td>
-            <td><span class="badge bg-primary">{{ entidad.ote_codigo.descripcion }}</span></td>
-            <td>{{ entidad.codigo_NAE.codigo }}</td>
-            <td><span class="badge bg-primary">{{ entidad.codigo_NAE.descripcion }}</span></td>
-            <td>{{ entidad.osde_codigo.codigo }}</td>
-            <td><span class="badge bg-primary">{{ entidad.osde_codigo.descripcion }}</span></td>
-            <td>{{ entidad.org_codigo.codigo }}</td>
-            <td><span class="badge bg-primary">{{ entidad.org_codigo.descripcion }}</span></td>
-            <td>
-                <a class="miTippy" href="{% url 'entidad:modificarEntidad' entidad.pk %}" type="button" title="Modificar"><i class="fa fa-edit"></i></a>
-                <a class="miTippy" href="#id{{ entidad.id }}" data-toggle="modal" type="button" title="Eliminar"><i class="fa fa-trash"></i></a>
 
-                {#Modal#}
-                <div id="id{{ entidad.id }}" class="modal fade" data-model-name="modal" tabindex="-1" role="dialog"
-                     aria-labelledby="myModalLabel2"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabel">
-                                    <i class="fa fa-trash"></i>
-                                    Eliminar Entidad
-                                </h4>
-                                <button type="button" class="close" data-dismiss="modal"
-                                        aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                ¿Está seguro que desea eliminar la entidad {{ entidad.nombre_CI }} ?
-                            </div>
-                            <div class="modal-footer">
-                                <a class="btn btn-default btn-sm"
-                                   data-dismiss="modal">Cancelar</a>
-                                <a class="btn btn-primary btn-sm"
-                                   href="{% url 'entidad:eliminarEntidad' entidad.id %}">
-                                    Si, eliminar
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    {% endfor %}
 {% endblock %}
 
 {% block button %}

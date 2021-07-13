@@ -9,7 +9,8 @@ class clasificador_DPA_Resource(resources.ModelResource):
         model = clasificadorDPA
 
 class clasificador_DPA_Admin(ImportExportModelAdmin, admin.ModelAdmin):
-    search_fields = ['descripcion']
+    search_fields = ['codigo']
+    list_display = ('codigo', 'descripcion')
     resource_class = clasificador_DPA_Resource
 
 class clasificador_NAE_Resource(resources.ModelResource):
@@ -18,6 +19,7 @@ class clasificador_NAE_Resource(resources.ModelResource):
 
 class clasificador_NAE_Admin(ImportExportModelAdmin, admin.ModelAdmin):
     search_fields = ['codigo']
+    list_display = ('codigo','descripcion')
     resource_class = clasificador_NAE_Resource
 
 class EntidadResource(resources.ModelResource):
@@ -25,8 +27,7 @@ class EntidadResource(resources.ModelResource):
         model = Entidad
 
 class EntidadAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    search_fields = ['nombre','provincia','osde_id','organismo_id']
-    list_display = ('codigo_CI', 'nombre_CI','ote_codigo','osde_codigo','org_codigo')
+    search_fields = ['codigo_CI', 'nombre_CI']
     resource_class = EntidadResource
 
 
@@ -46,7 +47,7 @@ class osde_Resource(resources.ModelResource):
 
 class osde_Admin(ImportExportModelAdmin, admin.ModelAdmin):
     search_fields = ['codigo']
-    list_display = ['codigo']
+    list_display = ('codigo', 'descripcion')
     resource_class = osde_Resource
 
 class universoAdmin(admin.ModelAdmin):

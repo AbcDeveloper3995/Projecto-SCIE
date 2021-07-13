@@ -63,6 +63,36 @@ const message_error = (obj) => {
     })
  }
 
+ const notificacion = (title,content, callback) => {
+    $.confirm({
+        theme:'material',
+        title:title,
+        icon:'fa fa-info',
+        content:content,
+        columnClass: 'small',
+        typeAnimated: true,
+        cancelButtonClass: 'btn-primary',
+        draggable: true,
+        dragWindowBorder: false,
+        buttons : {
+            info:{
+                text:"Si",
+                btnClass:'btn-primary',
+                action:function () {
+                    callback()
+                }
+            },
+            danger: {
+                text:"No",
+                btnClass:'btn-red',
+                action:function () {
+
+                }
+            }
+        }
+    })
+}
+
 particlesJS('particles-js',{
   "particles": {
     "number": {

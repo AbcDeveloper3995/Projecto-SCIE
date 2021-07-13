@@ -245,13 +245,11 @@ class dataUniversoView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         data = {}
-        dataJson = json.loads(request.POST['data'])
-        enitdad = Entidad.objects.all()
+        listaEnitdadesSelected = json.loads(request.POST['data'])
         try:
-            for j in enitdad:
-                 for i in dataJson:
-                     if i == j.codigo_CI:
-                         self.crearUniverso(j)
+            for i in listaEnitdadesSelected:
+                query = Entidad.objects.get(id=i['id'])
+                self.crearUniverso(query)
             data['exito'] = 'Universo creado correctamente.'
         except Exception as e:
             data['error'] =str(e)
@@ -564,7 +562,6 @@ class reporteVerificacionIndicadores(LoginRequiredMixin, TemplateView):
      #Esta funcion es para trabajar con las infomacion de las verificaciones de manera general
     def getDiccionarioSecciones(self):
         data = {}
-        verificados = 0
         secciones = seccion.objects.filter(guia_id__activo=True)
         for j in secciones:
             if j.numero != None:

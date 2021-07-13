@@ -632,14 +632,14 @@ const validateComponenteTexto = (formulario) => {
     }
 }
 
-//--------------------------------INICIALIZACION DE CAMPOS NUMERICOS EN SOBRE ENTIDAD--------------------------------------------//
+//--------------------------------INICIALIZACION DE CAMPOS NUMERICOS EN SOBRE ENTIDAD--------------------------------//
 
 let entero = $('.formCaptacion input[data-component="entero"]');
 for (var i = 0; i < entero.length; i++) {
     entero[i].value = 0
 }
 
-//-----------------------------------------PROCEDIMIENTO PARA GUARDAR LO CAPTADO EN SOBRE ENTIDAD--------------------------------------------------//
+//--------------------------------PROCEDIMIENTO PARA GUARDAR LO CAPTADO EN SOBRE ENTIDAD-----------------------------//
 
 
 let formularioCaptacion = $('form[class="formCaptacion"]');
@@ -876,9 +876,36 @@ $('select[name="columna_id"]').on('change', function () {
 $(document).ready(function () {
 
     let table = $('#entidadTable').DataTable({
+        select: true,
+        select: {
+            style: 'multi',
+        },
+        deferRender: true,
+        ajax: {
+            url: '/entidad/listarEntidad/',
+            type: 'POST',
+            data: {
+                'action': 'getEntidades',
+            },
+            dataSrc: ""
+        },
+        columns: [
+            {"data": "codigo_CI"},
+            {"data": "nombre_CI"},
+            {"data": "ote_codigo"},
+            {"data": "ote_descripcion"},
+            {"data": "ome_codigo"},
+            {"data": "ome_descripcion"},
+            {"data": "codigo_NAE"},
+            {"data": "codigo_NAE_descripcion"},
+            {"data": "osde_codigo"},
+            {"data": "osde_descripcion"},
+            {"data": "org_codigo"},
+            {"data": "org_descripcion"},
+            {"data": "id"},
+        ],
         columnDefs: [{
             orderable: false,
-            className: 'select-checkbox',
             targets: 0
         }, {
             orderable: false,
@@ -916,23 +943,27 @@ $(document).ready(function () {
         }, {
             orderable: false,
             targets: 12
-        }],
-        select: {
-            style: 'multi',
-            selector: 'td:first-child'
-        },
-        dom: 'Blfrtip',
-        buttons: [
-            'selectAll',
-            'selectNone',
-        ],
-        language: {
-            buttons: {
-                selectAll: "Seleccionar todos",
-                selectNone: "Deseleccionar todos"
+        },{
+            targets: [-1],
+                class: 'text-center',
+                orderable: false,
+            render: function (data, type, row) {
+                let buttons = '<a href="/entidad/modificarEntidad/' + row.id + '/"   type="button" ><i  class="fa fa-edit"></i></a>';
+                buttons += '<a href="#"  rel="eliminarEntidad" type="button"><i class="fa fa-trash"></i></a>';
+                return buttons;
             }
-        },
+        }],
     });
+
+    $('#entidadTable tbody').on('click', 'a[rel="eliminarEntidad"]', function () {
+        let tr = table.cell($(this).closest('td, li')).index();
+        let data = table.row(':eq(' + tr.row + ')').data();
+        notificacion('Notificacion', 'Estas seguro de eliminar al Centro Infomante (' +data.codigo_CI+ '-' + data.nombre_CI + ').', function () {
+            let url = 'http://127.0.0.1:8000/entidad/eliminarEntidad/' + data.id + '/';
+            location.href = url
+        });
+    });
+
 
     // -----------------------------------------------CREACION DE FILTROS POR CADA COLUMNA-----------------------------------------
 
@@ -960,7 +991,7 @@ $(document).ready(function () {
         let selector = $('.selected');
         let array = [];
         for (var i = 0; i < selector.length; i++) {
-            array.push(table.rows('.selected').data()[i][1]);
+            array.push(table.rows('.selected').data()[i]);
         }
         if (array.length === 0) {
             toastr.error("Seleccione al menos una opcion para conformar el universo.", 'Error', {
@@ -970,14 +1001,13 @@ $(document).ready(function () {
             });
             return false
         } else {
-            let valorJson = JSON.stringify(array);
-            console.log(valorJson);
+            let listaEnitdadesSelected = JSON.stringify(array);
             $.ajax({
                 url: '/guia/universo/',
                 type: 'POST',
                 data: {
                     'action': 'universo',
-                    'data': valorJson
+                    'data': listaEnitdadesSelected
                 },
                 dataType: 'json'
             }).done(function (data) {
@@ -1035,7 +1065,7 @@ $('a[name="detalles"]').on('click', function () {
 
             }
         }
-        var table = '<table class="table table-bordered table-striped" >' +
+        let table = '<table class="table table-hover table-striped" >' +
             '<thead class="bg-gradient-primary text-bold"><tr><td>Seccion</td>' +
             '<td>Codigo</td>' +
             '<td>No.Col</td>' +
@@ -1056,13 +1086,13 @@ $('a[name="detalles"]').on('click', function () {
                     '<td>' + data[i].columna_id + '</td>' +
                     '<td>' + data[i].modelo_1 + '</td>' +
                     '<td>' + data[i].registro_1 + '</td>' +
-                    '<td>' + '<span class="badge bg-danger" style="padding: 3px">' + data[i].diferencia_1 + '</span>' + '</td>' +
+                    '<td>' + '<span class="badge bg-gradient-navy" style="padding: 3px">' + data[i].diferencia_1 + '</span>' + '</td>' +
                     '<td>' + data[i].modelo_2 + '</td>' +
                     '<td>' + data[i].registro_2 + '</td>' +
-                    '<td>' + '<span class="badge bg-danger" style="padding: 3px">' + data[i].diferencia_2 + '</span>' + '</td>' +
+                    '<td>' + '<span class="badge bg-gradient-navy" style="padding: 3px">' + data[i].diferencia_2 + '</span>' + '</td>' +
                     '<td>' + data[i].modelo_3 + '</td>' +
                     '<td>' + data[i].registro_3 + '</td>' +
-                    '<td>' + '<span class="badge bg-danger" style="padding: 3px">' + data[i].diferencia_3 + '</span></td></tr>'
+                    '<td>' + '<span class="badge bg-gradient-navy" style="padding: 3px">' + data[i].diferencia_3 + '</span></td></tr>'
             }
         }
         table += '</tbody></table>'
