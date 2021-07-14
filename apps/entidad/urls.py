@@ -9,5 +9,12 @@ urlpatterns = [
     path('crearEntidad/', crearEntidadView.as_view(), name='crearEntidad'),
     path('modificarEntidad/<int:pk>/', updateEntidadView.as_view(), name='modificarEntidad'),
     path('eliminarEntidad/<int:pk>/', eliminarEntidad.as_view(), name='eliminarEntidad'),
+    path('eliminarCIselected/', eliminarCIselectedView.as_view(), name='eliminarCIselected'),
+
+    #IMPORTACIONES
+    path('importarEntidad/', importarEntidad.as_view(), name='importarEntidad'),
+    path('importarNAE/', importarNAE.as_view(), name='importarNAE'),
+    path('importarOSDE/', importarOSDE.as_view(), name='importarOSDE'),
+    path('importarORG/', importarOrganismo.as_view(), name='importarORG'),
 
 ]

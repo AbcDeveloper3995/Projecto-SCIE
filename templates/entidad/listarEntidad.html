@@ -1,5 +1,6 @@
 {% extends 'comun/listar.html' %}
 {% load static %}
+{% load filters %}
 
  {% block titulo %}
      {{ titulo }}
@@ -33,9 +34,89 @@ id="entidadTable"
 
 {% block button %}
     <div class="botones">
-      <a href="{% url 'entidad:crearEntidad' %}" type="button" class="cancelar boton-listar btn3">
-        <i class="fa fa-plus-circle"></i> Nueva entidad</a>
-         <button  id="universo" class="boton-salvar btn1">
-        <i class="fa fa-business-time"></i> Establecer universo</button>
+        <a href="{% url 'entidad:crearEntidad' %}" type="button" class="cancelar boton-listar btn3">
+            <i class="fa fa-plus-circle"></i> Nueva entidad</a>
+        <div class="btn-group">
+            <button class="boton-salvar btn1 dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                <i class="fa fa-cogs"></i> Acciones
+            </button>
+            <div class="dropdown-menu" role="menu">
+                <div class="container">
+                        <a class="dropdown-item" id="universo" href="#"><i class="fa fa-business-time" style="color: #0086ca">
+                        </i> Establecer universo</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" id="eliminarCIselected" href="#"><i class="fa fa-trash" style="color: #0086ca">
+                        </i> Eliminar seleccion</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button id="universo" class="boton-salvar btn1 dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                <i class="fa fa-upload"></i> Importar
+            </button>
+            <div class="dropdown-menu" role="menu" style="width: 200%">
+                <div class="container">
+                <form method="post" name="formImportarOsde" enctype="multipart/form-data">
+                    <input type="hidden" name="action" value="importar">
+                    <div class="form-group">
+                    <label for="exampleInputFile" class="ml-2"><span class="badge bg-gradient-navy">OSDE</span></label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" name="datosOSDE">
+                      </div>
+                      <div class="input-group-append">
+                        <button type="submit" class="input-group-text boton-salvar btn1 " style="border-radius: 5px" id=""><i class="fa fa-upload "> Cargar</i></button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div class="dropdown-divider"></div>
+                <form method="post" name="formImportarNAE" enctype="multipart/form-data">
+                    <input type="hidden" name="action" value="importar">
+                    <div class="form-group">
+                    <label for="exampleInputFile" class="ml-2"><span class="badge bg-gradient-navy">NAE</span></label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" name="datosNAE">
+                      </div>
+                      <div class="input-group-append">
+                        <button type="submit" class="input-group-text boton-salvar btn1 " style="border-radius: 5px" id=""><i class="fa fa-upload "> Cargar</i></button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div class="dropdown-divider"></div>
+                <form method="post" name="formImportarOrganismo" enctype="multipart/form-data">
+                    <input type="hidden" name="action" value="importar">
+                    <div class="form-group">
+                    <label for="exampleInputFile" class="ml-2"><span class="badge bg-gradient-navy">Organismo</span></label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" name="datosOrganismo">
+                      </div>
+                      <div class="input-group-append">
+                        <button type="submit" class="input-group-text boton-salvar btn1 " style="border-radius: 5px" id=""><i class="fa fa-upload "> Cargar</i></button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div class="dropdown-divider"></div>
+                <form method="post" name="formImportarCI" enctype="multipart/form-data">
+                    <div class="form-group">
+                    <label for="exampleInputFile" class="ml-2"><span class="badge bg-gradient-navy">Centro Informante</span></label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" name="datosCI">
+                      </div>
+                      <div class="input-group-append">
+                        <button type="submit" class="input-group-text boton-salvar btn1 " style="border-radius: 5px"  id=""><i class="fa fa-upload "> Cargar</i></button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -30,8 +30,6 @@ class EntidadAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     search_fields = ['codigo_CI', 'nombre_CI']
     resource_class = EntidadResource
 
-
-
 class organismo_Resource(resources.ModelResource):
     class Meta:
         model = organismo

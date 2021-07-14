@@ -1,5 +1,84 @@
 //--------------------------------------------------------INICIALIZACIONES----------------------------------------------------------//
 $('#dataTable').dataTable({});
+let tblEntidad = $('#entidadTable').DataTable({
+        select: true,
+        select: {
+            style: 'multi',
+        },
+        deferRender: true,
+        ajax: {
+            url: '/entidad/listarEntidad/',
+            type: 'POST',
+            data: {
+                'action': 'getEntidades',
+            },
+            dataSrc: ""
+        },
+        columns: [
+            {"data": "codigo_CI"},
+            {"data": "nombre_CI"},
+            {"data": "ote_codigo"},
+            {"data": "ote_descripcion"},
+            {"data": "ome_codigo"},
+            {"data": "ome_descripcion"},
+            {"data": "codigo_NAE"},
+            {"data": "codigo_NAE_descripcion"},
+            {"data": "osde_codigo"},
+            {"data": "osde_descripcion"},
+            {"data": "org_codigo"},
+            {"data": "org_descripcion"},
+            {"data": "id"},
+        ],
+        columnDefs: [{
+            orderable: false,
+            targets: 0
+        }, {
+            orderable: false,
+            targets: 1
+        }, {
+            orderable: false,
+            targets: 2
+        }, {
+            orderable: false,
+            targets: 3
+        }, {
+            orderable: false,
+            targets: 4
+        }, {
+            orderable: false,
+            targets: 5
+        }, {
+            orderable: false,
+            targets: 6
+        }, {
+            orderable: false,
+            targets: 7
+        }, {
+            orderable: false,
+            targets: 8
+        }, {
+            orderable: false,
+            targets: 9
+        }, {
+            orderable: false,
+            targets: 10
+        }, {
+            orderable: false,
+            targets: 11
+        }, {
+            orderable: false,
+            targets: 12
+        }, {
+            targets: [-1],
+            class: 'text-center',
+            orderable: false,
+            render: function (data, type, row) {
+                let buttons = '<a href="/entidad/modificarEntidad/' + row.id + '/"   type="button" ><i  class="fa fa-edit"></i></a>';
+                buttons += '<a href="#"  rel="eliminarEntidad" type="button"><i class="fa fa-trash"></i></a>';
+                return buttons;
+            }
+        }],
+    });
 
 $('.select2').select2({
     theme: 'bootstrap4',
@@ -80,7 +159,7 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
         $('input[name="2_modelo"]').val(data.modelo_2);
         $('input[name="3_registro"]').val(data.registro_3);
         $('input[name="3_modelo"]').val(data.modelo_3);
-        $('#modalEditarInstancia'+data.seccion_id+'').modal('show');
+        $('#modalEditarInstancia' + data.seccion_id + '').modal('show');
     });
 
     if (datatable.data().any()) {
@@ -128,7 +207,7 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
 };
 
 
-//--------------------------------------------------------VALIDACIONES DE FECHAS------------------------------------------------//
+//---------------------------------------------VALIDACIONES DE FECHAS------------------------------------------------//
 
 $('.date').datetimepicker({
     format: 'DD/MM/YYYY',
@@ -136,6 +215,7 @@ $('.date').datetimepicker({
     locale: 'es',
     maxDate: moment().format("YYYY-MM-DD"),
 });
+
 
 
 //--------------------------------------VALIDACIONES PARA EL FORM INSTANCIAS---------------------------------------------//
@@ -163,6 +243,9 @@ const validateInstancias = (seccionForm, seccionCampo) => {
     }
 }
 
+
+
+
 //-----------------------VALIDACIONES DEL FORM VERIFICACION-------------------------------------------//
 
 const validate_indicadores_no_empty = (seccion_form_verificacion, campo) => {
@@ -177,6 +260,9 @@ const validate_indicadores_no_empty = (seccion_form_verificacion, campo) => {
         }
     }
 }
+
+
+
 
 //-------------------------PROCEDIMIENTO PARA GUARDAR LO VERIFICADO-------------------------------------//
 
@@ -213,6 +299,8 @@ $('form[name="formVerificacion"]').on('submit', function (e) {
         alert(textStatus + ' : ' + errorThrown)
     })
 });
+
+
 
 //-----------------------VALIDACIONES PARA LA SECCION IDENTIFICACION Y SOBRE ENTIDAD-----------------------------------------//
 
@@ -632,12 +720,18 @@ const validateComponenteTexto = (formulario) => {
     }
 }
 
+
+
+
 //--------------------------------INICIALIZACION DE CAMPOS NUMERICOS EN SOBRE ENTIDAD--------------------------------//
 
 let entero = $('.formCaptacion input[data-component="entero"]');
 for (var i = 0; i < entero.length; i++) {
     entero[i].value = 0
 }
+
+
+
 
 //--------------------------------PROCEDIMIENTO PARA GUARDAR LO CAPTADO EN SOBRE ENTIDAD-----------------------------//
 
@@ -695,6 +789,7 @@ formularioCaptacion.on('submit', function (e) {
 });
 
 
+
 //-----------------------------------------PROCEDIMIENTO PARA GUARDAR LO CAPTADO EN EL FORM DE INSTANCIA--------------------------------------------------//
 
 $('form[name="instanciaForm"]').on('submit', function (e) {
@@ -702,31 +797,40 @@ $('form[name="instanciaForm"]').on('submit', function (e) {
     let instancia_from_seccion = $(this).data('seccion');
     if (validateInstancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false) {
         return false
-    };
+    }
+    ;
     if (validateInstancias(instancia_from_seccion, $('select[name="columna_id"]')) === false) {
         return false
-    };
+    }
+    ;
     if (validateInstancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false) {
         return false
-    };
+    }
+    ;
     if (validateInstancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false) {
         return false
-    };
+    }
+    ;
     if (validateInstancias(instancia_from_seccion, $('input[name="registro_1"]')) === false) {
         return false
-    };
+    }
+    ;
     if (validateInstancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false) {
         return false
-    };
+    }
+    ;
     if (validateInstancias(instancia_from_seccion, $('input[name="registro_2"]')) === false) {
         return false
-    };
+    }
+    ;
     if (validateInstancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false) {
         return false
-    };
+    }
+    ;
     if (validateInstancias(instancia_from_seccion, $('input[name="registro_3"]')) === false) {
         return false
-    };
+    }
+    ;
     let campos = new FormData(this);
     $.ajax({
         url: '/guia/dataCaptacion/',
@@ -807,6 +911,8 @@ $('form[name="instanciaFormContuniarCaptacion"]').on('submit', function (e) {
 });
 
 
+
+
 //-------------------------------------------SELECT ENCADENADOS---------------------------------------------------------------
 
 let select = $('select[name="seccion_id"]');
@@ -872,93 +978,17 @@ $('select[name="columna_id"]').on('change', function () {
     });
 });
 
+
+
+
+
 //----------------------------------------------PERSONALIZACION DE LA TABLA ENTIDAD------------------------------------------------------------------
 $(document).ready(function () {
 
-    let table = $('#entidadTable').DataTable({
-        select: true,
-        select: {
-            style: 'multi',
-        },
-        deferRender: true,
-        ajax: {
-            url: '/entidad/listarEntidad/',
-            type: 'POST',
-            data: {
-                'action': 'getEntidades',
-            },
-            dataSrc: ""
-        },
-        columns: [
-            {"data": "codigo_CI"},
-            {"data": "nombre_CI"},
-            {"data": "ote_codigo"},
-            {"data": "ote_descripcion"},
-            {"data": "ome_codigo"},
-            {"data": "ome_descripcion"},
-            {"data": "codigo_NAE"},
-            {"data": "codigo_NAE_descripcion"},
-            {"data": "osde_codigo"},
-            {"data": "osde_descripcion"},
-            {"data": "org_codigo"},
-            {"data": "org_descripcion"},
-            {"data": "id"},
-        ],
-        columnDefs: [{
-            orderable: false,
-            targets: 0
-        }, {
-            orderable: false,
-            targets: 1
-        }, {
-            orderable: false,
-            targets: 2
-        }, {
-            orderable: false,
-            targets: 3
-        }, {
-            orderable: false,
-            targets: 4
-        }, {
-            orderable: false,
-            targets: 5
-        }, {
-            orderable: false,
-            targets: 6
-        }, {
-            orderable: false,
-            targets: 7
-        }, {
-            orderable: false,
-            targets: 8
-        }, {
-            orderable: false,
-            targets: 9
-        }, {
-            orderable: false,
-            targets: 10
-        }, {
-            orderable: false,
-            targets: 11
-        }, {
-            orderable: false,
-            targets: 12
-        },{
-            targets: [-1],
-                class: 'text-center',
-                orderable: false,
-            render: function (data, type, row) {
-                let buttons = '<a href="/entidad/modificarEntidad/' + row.id + '/"   type="button" ><i  class="fa fa-edit"></i></a>';
-                buttons += '<a href="#"  rel="eliminarEntidad" type="button"><i class="fa fa-trash"></i></a>';
-                return buttons;
-            }
-        }],
-    });
-
     $('#entidadTable tbody').on('click', 'a[rel="eliminarEntidad"]', function () {
-        let tr = table.cell($(this).closest('td, li')).index();
-        let data = table.row(':eq(' + tr.row + ')').data();
-        notificacion('Notificacion', 'Estas seguro de eliminar al Centro Infomante (' +data.codigo_CI+ '-' + data.nombre_CI + ').', function () {
+        let tr = tblEntidad.cell($(this).closest('td, li')).index();
+        let data = tblEntidad.row(':eq(' + tr.row + ')').data();
+        notificacion('Notificacion', 'Estas seguro de eliminar al Centro Infomante (' + data.codigo_CI + '-' + data.nombre_CI + ').', function () {
             let url = 'http://127.0.0.1:8000/entidad/eliminarEntidad/' + data.id + '/';
             location.href = url
         });
@@ -974,8 +1004,8 @@ $(document).ready(function () {
         $(this).html('<input type="text" id="' + title + '1" placeholder="' + title + '" style="border-color: blue;border-top:0px;border-left:0px;border-right: 0px; width: 100%"/>');
 
         $('input', this).on('keyup change ', function () {
-            if (table.column(i).search() !== this.value) {
-                table
+            if (tblEntidad.column(i).search() !== this.value) {
+                tblEntidad
                     .column(i)
                     .search(this.value)
                     .draw();
@@ -991,7 +1021,7 @@ $(document).ready(function () {
         let selector = $('.selected');
         let array = [];
         for (var i = 0; i < selector.length; i++) {
-            array.push(table.rows('.selected').data()[i]);
+            array.push(tblEntidad.rows('.selected').data()[i]);
         }
         if (array.length === 0) {
             toastr.error("Seleccione al menos una opcion para conformar el universo.", 'Error', {
@@ -1025,6 +1055,54 @@ $(document).ready(function () {
             });
         }
     });
+
+    //---------------------PROCEDIMIENTO PARA ELIMINAR TODAS LAS ENTIDADES SELECTED--------------------------//
+    $('#eliminarCIselected').on('click', function () {
+        let selector = $('.selected');
+        let array = [];
+        for (var i = 0; i < selector.length; i++) {
+            array.push(tblEntidad.rows('.selected').data()[i]);
+        }
+        if (array.length === 0) {
+            toastr.error("Debe seleccionar al menos una opcion.", 'Error', {
+                progressBar: true,
+                closeButton: true,
+                "timeOut": "3000",
+            });
+            return false
+        } else {
+            let listaEnitdadesSelected = JSON.stringify(array);
+            $.ajax({
+                url: '/entidad/eliminarCIselected/',
+                type: 'POST',
+                data: {
+                    'action': 'eliminarCIselected',
+                    'data': listaEnitdadesSelected
+                },
+                dataType: 'json'
+            }).done(function (data) {
+                if (data.hasOwnProperty('error')) {
+                    toastr.error(data.error, 'Error', {
+                        progressBar: true,
+                        closeButton: true,
+                        "timeOut": "5000",
+                    });
+                } else {
+                     tblEntidad.ajax.reload(toastr.success(data.exito, 'Exito', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "3000",
+                }), false)
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                toastr.error(textStatus + ' : ' + errorThrown, 'Error', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "3000",
+                })
+            });
+        }
+    });
 });
 
 
@@ -1032,7 +1110,7 @@ $('div[data-model-name="modal"]').on('shown.bs.modal', function () {
     $('form[name="instanciaForm"]')[0].reset();
 });
 
-//-----------------------------------------------------------PARTE PARA MOSTRAR LO CAPTADO---------------------------------------
+//------------------------------------------------PARTE PARA MOSTRAR LO CAPTADO---------------------------------------//
 //------------------------PREGUNTAS EVALUADAS Y SECCIONES----------------------//
 
 $('#detalles_preguntasEvaluadas').prop("hidden", true);
@@ -1102,6 +1180,8 @@ $('a[name="detalles"]').on('click', function () {
     });
 });
 
+
+
 //-----------------------------------CONTROL DE ACCESOS-------------------------------------------//
 
 $('#widgetGuia').on('click', function () {
@@ -1131,6 +1211,9 @@ $('#widgetUsuario').on('click', function () {
     })
 });
 
+
+
+
 //--------------------------------MODIFICACIONES DE LAS COSAS CAPTADAS DEL CUESTIONARIO---------------------------------------------//
 
 
@@ -1142,8 +1225,14 @@ validate_depedencias_campos(formularioEditarCaptacion);
 formularioEditarCaptacion.on('submit', function (e) {
     e.preventDefault();
     let campos = new FormData(this);
-    if (validateComponenteTexto(formularioEditarCaptacion) === false) {return false};
-    if (validate_component_entero(formularioEditarCaptacion) === false) {return false};
+    if (validateComponenteTexto(formularioEditarCaptacion) === false) {
+        return false
+    }
+    ;
+    if (validate_component_entero(formularioEditarCaptacion) === false) {
+        return false
+    }
+    ;
 
     envioConAjax(window.location.pathname, 'Notificación', '¿Estás seguro de realizar esta acción?', campos, function () {
         let url = 'http://127.0.0.1:8000/guia/guiaCaptada/';
@@ -1159,12 +1248,30 @@ const redirect_url = () => {
 $('form[name="editarInstanciaForm"]').on('submit', function (e) {
     e.preventDefault();
     let instanciaSeccion = $(this).data('seccion');
-    if (validateInstancias(instanciaSeccion, $('input[name="1_modelo"]')) === false) {return false};
-    if (validateInstancias(instanciaSeccion, $('input[name="1_registro"]')) === false) {return false};
-    if (validateInstancias(instanciaSeccion, $('input[name="2_modelo"]')) === false) {return false};
-    if (validateInstancias(instanciaSeccion, $('input[name="2_registro"]')) === false) {return false};
-    if (validateInstancias(instanciaSeccion, $('input[name="3_modelo"]')) === false) {return false};
-    if (validateInstancias(instanciaSeccion, $('input[name="3_registro"]')) === false) {return false};
+    if (validateInstancias(instanciaSeccion, $('input[name="1_modelo"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instanciaSeccion, $('input[name="1_registro"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instanciaSeccion, $('input[name="2_modelo"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instanciaSeccion, $('input[name="2_registro"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instanciaSeccion, $('input[name="3_modelo"]')) === false) {
+        return false
+    }
+    ;
+    if (validateInstancias(instanciaSeccion, $('input[name="3_registro"]')) === false) {
+        return false
+    }
+    ;
     let campos = new FormData(this);
     $.ajax({
         url: '/seccion/editarInstancia/',
@@ -1196,6 +1303,8 @@ $('.acordeon').on('click', function () {
         }
     }
 });
+
+
 
 
 //-------------------------------VALIDACIONES DENTRO DE LOS FORMULARIOS DENTRO DE LA SECCION ADMIN--------------------------//
@@ -1738,6 +1847,8 @@ $('#changePasswordForm').bootstrapValidator({
 });
 
 
+
+
 //------------------PROCEDIMIENTO PARA CREAR UNA GUIA CON LAS MISMAS CONFIGURACIONES DE OTRA YA DEFINIDA-----------------------//
 const url = () => {
     location.href = 'http://127.0.0.1:8000/guia/listarGuias/';
@@ -1794,6 +1905,8 @@ $('#safe').on('click', function () {
 
 })
 
+
+
 //---------------------------------PROCEDIMIENTO PARA El REPORTE DE VERIFICACION--------------------------------------//
 $('#reporteVerificacionGeneral').DataTable({
     dom: "Bfrtip",
@@ -1840,6 +1953,8 @@ $('#tblVerificacionPorProvincia').DataTable({
     }
 });
 
+
+
 //--------------------------------------PROCEDIMIENTO PARA El REPORTE GENERAL---------------------------------------------//
 $('#reporteGeneral').DataTable({
     scrollX: true,
@@ -1864,6 +1979,8 @@ $('#reporteGeneral').DataTable({
     }
 });
 
+
+
 //--------------------------PROCEDIMIENTO PARA El REPORTE DE DISCIPLINA INFORMATIVA----------------------------------//
 $('#reporteDisciplinaInfo').DataTable({
     dom: "Bfrtip",
@@ -1886,6 +2003,8 @@ $('#reporteDisciplinaInfo').DataTable({
         ]
     }
 });
+
+
 
 //---------------------------------PROCEDIMIENTO PARA El REPORTE DE SEÑALAMIENTO DE ERRORES-----------------------------//
 $('#reporteErrores').DataTable({
@@ -1910,6 +2029,8 @@ $('#reporteErrores').DataTable({
     }
 });
 
+
+
 //---------------------------PROCEDIMIENTO PARA El REPORTE DE Displina info Centro Controlado-----------------------------//
 $('#reporteDisciplinaInfoCentroControlados').DataTable({
     dom: "Bfrtip",
@@ -1932,6 +2053,8 @@ $('#reporteDisciplinaInfoCentroControlados').DataTable({
         ]
     }
 });
+
+
 
 //------------------------------PROCEDIMIENTO PARA El REPORTE DE Domicilio Social Incorrecto-----------------------------//
 $('#reporteDomicilioSocial').DataTable({
@@ -1956,6 +2079,8 @@ $('#reporteDomicilioSocial').DataTable({
     }
 });
 
+
+
 //---------------------------------PROCEDIMIENTO PARA El REPORTE DE DEFICIENCIAS-----------------------------//
 $('#reporteDeficiencias').DataTable({
     dom: "Bfrtip",
@@ -1979,7 +2104,63 @@ $('#reporteDeficiencias').DataTable({
     }
 });
 
+
+
 //---------------------------------PROCEDIMIENTO PARA El REPORTE DE CAPTACION-----------------------------//
 $('#tblCaptado').DataTable({});
 
 $('#tblNoCaptado').DataTable({});
+
+
+
+//---------------------------------PROCEDIMIENTO PARA MANDAR A REALIZAR LAS IMPORTACIONES--------------------------------//
+
+const importar = (formulario, url) => {
+
+    formulario.on('submit', function (e) {
+        e.preventDefault();
+        let campos = new FormData(this);
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: campos,
+            dataType: 'json',
+            processData: false,
+            contentType: false
+        }).done(function (data) {
+            if (data.hasOwnProperty('error')) {
+                toastr.error(data.error, 'Error', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "5000",
+                });
+            } else {
+                tblEntidad.ajax.reload(toastr.success(data.exito, 'Exito', {
+                    progressBar: true,
+                    closeButton: true,
+                    "timeOut": "3000",
+                }), false)
+
+            }
+
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            alert(textStatus + ' : ' + errorThrown)
+        })
+    })
+};
+
+                                 //-----------PARA ENTIDAD-----------//
+let formImportarCI = $('form[name="formImportarCI"]');
+importar(formImportarCI,'/entidad/importarEntidad/');
+
+                                //-----------PARA NAE-----------//
+let formImportarNAE = $('form[name="formImportarNAE"]');
+importar(formImportarNAE,'/entidad/importarNAE/');
+
+                                //-----------PARA OSDE-----------//
+let formImportarOsde = $('form[name="formImportarOsde"]');
+importar(formImportarOsde,'/entidad/importarOSDE/');
+
+                                //-----------PARA ORGANISMO-----------//
+let formImportarOrganismo = $('form[name="formImportarOrganismo"]');
+importar(formImportarOrganismo,'/entidad/importarORG/');
