@@ -1036,7 +1036,7 @@ $(document).ready(function () {
                 url: '/guia/universo/',
                 type: 'POST',
                 data: {
-                    'action': 'universo',
+                    'action': 'crearUniverso',
                     'data': listaEnitdadesSelected
                 },
                 dataType: 'json'

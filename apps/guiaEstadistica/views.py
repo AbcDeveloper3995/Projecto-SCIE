@@ -247,25 +247,36 @@ class dataUniversoView(LoginRequiredMixin, TemplateView):
         data = {}
         listaEnitdadesSelected = json.loads(request.POST['data'])
         try:
+            aux = []
             for i in listaEnitdadesSelected:
                 query = Entidad.objects.get(id=i['id'])
-                self.crearUniverso(query)
-            data['exito'] = 'Universo creado correctamente.'
+                aux.append(query)
+            data['exito'] = self.crearUniverso(aux)
         except Exception as e:
             data['error'] =str(e)
         return JsonResponse(data, safe=False)
 
-
-    def getGuia(self):
+    def crearUniverso(self, listaEntidades):
         guia = guiaEstadistica.objects.get(activo=True)
-        return guia
-
-    def crearUniverso(self, Entidad):
-            obj = universoEntidades(
-                guia=self.getGuia(),
-                entidad_codigo=Entidad
-            )
-            obj.save()
+        sms = 'Universo creado correctamente.'
+        if universoEntidades.objects.count() == 0:
+            for i in listaEntidades:
+                    objUniverso = universoEntidades(
+                        guia=guia,
+                        entidad_codigo=i
+                    )
+                    objUniverso.save()
+            return sms
+        for i in listaEntidades:
+            try:
+                universoEntidades.objects.get(entidad_codigo=i)
+            except:
+                objUniverso = universoEntidades(
+                    guia=guia,
+                    entidad_codigo=i
+                )
+                objUniverso.save()
+        return sms
 
 # PROCEDIMIENTO PARA CREAR LAS PREGUNTAS EVALUADAS Y LAS INSTANCIAS DE SECCION
 class dataCaptacion(captarDatosView):

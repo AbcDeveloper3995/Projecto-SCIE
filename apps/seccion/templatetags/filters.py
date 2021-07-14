@@ -1,8 +1,6 @@
-import utils
-
 from django import template
 
-from apps.entidad.models import clasificadorNAE, osde, organismo, Entidad
+import utils
 from apps.guiaEstadistica.models import cuestionario, PreguntasEvaluadas
 from apps.indicadores.models import Indicadores
 from apps.seccion.models import seccion, verificacion
@@ -19,30 +17,6 @@ def obtenerTipo(clave):
 @register.filter(name='totalCuestionarios')
 def totalCuestionarios(user):
         query = cuestionario.objects.all().count()
-        return query
-
-# FILTRO PARA OBTENER EL TOTAL DE NAE.
-@register.filter(name='totalNAE')
-def totalNAE(user):
-        query = clasificadorNAE.objects.all().count()
-        return query
-
-# FILTRO PARA OBTENER EL TOTAL DE OSDE.
-@register.filter(name='totalOSDE')
-def totalOSDE(user):
-        query = osde.objects.all().count()
-        return query
-
-# FILTRO PARA OBTENER EL TOTAL DE ORGANISMO.
-@register.filter(name='totalOrganismos')
-def totalOrganismos(user):
-        query = organismo.objects.all().count()
-        return query
-
-# FILTRO PARA OBTENER EL TOTAL DE OCI.
-@register.filter(name='totalCI')
-def totalCI(user):
-        query = Entidad.objects.all().count()
         return query
 
 # FILTRO PARA OBTENER EL NUMERO DE LA SECCION.
