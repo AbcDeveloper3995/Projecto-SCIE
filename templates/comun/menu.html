@@ -3,7 +3,7 @@
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <a href="{% url 'usuario:home' %}" class="brand-link">
 
-        <span class="brand-text font-weight-light badge "><img src="{% static 'propios/img/avatar (2).jpg' %}"
+        <span class="brand-text font-weight-light badge "><img src="{% static 'propios/img/logo.jpg' %}"
              alt="AdminLTE Logo"
              class="brand-image  elevation-3"
              style="opacity: .8;width: 135px; border-radius: 10px"></span>
@@ -38,6 +38,7 @@
                         </p>
                     </a>
                 </li>
+                {% if request.user|totalCuestionarios != 0 %}
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file"></i>
@@ -91,6 +92,7 @@
                         </li>
                     </ul>
                 </li>
+                {% endif %}
                 <li class="nav-item has-treeview">
                     {% if perms.usuario.administrador %}
                         <a href="#" class="nav-link">
@@ -156,15 +158,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'indicador:listarIndicador' %}" class="nav-link">
-                                <i class="nav-icon fa fa-question"></i>
-                                <p>Preguntas</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="{% url 'indicador:listarRespuesta' %}" class="nav-link">
                                 <i class="nav-icon fa fa-text-width"></i>
                                 <p>Configurar Respuestas</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'indicador:listarIndicador' %}" class="nav-link">
+                                <i class="nav-icon fa fa-question"></i>
+                                <p>Configurar Preguntas</p>
                             </a>
                         </li>
                         <li class="nav-header">USUARIOS</li>

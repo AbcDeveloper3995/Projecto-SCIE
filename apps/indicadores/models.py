@@ -7,7 +7,6 @@ CHOICES = (
     ('3', 'Numerico'),
     ('4', 'Logico'),
     ('5', 'Fecha'),
-    ('6', 'Fecha y Hora')
 
 )
 
@@ -27,7 +26,7 @@ class clasificadorIndicadores(models.Model):
 
 class posiblesRespuestas(models.Model):
     nombre = models.CharField(verbose_name='Nombre', max_length=50, blank=False, null=False, unique=True)
-    tipo_dato = models.CharField(verbose_name='Tipo de dato', max_length=50,choices=CHOICES)
+    tipo_dato = models.CharField(verbose_name='Tipo de respuesta', max_length=50,choices=CHOICES)
     activo = models.BooleanField(verbose_name='Es_activo', default=True)
 
 
@@ -46,7 +45,7 @@ class Indicadores(models.Model):
     nombre = models.CharField(verbose_name='Nombre', max_length=255, blank=False, null=False)
     activo = models.BooleanField(verbose_name='Es_activo', default=True)
     cod_indicador = models.IntegerField(verbose_name='Codigo de pregunta', blank=True, null=True)
-    fechaCreacion = models.DateField(verbose_name='Fecha de creacion', auto_now=False, auto_now_add=True, blank=True, null=True)
+    fechaCreacion = models.DateField(verbose_name='Fecha de creacion', auto_now=True, blank=True, null=True)
 
 
     class Meta:

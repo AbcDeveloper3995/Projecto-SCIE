@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.forms import *
 
 from apps.indicadores.models import *
@@ -9,7 +10,7 @@ class clasificadorIndicadorForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['seccion_id'].queryset = seccion.objects.all()
+        self.fields['seccion_id'].queryset = seccion.objects.filter(Q(tipo='1') | Q(tipo='2'))
 
     class Meta:
         model = clasificadorIndicadores

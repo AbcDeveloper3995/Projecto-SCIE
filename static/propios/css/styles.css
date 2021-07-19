@@ -186,3 +186,11 @@
     height: 180%;
 }
 
+.help-block {
+    color: red;
+    font-size: 18px;
+}
+
+.form-control-feedback{
+    color: red;
+}

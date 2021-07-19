@@ -60,14 +60,14 @@ class clasificadorPeriodo(models.Model):
 
 
 class seccion(models.Model):
-    nombre = models.CharField(verbose_name='Nombre', max_length=255, help_text='Si el nombre de la seccion a crear contiene mas de una palabra debe poner guion bajo( _ ) entre una y la otra')
+    nombre = models.CharField(verbose_name='Nombre', max_length=255, help_text='Si el nombre de la seccion a crear contiene mas de una palabra debe poner guion bajo entre una y la otra.')
     guia_id = models.ForeignKey(guiaEstadistica,verbose_name='Guia a vincular', blank=True, null=True, on_delete=models.CASCADE)
     periodo_id = models.ForeignKey(clasificadorPeriodo,verbose_name='Periodo a controlar', blank=True, null=True, on_delete=models.CASCADE)
     numero = models.CharField(verbose_name='Numero',max_length=5, blank=True, null=True)
     subNumero = models.CharField(verbose_name='Sub-numero', max_length=5, blank=True, null=True)
-    orden = models.IntegerField(verbose_name='Orden', blank=True, null=True)
+    orden = models.IntegerField(verbose_name='Orden', blank=True, null=True, help_text='El campo orden es para establecer el orden en que se van a mostrar las secciones al captar un cuestionario.')
     activo = models.BooleanField(verbose_name='Es_activo', default=True, blank=True, null=True)
-    tipo = models.IntegerField(verbose_name='Tipo de seccion', choices=CHOICE_TIPO, blank=True, null=True)
+    tipo = models.IntegerField(verbose_name='Tipo de seccion', choices=CHOICE_TIPO, blank=True, null=True, help_text='Asignar tipo 1 si la seccion a crear es Identificacion, tipo 2 si es Sobre_Entidad y tipo 3 para el resto.')
 
 
 

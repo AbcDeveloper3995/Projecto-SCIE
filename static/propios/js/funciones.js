@@ -1309,7 +1309,7 @@ $('.acordeon').on('click', function () {
 
 //-------------------------------VALIDACIONES DENTRO DE LOS FORMULARIOS DENTRO DE LA SECCION ADMIN--------------------------//
 
-$(' #guiaForm').bootstrapValidator({
+$('#guiaForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
@@ -1333,7 +1333,7 @@ $(' #guiaForm').bootstrapValidator({
     }
 });
 
-$(' #entidadForm').bootstrapValidator({
+$('#entidadForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
@@ -1418,7 +1418,7 @@ $(' #entidadForm').bootstrapValidator({
     }
 });
 
-$(' #periodoForm').bootstrapValidator({
+$('#periodoForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
@@ -1458,7 +1458,7 @@ $(' #periodoForm').bootstrapValidator({
     }
 });
 
-$(' #seccionForm').bootstrapValidator({
+$('#seccionForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
@@ -1480,7 +1480,6 @@ $(' #seccionForm').bootstrapValidator({
             }
         },
         guia_id: {
-            message: 'El nombre no es valido',
             validators: {
                 notEmpty: {
                     message: 'Campo requerido. Debe seleccionar una opcion'
@@ -1488,20 +1487,74 @@ $(' #seccionForm').bootstrapValidator({
 
             }
         },
+        numero: {
+            message: 'El numero no es valido',
+            validators: {
+                regexp: {
+                    regexp: /^[0-9]+$/,
+                    message: 'Solo se admiten digitos.'
+                }
+            }
+        },
+        subNumero: {
+            message: 'El subNumero no es valido',
+            validators: {
+                regexp: {
+                    regexp: /^[0-9]+$/,
+                    message: 'Solo se admiten digitos.'
+                }
+            }
+        },
         orden: {
-            message: 'El nombre no es valido',
+            message: 'El orden no es valido',
             validators: {
                 notEmpty: {
                     message: 'El orden es requerido'
                 },
+                regexp: {
+                    regexp: /^[0-9]+$/,
+                    message: 'Solo se admiten digitos.'
+                }
             }
         },
+        tipo: {
+            validators: {
+                notEmpty: {
+                    message: 'Campo requerido. Debe seleccionar una opcion'
+                },
+
+            }
+        }
 
 
     }
 });
 
-$(' #codigoForm').bootstrapValidator({
+//---------------MOSTRAR TEXTO DE AYUDA DE LOS CAMPOS DEL SSECCION-FORM QUE LO TENGAN-------//
+$('#campoOrden').on('mouseover', function () {
+        $('#textoAyudaOrden').prop('hidden', false);
+});
+$('#campoOrden').on('click', function () {
+        $('#textoAyudaOrden').prop('hidden', true);
+});
+
+$('#campoNombre').on('mouseover', function () {
+        $('#textoAyudaNombre').prop('hidden', false);
+});
+
+$('#campoNombre').on('click', function () {
+        $('#textoAyudaNombre').prop('hidden', true);
+});
+
+$('#select2-campoTipo-container').on('mouseover', function () {
+        $('#textoAyudaTipo').prop('hidden', false);
+});
+$('#select2-campoTipo-container').on('click', function () {
+        $('#textoAyudaTipo').prop('hidden', true);
+});
+
+
+$('#codigoForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
@@ -1535,7 +1588,7 @@ $(' #codigoForm').bootstrapValidator({
     }
 });
 
-$(' #columnaForm').bootstrapValidator({
+$('#columnaForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
@@ -1587,7 +1640,7 @@ $(' #columnaForm').bootstrapValidator({
     }
 });
 
-$(' #clasificadorIndForm').bootstrapValidator({
+$('#clasificadorIndForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
@@ -1611,7 +1664,7 @@ $(' #clasificadorIndForm').bootstrapValidator({
                     message: 'El nombre es requerido'
                 },
                 regexp: {
-                    regexp: /^[a-zA-ZñÑáéíóú_ ]+$/,
+                    regexp: /^[a-zA-ZñÑáéíóú()_ ]+$/,
                     message: 'Solo se admiten letras'
                 }
 
@@ -1621,7 +1674,7 @@ $(' #clasificadorIndForm').bootstrapValidator({
     }
 });
 
-$(' #indicadoresForm').bootstrapValidator({
+$('#indicadoresForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',
@@ -1654,7 +1707,7 @@ $(' #indicadoresForm').bootstrapValidator({
                     message: 'El campo nombre es requerido'
                 },
                 regexp: {
-                    regexp: /^[a-zA-ZñÑáéíóú_ ]+$/,
+                    regexp: /^[a-zA-ZñÑáéíóú0-9?._ ]+$/,
                     message: 'Solo se admiten letras'
                 }
 
@@ -1664,7 +1717,7 @@ $(' #indicadoresForm').bootstrapValidator({
     }
 });
 
-$(' #respuestasForm').bootstrapValidator({
+$('#respuestasForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
         valid: 'glyphicon glyphicon-ok',

@@ -20,16 +20,16 @@ class seccionForm(ModelForm):
         fields = '__all__'
         widgets = {
             'nombre': TextInput(attrs={'class':'form-control styleInput',
-                                       'placeholder':'Ingrese el nombre de la seccion'}),
+                                       'placeholder':'Ingrese el nombre de la seccion', 'id': 'campoNombre'}),
             'guia_id': Select(attrs={'class':'form-control select2'}),
             'periodo_id': Select(attrs={'class':'form-control select2'}),
             'numero': NumberInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese el numero de la seccion'}),
-            'subNumero': NumberInput(attrs={'class':'form-control styleInput',
+            'subNumero': TextInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese el sub-numero de la seccion'}),
-            'orden': NumberInput(attrs={'class':'form-control styleInput',
-                                       'placeholder':'Ingrese el orden de la seccion'}),
-            'tipo': Select(attrs={'class':'form-control select2'}),
+            'orden': NumberInput( attrs={'class':'form-control styleInput',
+                                       'placeholder':'Ingrese el orden de la seccion','id': 'campoOrden'}),
+            'tipo': Select(attrs={'class':'form-control select2', 'id': 'campoTipo'}),
             'activo': CheckboxInput(attrs={'class':'custom-control-input', 'type': 'checkbox', 'id':'seccionActiva' })
         }
 
@@ -71,7 +71,7 @@ class codigoForm(ModelForm):
                      'seccion_id': 'Seccion al que pertenece'
                  },
         widgets = {
-            'codigo': NumberInput(attrs={'class':'form-control styleInput',
+            'codigo': TextInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese un codigo'}),
             'descripcion': TextInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese una descripcion del codigo'}),
@@ -90,7 +90,7 @@ class columnaForm(ModelForm):
         fields = '__all__'
         widgets = {
             'seccion_id': Select(attrs={'class':'form-control select2', 'style':'width:100%'}),
-            'columna': NumberInput(attrs={'class':'form-control styleInput',
+            'columna': TextInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese numero de columna'}),
             'descripcion': TextInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese una descripcion de la columna'}),

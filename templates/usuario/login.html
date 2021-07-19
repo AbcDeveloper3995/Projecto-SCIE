@@ -8,7 +8,7 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
-  <link href="{% static 'propios/img/avatar (2).jpg' %}" rel="icon">
+  <link href="{% static 'propios/img/logo.jpg' %}" rel="icon">
   <link rel="stylesheet" href="{% static 'plugins/adminLTE/css/adminlte.min.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/jquery-confirm-v3.3.4/jquery-confirm.min.css' %}">
@@ -18,7 +18,7 @@
 <div id="particles-js"></div>
 <div class="login-box">
   <div class="login-logo">
-    <img src="{% static 'propios/img/avatar (2).jpg' %}"
+    <img src="{% static 'propios/img/logo.jpg' %}"
              class="brand-image  elevation-3"
              style="width: 125px; border-radius: 10px">
   </div>
@@ -76,7 +76,6 @@
  <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
  <script src="{% static 'plugins/jquery-confirm-v3.3.4/jquery-confirm.min.js' %}"></script>
  <script src="{% static 'plugins/particles/particles.min.js' %}"></script>
- <script src="{% static 'propios/js/utils.js' %}"></script>
 
  <script type="text/javascript">
         {% if form.errors %}
@@ -88,6 +87,111 @@
                     });
             {% endfor %}
         {% endif %}
+        particlesJS('particles-js',{
+  "particles": {
+    "number": {
+      "value": 100,
+      "density": {
+        "enable": true,
+        "value_area": 800
+      }
+    },
+    "color": {
+      "value": "#ffffff"
+    },
+    "shape": {
+      "type": "circle",
+      "stroke": {
+        "width": 0,
+        "color": "#000000"
+      },
+      "image": {
+        "src": "img/github.svg",
+        "width": 100,
+        "height": 100
+      }
+    },
+    "opacity": {
+      "value": 0.5,
+      "random": false,
+      "anim": {
+        "enable": false,
+        "speed": 1,
+        "opacity_min": 0.1,
+        "sync": false
+      }
+    },
+    "size": {
+      "value": 5,
+      "random": true,
+      "anim": {
+        "enable": false,
+        "speed": 40,
+        "size_min": 0.1,
+        "sync": false
+      }
+    },
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#ffffff",
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 6,
+      "direction": "none",
+      "random": false,
+      "straight": false,
+      "out_mode": "bounce",
+      "attract": {
+        "enable": false,
+        "rotateX": 600,
+        "rotateY": 1200
+      }
+    }
+  },
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onhover": {
+        "enable": true,
+        "mode": "repulse"
+      },
+      "onclick": {
+        "enable": true,
+        "mode": "push"
+      },
+      "resize": true
+    },
+    "modes": {
+      "grab": {
+        "distance": 400,
+        "line_linked": {
+          "opacity": 1
+        }
+      },
+      "bubble": {
+        "distance": 400,
+        "size": 40,
+        "duration": 2,
+        "opacity": 8,
+        "speed": 3
+      },
+      "repulse": {
+        "distance": 200
+      },
+      "push": {
+        "particles_nb": 4
+      },
+      "remove": {
+        "particles_nb": 2
+      }
+    }
+  },
+  "retina_detect": true,
+})
     </script>
 {% block js %}{% endblock %}
 </body>
