@@ -854,40 +854,31 @@ $('form[name="instanciaFormContuniarCaptacion"]').on('submit', function (e) {
     let id = $(this).data('cuestionario');
     if (validateInstancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('select[name="columna_id"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="registro_1"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="registro_2"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="registro_3"]')) === false) {
         return false
-    }
-    ;
+    };
     let campos = new FormData(this);
     $.ajax({
         url: '/guia/continuarCaptacion/' + id + '/',
@@ -989,7 +980,7 @@ $(document).ready(function () {
         let tr = tblEntidad.cell($(this).closest('td, li')).index();
         let data = tblEntidad.row(':eq(' + tr.row + ')').data();
         notificacion('Notificacion', 'Estas seguro de eliminar al Centro Infomante (' + data.codigo_CI + '-' + data.nombre_CI + ').', function () {
-            let url = 'http://127.0.0.1:8000/entidad/eliminarEntidad/' + data.id + '/';
+            let url = 'http://scie.onei.gob.cu/entidad/eliminarEntidad/' + data.id + '/';
             location.href = url
         });
     });
@@ -1235,43 +1226,35 @@ formularioEditarCaptacion.on('submit', function (e) {
     ;
 
     envioConAjax(window.location.pathname, 'Notificación', '¿Estás seguro de realizar esta acción?', campos, function () {
-        let url = 'http://127.0.0.1:8000/guia/guiaCaptada/';
+        let url = 'http://scie.onei.gob.cu/guia/guiaCaptada/';
         location.href = url
     });
 
 });
 
 //-----------PROCEDIMIENTO PARA VALIDAR Y MODIFICAR LAS INSTANCIAS---------------//
-const redirect_url = () => {
-    location.href = 'http://127.0.0.1:8000/guia/guiaCaptada/';
-};
 $('form[name="editarInstanciaForm"]').on('submit', function (e) {
     e.preventDefault();
     let instanciaSeccion = $(this).data('seccion');
+    let modal = $('#modalEditarInstancia'+instanciaSeccion);
     if (validateInstancias(instanciaSeccion, $('input[name="1_modelo"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instanciaSeccion, $('input[name="1_registro"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instanciaSeccion, $('input[name="2_modelo"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instanciaSeccion, $('input[name="2_registro"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instanciaSeccion, $('input[name="3_modelo"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instanciaSeccion, $('input[name="3_registro"]')) === false) {
         return false
-    }
-    ;
+    };
     let campos = new FormData(this);
     $.ajax({
         url: '/seccion/editarInstancia/',
@@ -1281,13 +1264,12 @@ $('form[name="editarInstanciaForm"]').on('submit', function (e) {
         processData: false,
         contentType: false
     }).done(function (data) {
-        $('#modificarInstancias').prop("hidden", true);
+        modal.modal('hide');
         toastr.success("La instancia del cuestionario ha sido modificada correctamente.", 'Exito', {
             progressBar: true,
             closeButton: true,
             "timeOut": "3000",
         });
-        setTimeout(redirect_url, 3000);
     }).fail(function (jqXHR, textStatus, errorThrown) {
         alert(textStatus + ' : ' + errorThrown)
     })
@@ -1904,7 +1886,7 @@ $('#changePasswordForm').bootstrapValidator({
 
 //------------------PROCEDIMIENTO PARA CREAR UNA GUIA CON LAS MISMAS CONFIGURACIONES DE OTRA YA DEFINIDA-----------------------//
 const url = () => {
-    location.href = 'http://127.0.0.1:8000/guia/listarGuias/';
+    location.href = 'http://scie.onei.gob.cu/guia/listarGuias/';
 }
 guias = $('#listadoGuiasDefinidas');
 buttonSafe = $('#safe');

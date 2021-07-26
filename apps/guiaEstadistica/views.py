@@ -26,6 +26,7 @@ class listarGuiasView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Listado de Guias'
+        context['tituloPestaña'] = 'SCIE | Guia'
         return context
 
 # PROCEDIMIENTO PARA CREAR UNA GUIA.
@@ -39,6 +40,7 @@ class crearGuiasView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de guia'
         context['action'] = 'add'
+        context['tituloPestaña'] = 'SCIE | Guia'
         context['guias'] = self.getGuias()
         return context
 
@@ -56,6 +58,7 @@ class updateGuiaView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de guia'
+        context['tituloPestaña'] = 'SCIE | Guia'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR UNA GUIA.
@@ -108,6 +111,7 @@ class captarDatosView(LoginRequiredMixin, TemplateView):
             redirect('usuario:home')
         else:
             context['action'] = 'add'
+            context['tituloPestaña'] = 'SCIE | Guia'
             context['secciones'] = self.getSecciones()
             context['verificacionForm'] = verificacionForm
             context['columnas'] = self.getCol()
@@ -203,6 +207,7 @@ class crearUniversoView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de universo'
+        context['tituloPestaña'] = 'SCIE | Universo'
         return context
 
 # PROCEDIMIENTO PARA ACTUALIZAR EL UNIVERSO.
@@ -215,6 +220,7 @@ class updateUniversoView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de universo'
+        context['tituloPestaña'] = 'SCIE | Universo'
         return context
 
 # PROCEDIMIENTO PARA LISTAR EL UNIVERSO.
@@ -226,6 +232,7 @@ class listarUniversoView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Universos definidos'
+        context['tituloPestaña'] = 'SCIE | Universo'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR EL UNIVERSO.
@@ -370,10 +377,7 @@ class guiaCaptada(LoginRequiredMixin, ListView):
         context['cuestionarios'] = getCuestionarios(self.request.user)
         context['permisoEstadistico'] = self.getPermisoEstadistico()
         context['titulo'] = 'Cuestionarios captados'
-        context['titulo2'] = 'Informacion Captada'
-        context['titulo3'] = 'Modificar Preguntas'
-        context['titulo4'] = 'Modificar Instancias'
-
+        context['tituloPestaña'] = 'SCIE | Cuestionarios'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR UN CUESTIONARIO CAPTADO
@@ -555,6 +559,7 @@ class reporteGeneralExcel(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte General'
+        context['tituloPestaña'] = 'SCIE | Reportes'
         context['grupoPreguntas'] = self.getGrupoPreguntas()
         context['cuestionarios'] = getCuestionarios(self.request.user)
         return context
@@ -587,6 +592,7 @@ class reporteVerificacionIndicadores(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte Total'
+        context['tituloPestaña'] = 'SCIE | Reportes'
         context['secciones'] = self.getDiccionarioSecciones()
         context['seccionesGuias'] = self.getSeccionesGuia()
         context['cuestionarios'] = getCuestionarios(self.request.user)
@@ -599,6 +605,7 @@ class reporteDisciplinaInformativa(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte de Disciplina Informativa'
+        context['tituloPestaña'] = 'SCIE | Reportes'
         context['cuestionarios'] = getCuestionarios(self.request.user)
         return context
 
@@ -609,6 +616,7 @@ class reporteSeñalamientosErrores(reporteDisciplinaInformativa):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte de Señalamientos Errores'
+        context['tituloPestaña'] = 'SCIE | Reportes'
         return context
 
 # PROCEDIMIENTO PARA EL REPORTE EXCEL DE DOMICILIO SOCIAL INCORRECTO
@@ -618,6 +626,7 @@ class reporteDomicilioSocial(reporteDisciplinaInformativa):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte de Domicilio Social Incorrecto'
+        context['tituloPestaña'] = 'SCIE | Reportes'
         return context
 
 # PROCEDIMIENTO PARA EL REPORTE DEL UNIVERSO DE LA GUIA
@@ -628,6 +637,7 @@ class reporteUniversoGuia(reporteDisciplinaInformativa):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte del Universo de la Guia'
+        context['tituloPestaña'] = 'SCIE | Reportes'
         context['universo'] = getUniverso(self.request.user)
         return context
 
@@ -648,6 +658,7 @@ class reporteCaptacion(reporteDisciplinaInformativa):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Reporte de Captacion'
+        context['tituloPestaña'] = 'SCIE | Reportes'
         context['noCaptados'] = self.getCINoCaptados(context['cuestionarios'])
 
         return context
@@ -695,6 +706,7 @@ class modificarPreguntasView(captarDatosView):
         context = super().get_context_data(**kwargs)
         context['action'] = 'editPreguntas'
         context['titulo'] = 'Modificar las siguientes secciones del cuestionario captado a:'
+        context['tituloPestaña'] = 'SCIE | Edicion-Preguntas'
         context['cuestionario'] = self.getCuestionario()
         context['preguntas'] = self.getPreguntasEvaluadas()
         return context
@@ -755,6 +767,7 @@ class continuarCaptacionView(captarDatosView):
         context = super().get_context_data(**kwargs)
         context['action'] = 'continuarCaptacion'
         context['titulo'] = 'Continuar la captacion de infomacion a:'
+        context['tituloPestaña'] = 'SCIE | Captacion'
         context['cuestionario'] = self.getCuestionario()
         return context
 

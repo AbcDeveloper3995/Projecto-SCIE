@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     {% block extra_css %}
-        <title>{{ title }}</title>
-        <!-- Font Awesome Icons -->
+        <title>{% block tituloPestaña %}{{ tituloPestaña }} {% endblock %}</title>
+        <link href="{% static 'propios/img/logo.jpg' %}" rel="icon">
         <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
-        <!-- Theme style -->
         <link rel="stylesheet" href="{% static 'plugins/bootstrapValidator/bootstrapValidator.min.css' %}">
         <link rel="stylesheet" href="{% static 'plugins/adminLTE/css/adminlte.min.css' %}">
         <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">

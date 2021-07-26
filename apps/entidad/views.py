@@ -40,6 +40,7 @@ class listarEntidadView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Listado de Entidades'
+        context['tituloPestaña'] = 'SCIE | Entidad'
         return context
 
 # PROCEDIMIENTO PARA CREAR UNA ENTIDAD
@@ -52,6 +53,7 @@ class crearEntidadView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de entidad'
+        context['tituloPestaña'] = 'SCIE | Entidad'
         return context
 
 # PROCEDIMIENTO PARA ACTUALIZAR UNA ENTIDAD
@@ -64,6 +66,7 @@ class updateEntidadView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de entidad'
+        context['tituloPestaña'] = 'SCIE | Entidad'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR UNA ENTIDAD
@@ -198,7 +201,7 @@ class importarOrganismo(LoginRequiredMixin, TemplateView):
                     objOrganismo = organismo(
                         i[0], i[1], i[2]
                     )
-                    organismo.save()
+                    objOrganismo.save()
                 data['exito'] = 'Las nuevas entidades se han creado correctamente.'
         except Exception as e:
             data['error'] = str(e)

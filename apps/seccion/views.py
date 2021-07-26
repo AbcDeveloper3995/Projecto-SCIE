@@ -20,6 +20,7 @@ class listarSeccionView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Listado de Secciones'
+        context['tituloPestaña'] = 'SCIE | Secciones'
         return context
 
 # PROCEDIMIENTO PARA CREAR SECCIONES.
@@ -32,6 +33,7 @@ class crearSeccionView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de seccion'
+        context['tituloPestaña'] = 'SCIE | Secciones'
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR SECCIONES.
@@ -44,6 +46,7 @@ class updateSeccionView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de seccion'
+        context['tituloPestaña'] = 'SCIE | Secciones'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR SECCIONES.
@@ -64,6 +67,7 @@ class listarPeriodoView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Listado de Periodos'
+        context['tituloPestaña'] = 'SCIE | Periodo'
         return context
 
 # PROCEDIMIENTO PARA CREAR PERIODO.
@@ -76,6 +80,7 @@ class crearPeriodoView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de periodo'
+        context['tituloPestaña'] = 'SCIE | Periodo'
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR PERIODO.
@@ -88,6 +93,7 @@ class updatePeriodoView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de periodo'
+        context['tituloPestaña'] = 'SCIE | Periodo'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR PERIODO.
@@ -108,6 +114,7 @@ class listarCodigoView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Listado de Codigos'
+        context['tituloPestaña'] = 'SCIE | Codigo'
         return context
 
 # PROCEDIMIENTO PARA CREAR CODIGO.
@@ -120,6 +127,7 @@ class crearCodigoView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de codigo'
+        context['tituloPestaña'] = 'SCIE | Codigo'
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR CODIGO.
@@ -132,6 +140,7 @@ class updateCodigoView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de codigo'
+        context['tituloPestaña'] = 'SCIE | Codigo'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR CODIGO.
@@ -152,6 +161,7 @@ class listarColumnaView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Listado de Columnas'
+        context['tituloPestaña'] = 'SCIE | Columna'
         return context
 
 # PROCEDIMIENTO PARA CREAR COLUMNA.
@@ -164,6 +174,7 @@ class crearColumnaView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de columna'
+        context['tituloPestaña'] = 'SCIE | Columna'
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR COLUMNA.
@@ -176,6 +187,7 @@ class updateColumnaView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de columna'
+        context['tituloPestaña'] = 'SCIE | Columna'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR COLUMNA.

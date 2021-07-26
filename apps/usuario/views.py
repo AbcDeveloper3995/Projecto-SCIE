@@ -39,6 +39,7 @@ class homeView(LoginRequiredMixin, TemplateView):
         context['guias'] = guiaEstadistica.objects.all().count()
         context['entidades'] = Entidad.objects.all().count()
         context['usuarios'] = Usuario.objects.all().count()
+        context['tituloPestaña'] = 'SCIE | Inicio'
         return context
 
 # PROCEDIMIENTO PARA LOGIARSE.

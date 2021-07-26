@@ -16,6 +16,7 @@ class listarClasificadIndicadorView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Listado de Grupo de Preguntas'
+        context['tituloPestaña'] = 'SCIE | Grupo-Preguntas'
         return context
 
 # PROCEDIMIENTO PARA CREAR GRUPO DE PREGUNTAS.
@@ -28,6 +29,7 @@ class crearClasificadorIndicadorView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de grupo de preguntas'
+        context['tituloPestaña'] = 'SCIE | Grupo-Preguntas'
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR GRUPO DE PREGUNTAS.
@@ -40,6 +42,7 @@ class updateClasificadorIndView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de grupo de preguntas'
+        context['tituloPestaña'] = 'SCIE | Grupo-Preguntas'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR GRUPO DE PREGUNTAS.
@@ -60,6 +63,7 @@ class listarIndicadorView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Listado de Preguntas'
+        context['tituloPestaña'] = 'SCIE | Preguntas'
         return context
 
 # PROCEDIMIENTO PARA CREAR PREGUNTAS.
@@ -72,6 +76,7 @@ class crearIndicadorView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de preguntas'
+        context['tituloPestaña'] = 'SCIE | Preguntas'
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR PREGUNTAS.
@@ -84,6 +89,7 @@ class updateIndicadorView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de preguntas'
+        context['tituloPestaña'] = 'SCIE | Preguntas'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR PREGUNTAS.
@@ -104,6 +110,7 @@ class listarPosiblesRespuestasView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Listado de Posibles Respuestas'
+        context['tituloPestaña'] = 'SCIE | Respuestas'
         return context
 
 # PROCEDIMIENTO PARA CREAR RESPUESTAS.
@@ -116,6 +123,7 @@ class crearPosiblesRespuestasView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de posibles respuestas'
+        context['tituloPestaña'] = 'SCIE | Respuestas'
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR RESPUESTAS.
@@ -128,6 +136,7 @@ class updatePosiblresResView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de respuestas'
+        context['tituloPestaña'] = 'SCIE | Respuestas'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR RESPUESTAS.
