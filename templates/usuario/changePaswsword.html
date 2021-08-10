@@ -2,7 +2,7 @@
 
 {% block titulo %}Cambio de contraseña{% endblock %}
 {% block content %}
-    <form action=".." method="post" id="changePasswordForm">
+    <form action=".." method="post" name="changePasswordForm">
         <input type="hidden" name="next" value="{{ next }}">
         {% csrf_token %}
         <div class="input-group mb-3">
@@ -37,23 +37,20 @@
 {% endblock %}
 
 {% block js %}
-<script type="application/javascript">
-    $(function () {
-        const url = () => {
-           location.href='http://127.0.0.1:8000/';
-       }
-        $('form').on('submit', function (e) {
-            e.preventDefault();
-            var parameters = new FormData(this);
-            envioConAjax(window.location.pathname, 'Notificación', '¿Estas seguro de cambiar tu contraseña?', parameters, function () {
-                toastr.success('Tu contraseña ha sido cambiada correctamente', 'Notificación', {
+    {{ block.super }}
+    <script type="application/javascript">
+        $(function () {
+            $('form').on('submit', function (e) {
+                e.preventDefault();
+                var parameters = new FormData(this);
+                envioConAjax(window.location.pathname, 'Notificación', '¿Estas seguro de cambiar tu contraseña?', parameters, function () {
+                    toastr.success('Tu contraseña ha sido cambiada correctamente', 'Notificación', {
                         "closeButton": true,
                         "progressBar": true,
                         "timeOut": "3000",
                     });
+                });
             });
-            setTimeout (url,3000);
         });
-    });
-</script>
+    </script>
 {% endblock js %}

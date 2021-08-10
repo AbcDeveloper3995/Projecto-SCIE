@@ -46,10 +46,6 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <br>
-                            {#                            <ol class="breadcrumb float-sm-right">#}
-                            {#                                <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> </a></li>#}
-                            {#                                <li class="breadcrumb-item"><a href="#">Modelo</a></li>#}
-                            {#                            </ol>#}
                         </div>
                     </div>
                 </div>
@@ -57,26 +53,24 @@
             <div class="content">
                 <div class="container-fluid">
                     {% block content %}
-                        <h2 class="text-bold text-center text-uppercase bg-gradient-navy wow fadeInDown">Sistema de control
+                        <h2 class="text-bold text-center text-uppercase bg-gradient-navy wow fadeInDown">Sistema de
+                            control
                             integral estatal</h2>
                         <hr>
-                        <div class="col-12">
-                            <!-- Custom Tabs -->
-                            <div class="card">
-                                <div class="card-header d-flex p-0">
-                                    <h3 class="card-title p-3 text-uppercase bg-gradient-navy wow fadeInLeft">
-                                        Instrucciones</h3>
-                                    <ul class="nav nav-pills ml-auto p-2">
-                                        <li class="nav-item"><a class="nav-link active" href="#tab_1" data-toggle="tab">Tab
-                                            1</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="#tab_2" data-toggle="tab">Tab
-                                            2</a></li>
-                                    </ul>
-                                </div><!-- /.card-header -->
-                                <div class="card-body">
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="tab_1">
-                                            <h5 class="text-justify">Las comprobaciones de los aspectos incluidos en la
+
+                        {% if perms.usuario.administrador %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-default wow fadeInUp">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="fas fa-info-circle" style="color: #0086ca"></i>
+                                                <strong class="text-uppercase">Instrucciones</strong>
+                                            </h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="callout callout-info text-justify">
+                                                <h5>Las comprobaciones de los aspectos incluidos en la
                                                 guia deben ser verificados or los registros y documentos
                                                 que tengan establecidos en la entidad, pero con respecto a la seccion
                                                 1-Sobre la entidad, el funcionario de la ONEI
@@ -84,113 +78,151 @@
                                                 gabineteque le permita comprobar la informacion que
                                                 le suministrara la entidad contra los controles que estan establecidos
                                                 para el aspecto a comprobar el cual debera llevar
-                                                personalmente a la actividad.</h5>
-                                        </div>
-                                        <!-- /.tab-pane -->
-                                        <div class="tab-pane" id="tab_2">
-                                            <h5 class="text-justify"> Las entidades con UEB o establecimientos
+                                                personalmente a la actividad. Las entidades con UEB o establecimientos
                                                 subordinados deben ser evaluados por muestras, para tener criterio
                                                 valorativo sobre
                                                 los registros primarios que sustentan la informacion emitidad por las
-                                                entidades informantes.</h5>
+                                                entidades informantes.
+                                                </h5>
+                                                <hr>
+                                            </div>
                                         </div>
-                                        <!-- /.tab-pane -->
                                     </div>
-                                    <!-- /.tab-content -->
-                                </div><!-- /.card-body -->
+                                    <!-- /.card -->
+                                </div>
                             </div>
-                            <!-- ./card -->
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-lg-3 col-6">
-                                <!-- small card -->
-                                <div class="small-box bg-gradient-navy delay-1s wow flipInX">
-                                    <div class="inner">
-                                        <h3>{{ guias }}</h3>
-
-                                        <p>Guias diseñadas</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fas fa-archive"></i>
-                                    </div>
-                                    {% if perms.usuario.usuario_admin %}
+                            <div class="row">
+                                <div class="col-lg-3 col-6">
+                                    <!-- small card -->
+                                    <div class="small-box bg-gradient-navy delay-1s wow flipInX">
+                                        <div class="inner">
+                                            <h3>{{ guias }}</h3>
+                                            <p>Guias diseñadas</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fas fa-archive"></i>
+                                        </div>
                                         <a href="{% url 'guia:listarGuias' %}" class="small-box-footer">
                                             Detalles <i class="fas fa-arrow-circle-right"></i>
                                         </a>
-                                    {% else %}
-                                        <a href="#" class="small-box-footer" id="widgetGuia">
-                                            Detalles <i class="fas fa-arrow-circle-right"></i>
-                                        </a>
-                                    {% endif %}
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- ./col -->
-                            <div class="col-lg-3 col-6">
-                                <!-- small card -->
-                                <div class="small-box bg-gradient-primary delay-2s wow flipInY">
-                                    <div class="inner">
-                                        <h3>{{ entidades }}</h3>
-
-                                        <p>Entidades</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fas fa-building"></i>
-                                    </div>
-                                    {% if perms.usuario.usuario_admin %}
+                                <!-- ./col -->
+                                <div class="col-lg-3 col-6">
+                                    <!-- small card -->
+                                    <div class="small-box bg-gradient-primary delay-2s wow flipInY">
+                                        <div class="inner">
+                                            <h3>{{ entidades }}</h3>
+                                            <p>Entidades</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fas fa-building"></i>
+                                        </div>
                                         <a href="{% url 'entidad:listarEntidad' %}" class="small-box-footer">
                                             Detalles <i class="fas fa-arrow-circle-right"></i>
                                         </a>
-                                    {% else %}
-                                        <a href="#" class="small-box-footer" id="widgetEntidad">
-                                            Detalles <i class="fas fa-arrow-circle-right"></i>
-                                        </a>
-                                    {% endif %}
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- ./col -->
-                            <div class="col-lg-3 col-6">
-                                <!-- small card -->
-                                <div class="small-box bg-gradient-navy delay-1s wow flipInX">
-                                    <div class="inner">
-                                        <h3>{{ usuarios }}</h3>
+                                <!-- ./col -->
+                                <div class="col-lg-3 col-6">
+                                    <!-- small card -->
+                                    <div class="small-box bg-gradient-navy delay-1s wow flipInX">
+                                        <div class="inner">
+                                            <h3>{{ usuarios }}</h3>
 
-                                        <p>Usuarios registrados</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fas fa-user-plus"></i>
-                                    </div>
-                                    {% if perms.usuario.usuario_admin %}
+                                            <p>Usuarios registrados</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fas fa-user-plus"></i>
+                                        </div>
                                         <a href="#" class="small-box-footer">
                                             Detalles <i class="fas fa-arrow-circle-right"></i>
                                         </a>
-                                    {% else %}
-                                        <a href="#" class="small-box-footer" id="widgetUsuario">
+                                    </div>
+                                </div>
+                                <!-- ./col -->
+                                <div class="col-lg-3 col-6">
+                                    <!-- small card -->
+                                    <div class="small-box bg-gradient-primary delay-2s wow flipInY">
+                                        <div class="inner">
+                                            <h3>4</h3>
+                                            <p>Objetivos</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fas fa-file-alt"></i>
+                                        </div>
+                                        <a type="button" class="small-box-footer" data-toggle="modal"
+                                           href="#modal-default">
                                             Detalles <i class="fas fa-arrow-circle-right"></i>
                                         </a>
-                                    {% endif %}
+                                    </div>
+                                </div>
+                                <!-- ./col -->
+                            </div>
+                        {% else %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-default wow fadeInUp">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="fas fa-info-circle" style="color: #0086ca"></i>
+                                                <strong class="text-uppercase">Instrucciones</strong>
+                                            </h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="callout callout-info text-justify">
+                                                <h5>Las comprobaciones de los aspectos incluidos en la
+                                                guia deben ser verificados or los registros y documentos
+                                                que tengan establecidos en la entidad, pero con respecto a la seccion
+                                                1-Sobre la entidad, el funcionario de la ONEI
+                                                que aplica el recontrol debe preparar previamente un trabajo de
+                                                gabineteque le permita comprobar la informacion que
+                                                le suministrara la entidad contra los controles que estan establecidos
+                                                para el aspecto a comprobar el cual debera llevar
+                                                personalmente a la actividad. Las entidades con UEB o establecimientos
+                                                subordinados deben ser evaluados por muestras, para tener criterio
+                                                valorativo sobre
+                                                los registros primarios que sustentan la informacion emitidad por las
+                                                entidades informantes.
+                                                </h5>
+                                                <hr>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="fas fa-info-circle" style="color: #0086ca"></i>
+                                                <strong class="text-uppercase">Objetivos</strong>
+                                            </h3>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                            <div class="callout callout-info">
+                                                <h5>1. Comprobar la situacion de la entidad en Registro
+                                                    Estatal de emresa Unidades Presupuestadas <span class="text-bold">(REEUP)</span>.
+                                                </h5>
+                                                <hr>
+                                                <h5>2. Comprobar la situacion ue confronta la entidad respecto a
+                                                    aspectos
+                                                    organizativos
+                                                    vinculados con el funcionamiento del Area Estadistica.</h5>
+                                                <hr>
+                                                <h5>3. Valorar el Control Interno asociado a la elaboracion de la
+                                                    Informacion
+                                                    Estadistica Oficial.</h5>
+                                                <hr>
+                                                <h5>4. Verificar la existencia calidad de la informacion de los
+                                                    registros
+                                                    primarios para los
+                                                    formularios seleccionados del SIEN.</h5>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
                                 </div>
                             </div>
-                            <!-- ./col -->
-                            <div class="col-lg-3 col-6">
-                                <!-- small card -->
-                                <div class="small-box bg-gradient-primary delay-2s wow flipInY">
-                                    <div class="inner">
-                                        <h3>4</h3>
-
-                                        <p>Objetivos</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fas fa-file-alt"></i>
-                                    </div>
-                                    <a type="button" class="small-box-footer" data-toggle="modal" href="#modal-default">
-                                        Detalles <i class="fas fa-arrow-circle-right"></i>
-                                    </a>
-
-                                </div>
-                            </div>
-                            <!-- ./col -->
-                        </div>
+                        {% endif %}
 
                         <!-- MODAL  -->
                         <div class="modal fade " id="modal-default" tabindex="-1" role="dialog"
@@ -280,15 +312,15 @@
     <script src="{% static 'propios/js/utils.js' %}"></script>
     <script src="{% static 'propios/js/funciones.js' %}"></script>
     <script type="text/javascript">
-    $(document).ready(function() {
-    $.sessionTimeout({
-        warnAfter: 3300000,
-        redirAfter: 3600000,
-       message: 'Atención {{ request.user.first_name }} su sesión a expirará en breve.',
-        logoutUrl: '{% url 'usuario:logout' %}',
-        redirUrl: "{% url 'usuario:logout' %}"
-    });
-});
+        $(document).ready(function () {
+            $.sessionTimeout({
+                warnAfter: 3300000,
+                redirAfter: 3600000,
+                message: 'Atención {{ request.user.first_name }} su sesión a expirará en breve.',
+                logoutUrl: '{% url 'usuario:logout' %}',
+                redirUrl: "{% url 'usuario:logout' %}"
+            });
+        });
     </script>
 
 {% endblock %}

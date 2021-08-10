@@ -99,7 +99,17 @@ class captarDatosView(LoginRequiredMixin, TemplateView):
                 for i in query:
                     data.append(i.toJSON())
             else:
-                data['error'] = 'error'
+                data['codigo_id'] = '0'
+                data['columna_id'] = '0'
+                data['registro_1'] = '0'
+                data['modelo_1'] = '0'
+                data['diferencia_1'] = '0'
+                data['registro_2'] = '0'
+                data['modelo_2'] = '0'
+                data['diferencia_2'] = '0'
+                data['registro_3'] = '0'
+                data['modelo_3'] = '0'
+                data['diferencia_3'] = '0'
         except Exception as e:
             data['error'] =str(e)
         return JsonResponse(data, safe= False)
@@ -312,7 +322,7 @@ class dataCaptacion(captarDatosView):
                                 respuesta=valor[0]
                             )
                             queryPreEval.save()
-                    data['exito'] = 'Informacion guardada correctamente.'
+                    data['exito'] = 'Los datos han sido captados correctamente.'
             # PARTE PARA CREAR LAS INSTANCIAS
             if action[0] == 'crearInstancia':
                 objSeccion = seccion.objects.get(id=request.POST['seccion_id'])
@@ -331,6 +341,7 @@ class dataCaptacion(captarDatosView):
                         modelo_3=None,
                     )
                     instancia.save()
+                    data['sms'] = 'Se ha creado y guardado el registro de manera correcta.'
                 else:
                     instancia = instanciaSeccion(
                         seccion_id_id=request.POST['seccion_id'],
@@ -345,6 +356,7 @@ class dataCaptacion(captarDatosView):
                         modelo_3=request.POST['modelo_3'],
                     )
                     instancia.save()
+                    data['sms'] = 'Se ha creado y guardado el registro de manera correcta.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
@@ -663,6 +675,7 @@ class reporteCaptacion(reporteDisciplinaInformativa):
 
         return context
 
+# PROCEDIMIENTO PARA MODIFICAR LAS PREGUNTAS CAPTADAS (IDENTIFICACION Y SOBRE ENTIDAD)
 class modificarPreguntasView(captarDatosView):
 
     template_name = 'guiaEstadistica/captardatos.html'
@@ -711,7 +724,7 @@ class modificarPreguntasView(captarDatosView):
         context['preguntas'] = self.getPreguntasEvaluadas()
         return context
 
-
+# PROCEDIMIENTO PARA CONTINUAR CON LA CAPTACION DEL RESTO DE LAS SECCIONES
 class continuarCaptacionView(captarDatosView):
 
     template_name = 'guiaEstadistica/captardatos.html'
@@ -740,6 +753,7 @@ class continuarCaptacionView(captarDatosView):
                         modelo_2=None,
                         modelo_3=None,
                     )
+                    data['sms'] = 'Se ha creado y guardado el registro de manera correcta.'
                     instancia.save()
                 else:
                     instancia = instanciaSeccion(
@@ -755,7 +769,7 @@ class continuarCaptacionView(captarDatosView):
                         modelo_3=request.POST['modelo_3'],
                     )
                     instancia.save()
-                    data['sms'] = 'Instancia creada correctamente.'
+                    data['sms'] = 'Se ha creado y guardado el registro de manera correcta.'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)

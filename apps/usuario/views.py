@@ -54,7 +54,7 @@ class Login(LoginView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'SCIE'
+        context['tituloPestaña'] = 'SCIE | Inicio sesion'
         return context
 
 # PROCEDIMIENTO PARA LISTAR USUARIOS.
@@ -66,6 +66,7 @@ class listarUsuariosView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Listado de Usuarios'
+        context['tituloPestaña'] = 'SCIE | Usuarios'
         return context
 
 # PROCEDIMIENTO PARA CREAR USUARIOS.
@@ -78,6 +79,7 @@ class crearUsuarioView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Creacion de usuario'
+        context['tituloPestaña'] = 'SCIE | Usuarios'
         return context
 
 # PROCEDIMIENTO PARA MODIFICAR USUARIOS.
@@ -95,6 +97,7 @@ class updateUsuarioView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['titulo'] = 'Edicion de usuario'
+        context['tituloPestaña'] = 'SCIE | Usuarios'
         return context
 
 # PROCEDIMIENTO PARA ELIMINAR USUARIOS.
@@ -177,8 +180,14 @@ class resetearPasswordView(FormView):
             sms.attach(MIMEText(content,'html'))
             emailServidor.sendmail(setting.EMAIL_HOST_USER, email, sms.as_string())
         except Exception as e:
-            data['error'] = str(e)
+            print(str(e))
+            data['error'] = 'Ha ocurrido un error. Contacte con el administrador.'
         return data
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tituloPestaña'] = 'SCIE | Resetear contraseña'
+        return context
 
 #PROCEDIMIENTO PARA EFECTUAR EL CAMBIO DE CONTRASEÑA UNA VEZ RESIVIDO EL CORREO
 class changePasswordView(FormView):
@@ -214,6 +223,6 @@ class changePasswordView(FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Reseteo de Contraseña'
+        context['tituloPestaña'] = 'SCIE | Resetear contraseña'
         context['login_url'] = setting.LOGIN_URL
         return context

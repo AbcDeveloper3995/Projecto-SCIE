@@ -139,6 +139,44 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
             },
         ],
         initComplete: function (settings, json) {
+            if (json.codigo_id !== "0") {
+                for (var i = 0; i < form_verificacion.length; i++) {
+                    if (idSeccion === parseInt(form_verificacion[i].dataset.id)) {
+                        form_verificacion.prop('hidden', false);
+                        // AJAX PARA OBTENER LA CANTIDAD DE INDICADORES VERIFICADOS DE CADA SECCION EVALUADA
+                        $.ajax({
+                            url: '/seccion/valorIndVerificado/',
+                            type: 'POST',
+                            data: {
+                                'action': 'getValorIndVerificados',
+                                'idSeccion': idSeccion,
+                                'idCuestionario': idCuestionario,
+                            },
+                            dataType: 'json',
+                        }).done(function (data) {
+                            $('input[name=indicadoresVerificados]:input[data-seccion=' + nombreSeccion + ']').prop('value', data.cantidad)
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus + ' : ' + errorThrown)
+                        });
+                        // AJAX PARA OBTENER LA CANTIDAD DE INDICADORES qQUE COINCIDEN DE CADA SECCION EVALUADA
+                        $.ajax({
+                            url: '/seccion/indicadoresCoinciden/',
+                            type: 'POST',
+                            data: {
+                                'action': 'indicadoresCoinciden',
+                                'idSeccion': idSeccion,
+                                'idCuestionario': idCuestionario,
+                            },
+                            dataType: 'json',
+                        }).done(function (data) {
+                            $('input[name=indicadoresCoinciden]:input[data-seccion=' + nombreSeccion + ']').prop('value', data.cantidad)
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus + ' : ' + errorThrown)
+                        });
+                        return false;
+                    }
+                }
+            }
         }
     });
     let modalTitle = $('.title-editar');
@@ -161,47 +199,8 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
         $('input[name="3_modelo"]').val(data.modelo_3);
         $('#modalEditarInstancia' + data.seccion_id + '').modal('show');
     });
+    console.log(datatable)
 
-    if (datatable.data().any()) {
-        alert('Tabla vacia');
-    } else {
-        for (var i = 0; i < form_verificacion.length; i++) {
-            if (idSeccion === parseInt(form_verificacion[i].dataset.id)) {
-                form_verificacion.prop('hidden', false);
-                // AJAX PARA OBTENER LA CANTIDAD DE INDICADORES VERIFICADOS DE CADA SECCION EVALUADA
-                $.ajax({
-                    url: '/seccion/valorIndVerificado/',
-                    type: 'POST',
-                    data: {
-                        'action': 'getValorIndVerificados',
-                        'idSeccion': idSeccion,
-                        'idCuestionario': idCuestionario,
-                    },
-                    dataType: 'json',
-                }).done(function (data) {
-                    $('input[name=indicadoresVerificados]:input[data-seccion=' + nombreSeccion + ']').prop('value', data.cantidad)
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    alert(textStatus + ' : ' + errorThrown)
-                });
-                // AJAX PARA OBTENER LA CANTIDAD DE INDICADORES qQUE COINCIDEN DE CADA SECCION EVALUADA
-                $.ajax({
-                    url: '/seccion/indicadoresCoinciden/',
-                    type: 'POST',
-                    data: {
-                        'action': 'indicadoresCoinciden',
-                        'idSeccion': idSeccion,
-                        'idCuestionario': idCuestionario,
-                    },
-                    dataType: 'json',
-                }).done(function (data) {
-                    $('input[name=indicadoresCoinciden]:input[data-seccion=' + nombreSeccion + ']').prop('value', data.cantidad)
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    alert(textStatus + ' : ' + errorThrown)
-                });
-                return false;
-            }
-        }
-    }
 
 
 };
@@ -547,9 +546,9 @@ const validate_depedencias_campos = (formulario) => {
     let cod_pregunta_12 = $('.' + claseForm + ' input[data-cod-pregunta="12"]');
     let cod_pregunta_13_No = $('.' + claseForm + ' input[data-cod-pregunta="13"]:input[value="No"] ');
     let cod_pregunta_13_Si = $('.' + claseForm + ' input[data-cod-pregunta="13"]:input[value="Si"] ');
-    let cod_pregunta_14_No = $('.' + claseForm + ' input[data-cod-pregunta="14"]:input[value="Bueno"] ');
-    let cod_pregunta_14_Si = $('.' + claseForm + ' input[data-cod-pregunta="14"]:input[value="Deteriorado"] ');
-    let cod_pregunta_14_nuevo = $('.' + claseForm + ' input[data-cod-pregunta="14"]:input[value="No"] ');
+    let cod_pregunta_14_Bueno = $('.' + claseForm + ' input[data-cod-pregunta="14"]:input[value="Bueno"] ');
+    let cod_pregunta_14_Deteriorado = $('.' + claseForm + ' input[data-cod-pregunta="14"]:input[value="Deteriorado"] ');
+    let cod_pregunta_14_No = $('.' + claseForm + ' input[data-cod-pregunta="14"]:input[value="No"] ');
     let cod_pregunta_15_No = $('.' + claseForm + ' input[data-cod-pregunta="15"]:input[value="No"] ');
     let cod_pregunta_15_Si = $('.' + claseForm + ' input[data-cod-pregunta="15"]:input[value="Si"] ');
     let cod_pregunta_41_No = $('.' + claseForm + ' input[data-cod-pregunta="41"]:input[value="No"] ');
@@ -559,6 +558,11 @@ const validate_depedencias_campos = (formulario) => {
     let cod_pregunta_22_No = $('.' + claseForm + ' input[data-cod-pregunta="22"]:input[value="No"] ');
     let cod_pregunta_22_Si = $('.' + claseForm + ' input[data-cod-pregunta="22"]:input[value="Si"] ');
     let cod_pregunta_42 = $('.' + claseForm + ' input[data-cod-pregunta="42"]');
+    let cod_pregunta_52_No = $('.' + claseForm + ' input[data-cod-pregunta="52"]:input[value="No"] ');
+    let cod_pregunta_52_Si = $('.' + claseForm + ' input[data-cod-pregunta="52"]:input[value="Si"] ');
+    let cod_pregunta_53_Papel = $('.' + claseForm + ' input[data-cod-pregunta="53"]:input[value="Papel"] ');
+    let cod_pregunta_53_Digital = $('.' + claseForm + ' input[data-cod-pregunta="53"]:input[value="Digital"] ');
+    let cod_pregunta_53_No = $('.' + claseForm + ' input[data-cod-pregunta="53"]:input[value="No"] ');
     let cod_pregunta_61_No = $('.' + claseForm + ' input[data-cod-pregunta="61"]:input[value="No"] ');
     let cod_pregunta_61_Si = $('.' + claseForm + ' input[data-cod-pregunta="61"]:input[value="Si"] ');
     let cod_pregunta_62 = $('.' + claseForm + ' input[data-cod-pregunta="62"]');
@@ -580,11 +584,12 @@ const validate_depedencias_campos = (formulario) => {
     if (claseForm == 'formCaptacion') {
 
         $('#14No').prop('hidden', true);
+        $('#53No').prop('hidden', true);
         cod_pregunta_12.prop('readonly', true);
         cod_pregunta_13_No.prop('disabled', true).prop('checked', false);
         cod_pregunta_13_Si.prop('disabled', true).prop('checked', false);
-        cod_pregunta_14_No.prop('disabled', true).prop('checked', false);
-        cod_pregunta_14_Si.prop('disabled', true).prop('checked', false);
+        cod_pregunta_14_Bueno.prop('disabled', true).prop('checked', false);
+        cod_pregunta_14_Deteriorado.prop('disabled', true).prop('checked', false);
         cod_pregunta_15_No.prop('disabled', true).prop('checked', false);
         cod_pregunta_15_Si.prop('disabled', true).prop('checked', false);
         cod_pregunta_22_No.prop('disabled', true).prop('checked', false);
@@ -598,28 +603,32 @@ const validate_depedencias_campos = (formulario) => {
         cod_pregunta_741.prop('readonly', true).prop('value', "");
     } else {
         //--------DEPENDENCIA PARA CUANDO SE EDITA LO CAPTADO-------//
-        if (cod_pregunta_11_No.is(':checked') === true) {
+        if (cod_pregunta_11_No.is(':checked')) {
             cod_pregunta_12.prop('readonly', true).prop('value', "No disponible");
             cod_pregunta_13_Si.prop('disabled', true);
             $('#14No').prop('hidden', false);
-            cod_pregunta_14_nuevo.prop('disabled', false).prop('checked', true);
-            cod_pregunta_14_No.prop('disabled', true);
-            cod_pregunta_14_Si.prop('disabled', true);
+            cod_pregunta_14_No.prop('disabled', false).prop('checked', true);
+            cod_pregunta_14_Bueno.prop('disabled', true);
+            cod_pregunta_14_Deteriorado.prop('disabled', true);
             cod_pregunta_15_Si.prop('disabled', true);
         }
-        if (cod_pregunta_21_No.is(':checked') === true) {
+        if (cod_pregunta_52_No.is(':checked')) {
+            $('#53No').prop('hidden', false);
+            cod_pregunta_53_No.prop('disabled', false).prop('checked', true);
+            cod_pregunta_53_Digital.prop('disabled', true);
+            cod_pregunta_53_Papel.prop('disabled', true);
+        }
+        if (cod_pregunta_21_No.is(':checked')) {
             cod_pregunta_22_No.prop('disabled', false).prop('checked', true);
             cod_pregunta_22_Si.prop('disabled', true);
         }
-        if (cod_pregunta_41_No.is(':checked') === true) {
+        if (cod_pregunta_41_No.is(':checked')) {
             cod_pregunta_42.prop('readonly', true).prop('value', 0);
         }
-        if (cod_pregunta_61_No.is(':checked') === true) {
+        if (cod_pregunta_61_No.is(':checked')) {
             cod_pregunta_62.prop('readonly', true).prop('value', 0);
             cod_pregunta_63.prop('readonly', true).prop('value', 0);
         }
-
-
     }
 
     //DEPENDENCIA PARA AMBAS PARTE TANTO AL INICIO COMO AL EDITAR------//
@@ -628,9 +637,9 @@ const validate_depedencias_campos = (formulario) => {
         cod_pregunta_13_No.prop('disabled', false).prop('checked', true);
         cod_pregunta_13_Si.prop('disabled', true);
         $('#14No').prop('hidden', false);
-        cod_pregunta_14_nuevo.prop('disabled', false).prop('checked', true);
-        cod_pregunta_14_No.prop('disabled', true);
-        cod_pregunta_14_Si.prop('disabled', true);
+        cod_pregunta_14_No.prop('checked', true);
+        cod_pregunta_14_Bueno.prop('disabled', true);
+        cod_pregunta_14_Deteriorado.prop('disabled', true);
         cod_pregunta_15_No.prop('disabled', false).prop('checked', true);
         cod_pregunta_15_Si.prop('disabled', true);
     });
@@ -639,9 +648,9 @@ const validate_depedencias_campos = (formulario) => {
         cod_pregunta_13_No.prop('disabled', false).prop('checked', false);
         cod_pregunta_13_Si.prop('disabled', false);
         $('#14No').prop('hidden', true);
-        cod_pregunta_14_nuevo.prop('disabled', false).prop('checked', false);
-        cod_pregunta_14_No.prop('disabled', false).prop('checked', false);
-        cod_pregunta_14_Si.prop('disabled', false);
+        cod_pregunta_14_No.prop('checked', false);
+        cod_pregunta_14_Bueno.prop('disabled', false).prop('checked', false);
+        cod_pregunta_14_Deteriorado.prop('disabled', false);
         cod_pregunta_15_No.prop('disabled', false).prop('checked', false);
         cod_pregunta_15_Si.prop('disabled', false);
     });
@@ -658,6 +667,18 @@ const validate_depedencias_campos = (formulario) => {
     });
     cod_pregunta_41_Si.on('click', function () {
         cod_pregunta_42.prop('readonly', false);
+    });
+    cod_pregunta_52_No.on('click', function () {
+        $('#53No').prop('hidden', false);
+        cod_pregunta_53_No.prop('checked', true);
+        cod_pregunta_53_Papel.prop('disabled', true);
+        cod_pregunta_53_Digital.prop('disabled', true);
+    });
+    cod_pregunta_52_Si.on('click', function () {
+        $('#53No').prop('hidden', true);
+        cod_pregunta_53_No.prop('checked', false);
+        cod_pregunta_53_Papel.prop('disabled', false).prop('checked', false);
+        cod_pregunta_53_Digital.prop('disabled', false);
     });
     cod_pregunta_61_No.on('click', function () {
         cod_pregunta_62.prop('readonly', true).prop('value', 0);
@@ -721,16 +742,12 @@ const validateComponenteTexto = (formulario) => {
 }
 
 
-
-
 //--------------------------------INICIALIZACION DE CAMPOS NUMERICOS EN SOBRE ENTIDAD--------------------------------//
 
 let entero = $('.formCaptacion input[data-component="entero"]');
 for (var i = 0; i < entero.length; i++) {
     entero[i].value = 0
 }
-
-
 
 
 //--------------------------------PROCEDIMIENTO PARA GUARDAR LO CAPTADO EN SOBRE ENTIDAD-----------------------------//
@@ -745,17 +762,13 @@ formularioCaptacion.on('submit', function (e) {
 
     if (validateComponenteTexto(formularioCaptacion) === false) {
         return false
-    }
-    ;
+    };
     if (validate_radios_no_empty() === false) {
         return false
-    }
-    ;
+    };
     if (validate_component_entero(formularioCaptacion) === false) {
         return false
-    }
-    ;
-
+    };
     campos.forEach(function (value, key) {
         console.log(key + ' : ' + value)
     });
@@ -789,7 +802,6 @@ formularioCaptacion.on('submit', function (e) {
 });
 
 
-
 //-----------------------------------------PROCEDIMIENTO PARA GUARDAR LO CAPTADO EN EL FORM DE INSTANCIA--------------------------------------------------//
 
 $('form[name="instanciaForm"]').on('submit', function (e) {
@@ -797,40 +809,31 @@ $('form[name="instanciaForm"]').on('submit', function (e) {
     let instancia_from_seccion = $(this).data('seccion');
     if (validateInstancias(instancia_from_seccion, $('select[name="seccion_id"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('select[name="columna_id"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('select[name="codigo_id"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="modelo_1"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="registro_1"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="modelo_2"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="registro_2"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="modelo_3"]')) === false) {
         return false
-    }
-    ;
+    };
     if (validateInstancias(instancia_from_seccion, $('input[name="registro_3"]')) === false) {
         return false
-    }
-    ;
+    };
     let campos = new FormData(this);
     $.ajax({
         url: '/guia/dataCaptacion/',
@@ -840,6 +843,11 @@ $('form[name="instanciaForm"]').on('submit', function (e) {
         processData: false,
         contentType: false
     }).done(function (data) {
+        toastr.success(data.sms, 'Exito', {
+            progressBar: true,
+            closeButton: true,
+            "timeOut": "3000",
+        });
         let modal = $('.instanciaModal');
         modal.modal('hide');
         $('button[name="actualizar"]').prop('disabled', false);
@@ -1098,7 +1106,7 @@ $(document).ready(function () {
 
 
 $('div[data-model-name="modal"]').on('shown.bs.modal', function () {
-    $('form[name="instanciaForm"]')[0].reset();
+    $('form[name="instanciaForm"]').trigger("reset")
 });
 
 //------------------------------------------------PARTE PARA MOSTRAR LO CAPTADO---------------------------------------//
@@ -1172,39 +1180,6 @@ $('a[name="detalles"]').on('click', function () {
 });
 
 
-
-//-----------------------------------CONTROL DE ACCESOS-------------------------------------------//
-
-$('#widgetGuia').on('click', function () {
-    $('#widgetGuia').prop("disabled", true);
-    toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado', {
-        progressBar: true,
-        closeButton: true,
-        "timeOut": "3000",
-    })
-});
-
-$('#widgetEntidad').on('click', function () {
-    $('#widgetEntidad').prop("disabled", true);
-    toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado', {
-        progressBar: true,
-        closeButton: true,
-        "timeOut": "3000",
-    })
-});
-
-$('#widgetUsuario').on('click', function () {
-    $('#widgetUsuario').prop("disabled", true);
-    toastr.error('Lo sentimos no tiene los permisos requeridos para realizar esta accion.', 'Acceso denegado', {
-        progressBar: true,
-        closeButton: true,
-        "timeOut": "3000",
-    })
-});
-
-
-
-
 //--------------------------------MODIFICACIONES DE LAS COSAS CAPTADAS DEL CUESTIONARIO---------------------------------------------//
 
 
@@ -1237,24 +1212,12 @@ $('form[name="editarInstanciaForm"]').on('submit', function (e) {
     e.preventDefault();
     let instanciaSeccion = $(this).data('seccion');
     let modal = $('#modalEditarInstancia'+instanciaSeccion);
-    if (validateInstancias(instanciaSeccion, $('input[name="1_modelo"]')) === false) {
-        return false
-    };
-    if (validateInstancias(instanciaSeccion, $('input[name="1_registro"]')) === false) {
-        return false
-    };
-    if (validateInstancias(instanciaSeccion, $('input[name="2_modelo"]')) === false) {
-        return false
-    };
-    if (validateInstancias(instanciaSeccion, $('input[name="2_registro"]')) === false) {
-        return false
-    };
-    if (validateInstancias(instanciaSeccion, $('input[name="3_modelo"]')) === false) {
-        return false
-    };
-    if (validateInstancias(instanciaSeccion, $('input[name="3_registro"]')) === false) {
-        return false
-    };
+    if (validateInstancias(instanciaSeccion, $('input[name="1_modelo"]')) === false) {return false};
+    if (validateInstancias(instanciaSeccion, $('input[name="1_registro"]')) === false) {return false};
+    if (validateInstancias(instanciaSeccion, $('input[name="2_modelo"]')) === false) {return false};
+    if (validateInstancias(instanciaSeccion, $('input[name="2_registro"]')) === false) {return false};
+    if (validateInstancias(instanciaSeccion, $('input[name="3_modelo"]')) === false) {return false};
+    if (validateInstancias(instanciaSeccion, $('input[name="3_registro"]')) === false) {return false};
     let campos = new FormData(this);
     $.ajax({
         url: '/seccion/editarInstancia/',
@@ -1265,11 +1228,7 @@ $('form[name="editarInstanciaForm"]').on('submit', function (e) {
         contentType: false
     }).done(function (data) {
         modal.modal('hide');
-        toastr.success("La instancia del cuestionario ha sido modificada correctamente.", 'Exito', {
-            progressBar: true,
-            closeButton: true,
-            "timeOut": "3000",
-        });
+        window.location.reload()
     }).fail(function (jqXHR, textStatus, errorThrown) {
         alert(textStatus + ' : ' + errorThrown)
     })
@@ -1523,7 +1482,6 @@ $('#campoOrden').on('click', function () {
 $('#campoNombre').on('mouseover', function () {
         $('#textoAyudaNombre').prop('hidden', false);
 });
-
 $('#campoNombre').on('click', function () {
         $('#textoAyudaNombre').prop('hidden', true);
 });
@@ -1836,50 +1794,6 @@ $('#userForm').bootstrapValidator({
     }
 });
 
-$('#changePasswordForm').bootstrapValidator({
-    message: 'This value is not valid',
-    feedbackIcons: {
-        valid: 'glyphicon glyphicon-ok',
-        invalid: 'fa fa-times-circle',
-        validating: 'glyphicon glyphicon-refresh'
-    },
-    fields: {
-        password: {
-            validators: {
-                notEmpty: {
-                    message: 'El campo contraseña es requerido.'
-                },
-                stringLength: {
-                    min: 8,
-                    message: 'La contraseña debe tener como minimo 8 caracteres'
-                },
-                callback: {
-                    callback: function (value, validator) {
-                        if (value === value.toLowerCase()) {
-                            return {
-                                valid: false,
-                                message: ' La contraseña debe contener mayusculas'
-                            }
-                        }
-                        if (value === value.toUpperCase()) {
-                            return {
-                                valid: false,
-                                message: 'La contraseña debe contener minusculas'
-                            }
-                        }
-                        if (value.search(/[.*,@_]/) < 0) {
-                            return {
-                                valid: false,
-                                message: 'La contraseña debe contener caracteres especiales (.*,@_)'
-                            }
-                        }
-                        return true;
-                    }
-                }
-            }
-        },
-    }
-});
 
 
 

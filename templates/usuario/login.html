@@ -1,197 +1,199 @@
 {% load static %}
 {% load widget_tweaks %}
 
+{% block css %}
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ title }} | Inicio sesion</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
-  <link href="{% static 'propios/img/logo.jpg' %}" rel="icon">
-  <link rel="stylesheet" href="{% static 'plugins/adminLTE/css/adminlte.min.css' %}">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{{ tituloPestaña }}</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <link href="{% static 'propios/img/logo.jpg' %}" rel="icon">
+    <link rel="stylesheet" href="{% static 'plugins/adminLTE/css/adminlte.min.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}">
     <link rel="stylesheet" href="{% static 'plugins/jquery-confirm-v3.3.4/jquery-confirm.min.css' %}">
     <link rel="stylesheet" href="{% static 'propios/css/styles.css' %}">
 </head>
+{% endblock %}
+
 <body class="hold-transition login-page login-body">
 <div id="particles-js"></div>
 <div class="login-box">
-  <div class="login-logo">
-    <img src="{% static 'propios/img/logo.jpg' %}"
+    <div class="login-logo">
+        <img src="{% static 'propios/img/logo.jpg' %}"
              class="brand-image  elevation-3"
              style="width: 125px; border-radius: 10px">
-  </div>
-  <!-- /.login-logo -->
-  <div class="card" style="border-radius: 20px; z-index: 1; position: relative">
-    <div class="card-body login-card-body"  style="border-radius: 20px;">
-      <h5 class="login-box-msg text-uppercase text-bold">{% block titulo %}Inicio de Sesion{% endblock %}</h5>
-    <hr>
-
-     {% block content %}
-      <form  method="post">
-          {% csrf_token %}
-          <input type="hidden" name="next" value="{{ next }}">
-        <div class="input-group mb-3">
-          {{ form.username|add_class:'form-control styleInput'|attr:'placeholder:Ingrese su usuario'|attr:'autofocus:off' }}
-          <div class="input-group-append">
-            <div class="input-group-text styleInput">
-              <span class="fas fa-user " ></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          {{ form.password|add_class:'form-control styleInput'|attr:'placeholder:Ingrese su contraseña'}}
-          <div class="input-group-append">
-            <div class="input-group-text styleInput">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <!-- /.col -->
-          <div class="col-12">
-            <button type="submit" class="boton-salvar btn1" style="width: 95%"><i class="fa fa-sign-in-alt"></i> Aceptar</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
-         <hr>
-         <p class="text-center mt-2" style="font-size: 13px;">
-                        Si no recuerdas tu contraseña puedes resetearla dando click <a href="{% url 'usuario:resetear_password' %}">aqui </a>
-                    </p>
-    {% endblock %}
     </div>
-    <!-- /.login-card-body -->
-  </div>
+    <!-- /.login-logo -->
+    <div class="card" style="border-radius: 20px; z-index: 1; position: relative">
+        <div class="card-body login-card-body" style="border-radius: 20px;">
+            <h5 class="login-box-msg text-uppercase text-bold">{% block titulo %}Inicio de Sesion{% endblock %}</h5>
+            <hr>
+
+            {% block content %}
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <div class="input-group mb-3">
+                        {{ form.username|add_class:'form-control styleInput'|attr:'placeholder:Ingrese su usuario'|attr:'autofocus:off' }}
+                        <div class="input-group-append">
+                            <div class="input-group-text styleInput">
+                                <span class="fas fa-user "></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        {{ form.password|add_class:'form-control styleInput'|attr:'placeholder:Ingrese su contraseña' }}
+                        <div class="input-group-append">
+                            <div class="input-group-text styleInput">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- /.col -->
+                        <div class="col-12">
+                            <button type="submit" class="boton-salvar btn1" style="width: 95%"><i
+                                    class="fa fa-sign-in-alt"></i> Aceptar
+                            </button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+                <hr>
+                <p class="text-center mt-2" style="font-size: 13px;">
+                    Si no recuerdas tu contraseña puedes resetearla dando click <a
+                        href="{% url 'usuario:resetear_password' %}">aqui </a>
+                </p>
+            {% endblock %}
+        </div>
+    </div>
 </div>
-<!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
-<!-- Bootstrap 4 -->
-<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<!-- AdminLTE App -->
-<script src="{% static 'plugins/adminLTE/js/adminlte.min.js' %}"></script>
- <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
- <script src="{% static 'plugins/jquery-confirm-v3.3.4/jquery-confirm.min.js' %}"></script>
- <script src="{% static 'plugins/particles/particles.min.js' %}"></script>
-
- <script type="text/javascript">
+{% block js %}
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'plugins/adminLTE/js/adminlte.min.js' %}"></script>
+    <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script>
+    <script src="{% static 'plugins/jquery-confirm-v3.3.4/jquery-confirm.min.js' %}"></script>
+    <script src="{% static 'propios/js/utils.js' %}"></script>
+    <script src="{% static 'plugins/particles/particles.min.js' %}"></script>
+    <script type="text/javascript">
         {% if form.errors %}
-                {% for error in form.non_field_errors %}
-                    toastr.error('{{ error }}', 'Error', {
-                        "closeButton": true,
-                        "progressBar": true,
-                        "timeOut": "3000",
-                    });
+            {% for error in form.non_field_errors %}
+                toastr.error('{{ error }}', 'Error', {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "timeOut": "3000",
+                });
             {% endfor %}
         {% endif %}
-        particlesJS('particles-js',{
-  "particles": {
-    "number": {
-      "value": 100,
-      "density": {
-        "enable": true,
-        "value_area": 800
-      }
-    },
-    "color": {
-      "value": "#ffffff"
-    },
-    "shape": {
-      "type": "circle",
-      "stroke": {
-        "width": 0,
-        "color": "#000000"
-      },
-      "image": {
-        "src": "img/github.svg",
-        "width": 100,
-        "height": 100
-      }
-    },
-    "opacity": {
-      "value": 0.5,
-      "random": false,
-      "anim": {
-        "enable": false,
-        "speed": 1,
-        "opacity_min": 0.1,
-        "sync": false
-      }
-    },
-    "size": {
-      "value": 5,
-      "random": true,
-      "anim": {
-        "enable": false,
-        "speed": 40,
-        "size_min": 0.1,
-        "sync": false
-      }
-    },
-    "line_linked": {
-      "enable": true,
-      "distance": 150,
-      "color": "#ffffff",
-      "opacity": 0.4,
-      "width": 1
-    },
-    "move": {
-      "enable": true,
-      "speed": 6,
-      "direction": "none",
-      "random": false,
-      "straight": false,
-      "out_mode": "bounce",
-      "attract": {
-        "enable": false,
-        "rotateX": 600,
-        "rotateY": 1200
-      }
-    }
-  },
-  "interactivity": {
-    "detect_on": "canvas",
-    "events": {
-      "onhover": {
-        "enable": true,
-        "mode": "repulse"
-      },
-      "onclick": {
-        "enable": true,
-        "mode": "push"
-      },
-      "resize": true
-    },
-    "modes": {
-      "grab": {
-        "distance": 400,
-        "line_linked": {
-          "opacity": 1
-        }
-      },
-      "bubble": {
-        "distance": 400,
-        "size": 40,
-        "duration": 2,
-        "opacity": 8,
-        "speed": 3
-      },
-      "repulse": {
-        "distance": 200
-      },
-      "push": {
-        "particles_nb": 4
-      },
-      "remove": {
-        "particles_nb": 2
-      }
-    }
-  },
-  "retina_detect": true,
-})
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 100,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 5,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "bounce",
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true,
+        })
     </script>
-{% block js %}{% endblock %}
+{% endblock %}
 </body>

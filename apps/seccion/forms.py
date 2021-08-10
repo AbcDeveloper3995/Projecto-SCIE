@@ -23,11 +23,11 @@ class seccionForm(ModelForm):
                                        'placeholder':'Ingrese el nombre de la seccion', 'id': 'campoNombre'}),
             'guia_id': Select(attrs={'class':'form-control select2'}),
             'periodo_id': Select(attrs={'class':'form-control select2'}),
-            'numero': NumberInput(attrs={'class':'form-control styleInput',
+            'numero': TextInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese el numero de la seccion'}),
             'subNumero': TextInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese el sub-numero de la seccion'}),
-            'orden': NumberInput( attrs={'class':'form-control styleInput',
+            'orden': NumberInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese el orden de la seccion','id': 'campoOrden'}),
             'tipo': Select(attrs={'class':'form-control select2', 'id': 'campoTipo'}),
             'activo': CheckboxInput(attrs={'class':'custom-control-input', 'type': 'checkbox', 'id':'seccionActiva' })

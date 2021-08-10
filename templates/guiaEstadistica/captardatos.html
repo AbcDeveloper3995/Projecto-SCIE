@@ -142,7 +142,7 @@
                                                             <th rowspan="2">Codigo</th>
                                                             <th rowspan="2">No.columna</th>
                                                             <th class="text-center"
-                                                                colspan="3">{{ i.periodo.mes_1 }} {{ i.periodo.ano }}</th>
+                                                                colspan="3">{{ i.periodo_id.mes_1 }} {{ i.periodo_id.ano_1 }}</th>
                                                         </tr>
                                                         <tr>
                                                             <th>Registro</th>
@@ -160,11 +160,11 @@
                                                             <th rowspan="2">Codigo</th>
                                                             <th rowspan="2">No.columna</th>
                                                             <th class="text-center"
-                                                                colspan="3">{{ i.periodo_id.mes_1 }} {{ i.periodo_id.ano }}</th>
+                                                                colspan="3">{{ i.periodo_id.mes_1 }} {{ i.periodo_id.ano_1 }}</th>
                                                             <th class="text-center"
-                                                                colspan="3">{{ i.periodo_id.mes_2 }} {{ i.periodo_id.ano }}</th>
+                                                                colspan="3">{{ i.periodo_id.mes_2 }} {{ i.periodo_id.ano_1 }}</th>
                                                             <th class="text-center"
-                                                                colspan="3">{{ i.periodo_id.mes_3 }} {{ i.periodo_id.ano }}</th>
+                                                                colspan="3">{{ i.periodo_id.mes_3 }} {{ i.periodo_id.ano_1 }}</th>
                                                         </tr>
                                                         <tr>
                                                             <th>Registro</th>
@@ -208,7 +208,6 @@
                                                         <h5 class="text-bold">{{ verificacionForm.indicadoresIncluidos.label }}</h5>
                                                         <select class="form-control" name="indicadoresIncluidos"
                                                                 type="number" data-seccion="{{ i.nombre }}">
-                                                            <option value="">---------</option>
                                                             <option value="Si">Si</option>
                                                             <option value="No">No</option>
                                                         </select>
@@ -256,19 +255,29 @@
                                                                         <th>Codigo</th>
                                                                         <th>{{ i.numero }}</th>
                                                                         <th>Registro</th>
-                                                                        <th>Acciones</th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
 
                                                                     <tr>
-                                                                        <td>{{ instanciaForm.seccion }}</td>
-                                                                        <td>{{ instanciaForm.columna }}</td>
-                                                                        <td>{{ instanciaForm.codigo }}</td>
-                                                                        <td>{{ instanciaForm.modelo_1 }}</td>
-                                                                        <td><span
-                                                                                class="">{{ instanciaForm.registro_1 }}</span>
+                                                                        <td><select class="form-control select2"
+                                                                                    name="seccion_id"
+                                                                                    data-seccion="{{ i.nombre }}"></select>
                                                                         </td>
+                                                                        <td><select class="form-control"
+                                                                                    name="columna_id"
+                                                                                    data-seccion="{{ i.nombre }}"></select>
+                                                                        </td>
+                                                                        <td><select class="form-control"
+                                                                                    name="codigo_id"
+                                                                                    data-seccion="{{ i.nombre }}"></select>
+                                                                        </td>
+                                                                        <td><input class="form-control" name="modelo_1"
+                                                                                   type="number"
+                                                                                   data-seccion="{{ i.nombre }}"></td>
+                                                                        <td><input class="form-control"
+                                                                                   name="registro_1" type="number"
+                                                                                   data-seccion="{{ i.nombre }}"></td>
                                                                     </tr>
 
                                                                     </tbody>
@@ -747,8 +756,8 @@
                                         </div>
                                     </div>
                                     <!-- /.card-header -->
-                                    <div class="card-body">
-                                        <table class="table table{{ i.nombre }}">
+                                    <div class="card-body ">
+                                        <table class="table table{{ i.nombre }}" >
                                             {% for seccion in valor %}
                                                 {% if seccion.periodo_id.tipo == "Anual" %}
                                                     <thead>
@@ -820,7 +829,6 @@
                                                     <h5 class="text-bold">{{ verificacionForm.indicadoresIncluidos.label }}</h5>
                                                     <select class="form-control" name="indicadoresIncluidos"
                                                             type="number" data-seccion="{{ i.nombre }}">
-                                                        <option value="">---------</option>
                                                         <option value="Si">Si</option>
                                                         <option value="No">No</option>
                                                     </select>
