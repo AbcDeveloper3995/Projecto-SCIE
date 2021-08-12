@@ -158,7 +158,7 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
                         }).fail(function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus + ' : ' + errorThrown)
                         });
-                        // AJAX PARA OBTENER LA CANTIDAD DE INDICADORES qQUE COINCIDEN DE CADA SECCION EVALUADA
+                        // AJAX PARA OBTENER LA CANTIDAD DE INDICADORES QUE COINCIDEN DE CADA SECCION EVALUADA
                         $.ajax({
                             url: '/seccion/indicadoresCoinciden/',
                             type: 'POST',
@@ -170,6 +170,28 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
                             dataType: 'json',
                         }).done(function (data) {
                             $('input[name=indicadoresCoinciden]:input[data-seccion=' + nombreSeccion + ']').prop('value', data.cantidad)
+                        }).fail(function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus + ' : ' + errorThrown)
+                        });
+                        // AJAX PARA OBTENER EL VALOR DEL SELECT DE INDICADORES INCLUIDOS
+                        $.ajax({
+                            url: '/seccion/indicadoresIncluidos/',
+                            type: 'POST',
+                            data: {
+                                'action': 'indicadoresIncluidos',
+                                'idSeccion': idSeccion,
+                                'idCuestionario': idCuestionario,
+                            },
+                            dataType: 'json',
+                        }).done(function (data) {
+                            let indicadoresIncluidos = $('select[data-seccion=indicadoresIncluidos' + nombreSeccion + ']')[0];
+                            if (indicadoresIncluidos[0].value !== data.indicadoresIncluidos) {
+                                indicadoresIncluidos[0].value = data.indicadoresIncluidos;
+                                indicadoresIncluidos[0].text = data.indicadoresIncluidos;
+                                indicadoresIncluidos[1].value = "Si";
+                                indicadoresIncluidos[1].text = "Si";
+                            }
+
                         }).fail(function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus + ' : ' + errorThrown)
                         });
@@ -199,7 +221,7 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
         $('input[name="3_modelo"]').val(data.modelo_3);
         $('#modalEditarInstancia' + data.seccion_id + '').modal('show');
     });
-    console.log(datatable)
+
 
 
 

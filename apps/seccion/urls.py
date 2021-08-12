@@ -39,6 +39,7 @@ urlpatterns = [
     path('modificarInstancias/', modificarInstanciasView.as_view(), name='modificarInstancias'),
     path('valorIndVerificado/', valorIndicadoresVerificados.as_view(), name='valorIndVerificado'),
     path('indicadoresCoinciden/', indicadoresCoinciden.as_view(), name='indicadoresCoinciden'),
+    path('indicadoresIncluidos/', indicadoresIncluidos.as_view(), name='indicadoresIncluidos'),
 
 
 

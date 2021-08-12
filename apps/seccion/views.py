@@ -370,11 +370,9 @@ class valorIndicadoresVerificados(TemplateView):
             DE LAS SECCIONES Y LA OTRA ES PARA CONTINUAR CON LA CAPTACION DE INSTANCIA DE UN CUESTIONARIO DE 
             UN CI YA CAPTADO'''
             if idCuestionario == 0:
-                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion,
-                                                        cuestionario_fk_id=lastCuestionario.id)
+                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion, cuestionario_fk_id=lastCuestionario.id)
             else:
-                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion,
-                                                        cuestionario_fk_id=idCuestionario)
+                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion, cuestionario_fk_id=idCuestionario)
             if action == 'getValorIndVerificados' and query.count() != 0:
                 for i in query:
                     if i.registro_1 != 0:
@@ -408,11 +406,9 @@ class indicadoresCoinciden(TemplateView):
             DE LAS SECCIONES Y LA OTRA ES PARA CONTINUAR CON LA CAPTACION DE INSTANCIA DE UN CUESTIONARIO DE 
             UN CI YA CAPTADO'''
             if idCuestionario == 0:
-                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion,
-                                                        cuestionario_fk_id=lastCuestionario.id)
+                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion, cuestionario_fk_id=lastCuestionario.id)
             else:
-                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion,
-                                                        cuestionario_fk_id=idCuestionario)
+                query = instanciaSeccion.objects.filter(seccion_id__id=idSeccion, cuestionario_fk_id=idCuestionario)
             if action == 'indicadoresCoinciden' and query.count() != 0:
                 for i in query:
                     if i.get_diferencia_1() == 0:
@@ -427,6 +423,28 @@ class indicadoresCoinciden(TemplateView):
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
+
+class indicadoresIncluidos(TemplateView):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        action = request.POST['action']
+        idSeccion = request.POST['idSeccion']
+        idCuestionario = int(request.POST['idCuestionario'])
+        try:
+            if action == 'indicadoresIncluidos' and idCuestionario != 0:
+                query = verificacion.objects.get(seccion_id__id=idSeccion, cuestionario_fk_id=idCuestionario)
+                data['indicadoresIncluidos'] = query.indicadoresIncluidos
+            else:
+                data['error'] = 'Ha ocurrido un error'
+        except Exception as e:
+            data['error'] = str(e)
+        return JsonResponse(data, safe=False)
+
 
 class updateInstanciaView(TemplateView):
 
