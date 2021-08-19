@@ -1,8 +1,8 @@
 from django import template
 
 import utils
-from apps.guiaEstadistica.models import cuestionario, PreguntasEvaluadas
-from apps.indicadores.models import Indicadores
+from apps.guiaEstadistica.models import cuestionario
+from apps.indicadores.models import Indicadores, PreguntasEvaluadas
 from apps.seccion.models import seccion, verificacion
 
 register = template.Library()

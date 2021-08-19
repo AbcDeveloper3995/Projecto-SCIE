@@ -53,22 +53,6 @@ class cuestionario(models.Model):
     def __str__(self):
         return 'Captacion: {0} de la guia {1}'.format(self.id, self.guia.nombre)
 
-class PreguntasEvaluadas(models.Model):
-    captacion_id = models.ForeignKey(cuestionario,verbose_name='Cuestionario', blank=True, null=True, on_delete=models.CASCADE)
-    pregunta = models.CharField(verbose_name='Pregunta', max_length=250, blank=True, null=True)
-    respuesta = models.CharField(verbose_name='Respuesta', max_length=250, blank=True, null=True)
 
-    class Meta:
-        db_table = 'PreguntasEvaluadas'
-        verbose_name = 'Preguntas Evaluadas'
-        verbose_name_plural = 'Preguntas Evaluadas'
-
-
-    def __str__(self):
-        return 'Pregunta evaluada: {0}'.format(self.pregunta)
-
-    def toJSON(self):
-        item = model_to_dict(self)
-        return item
 
 

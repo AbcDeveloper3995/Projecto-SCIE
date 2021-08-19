@@ -46,7 +46,7 @@
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control styleInput"
                                                                        placeholder="Ingrese un nombre"
-                                                                       name="{{ i.nombre }}" style="width: 100%"
+                                                                       name="{{ i.id }}" style="width: 100%"
                                                                        data-type="1" data-component="texto">
                                                                 <div class="input-group-append">
                                                                     <div class="input-group-text styleInput"><i
@@ -67,7 +67,7 @@
                                                                        class="form-control datetimepicker-input date styleInput"
                                                                        id="date"
                                                                        placeholder="Seleccione una fecha"
-                                                                       name="{{ i.nombre }}" style="width: 100%"
+                                                                       name="{{ i.id }}" style="width: 100%"
                                                                        data-type="5"
                                                                        data-component="date" data-target="#date"
                                                                        data-toggle="datetimepicker">
@@ -348,85 +348,99 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div id="modalEditarInstancia{{ i.nombre }}" class="modal fade modalEditarInstancia " data-model-name="modal"
-                                         tabindex="-1" role="dialog"
-                                         aria-labelledby="myModalLabel2"
-                                         aria-hidden="true">
-                                        <div class="modal-dialog modal-xl">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title title-editar text-bold">
-                                                        <span class="badge bg-gradient-navy"></span>
-                                                    </h4>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">×</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="post" class="form-horizontal"
-                                                          name="editarInstanciaForm" data-seccion="{{ i.nombre }}">
-                                                        <input type="hidden" name="action" value="modificarInstancia">
-                                                        <input type="hidden" name="idInstancia">
-                                                        <div class="row">
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label>Registro</label>
-                                                                    <input class="form-control styleInput" type="number"
-                                                                           name="1_registro" data-seccion="{{ i.nombre }}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label id="labelModelo1"></label>
-                                                                    <input class="form-control styleInput" type="number"
-                                                                           name="1_modelo" data-seccion="{{ i.nombre }}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label>Registro</label>
-                                                                    <input class="form-control styleInput" type="number"
-                                                                           name="2_registro" data-seccion="{{ i.nombre }}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label id="labelModelo2"></label>
-                                                                    <input class="form-control styleInput" type="number"
-                                                                           name="2_modelo" data-seccion="{{ i.nombre }}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label>Registro</label>
-                                                                    <input class="form-control styleInput" type="number"
-                                                                           name="3_registro" data-seccion="{{ i.nombre }}">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-2">
-                                                                <div class="form-group">
-                                                                    <label id="labelModelo3"></label>
-                                                                    <input class="form-control styleInput" type="number"
-                                                                           name="3_modelo" data-seccion="{{ i.nombre }}">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="form-actions">
+                                        <div id="modalEditarInstancia{{ i.nombre }}"
+                                             class="modal fade modalEditarInstancia " data-model-name="modal"
+                                             tabindex="-1" role="dialog"
+                                             aria-labelledby="myModalLabel2"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-xl">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title title-editar text-bold">
+                                                            <span class="badge bg-gradient-navy"></span>
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="post" class="form-horizontal"
+                                                              name="editarInstanciaForm" data-seccion="{{ i.nombre }}">
+                                                            <input type="hidden" name="action"
+                                                                   value="modificarInstancia">
+                                                            <input type="hidden" name="idInstancia">
                                                             <div class="row">
-                                                                <div class="offset-md-10 col-2">
-                                                                    <button type=submit class="boton-salvar btn1"><i
-                                                                            class="fa fa-save "></i> Salvar
-                                                                    </button>
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label>Registro</label>
+                                                                        <input class="form-control styleInput"
+                                                                               type="number"
+                                                                               name="1_registro"
+                                                                               data-seccion="{{ i.nombre }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label id="labelModelo1"></label>
+                                                                        <input class="form-control styleInput"
+                                                                               type="number"
+                                                                               name="1_modelo"
+                                                                               data-seccion="{{ i.nombre }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label>Registro</label>
+                                                                        <input class="form-control styleInput"
+                                                                               type="number"
+                                                                               name="2_registro"
+                                                                               data-seccion="{{ i.nombre }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label id="labelModelo2"></label>
+                                                                        <input class="form-control styleInput"
+                                                                               type="number"
+                                                                               name="2_modelo"
+                                                                               data-seccion="{{ i.nombre }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label>Registro</label>
+                                                                        <input class="form-control styleInput"
+                                                                               type="number"
+                                                                               name="3_registro"
+                                                                               data-seccion="{{ i.nombre }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-2">
+                                                                    <div class="form-group">
+                                                                        <label id="labelModelo3"></label>
+                                                                        <input class="form-control styleInput"
+                                                                               type="number"
+                                                                               name="3_modelo"
+                                                                               data-seccion="{{ i.nombre }}">
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </form>
+                                                            <hr>
+                                                            <div class="form-actions">
+                                                                <div class="row">
+                                                                    <div class="offset-md-10 col-2">
+                                                                        <button type=submit class="boton-salvar btn1"><i
+                                                                                class="fa fa-save "></i> Salvar
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     </div>
                                     </div>
                                 {% endfor %}
@@ -455,7 +469,7 @@
                                                     <div class="custom-control custom-radio">
                                                         <input class="custom-control-input" type="radio"
                                                                id="{{ i }}{{ j }}"
-                                                               name="{{ i.nombre }}" value="{{ j.nombre }}"
+                                                               name="{{ i.id }}" value="{{ j.nombre }}"
                                                                data-cod-pregunta="{{ i.cod_indicador }}"
                                                                data-component="radio">
                                                         <label for="{{ i }}{{ j }}"
@@ -468,7 +482,7 @@
                                                         <div class="col-12">
                                                     <textarea type="text" class="form-control styleInput"
                                                               placeholder="Ingrese una descripcion"
-                                                              name="Argumentacion_{{ i.cod_indicador }}" data-type="2"
+                                                              name="{{ i.id }}" data-type="2"
                                                               data-cod-pregunta="{{ i.cod_indicador }}"
                                                               data-component="texto_largo"></textarea>
                                                         </div>
@@ -478,7 +492,7 @@
                                                         <div class="col-12">
                                                             <input type="number" class="form-control styleInput"
                                                                    placeholder="Ingrese un numero"
-                                                                   id="{{ i }}" name="{{ i.nombre }}"
+                                                                   id="{{ i }}" name="{{ i.id }}"
                                                                    data-cod-pregunta="{{ i.cod_indicador }}"
                                                                    data-component="entero">
                                                         </div>
@@ -492,7 +506,7 @@
                                                                            class="form-control  datetimepicker-input date styleInput"
                                                                            id="date2"
                                                                            placeholder="Seleccione una fecha"
-                                                                           name="{{ i.nombre }}"
+                                                                           name="{{ i.id }}"
                                                                            data-cod-pregunta="{{ i.cod_indicador }}"
                                                                            style="width: 100%" data-type="5"
                                                                            data-component="date" data-target="#date2"
@@ -510,7 +524,7 @@
                                             {% endfor %}
                                         {% endif %}
                                     {% endfor %}
-                                <hr>
+                                    <hr>
                                     <div class="form-actions">
                                         <div class="row">
                                             <div class="offset-md-10 col-2">
@@ -559,7 +573,7 @@
                                 {% for i in valor %}
                                     <h4><span class="right badge bg-gradient-navy">{{ i.nombre }}</span></h4>
                                     {% for key, value in preguntas.items %}
-                                        {% if i.respuestas_id.all and i.nombre == key %}
+                                        {% if i.respuestas_id.all and i == key.pregunta %}
                                             {% for j in i.respuestas_id.all %}
                                                 {% if j.tipo_dato == "1" %}
                                                     <div class="row">
@@ -568,7 +582,7 @@
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control"
                                                                            placeholder="Ingrese un nombre"
-                                                                           name="{{ i.nombre }}" style="width: 100%"
+                                                                           name="{{ key }}" style="width: 100%"
                                                                            value="{{ value }}"
                                                                            data-type="1" data-component="texto">
                                                                     <div class="input-group-append">
@@ -590,7 +604,7 @@
                                                                            class="form-control datetimepicker-input date"
                                                                            id="date"
                                                                            placeholder="Seleccione una fecha"
-                                                                           name="{{ i.nombre }}" style="width: 100%"
+                                                                           name="{{ key }}" style="width: 100%"
                                                                            data-type="5"
                                                                            data-component="date" data-target="#date"
                                                                            data-toggle="datetimepicker">
@@ -626,13 +640,13 @@
                                 {% for i in valor %}
                                     <h4><span class="right badge bg-gradient-navy p-2 m-1 ">{{ i.nombre }}</span></h4>
                                     {% for key, value in preguntas.items %}
-                                        {% if i.respuestas_id.all and i.nombre == key %}
+                                        {% if i.respuestas_id.all and i == key.pregunta %}
                                             {% for j in i.respuestas_id.all %}
                                                 {% if  j.tipo_dato == '1' %}
                                                     <div class="custom-control custom-radio">
                                                         <input class="custom-control-input" type="radio"
                                                                id="{{ i }}{{ j }}"
-                                                               name="{{ i.nombre }}" {% if j.nombre == value %}
+                                                               name="{{ key }}" {% if j.nombre == value %}
                                                                checked value="{{ j.nombre }}"
                                                                data-cod-pregunta="{{ i.cod_indicador }}"
                                                                data-component="radio" {% else %} value="{{ j.nombre }}"
@@ -647,8 +661,9 @@
                                                         <div class="col-12">
                                                     <textarea type="text" class="form-control"
                                                               placeholder="Ingrese una descripcion"
-                                                              name="Argumentacion_{{ i.cod_indicador }}"
-                                                              data-type="2"
+                                                              id="{{ key.pregunta.cod_indicador }}"
+                                                              name="{{ key.pregunta.cod_indicador }}"
+                                                              data-valor="{{ value }}"
                                                               data-cod-pregunta="{{ i.cod_indicador }}"
                                                               data-component="texto_largo"></textarea>
                                                         </div>
@@ -659,7 +674,7 @@
                                                             <input type="number" class="form-control"
                                                                    value="{{ value }}"
                                                                    placeholder="Ingrese un numero"
-                                                                   id="{{ i }}" name="{{ i.nombre }}"
+                                                                   id="{{ i }}" name="{{ key }}"
                                                                    data-cod-pregunta="{{ i.cod_indicador }}"
                                                                    data-component="entero">
                                                         </div>
@@ -673,7 +688,7 @@
                                                                            class="form-control  datetimepicker-input date"
                                                                            id="date2"
                                                                            placeholder="Seleccione una fecha"
-                                                                           name="{{ i.nombre }}" style="width: 100%"
+                                                                           name="{{ key }}" style="width: 100%"
                                                                            data-type="5"
                                                                            data-cod-pregunta="{{ i.cod_indicador }}"
                                                                            data-component="date" data-target="#date2"

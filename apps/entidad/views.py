@@ -1,4 +1,3 @@
-from tablib import Dataset
 import json
 
 from django.contrib import messages
@@ -8,11 +7,12 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import ListView, CreateView, UpdateView, TemplateView
+from django.views.generic import CreateView, UpdateView, TemplateView
+from tablib import Dataset
 
-from apps.entidad.admin import EntidadResource
 from apps.entidad.forms import entidadForm
 from apps.entidad.models import *
+
 
 # PROCEDIMIENTO PARA LISTAR LAS ENTIDADES
 class listarEntidadView(LoginRequiredMixin, TemplateView):

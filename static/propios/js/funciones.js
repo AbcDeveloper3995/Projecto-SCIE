@@ -375,121 +375,98 @@ const validate_radios_no_empty = () => {
 
     if (verificarExistencia(cod_pregunta_11) == false) {
         return false
-    }
-    ;
+    };
     if (validacionChecked(cod_pregunta_11) == false) {
         return false
-    }
-    ;
+    };
 
     if (verificarExistencia(cod_pregunta_13) == false) {
         return false
-    }
-    ;
+    };
     if (validacionChecked(cod_pregunta_13) == false) {
         return false
-    }
-    ;
+    };
 
     if (verificarExistencia(cod_pregunta_14) == false) {
         return false
-    }
-    ;
+    };
     if (validacionChecked(cod_pregunta_14) == false) {
         return false
-    }
-    ;
+    };
 
     if (verificarExistencia(cod_pregunta_15) == false) {
         return false
-    }
-    ;
+    };
     if (validacionChecked(cod_pregunta_15) == false) {
         return false
-    }
-    ;
+    };
 
     if (verificarExistencia(cod_pregunta_21) != false) {
         if (validacionChecked(cod_pregunta_21) == false) {
             return false
         }
         ;
-    }
-    ;
-
+    };
     if (verificarExistencia(cod_pregunta_22) != false) {
         if (validacionChecked(cod_pregunta_22) == false) {
             return false
         }
         ;
-    }
-    ;
-
+    };
     if (verificarExistencia(cod_pregunta_41) != false) {
         if (validacionChecked(cod_pregunta_41) == false) {
             return false
         }
         ;
-    }
-    ;
-
+    };
     if (verificarExistencia(cod_pregunta_51) != false) {
         if (validacionChecked(cod_pregunta_51) == false) {
             return false
         }
         ;
-    }
-    ;
-
+    };
     if (verificarExistencia(cod_pregunta_52) != false) {
         if (validacionChecked(cod_pregunta_52) == false) {
             return false
         }
         ;
-    }
-    ;
+    };
     if (verificarExistencia(cod_pregunta_53) != false) {
         if (validacionChecked(cod_pregunta_53) == false) {
             return false
         }
         ;
-    }
-    ;
+    };
     if (verificarExistencia(cod_pregunta_61) != false) {
         if (validacionChecked(cod_pregunta_61) == false) {
             return false
         }
         ;
-    }
-    ;
+    };
     if (verificarExistencia(cod_pregunta_71) != false) {
         if (validacionChecked(cod_pregunta_71) == false) {
             return false
         }
         ;
-    }
-    ;
+    };
     if (verificarExistencia(cod_pregunta_72) != false) {
         if (validacionChecked(cod_pregunta_72) == false) {
             return false
         }
         ;
-    }
-    ;
+    };
     if (verificarExistencia(cod_pregunta_73) != false) {
         if (validacionChecked(cod_pregunta_73) == false) {
             return false
         }
         ;
-    }
-    ;
+    };
     if (verificarExistencia(cod_pregunta_74) != false) {
         if (validacionChecked(cod_pregunta_74) == false) {
             return false
         }
         ;
-    }
-    ;
+    };
 
 
 }
@@ -633,7 +610,7 @@ const validate_depedencias_campos = (formulario) => {
             cod_pregunta_14_Bueno.prop('disabled', true);
             cod_pregunta_14_Deteriorado.prop('disabled', true);
             cod_pregunta_15_Si.prop('disabled', true);
-        }
+        }else {}
         if (cod_pregunta_52_No.is(':checked')) {
             $('#53No').prop('hidden', false);
             cod_pregunta_53_No.prop('disabled', false).prop('checked', true);
@@ -651,6 +628,19 @@ const validate_depedencias_campos = (formulario) => {
             cod_pregunta_62.prop('readonly', true).prop('value', 0);
             cod_pregunta_63.prop('readonly', true).prop('value', 0);
         }
+        if (cod_pregunta_71_No.is(':checked')) {
+            cod_pregunta_711.prop('readonly', true)
+        }
+        if (cod_pregunta_72_Si.is(':checked')) {
+           cod_pregunta_721.prop('readonly', true)
+        }
+        if (cod_pregunta_73_Si.is(':checked')) {
+           cod_pregunta_731.prop('readonly', true)
+        }
+        if (cod_pregunta_74_Si.is(':checked')) {
+            cod_pregunta_741.prop('readonly', true)
+        }
+
     }
 
     //DEPENDENCIA PARA AMBAS PARTE TANTO AL INICIO COMO AL EDITAR------//
@@ -782,15 +772,9 @@ formularioCaptacion.on('submit', function (e) {
     e.preventDefault();
     let campos = new FormData(this);
 
-    if (validateComponenteTexto(formularioCaptacion) === false) {
-        return false
-    };
-    if (validate_radios_no_empty() === false) {
-        return false
-    };
-    if (validate_component_entero(formularioCaptacion) === false) {
-        return false
-    };
+    if (validateComponenteTexto(formularioCaptacion) === false) {return false};
+    if (validate_radios_no_empty() === false) {return false};
+    if (validate_component_entero(formularioCaptacion) === false) {return false};
     campos.forEach(function (value, key) {
         console.log(key + ' : ' + value)
     });
@@ -1215,12 +1199,10 @@ formularioEditarCaptacion.on('submit', function (e) {
     let campos = new FormData(this);
     if (validateComponenteTexto(formularioEditarCaptacion) === false) {
         return false
-    }
-    ;
+    };
     if (validate_component_entero(formularioEditarCaptacion) === false) {
         return false
-    }
-    ;
+    };
 
     envioConAjax(window.location.pathname, 'Notificación', '¿Estás seguro de realizar esta acción?', campos, function () {
         let url = 'http://scie.onei.gob.cu/guia/guiaCaptada/';
@@ -2135,3 +2117,15 @@ importar(formImportarOsde,'/entidad/importarOSDE/');
                                 //-----------PARA ORGANISMO-----------//
 let formImportarOrganismo = $('form[name="formImportarOrganismo"]');
 importar(formImportarOrganismo,'/entidad/importarORG/');
+
+
+
+//-------------ASIGNAR EL VALOR QUE LLEGA AL TEXTAREA(PARA LA ACTION EDITPREGUNTAS EN CAPTARDATOS)-----------------------//
+let textarea711 = $('textarea[name="711"]');
+            textarea711.prop('value', textarea711[0].dataset.valor);
+let textarea721 = $('textarea[name="721"]');
+            textarea721.prop('value', textarea721[0].dataset.valor);
+let textarea731 = $('textarea[name="731"]');
+            textarea731.prop('value', textarea731[0].dataset.valor);
+let textarea741 = $('textarea[name="741"]');
+            textarea741.prop('value', textarea741[0].dataset.valor);

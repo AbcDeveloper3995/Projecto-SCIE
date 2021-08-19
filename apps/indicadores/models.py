@@ -1,4 +1,7 @@
 from django.db import models
+from django.forms import model_to_dict
+
+from apps.guiaEstadistica.models import cuestionario
 from apps.seccion.models import seccion
 
 CHOICES = (
@@ -58,3 +61,20 @@ class Indicadores(models.Model):
         return '{0}-{1}'.format(self.nombre, self.clasificadorIndicadores_id.seccion_id)
 
 
+class PreguntasEvaluadas(models.Model):
+    captacion_id = models.ForeignKey(cuestionario,verbose_name='Cuestionario', blank=True, null=True, on_delete=models.CASCADE)
+    pregunta = models.ForeignKey(Indicadores,verbose_name='Preguntas', blank=True, null=True, on_delete=models.CASCADE)
+    respuesta = models.CharField(verbose_name='Respuesta', max_length=250, blank=True, null=True)
+
+    class Meta:
+        db_table = 'PreguntasEvaluadas'
+        verbose_name = 'Preguntas Evaluadas'
+        verbose_name_plural = 'Preguntas Evaluadas'
+
+
+    def __str__(self):
+        return 'Pregunta evaluada: {0}'.format(self.pregunta)
+
+    def toJSON(self):
+        item = model_to_dict(self)
+        return item

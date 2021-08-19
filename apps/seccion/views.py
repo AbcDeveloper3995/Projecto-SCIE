@@ -7,9 +7,9 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, CreateView, TemplateView, UpdateView
 
-from utils import getLastCuestionario
 from apps.seccion.forms import *
 from apps.seccion.models import *
+
 
 # PROCEDIMIENTO PARA LISTAR SECCIONES.
 class listarSeccionView(LoginRequiredMixin, ListView):

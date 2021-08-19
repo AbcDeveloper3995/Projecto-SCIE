@@ -12,10 +12,11 @@ from django.views.generic import ListView, CreateView, TemplateView, UpdateView
 from apps.guiaEstadistica.forms import *
 from apps.guiaEstadistica.models import guiaEstadistica, cuestionario
 from apps.indicadores.forms import seccion, clasificadorIndicadores
-from apps.indicadores.models import Indicadores
+from apps.indicadores.models import Indicadores, PreguntasEvaluadas
 from apps.seccion.forms import nomencladorColumna, instanciaSeccion, instanciaForm, verificacionForm
-from apps.seccion.models import clasificadorPeriodo, verificacion
+from apps.seccion.models import clasificadorPeriodo
 from utils import getCuestionarios, getUniverso
+
 
 # PROCEDIMIENTO PARA LISTAR LAS GUIAS.
 class listarGuiasView(LoginRequiredMixin, ListView):
@@ -162,14 +163,14 @@ class captarDatosView(LoginRequiredMixin, TemplateView):
     # FUNCION PARA OBTENER A PARTIR DE UNA SECCION TODOS SUS GRUPOS DE PREGUNTAS.
     def getGrupoIndicador(self, idSeccion):
         aux = []
-        # PARA CUANDO LA SECCION SI TIENE GRUPOS DE PREGUNTAS ASOCIADOS
+        # PARA CUANDO LA SECCION SI TIENE GRUPOS DE PREGUNTAS ASOCIADOS ( IDENTIFICACION Y SOBRE ENTIDAD)
         if clasificadorIndicadores.objects.filter(seccion_id=idSeccion).exists():
             grupoInd = clasificadorIndicadores.objects.filter(seccion_id=idSeccion)
             for i in grupoInd:
                 aux.append(i)
                 self.getIndicador(i, aux)
             return aux
-        # PARA CUANDO LA SECCION NO TIENE GRUPOS DE PREGUNTAS ASOCIADOS
+        # PARA CUANDO LA SECCION NO TIENE GRUPOS DE PREGUNTAS ASOCIADOS (LAS DEMAS SECCIONES)
         else:
             secciones = self.getSecciones()
             for i in secciones:
@@ -180,7 +181,7 @@ class captarDatosView(LoginRequiredMixin, TemplateView):
 
     # FUNCION PARA A PARTIR DE UN GRUPO DE PREGUNTAS OBTENER TODAS SUS PREGUNTAS
     def getIndicador(self, i, aux):
-        indicadores = Indicadores.objects.filter(clasificadorIndicadores_id=i.id).order_by('fechaCreacion')
+        indicadores = Indicadores.objects.filter(clasificadorIndicadores_id=i.id)[::-1]
         for i in indicadores:
             aux.append(i)
 
@@ -315,13 +316,13 @@ class dataCaptacion(captarDatosView):
                     data['error'] = 'La entidad seleccionada ya ha sido controlada.'
                 else:
                     for clave, valor in campos.items():
-                        if clave != 'action':
-                            queryPreEval = PreguntasEvaluadas(
+                        if clave != 'action' and clave != 'Entidad':
+                            preguntaEvaluada = PreguntasEvaluadas(
                                 captacion_id=objCuestionario,
-                                pregunta=clave,
+                                pregunta=Indicadores.objects.get(id=int(clave)),
                                 respuesta=valor[0]
                             )
-                            queryPreEval.save()
+                            preguntaEvaluada.save()
                     data['exito'] = 'Los datos han sido captados correctamente.'
             # PARTE PARA CREAR LAS INSTANCIAS
             if action[0] == 'crearInstancia':
@@ -688,6 +689,7 @@ class modificarPreguntasView(captarDatosView):
         data = {}
         action = request.POST['action']
         campos = dict(request.POST)
+        print(campos)
         try:
             if action == 'editarDataCaptacion':
                 query = PreguntasEvaluadas.objects.filter(captacion_id__id=campos['idCuestionario'][0])
@@ -702,13 +704,13 @@ class modificarPreguntasView(captarDatosView):
         for i in listaPreguntas:
             if i.pregunta == clave:
                 i.respuesta = valor
-                i.save()
+                #i.save()
 
     def getPreguntasEvaluadas(self):
         data = {}
         query = PreguntasEvaluadas.objects.filter(captacion_id__id=self.kwargs['pk'])
         for i in query:
-            data[i.pregunta] = i.respuesta
+            data[i] = i.respuesta
             data.copy()
         return data
 
