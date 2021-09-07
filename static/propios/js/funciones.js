@@ -85,7 +85,6 @@ $('.select2').select2({
     language: 'es',
     placeholder: 'Seleccione una opcion'
 });
-
 new WOW().init();
 
 
@@ -184,14 +183,20 @@ const tabla = (nombreSeccion, idSeccion, idCuestionario) => {
                             },
                             dataType: 'json',
                         }).done(function (data) {
-                            let indicadoresIncluidos = $('select[data-seccion=indicadoresIncluidos' + nombreSeccion + ']')[0];
-                            if (indicadoresIncluidos[0].value !== data.indicadoresIncluidos) {
-                                indicadoresIncluidos[0].value = data.indicadoresIncluidos;
-                                indicadoresIncluidos[0].text = data.indicadoresIncluidos;
-                                indicadoresIncluidos[1].value = "Si";
-                                indicadoresIncluidos[1].text = "Si";
+                            if (data.hasOwnProperty('error')) {
+                                indicadoresIncluidos[0].value = "Si";
+                                indicadoresIncluidos[0].text = "Si";
+                                indicadoresIncluidos[1].value = "No";
+                                indicadoresIncluidos[1].text = "No";
+                            } else {
+                                let indicadoresIncluidos = $('select[data-seccion=indicadoresIncluidos' + nombreSeccion + ']')[0];
+                                if (indicadoresIncluidos[0].value !== data.indicadoresIncluidos) {
+                                    indicadoresIncluidos[0].value = data.indicadoresIncluidos;
+                                    indicadoresIncluidos[0].text = data.indicadoresIncluidos;
+                                    indicadoresIncluidos[1].value = "Si";
+                                    indicadoresIncluidos[1].text = "Si";
+                                }
                             }
-
                         }).fail(function (jqXHR, textStatus, errorThrown) {
                             alert(textStatus + ' : ' + errorThrown)
                         });
@@ -293,16 +298,8 @@ $('form[name="formVerificacion"]').on('submit', function (e) {
     let listaIndIncluidos = $('select[name="indicadoresIncluidos"]');
     let id_seccion = $(this).data('id');
 
-    if (validate_indicadores_no_empty(seccion_form_verificacion, listaIndIncluidos) === false) {
-        return false
-    }
-    ;
-
+    if (validate_indicadores_no_empty(seccion_form_verificacion, listaIndIncluidos) === false) {return false};
     let campos = new FormData(this);
-
-    campos.forEach(function (value, key) {
-        console.log(key + ' : ' + value)
-    });
     $.ajax({
         url: '/seccion/comprobacionInd/' + id_seccion + '/',
         type: 'POST',
@@ -311,6 +308,7 @@ $('form[name="formVerificacion"]').on('submit', function (e) {
         processData: false,
         contentType: false
     }).done(function (data) {
+        $('div[role="acordeon"]').removeClass('show')
         toastr.success(data.exito, 'Exito', {
             progressBar: true,
             closeButton: true,
@@ -610,13 +608,13 @@ const validate_depedencias_campos = (formulario) => {
             cod_pregunta_14_Bueno.prop('disabled', true);
             cod_pregunta_14_Deteriorado.prop('disabled', true);
             cod_pregunta_15_Si.prop('disabled', true);
-        }else {}
+        }else {$('#14No').prop('hidden', true);}
         if (cod_pregunta_52_No.is(':checked')) {
             $('#53No').prop('hidden', false);
             cod_pregunta_53_No.prop('disabled', false).prop('checked', true);
             cod_pregunta_53_Digital.prop('disabled', true);
             cod_pregunta_53_Papel.prop('disabled', true);
-        }
+        }else {$('#53No').prop('hidden', true);}
         if (cod_pregunta_21_No.is(':checked')) {
             cod_pregunta_22_No.prop('disabled', false).prop('checked', true);
             cod_pregunta_22_Si.prop('disabled', true);
@@ -775,9 +773,9 @@ formularioCaptacion.on('submit', function (e) {
     if (validateComponenteTexto(formularioCaptacion) === false) {return false};
     if (validate_radios_no_empty() === false) {return false};
     if (validate_component_entero(formularioCaptacion) === false) {return false};
-    campos.forEach(function (value, key) {
-        console.log(key + ' : ' + value)
-    });
+    // campos.forEach(function (value, key) {
+    //     console.log(key + ' : ' + value)
+    // });
     $.ajax({
         url: '/guia/dataCaptacion/',
         type: 'POST',
@@ -795,6 +793,7 @@ formularioCaptacion.on('submit', function (e) {
         } else {
             formularioCaptacion.trigger("reset")
             $('.desabilitar').removeClass("desabilitar");
+            $('div[role="acordeon"]').removeClass('show')
             $('#cantCuestionario').load(' #cantCuestionario');
             toastr.success(data.exito, 'Exito', {
                 progressBar: true,
@@ -984,10 +983,8 @@ $('select[name="columna_id"]').on('change', function () {
 });
 
 
+    //-------------------------------------------PERSONALIZACION DE LA TABLA ENTIDAD------------------------------------
 
-
-
-//----------------------------------------------PERSONALIZACION DE LA TABLA ENTIDAD------------------------------------------------------------------
 $(document).ready(function () {
 
     $('#entidadTable tbody').on('click', 'a[rel="eliminarEntidad"]', function () {
@@ -1141,13 +1138,15 @@ $('a[name="detalles"]').on('click', function () {
     }).done(function (data) {
         $('#detalles_preguntasEvaluadas').prop("hidden", false);
         var contenido = $('#contenido');
-        var informacion = '<h1></h1>';
+        let detalles = '<div class="card">' +
+           '<div class="card-body">';
         for (var i = 0; i < data.length; i++) {
             if (data[i].pregunta != null) {
-                informacion += '<h6 class="text-bold text-uppercase">' + '<span class="badge bg-gradient-primary" style="width: 100%; padding: 10px">' + data[i].pregunta + '</span>' + '</h6>' + '<h6 class="text-bold text-center text-uppercase" >' + data[i].respuesta + '</h6>' + '<hr>'
+                detalles += '<dl class="row" style="background: lightgray"><dt class="col-sm-8 text-uppercase"> ' + data[i].pregunta + '</dt> <dd class="col-sm-4"><strong>' + data[i].respuesta + '</strong></dd></dl><hr style="border-color: lightslategray">'
 
             }
         }
+        detalles += '</div></div>'
         let table = '<table class="table table-hover table-striped" >' +
             '<thead class="bg-gradient-primary text-bold"><tr><td>Seccion</td>' +
             '<td>Codigo</td>' +
@@ -1179,7 +1178,7 @@ $('a[name="detalles"]').on('click', function () {
             }
         }
         table += '</tbody></table>'
-        contenido.html(informacion + table);
+        contenido.html(detalles + table);
     }).fail(function (jqXHR, textStatus, errorThrown) {
         alert(textStatus + ' : ' + errorThrown)
     });
@@ -1197,14 +1196,11 @@ validate_depedencias_campos(formularioEditarCaptacion);
 formularioEditarCaptacion.on('submit', function (e) {
     e.preventDefault();
     let campos = new FormData(this);
-    if (validateComponenteTexto(formularioEditarCaptacion) === false) {
-        return false
-    };
-    if (validate_component_entero(formularioEditarCaptacion) === false) {
-        return false
-    };
+    if (validateComponenteTexto(formularioEditarCaptacion) === false) {return false};
+    if (validate_component_entero(formularioEditarCaptacion) === false) {return false};
 
     envioConAjax(window.location.pathname, 'Notificación', '¿Estás seguro de realizar esta acción?', campos, function () {
+        $('div[role="acordeon"]').removeClass('show')
         let url = 'http://scie.onei.gob.cu/guia/guiaCaptada/';
         location.href = url
     });
@@ -1363,6 +1359,7 @@ $('#entidadForm').bootstrapValidator({
     }
 });
 
+                        //-----------------------PERIODO-----------------//
 $('#periodoForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
@@ -1403,6 +1400,31 @@ $('#periodoForm').bootstrapValidator({
     }
 });
 
+
+
+     //-------------PROCEDIMIENTO PARA HABILITAR Y DESHABILITAR MESE SEGUN EL TIPO DE PERIODO--------------//
+let tipoPeriodo = $('#tipoPeriodo');
+tipoPeriodo.on('change', function () {
+    if(tipoPeriodo[0].value == 'Anual'){
+        $('#mes_2').prop('disabled', true);
+        $('#mes_3').prop('disabled', true)
+    }else {
+         $('#mes_2').prop('disabled', false);
+         $('#mes_3').prop('disabled', false)
+    }
+})
+        //-------------PROCEDIMIENTO PARA HABILITAR Y SELECCIONAR UN 2DO ANO DE SER REQUERIDO--------------//
+let checkbox2doAno = $('#2doano');
+checkbox2doAno.on('click', function () {
+    if(checkbox2doAno[0].checked){
+        $('#ano_2').prop('disabled', false)
+    }else {
+        $('#ano_2').prop('disabled', true)
+    }
+})
+
+
+                       //-----------------------SECCION-----------------//
 $('#seccionForm').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {
@@ -1475,7 +1497,7 @@ $('#seccionForm').bootstrapValidator({
     }
 });
 
-//---------------MOSTRAR TEXTO DE AYUDA DE LOS CAMPOS DEL SSECCION-FORM QUE LO TENGAN-------//
+//---------------MOSTRAR TEXTO DE AYUDA DE LOS CAMPOS DEL SECCION-FORM QUE LO TENGAN-------//
 $('#campoOrden').on('mouseover', function () {
         $('#textoAyudaOrden').prop('hidden', false);
 });
@@ -1496,6 +1518,20 @@ $('#select2-campoTipo-container').on('mouseover', function () {
 $('#select2-campoTipo-container').on('click', function () {
         $('#textoAyudaTipo').prop('hidden', true);
 });
+
+ //-------------PROCEDIMIENTO PARA HABILITAR Y DESHABILITAR NUMERO Y SUBNUMERO SEGUN EL TIPO DE SECCION--------------//
+let tipoSeccion = $('#campoTipo');
+tipoSeccion.on('change', function () {
+    if(tipoSeccion[0].value == 1 || tipoSeccion[0].value == 2  ){
+        $('#numeroSeccion').prop('disabled', true);
+        $('#subNumeroSeccion').prop('disabled', true)
+        $('#campoPeriodo').prop('disabled', true)
+    }else {
+         $('#numeroSeccion').prop('disabled', false);
+         $('#subNumeroSeccion').prop('disabled', false)
+         $('#campoPeriodo').prop('disabled', false)
+    }
+})
 
 
 $('#codigoForm').bootstrapValidator({
@@ -2068,6 +2104,20 @@ $('#tblNoCaptado').DataTable({});
 
 //---------------------------------PROCEDIMIENTO PARA MANDAR A REALIZAR LAS IMPORTACIONES--------------------------------//
 
+
+                               //--------ALGUNAS VALIDACIONES----------//
+const habilitarImportacion = (campo, boton) => {
+    campo.on('change', function () {
+    boton.prop('disabled', this.files.length==0);
+})
+};
+
+habilitarImportacion($('input[name="datosDPA"]'),$('button[id="datosDPA"]'));
+habilitarImportacion($('input[name="datosOSDE"]'),$('button[id="datosOSDE"]'));
+habilitarImportacion($('input[name="datosNAE"]'),$('button[id="datosNAE"]'));
+habilitarImportacion($('input[name="datosOrganismo"]'),$('button[id="datosOrganismo"]'));
+habilitarImportacion($('input[name="datosCI"]'),$('button[id="datosCI"]'));
+
 const importar = (formulario, url) => {
 
     formulario.on('submit', function (e) {
@@ -2106,6 +2156,10 @@ const importar = (formulario, url) => {
 let formImportarCI = $('form[name="formImportarCI"]');
 importar(formImportarCI,'/entidad/importarEntidad/');
 
+                                    //-----------PARA DPA-----------//
+let formImportarDPA = $('form[name="formImportarDPA"]');
+importar(formImportarDPA,'/entidad/importarDPA/');
+
                                 //-----------PARA NAE-----------//
 let formImportarNAE = $('form[name="formImportarNAE"]');
 importar(formImportarNAE,'/entidad/importarNAE/');
@@ -2119,13 +2173,14 @@ let formImportarOrganismo = $('form[name="formImportarOrganismo"]');
 importar(formImportarOrganismo,'/entidad/importarORG/');
 
 
-
 //-------------ASIGNAR EL VALOR QUE LLEGA AL TEXTAREA(PARA LA ACTION EDITPREGUNTAS EN CAPTARDATOS)-----------------------//
-let textarea711 = $('textarea[name="711"]');
+let textarea711 = $('textarea[id="711"]');
             textarea711.prop('value', textarea711[0].dataset.valor);
-let textarea721 = $('textarea[name="721"]');
+let textarea721 = $('textarea[id="721"]');
             textarea721.prop('value', textarea721[0].dataset.valor);
-let textarea731 = $('textarea[name="731"]');
+let textarea731 = $('textarea[id="731"]');
             textarea731.prop('value', textarea731[0].dataset.valor);
-let textarea741 = $('textarea[name="741"]');
+let textarea741 = $('textarea[id="741"]');
             textarea741.prop('value', textarea741[0].dataset.valor);
+
+

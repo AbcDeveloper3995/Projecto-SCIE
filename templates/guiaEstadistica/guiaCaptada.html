@@ -1,10 +1,9 @@
 {% extends 'comun/listar.html' %}
 {% load static %}
+{% load filters %}
+
 {% block titulo %}
      {{ titulo }}
- {% endblock %}
-{% block title %}
-     /GUIAaaa
  {% endblock %}
 
 {% block tools %}
@@ -13,8 +12,9 @@
 {% block columns %}
      <tr>
          <th scope="col">Guia</th>
-         <th scope="col">Centro Informante</th>
-        <th scope="col">Acciones</th>
+         <th scope="col" style="width: 35%">Centro Informante</th>
+         <th scope="col" class="text-center">Progreso de la Captación</th>
+        <th scope="col" class="text-center">Acciones</th>
     </tr>
 {% endblock %}
 
@@ -24,6 +24,19 @@
             <td>{{ cuestionario.guia.nombre }}</td>
             <td><span class="badge bg-gradient-navy">{{ cuestionario.entidad_codigo }}</span></td>
             <td>
+                <div class="progress  active">
+                    {% if cuestionario.id|progreso:cantSecciones != 100 %}
+                    <span class="badge bg-gradient-danger" style="margin-right: 5px">PENDIENTE</span>
+                    {% else %}
+                    <span class="badge bg-gradient-success" style="margin-right: 5px">FINALIZADO</span>
+                    {% endif %}
+                  <div class="progress-bar bg-primary progress-bar-striped" role="progressbar"
+                       aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: {{ cuestionario.id|progreso:cantSecciones }}%">
+                    <span >{{ cuestionario.id|progreso:cantSecciones }}%</span>
+                  </div>
+                </div>
+            </td>
+            <td class="text-center">
                 <a href="#" class="miTippy"  type="button" name="detalles" data-id="{{ cuestionario.id }}" title="Ver informacion captada"><i class="fa fa-info-circle"></i></a>
                 {% if cuestionario.guia.activo == True and not permisoEstadistico%}
                 <a href="{% url 'guia:modificarPreguntas' cuestionario.id %}" class="miTippy" type="button"  name="modificarPreguntas1" data-id="{{ cuestionario.id }}" title="Modificar Seccion I"><i class="fa fa-edit"></i></a>

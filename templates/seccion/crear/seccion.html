@@ -8,7 +8,7 @@
 {% block id %} id=seccionForm{% endblock %}
 {% block formulario %}
     <div class="row">
-        <div class="col-4">
+        <div class="col-6">
             <div class="form-group">
                 <label>{{ form.nombre.label }}</label>
                 {{ form.nombre }}
@@ -18,31 +18,10 @@
                   <p class="text-justify">{{ form.nombre.help_text }}</p>
                 </div>
         </div>
-        <div class="col-4">
+        <div class="col-6">
             <div class="form-group">
                 <label>{{ form.guia_id.label }}</label>
                 {{ form.guia_id }}
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="form-group">
-                <label>{{ form.periodo_id.label }}</label>
-                {{ form.periodo_id }}
-            </div>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-3">
-            <div class="form-group">
-                <label>{{ form.numero.label }}</label>
-                {{ form.numero }}
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="form-group">
-                <label>{{ form.subNumero.label }}</label>
-                {{ form.subNumero }}
             </div>
         </div>
         <div class="col-3">
@@ -65,6 +44,27 @@
                   <h5><i class="fas fa-exclamation-triangle "></i> Advertencia</h5>
                   <p class="text-justify">{{ form.tipo.help_text }}</p>
                 </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label>{{ form.periodo_id.label }}</label>
+                {{ form.periodo_id }}
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label>{{ form.numero.label }}</label>
+                {{ form.numero }}
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label>{{ form.subNumero.label }}</label>
+                {{ form.subNumero }}
+            </div>
         </div>
     </div>
     <br>

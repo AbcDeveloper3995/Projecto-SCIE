@@ -77,4 +77,5 @@ class PreguntasEvaluadas(models.Model):
 
     def toJSON(self):
         item = model_to_dict(self)
+        item['pregunta'] = self.pregunta.nombre
         return item

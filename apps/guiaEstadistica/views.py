@@ -138,7 +138,7 @@ class captarDatosView(LoginRequiredMixin, TemplateView):
             guia = guiaEstadistica.objects.get(activo=True)
             return guia
         except Exception as e:
-            messages.error(self.request, "No hay guias activas en este momento.")
+            messages.error(self.request, "Verifique que exista una guia activa.")
             return None
 
     # FUNCION PARA OBTENER LAS SECCIONES DE LA GUIA ACTIVA.
@@ -385,11 +385,17 @@ class guiaCaptada(LoginRequiredMixin, ListView):
             return True
         return False
 
+    def getCantidadSecciones(self):
+        query = seccion.objects.all().count()
+        return query
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cuestionarios'] = getCuestionarios(self.request.user)
         context['permisoEstadistico'] = self.getPermisoEstadistico()
+        context['cantSecciones'] = self.getCantidadSecciones()
         context['titulo'] = 'Cuestionarios captados'
+        context['titulo2'] = 'Informacion captada'
         context['tituloPestaña'] = 'SCIE | Cuestionarios'
         return context
 
@@ -580,8 +586,9 @@ class reporteGeneralExcel(LoginRequiredMixin, TemplateView):
     def getGrupoPreguntas(self):
         data = {}
         query = clasificadorIndicadores.objects.filter(seccion_id__guia_id__activo=True)
-        for i in query[1:]:
-            data[i.id] = i.nombre
+        for i in query:
+            if i.seccion_id.tipo != 1:
+                data[i.id] = i.nombre
         return data
 
 # PROCEDIMIENTO PARA EL REPORTE EXCEL DE VERIFICACION DE LOS INDICADORES
@@ -689,7 +696,6 @@ class modificarPreguntasView(captarDatosView):
         data = {}
         action = request.POST['action']
         campos = dict(request.POST)
-        print(campos)
         try:
             if action == 'editarDataCaptacion':
                 query = PreguntasEvaluadas.objects.filter(captacion_id__id=campos['idCuestionario'][0])
@@ -702,9 +708,9 @@ class modificarPreguntasView(captarDatosView):
 
     def editarRespuesta(self, listaPreguntas, clave, valor):
         for i in listaPreguntas:
-            if i.pregunta == clave:
+            if i.id == int(clave):
                 i.respuesta = valor
-                #i.save()
+                i.save()
 
     def getPreguntasEvaluadas(self):
         data = {}

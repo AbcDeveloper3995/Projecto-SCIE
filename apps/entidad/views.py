@@ -100,6 +100,33 @@ class eliminarCIselectedView(LoginRequiredMixin, TemplateView):
             data['error'] =str(e)
         return JsonResponse(data, safe=False)
 
+
+# PROCEDIMIENTO PARA IMPORTAR  ENTIDAD
+class importarDPA(LoginRequiredMixin, TemplateView):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        data = {}
+        file = request.FILES['datosDPA']
+        dataset = Dataset()
+        try:
+            if not file.name.endswith('xls'):
+                data['error'] = 'El formato del documento no es valido.'
+            else:
+                dpaImportada = dataset.load(file.read(), format='xls')
+                for i in dpaImportada:
+                    dpa = clasificadorDPA(
+                        i[0], i[1], i[2],
+                    )
+                    dpa.save()
+                data['exito'] = 'Los DPA se han importado correctamente.'
+        except Exception as e:
+            data['error'] = 'Ha ocurrido un error fatal al importar. Contacte con el administrador'
+        return JsonResponse(data, safe=False)
+
 # PROCEDIMIENTO PARA IMPORTAR  ENTIDAD
 class importarEntidad(LoginRequiredMixin, TemplateView):
 
@@ -121,9 +148,9 @@ class importarEntidad(LoginRequiredMixin, TemplateView):
                         i[0], i[1], i[2], i[3], i[4], i[5], i[6], i[7],
                     )
                     entidad.save()
-                data['exito'] = 'Las nuevas entidades se han creado correctamente.'
+                data['exito'] = 'Los centros informantes se han importado correctamente.'
         except Exception as e:
-            data['error'] = str(e)
+            data['error'] = 'Ha ocurrido un error fatal al importar. Contacte con el administrador'
         return JsonResponse(data, safe=False)
 
 
@@ -148,9 +175,9 @@ class importarOSDE(LoginRequiredMixin, TemplateView):
                         i[0], i[1], i[2]
                     )
                     objOSDE.save()
-                data['exito'] = 'Los nuevos OSDE se han creado correctamente.'
+                data['exito'] = 'Los OSDE se han importado correctamente.'
         except Exception as e:
-            data['error'] = str(e)
+            data['error'] = 'Ha ocurrido un error fatal al importar. Contacte con el administrador'
         return JsonResponse(data, safe=False)
 
 
@@ -175,9 +202,9 @@ class importarNAE(LoginRequiredMixin, TemplateView):
                         i[0], i[1], i[2]
                     )
                     nae.save()
-                data['exito'] = 'Los nuevos NAE se han creado correctamente.'
+                data['exito'] = 'Los NAE se han importado correctamente.'
         except Exception as e:
-            data['error'] = str(e)
+            data['error'] = 'Ha ocurrido un error fatal al importar. Contacte con el administrador'
         return JsonResponse(data, safe=False)
 
 
@@ -202,7 +229,7 @@ class importarOrganismo(LoginRequiredMixin, TemplateView):
                         i[0], i[1], i[2]
                     )
                     objOrganismo.save()
-                data['exito'] = 'Las nuevas entidades se han creado correctamente.'
+                data['exito'] = 'Los organismo se han importado correctamente.'
         except Exception as e:
-            data['error'] = str(e)
+            data['error'] = 'Ha ocurrido un error fatal al importar. Contacte con el administrador'
         return JsonResponse(data, safe=False)

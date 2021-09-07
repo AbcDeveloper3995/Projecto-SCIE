@@ -36,11 +36,14 @@
 {% endblock %}
 
 {% block form_buttons %}
-    <button type="submit" class="btn btn-primary">
+
+    <div class="botones">
+    <button type="submit" class="boton-salvar btn1">
         <i class="fas fa-save"></i> Salvar
     </button>
 
-    <a type="button" href="{% url 'usuario:listarUsuario' %}" class="btn btn-danger">
+    <a type="button" href="{% url 'usuario:listarUsuario' %}" class="cancelar boton-cancelar btn2">
         <i class="fas fa-arrow-circle-left"></i> Cancelar
     </a>
+    </div>
 {% endblock %}

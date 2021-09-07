@@ -16,5 +16,6 @@ urlpatterns = [
     path('importarNAE/', importarNAE.as_view(), name='importarNAE'),
     path('importarOSDE/', importarOSDE.as_view(), name='importarOSDE'),
     path('importarORG/', importarOrganismo.as_view(), name='importarORG'),
+    path('importarDPA/', importarDPA.as_view(), name='importarDPA'),
 
 ]

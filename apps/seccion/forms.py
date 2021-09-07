@@ -22,10 +22,10 @@ class seccionForm(ModelForm):
             'nombre': TextInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese el nombre de la seccion', 'id': 'campoNombre'}),
             'guia_id': Select(attrs={'class':'form-control select2'}),
-            'periodo_id': Select(attrs={'class':'form-control select2'}),
-            'numero': TextInput(attrs={'class':'form-control styleInput',
+            'periodo_id': Select(attrs={'class':'form-control select2', 'id':'campoPeriodo'}),
+            'numero': TextInput(attrs={'class':'form-control styleInput', 'id':'numeroSeccion',
                                        'placeholder':'Ingrese el numero de la seccion'}),
-            'subNumero': TextInput(attrs={'class':'form-control styleInput',
+            'subNumero': TextInput(attrs={'class':'form-control styleInput', 'id':'subNumeroSeccion',
                                        'placeholder':'Ingrese el sub-numero de la seccion'}),
             'orden': NumberInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese el orden de la seccion','id': 'campoOrden'}),
@@ -49,12 +49,12 @@ class periodoForm(ModelForm):
                      'ano': 'Año'
                  },
         widgets = {
-            'tipo': Select(attrs={'class':'form-control select2'}),
+            'tipo': Select(attrs={'class':'form-control select2', 'id':'tipoPeriodo'}),
             'mes_1': Select(attrs={'class':'form-control select2'}),
-            'mes_2': Select(attrs={'class':'form-control select2 '}),
-            'mes_3': Select(attrs={'class':'form-control select2'}),
+            'mes_2': Select(attrs={'class':'form-control select2', 'id':'mes_2', 'disabled': False}),
+            'mes_3': Select(attrs={'class':'form-control select2', 'id':'mes_3', 'disabled': False}),
             'ano_1': Select(attrs={'class':'form-control select2'}),
-            'ano_2': Select(attrs={'class':'form-control select2'}),
+            'ano_2': Select(attrs={'class':'form-control select2', 'id':'ano_2', 'disabled': True}),
         }
 
 class codigoForm(ModelForm):

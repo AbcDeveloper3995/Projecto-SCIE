@@ -33,7 +33,7 @@
                                 </a>
                             </h4>
                         </div>
-                        <div id="{{ clave }}" class="panel-collapse in collapse" style="">
+                        <div id="{{ clave }}" class="panel-collapse in collapse" role="acordeon">
                             <div class="card-body">
                                 {% for i in valor %}
                                     <h4><span class="right badge bg-gradient-navy">{{ i.nombre }}</span></h4>
@@ -110,7 +110,7 @@
                                 </a>
                             </h4>
                         </div>
-                        <div id="{{ clave }}" class="panel-collapse in collapse" style="">
+                        <div id="{{ clave }}" class="panel-collapse in collapse" role="acordeon">
                             <div class="card-body ">
                                 {% for i in valor %}
                                     <div class="card">
@@ -458,7 +458,7 @@
                                     </a>
                                 </h4>
                             </div>
-                            <div id="{{ clave }}" class="panel-collapse in collapse " style="">
+                            <div id="{{ clave }}" class="panel-collapse in collapse " role="acordeon">
                                 <div class="card-body">
                                     {% for i in valor %}
                                         <h4><span class="right badge bg-gradient-navy p-2 m-1 ">{{ i.nombre }}</span>
@@ -582,7 +582,7 @@
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control"
                                                                            placeholder="Ingrese un nombre"
-                                                                           name="{{ key }}" style="width: 100%"
+                                                                           name="{{ key.id }}" style="width: 100%"
                                                                            value="{{ value }}"
                                                                            data-type="1" data-component="texto">
                                                                     <div class="input-group-append">
@@ -604,7 +604,7 @@
                                                                            class="form-control datetimepicker-input date"
                                                                            id="date"
                                                                            placeholder="Seleccione una fecha"
-                                                                           name="{{ key }}" style="width: 100%"
+                                                                           name="{{ key.id }}" style="width: 100%"
                                                                            data-type="5"
                                                                            data-component="date" data-target="#date"
                                                                            data-toggle="datetimepicker">
@@ -646,7 +646,7 @@
                                                     <div class="custom-control custom-radio">
                                                         <input class="custom-control-input" type="radio"
                                                                id="{{ i }}{{ j }}"
-                                                               name="{{ key }}" {% if j.nombre == value %}
+                                                               name="{{ key.id }}" {% if j.nombre == value %}
                                                                checked value="{{ j.nombre }}"
                                                                data-cod-pregunta="{{ i.cod_indicador }}"
                                                                data-component="radio" {% else %} value="{{ j.nombre }}"
@@ -662,7 +662,7 @@
                                                     <textarea type="text" class="form-control"
                                                               placeholder="Ingrese una descripcion"
                                                               id="{{ key.pregunta.cod_indicador }}"
-                                                              name="{{ key.pregunta.cod_indicador }}"
+                                                              name="{{ key.id }}"
                                                               data-valor="{{ value }}"
                                                               data-cod-pregunta="{{ i.cod_indicador }}"
                                                               data-component="texto_largo"></textarea>
@@ -674,7 +674,7 @@
                                                             <input type="number" class="form-control"
                                                                    value="{{ value }}"
                                                                    placeholder="Ingrese un numero"
-                                                                   id="{{ i }}" name="{{ key }}"
+                                                                   id="{{ i }}" name="{{ key.id }}"
                                                                    data-cod-pregunta="{{ i.cod_indicador }}"
                                                                    data-component="entero">
                                                         </div>
@@ -688,7 +688,7 @@
                                                                            class="form-control  datetimepicker-input date"
                                                                            id="date2"
                                                                            placeholder="Seleccione una fecha"
-                                                                           name="{{ key }}" style="width: 100%"
+                                                                           name="{{ key.id }}" style="width: 100%"
                                                                            data-type="5"
                                                                            data-cod-pregunta="{{ i.cod_indicador }}"
                                                                            data-component="date" data-target="#date2"
@@ -741,7 +741,7 @@
                     <div class="card-header">
                         <h4 class="card-title">
                             <a data-toggle="collapse" href="#{{ clave }}"
-                               class="collapsed text-bold text-uppercase  acordeon " aria-expanded="false"
+                               class="collapsed text-bold text-uppercase  acordeon "  aria-expanded="false"
                                data-seccion="{{ clave }}">
                                 {{ clave }}
                             </a>

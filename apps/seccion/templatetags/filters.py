@@ -112,14 +112,18 @@ def cantDepreguntas(idGrupoPregunta):
 # FILTRO PARA OBTENER LAS PREGUNTAS DE UN GRUPO DE PREGUNTAS.
 @register.filter(name='preguntas')
 def preguntas(idGrupoPregunta):
-    query = Indicadores.objects.filter(clasificadorIndicadores_id__id=idGrupoPregunta)
+    query = Indicadores.objects.filter(clasificadorIndicadores_id__id=idGrupoPregunta)[::-1]
     return query
 
 # FILTRO PARA OBTENER LAS PREGUNTAS EVALUADAS DE UN CUESTIONARIO A PARTIR DE LA POSICION 4 EN ADELANTE.
 @register.filter(name='respuestas')
-def preguntas(Cuestionario):
-    query = PreguntasEvaluadas.objects.filter(captacion_id__id=Cuestionario.id)[4:]
-    return query
+def respuestas(idGrupoPregunta,Cuestionario):
+    respuestas = []
+    preguntas = Indicadores.objects.filter(clasificadorIndicadores_id__id=idGrupoPregunta)[::-1]
+    for i in preguntas:
+        query = PreguntasEvaluadas.objects.get(captacion_id__id=Cuestionario.id, pregunta=i)
+        respuestas.append(query.respuesta)
+    return respuestas
 
 # FILTRO PARA OBTENER EL TOTAL DE CADA PREGUNTA DE DISCIPLINA INFORMATIVA ENTRE TODAS LAS ENTIDADES.
 @register.filter(name='procedimientoTotalDiscplinaInfo')
@@ -127,7 +131,7 @@ def determinarTotales(user,codPeticion):
     query = utils.getCuestionarios(user)
     if codPeticion == 1:
         pregunta = utils.getPregunta(31)
-        totalReportar = getTotal(query,pregunta)
+        totalReportar = getTotal(query, pregunta)
         return totalReportar
     elif codPeticion == 2:
         pregunta = utils.getPregunta(32)
@@ -142,10 +146,10 @@ def determinarTotales(user,codPeticion):
         totalReportar = getTotal(query, pregunta)
         return totalReportar
 
-def getTotal(listaCuestionario, nombrePregunta):
+def getTotal(listaCuestionario, pregunta):
     total = 0
     for i in listaCuestionario :
-        query = PreguntasEvaluadas.objects.get(captacion_id__id=i.id, pregunta=nombrePregunta)
+        query = PreguntasEvaluadas.objects.get(captacion_id__id=i.id, pregunta_id=pregunta.id)
         total+=int(query.respuesta)
     return total
 
@@ -169,8 +173,8 @@ def determinarRespuesta(cuestionario,codPeticion):
         totalReportar = getRespuesta(cuestionario,pregunta)
         return totalReportar
 
-def getRespuesta(cuestionario, nombrePregunta):
-    query = PreguntasEvaluadas.objects.get(captacion_id__id=cuestionario.id, pregunta=nombrePregunta)
+def getRespuesta(cuestionario, pregunta):
+    query = PreguntasEvaluadas.objects.get(captacion_id__id=cuestionario.id, pregunta_id=pregunta.id)
     return query.respuesta
 
 # FILTRO PARA OBTENER LOS SENALAMIENTOS DE CADA ENTIDAD.
@@ -195,3 +199,17 @@ def getDomicilioIncorrecto(cuestionario):
     respuesta = getRespuesta(cuestionario, pregunta)
     return respuesta
 
+
+# FILTRO PARA OBTENER LAS ENTIDADES CON EL DOMICILIO SOCIAL INCORRECTO.
+@register.filter(name='progreso')
+def progreso(cuestionario, cantSecciones):
+    porcentaje = 2 * 100 // cantSecciones
+    try:
+        query = verificacion.objects.filter(cuestionario_fk=cuestionario).count()
+        if query == 0:
+            return porcentaje
+        else:
+            porcentaje += query*100//cantSecciones
+            return porcentaje
+    except:
+        print('error progreso')

@@ -56,8 +56,6 @@
                         <h2 class="text-bold text-center text-uppercase bg-gradient-navy wow fadeInDown">Sistema de
                             control
                             integral estatal</h2>
-                        <hr>
-
                         {% if perms.usuario.administrador %}
                             <div class="row">
                                 <div class="col-md-12">
@@ -88,12 +86,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- /.card -->
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-3 col-6">
-                                    <!-- small card -->
                                     <div class="small-box bg-gradient-navy delay-1s wow flipInX">
                                         <div class="inner">
                                             <h3>{{ guias }}</h3>
@@ -163,63 +159,75 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card card-default wow fadeInUp">
-                                        <div class="card-header">
-                                            <h3 class="card-title">
-                                                <i class="fas fa-info-circle" style="color: #0086ca"></i>
-                                                <strong class="text-uppercase">Instrucciones</strong>
-                                            </h3>
-                                        </div>
                                         <div class="card-body">
-                                            <div class="callout callout-info text-justify">
-                                                <h5>Las comprobaciones de los aspectos incluidos en la
-                                                guia deben ser verificados or los registros y documentos
-                                                que tengan establecidos en la entidad, pero con respecto a la seccion
-                                                1-Sobre la entidad, el funcionario de la ONEI
-                                                que aplica el recontrol debe preparar previamente un trabajo de
-                                                gabineteque le permita comprobar la informacion que
-                                                le suministrara la entidad contra los controles que estan establecidos
-                                                para el aspecto a comprobar el cual debera llevar
-                                                personalmente a la actividad. Las entidades con UEB o establecimientos
-                                                subordinados deben ser evaluados por muestras, para tener criterio
-                                                valorativo sobre
-                                                los registros primarios que sustentan la informacion emitidad por las
-                                                entidades informantes.
-                                                </h5>
-                                                <hr>
-
+                                            <div id="carouselExampleIndicators" class="carousel slide"
+                                                 data-ride="carousel">
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#carouselExampleIndicators" data-slide-to="0"
+                                                        class=""></li>
+                                                    <li data-target="#carouselExampleIndicators" data-slide-to="1"
+                                                        class="active"></li>
+                                                    <li data-target="#carouselExampleIndicators" data-slide-to="2"
+                                                        class=""></li>
+                                                </ol>
+                                                <div class="carousel-inner">
+                                                    <div class="carousel-item">
+                                                        <div class="callout callout-info text-justify">
+                                                            <h5><strong class="text-uppercase">Instrucciones</strong>
+                                                            </h5>
+                                                            <p>Las comprobaciones de los aspectos incluidos en la
+                                                                guia deben ser verificados or los registros y documentos
+                                                                que tengan establecidos en la entidad, pero con respecto
+                                                                a la seccion
+                                                                1-Sobre la entidad, el funcionario de la ONEI
+                                                                que aplica el recontrol debe preparar previamente un
+                                                                trabajo de
+                                                                gabineteque le permita comprobar la informacion que
+                                                                le suministrara la entidad contra los controles que
+                                                                estan establecidos
+                                                                para el aspecto a comprobar el cual debera llevar
+                                                                personalmente a la actividad. Las entidades con UEB o
+                                                                establecimientos
+                                                                subordinados deben ser evaluados por muestras, para
+                                                                tener criterio
+                                                                valorativo sobre
+                                                                los registros primarios que sustentan la informacion
+                                                                emitidad por las
+                                                                entidades informantes.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="carousel-item active">
+                                                        <div class="callout callout-info">
+                                                            <h5><strong class="text-uppercase">Objetivos</strong></h5>
+                                                            <p>1. Comprobar la situacion de la entidad en Registro
+                                                                Estatal de emresa Unidades Presupuestadas <span
+                                                                        class="text-bold">(REEUP)</span>.
+                                                            </p>
+                                                            <hr>
+                                                            <p>2. Comprobar la situacion ue confronta la entidad
+                                                                respecto a
+                                                                aspectos
+                                                                organizativos
+                                                                vinculados con el funcionamiento del Area
+                                                                Estadistica.</p>
+                                                            <hr>
+                                                            <p>3. Valorar el Control Interno asociado a la elaboracion
+                                                                de la
+                                                                Informacion
+                                                                Estadistica Oficial.</p>
+                                                            <hr>
+                                                            <p>4. Verificar la existencia calidad de la informacion de
+                                                                los
+                                                                registros
+                                                                primarios para los
+                                                                formularios seleccionados del SIEN.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="card-header">
-                                            <h3 class="card-title">
-                                                <i class="fas fa-info-circle" style="color: #0086ca"></i>
-                                                <strong class="text-uppercase">Objetivos</strong>
-                                            </h3>
-                                        </div>
-                                        <!-- /.card-header -->
-                                        <div class="card-body">
-                                            <div class="callout callout-info">
-                                                <h5>1. Comprobar la situacion de la entidad en Registro
-                                                    Estatal de emresa Unidades Presupuestadas <span class="text-bold">(REEUP)</span>.
-                                                </h5>
-                                                <hr>
-                                                <h5>2. Comprobar la situacion ue confronta la entidad respecto a
-                                                    aspectos
-                                                    organizativos
-                                                    vinculados con el funcionamiento del Area Estadistica.</h5>
-                                                <hr>
-                                                <h5>3. Valorar el Control Interno asociado a la elaboracion de la
-                                                    Informacion
-                                                    Estadistica Oficial.</h5>
-                                                <hr>
-                                                <h5>4. Verificar la existencia calidad de la informacion de los
-                                                    registros
-                                                    primarios para los
-                                                    formularios seleccionados del SIEN.</h5>
-                                            </div>
-                                        </div>
-                                        <!-- /.card-body -->
-                                    </div>
-                                    <!-- /.card -->
                                 </div>
                             </div>
                         {% endif %}

@@ -118,7 +118,7 @@ def getCuestionarios(user):
 # FUNCION PARA OBTENER UNA PREGUNTA DETERMINADA.
 def getPregunta(codPregunta):
     query = Indicadores.objects.get(cod_indicador=codPregunta)
-    return query.nombre
+    return query
 
 def getLastCuestionario():
     return cuestionario.objects.last()

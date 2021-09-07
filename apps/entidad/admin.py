@@ -28,6 +28,7 @@ class EntidadResource(resources.ModelResource):
 
 class EntidadAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     search_fields = ['codigo_CI', 'nombre_CI']
+    list_display = ('codigo_CI', 'nombre_CI', 'ote_codigo', 'ome_codigo', 'codigo_NAE', 'org_codigo', 'osde_codigo')
     resource_class = EntidadResource
 
 class organismo_Resource(resources.ModelResource):

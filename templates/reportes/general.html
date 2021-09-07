@@ -8,9 +8,9 @@
 {% block idTable %}id="reporteGeneral" {% endblock %}
 {% block columns %}
     <tr>
-        <th colspan="3"><span class="badge badge-primary">Identificacion</span></th>
+        <th colspan="3"><span class="badge bg-gradient-navy">Identificacion</span></th>
         {% for clave, valor in grupoPreguntas.items %}
-            <th colspan="{{ clave|cantDepreguntas }}"><span class="badge badge-primary">{{ valor }}</span></th>
+            <th colspan="{{ clave|cantDepreguntas }}"><span class="badge bg-gradient-navy">{{ valor }}</span></th>
         {% endfor %}
     </tr>
     <tr>
@@ -31,9 +31,11 @@
         <td><span class="badge badge-primary">{{ i.entidad_codigo.nombre_CI }}</span></td>
         <td>{{ i.entidad_codigo.codigo_CI }}</td>
         <td>{{ i.entidad_codigo.ome_codigo }}</td>
-        {% for j in i|respuestas %}
-        <td class="text-center">{{  j.respuesta }}</td>
+        {% for clave, valor in grupoPreguntas.items %}
+            {% for i in clave|respuestas:i %}
+                <td>{{ i }} </td>
             {% endfor %}
+        {% endfor %}
     </tr>
     {% endfor %}
 {% endblock %}

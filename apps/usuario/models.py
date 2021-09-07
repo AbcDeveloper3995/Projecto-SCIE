@@ -6,7 +6,7 @@ from SCIEv1.settings import MEDIA_URL, STATIC_URL
 
 
 class Usuario(AbstractUser):
-    image = models.ImageField(upload_to='user/%Y', blank=True, null=True)
+    image = models.ImageField(upload_to='user/', blank=True, null=True)
     token = models.UUIDField(primary_key=False, editable=False, null=True, blank=True)
     fecha_creado = models.DateField(verbose_name='Fecha de creacion', auto_now=True)
     fecha_modificado = models.DateField(verbose_name='Fecha de modificacion', auto_now_add=True)

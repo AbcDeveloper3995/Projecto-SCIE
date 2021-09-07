@@ -34,10 +34,10 @@ class indicadorForm(ModelForm):
         widgets = {
             'nombre': TextInput(attrs={'class':'form-control styleInput',
                                        'placeholder':'Ingrese el nombre de la pregunta'}),
-            'cod_indicador': NumberInput(attrs={'class':'form-control styleInput',
+            'cod_indicador': NumberInput(attrs={'class':'form-control styleInput','id':'cod_indicador',
                                        'placeholder':'Ingrese un codigo para la pregunta'}),
             'respuestas_id': SelectMultiple(attrs={'class':'form-control select2'}),
-            'clasificadorIndicadores_id': Select(attrs={'class':'form-control select2'}),
+            'clasificadorIndicadores_id': Select(attrs={'class':'form-control select2', 'id':'clasificadorIndicadores'}),
             'activo': CheckboxInput(attrs={'class':'custom-control-input', 'type': 'checkbox', 'id':'indicadorActiva' })
         }
 
